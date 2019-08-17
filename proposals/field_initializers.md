@@ -55,7 +55,7 @@ Using the previous struct `SomeUnit` as an example here's how the initialization
 def struct SomeUnit
 {
     level: u32;
-    unit: Unit = { hp = 150, active },
+    unit: Unit = { hp = 150 },
 }
 ```
 
