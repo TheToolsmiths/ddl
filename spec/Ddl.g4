@@ -1,25 +1,91 @@
-grammar DdlParser;
+grammar Ddl;
 
-/***********
-** Parser **
-************/
+// ###	Parser  ###
 
 // Struct definition
-def_struct: 'def' 'struct' TYPE_IDENTIFIER '{' (struct_field ( ',' struct_field )* ','?)? '}';
+defStruct: defStructHeader defStructBody;
 
-struct_field: IDENTIFIER ':' TYPE_IDENTIFIER ('=' struct_initialization)?;
+defStructHeader: 'def' 'struct' typeIdent;
 
-struct_initialization: '{' (struct_field_initialization ( ',' struct_field_initialization )* ','?)? '}';
+defStructBody: '{' ( structField ( ',' structField)* ','?)? '}';
 
-struct_field_initialization: IDENTIFIER ':' (LITERAL_VALUE | struct_initialization);
+structField: fieldIdent ':' typeIdent fieldInitialization?;
 
-/***********
-**  Lexer **
-************/
-IDENTIFIER : [a-zA-Z_] [a-zA-Z0-9_]* ;
+fieldInitialization: '=' (Literal | structInitialization);
 
-TYPE_IDENTIFIER : IDENTIFIER ;
+structInitialization:
+	'{' (
+		structFieldInitialization (',' structFieldInitialization)* ','?
+	)? '}';
 
-LITERAL_VALUE: IDENTIFIER ; // TODO
+structFieldInitialization:
+	fieldIdent ':' (Literal | structInitialization);
 
-WHITESPACE : [ \t\r\n] -> skip ;
+typeIdent: Ident;
+
+fieldIdent: Ident;
+
+// ###	Lexer  ###
+
+// Boolean
+Literal:
+	('-' | '+')? IntLit
+	| ('-' | '+')? FloatLit
+	| ( StrLit | BoolLit);
+
+BoolLit: 'true' | 'false';
+
+IntLit: DecimalLit | OctalLit | HexLit;
+
+// Integer literals
+fragment DecimalLit: [1-9] DecimalDigit*;
+
+fragment OctalLit: '0' OctalDigit*;
+
+fragment HexLit: '0' ('x' | 'X') HexDigit+;
+
+// Floating-point literals
+FloatLit: (
+		Decimals '.' Decimals? Exponent?
+		| Decimals Exponent
+		| '.' Decimals Exponent?
+	)
+	| 'inf'
+	| 'nan';
+
+fragment Decimals: DecimalDigit+;
+
+fragment Exponent: ('e' | 'E') ('+' | '-')? Decimals;
+
+// String literals
+StrLit: '\'' CharValue* '\'' | '"' CharValue* '"';
+
+fragment CharValue:
+	HexEscape
+	| OctEscape
+	| CharEscape
+	| ~[\u0000\n\\];
+
+fragment HexEscape: '\\' ('x' | 'X') HexDigit HexDigit;
+
+fragment OctEscape: '\\' OctalDigit OctalDigit OctalDigit;
+
+fragment CharEscape: '\\' [abfnrtv\\'"];
+
+// Empty Statement
+emptyStatement: ';';
+
+// Letters and digits
+fragment Letter: [A-Za-z_];
+
+fragment DecimalDigit: [0-9];
+
+fragment OctalDigit: [0-7];
+
+fragment HexDigit: [0-9A-Fa-f];
+
+// Identifiers
+Ident: Letter (Letter | DecimalDigit)*;
+
+// Whitespaces
+WhiteSpace: [ \t\r\n] -> skip;
