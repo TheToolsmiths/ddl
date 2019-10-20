@@ -3,7 +3,7 @@ grammar Ddl;
 // ###	Parser  ###
 
 // Struct definition
-defStruct: defStructHeader defStructBody;
+defStruct: attrBlockList defStructHeader defStructBody;
 
 defStructHeader: 'def' 'struct' typeIdent;
 
@@ -13,6 +13,11 @@ structField: fieldIdent ':' typeIdent fieldInitialization?;
 
 fieldInitialization: '=' (Literal | structInitialization);
 
+typeIdent: Ident;
+
+fieldIdent: Ident;
+
+// Struct Initialization
 structInitialization:
 	'{' (
 		structFieldInitialization (',' structFieldInitialization)* ','?
@@ -21,9 +26,16 @@ structInitialization:
 structFieldInitialization:
 	fieldIdent ':' (Literal | structInitialization);
 
-typeIdent: Ident;
+// Attributes
+attrBlockList: (attrBlock)*;
 
-fieldIdent: Ident;
+attrBlock: '[' ( attrUse ( ',' attrUse)* ','?) ']';
+
+attrUse: keyedAttrUse | typedAttrUse;
+
+keyedAttrUse: Ident '=' (Literal | typedAttrUse);
+
+typedAttrUse: Ident structInitialization?;
 
 // ###	Lexer  ###
 
