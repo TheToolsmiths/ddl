@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>1701;1702;3021</NoWarn>
+    <AssemblyName>TheToolsmiths.Ddl.Parser</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Ddl.Parser.sln.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\artifacts\antlr-csharp\DdlBaseListener.cs" Link="DdlBaseListener.cs" />
+    <Compile Include="..\..\artifacts\antlr-csharp\DdlLexer.cs" Link="DdlLexer.cs" />
+    <Compile Include="..\..\artifacts\antlr-csharp\DdlListener.cs" Link="DdlListener.cs" />
+    <Compile Include="..\..\artifacts\antlr-csharp\DdlParser.cs" Link="DdlParser.cs" />
+  </ItemGroup>
+
+</Project>
