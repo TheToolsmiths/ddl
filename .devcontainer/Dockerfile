@@ -57,10 +57,15 @@ RUN if [ ! -d "/docker-java-home" ]; then ln -s "${JAVA_HOME}" /docker-java-home
 
 # Setup ANTLR
 ENV ANTLR_VERSION 4.7.2
-ENV CLASSPATH .:/antlr/antlr-${ANTLR_VERSION}-complete.jar:$CLASSPATH
+ENV CLASSPATH .;/usr/local/lib/antlr-${ANTLR_VERSION}-complete.jar;$CLASSPATH
 
 ADD http://www.antlr.org/download/antlr-${ANTLR_VERSION}-complete.jar /usr/local/lib/
 RUN chmod +r /usr/local/lib/antlr-${ANTLR_VERSION}-complete.jar
 
+# Install Oh My Bash to replace the default docker image prompt
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+RUN echo 'DISABLE_AUTO_UPDATE=true' >> ~/.bashrc
+
+# Add ANTLR4 alias to .bashrc
 RUN echo 'alias antlr4="java -Xmx500M -cp "/usr/local/lib/antlr-${ANTLR_VERSION}-complete.jar:$CLASSPATH" org.antlr.v4.Tool"' >> ~/.bashrc
 RUN echo 'alias grun="java -Xmx500M -cp "/usr/local/lib/antlr-${ANTLR_VERSION}-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig"' >> ~/.bashrc
