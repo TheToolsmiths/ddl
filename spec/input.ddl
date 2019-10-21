@@ -14,7 +14,11 @@ def struct Bar {
             c: false
         },
         d: {}
-    }    
+    },
+
+    [valuekey = 10]
+    [fieldkey = SomeAttr {flag: false, bar: { value: 5, name: "test1" }}]
+    attr_field: SomeOtherType
 }
 
 def struct SomeAttr {

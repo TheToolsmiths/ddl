@@ -9,7 +9,7 @@ defStructHeader: 'def' 'struct' typeIdent;
 
 defStructBody: '{' ( structField ( ',' structField)* ','?)? '}';
 
-structField: fieldIdent ':' typeIdent fieldInitialization?;
+structField: attrBlockList fieldIdent ':' typeIdent fieldInitialization?;
 
 fieldInitialization: '=' (Literal | structInitialization);
 
