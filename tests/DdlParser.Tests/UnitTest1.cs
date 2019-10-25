@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Antlr4.Runtime;
+using TheToolsmiths.Ddl.Parser.Visitors;
 
 namespace TheToolsmiths.Ddl.Parser.Tests
 {
@@ -8,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestDefStruct()
+        public void TestFileContents()
         {
             var content = "def struct Foo {}";
 
@@ -20,7 +21,15 @@ namespace TheToolsmiths.Ddl.Parser.Tests
                 BuildParseTree = true
             };
 
-            var bar = TreeUtils.PrintSyntaxTree(parser, parser.defStruct());
+            var visitor = new FileContentsVisitor();
+
+            var fileContents = parser.fileContents();
+
+            var structDefinition = visitor.VisitFileContents(fileContents);
         }
+    }
+
+    public class Foo
+    {
     }
 }
