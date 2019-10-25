@@ -8,7 +8,7 @@
 [SomeAttr {flag: false, bar: { value: 10, name: "test2" }}]
 def struct Bar { 
     foo: int,
-    bar: something = {
+    bar: foo::something = {
         a: 5,
         b: {
             c: false
@@ -21,6 +21,6 @@ def struct Bar {
     attr_field: SomeOtherType
 }
 
-def struct SomeAttr {
-
+def struct Some_Attr_123 {
+    somefield: some_other::type
 }

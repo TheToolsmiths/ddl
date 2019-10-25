@@ -10,7 +10,7 @@
             "request": "launch",
             "input": "spec/input.ddl",
             "grammar": "spec/Ddl.g4",
-            "startRule": "defStruct",
+            "startRule": "contents",
             "printParseTree": true,
             "visualParseTree": true
         }

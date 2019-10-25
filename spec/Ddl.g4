@@ -2,18 +2,17 @@ grammar Ddl;
 
 // ###	Parser  ###
 
+// File contents
+fileContents: defStruct*;
+
 // Struct definition
-defStruct: attrBlockList defStructHeader defStructBody;
+defStruct: attrUseList 'def' 'struct' typeIdent '{' ( structField ( ',' structField)* ','?)? '}';
 
-defStructHeader: 'def' 'struct' typeIdent;
-
-defStructBody: '{' ( structField ( ',' structField)* ','?)? '}';
-
-structField: attrBlockList fieldIdent ':' typeIdent fieldInitialization?;
+structField: attrUseList fieldIdent ':' typeIdent fieldInitialization?;
 
 fieldInitialization: '=' (Literal | structInitialization);
 
-typeIdent: Ident;
+typeIdent: (Ident '::')* Ident;
 
 fieldIdent: Ident;
 
@@ -27,9 +26,7 @@ structFieldInitialization:
 	fieldIdent ':' (Literal | structInitialization);
 
 // Attributes
-attrBlockList: (attrBlock)*;
-
-attrBlock: '[' ( attrUse ( ',' attrUse)* ','?) ']';
+attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
 attrUse: keyedAttrUse | typedAttrUse;
 
@@ -84,9 +81,6 @@ fragment OctEscape: '\\' OctalDigit OctalDigit OctalDigit;
 
 fragment CharEscape: '\\' [abfnrtv\\'"];
 
-// Empty Statement
-emptyStatement: ';';
-
 // Letters and digits
 fragment Letter: [A-Za-z_];
 
@@ -96,8 +90,10 @@ fragment OctalDigit: [0-7];
 
 fragment HexDigit: [0-9A-Fa-f];
 
+fragment Underscore: '_';
+
 // Identifiers
-Ident: Letter (Letter | DecimalDigit)*;
+Ident: Letter (Letter | DecimalDigit | Underscore)*;
 
 // Whitespaces
 WhiteSpace: [ \t\r\n] -> skip;
