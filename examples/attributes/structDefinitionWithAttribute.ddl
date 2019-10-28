@@ -1,0 +1,4 @@
+[TestAttributeType]
+def struct TestStructType
+{    
+}
