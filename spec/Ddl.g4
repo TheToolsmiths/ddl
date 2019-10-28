@@ -5,25 +5,33 @@ grammar Ddl;
 // File contents
 fileContents: defStruct*;
 
+// Type usage
+typeIdent: ( Ident NamespaceSeparator)* Ident;
+
+typeName: Ident;
+
 // Struct definition
-defStruct: attrUseList 'def' 'struct' typeIdent '{' ( structField ( ',' structField)* ','?)? '}';
-
-structField: attrUseList fieldIdent ':' typeIdent fieldInitialization?;
-
-fieldInitialization: '=' (Literal | structInitialization);
-
-typeIdent: (Ident '::')* Ident;
-
-fieldIdent: Ident;
-
-// Struct Initialization
-structInitialization:
-	'{' (
-		structFieldInitialization (',' structFieldInitialization)* ','?
+defStruct:
+	attrUseList 'def' 'struct' typeName '{' (
+		structField ( ',' structField)* ','?
 	)? '}';
 
-structFieldInitialization:
-	fieldIdent ':' (Literal | structInitialization);
+structField:
+	attrUseList fieldName ':' typeIdent ('=' valueInitialization)?;
+
+fieldName: Ident;
+
+// Value Initialization
+valueInitialization: (Literal | structValueInitialization);
+
+structValueInitialization:
+	'{' (
+		fieldValueInitialization (',' fieldValueInitialization)* ','?
+	)? '}';
+
+fieldValueInitialization:
+	fieldName ':' valueInitialization;
+
 
 // Attributes
 attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
@@ -32,7 +40,7 @@ attrUse: keyedAttrUse | typedAttrUse;
 
 keyedAttrUse: Ident '=' (Literal | typedAttrUse);
 
-typedAttrUse: Ident structInitialization?;
+typedAttrUse: Ident structValueInitialization?;
 
 // ###	Lexer  ###
 
@@ -44,12 +52,13 @@ Literal:
 
 BoolLit: 'true' | 'false';
 
-IntLit: DecimalLit | OctalLit | HexLit;
+IntLit: DecimalLit | HexLit;
+
+// Types fragments
+NamespaceSeparator: '::';
 
 // Integer literals
 fragment DecimalLit: [1-9] DecimalDigit*;
-
-fragment OctalLit: '0' OctalDigit*;
 
 fragment HexLit: '0' ('x' | 'X') HexDigit+;
 
@@ -69,15 +78,9 @@ fragment Exponent: ('e' | 'E') ('+' | '-')? Decimals;
 // String literals
 StrLit: '\'' CharValue* '\'' | '"' CharValue* '"';
 
-fragment CharValue:
-	HexEscape
-	| OctEscape
-	| CharEscape
-	| ~[\u0000\n\\];
+fragment CharValue: HexEscape | CharEscape | ~[\u0000\n\\];
 
 fragment HexEscape: '\\' ('x' | 'X') HexDigit HexDigit;
-
-fragment OctEscape: '\\' OctalDigit OctalDigit OctalDigit;
 
 fragment CharEscape: '\\' [abfnrtv\\'"];
 
@@ -95,5 +98,9 @@ fragment Underscore: '_';
 // Identifiers
 Ident: Letter (Letter | DecimalDigit | Underscore)*;
 
-// Whitespaces
+// Whitespace and comments
 WhiteSpace: [ \t\r\n] -> skip;
+
+Comment: '/*' .*? '*/' -> skip;
+
+LineComment: '//' ~[\r\n]* -> skip;
