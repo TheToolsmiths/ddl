@@ -2,7 +2,7 @@
 {
     public class AttributeUse
     {
-        public TypeName Type { get; }
+        public TypeIdentifier Type { get; }
 
         public ValueInitialization Initialization { get; set; }
     }

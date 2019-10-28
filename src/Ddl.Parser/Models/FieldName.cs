@@ -1,8 +1,8 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Models
 {
-    public class TypeName
+    public class FieldName
     {
-        public TypeName(string name)
+        public FieldName(string name)
         {
             Name = name;
         }

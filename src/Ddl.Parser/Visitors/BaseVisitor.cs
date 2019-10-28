@@ -1,4 +1,4 @@
-using Antlr4.Runtime.Tree;
+﻿using Antlr4.Runtime.Tree;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -29,6 +29,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
+        public virtual TResult VisitTypeName(DdlParser.TypeNameContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual TResult VisitDefStruct(DdlParser.DefStructContext context)
         {
             throw new System.NotImplementedException();
@@ -39,27 +44,27 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitFieldInitialization(DdlParser.FieldInitializationContext context)
+        public virtual TResult VisitFieldName(DdlParser.FieldNameContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitValueInitialization(DdlParser.ValueInitializationContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual  TResult VisitStructValueInitialization(DdlParser.StructValueInitializationContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitFieldValueInitialization(DdlParser.FieldValueInitializationContext context)
         {
             throw new System.NotImplementedException();
         }
 
         public virtual TResult VisitTypeIdent(DdlParser.TypeIdentContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual TResult VisitFieldIdent(DdlParser.FieldIdentContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual TResult VisitStructInitialization(DdlParser.StructInitializationContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual TResult VisitStructFieldInitialization(DdlParser.StructFieldInitializationContext context)
         {
             throw new System.NotImplementedException();
         }

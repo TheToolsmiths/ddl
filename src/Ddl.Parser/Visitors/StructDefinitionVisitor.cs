@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
@@ -6,15 +7,37 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override StructDefinition VisitDefStruct(DdlParser.DefStructContext context)
         {
+            IReadOnlyList<AttributeUse> attributes;
             {
                 var attrContext = context.attrUseList();
+
                 var attributeVisitor = new AttributeUseListVisitor();
 
-                var attributes = attributeVisitor.VisitAttrUseList(attrContext);
+                attributes = attributeVisitor.VisitAttrUseList(attrContext);
             }
 
+            TypeName typeName;
+            {
+                var typeContext = context.typeName();
 
-            return base.VisitDefStruct(context);
+                var visitor = new TypeNameVisitor();
+
+                typeName = visitor.VisitTypeName(typeContext);
+            }
+
+            var structFields = new List<FieldDefinition>();
+            {
+                foreach (var fieldContext in context.structField())
+                {
+                    var visitor = new StructFieldVisitor();
+
+                    var structField = visitor.VisitStructField(fieldContext);
+
+                    structFields.Add(structField);
+                }
+            }
+
+            return new StructDefinition(typeName, attributes, structFields);
         }
     }
 }
