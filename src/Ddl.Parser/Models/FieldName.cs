@@ -2,11 +2,11 @@
 {
     public class FieldName
     {
-        public FieldName(string name)
+        public FieldName(Identifier name)
         {
             Name = name;
         }
 
-        public string Name { get; }
+        public Identifier Name { get; }
     }
 }

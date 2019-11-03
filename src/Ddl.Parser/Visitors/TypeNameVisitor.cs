@@ -1,5 +1,4 @@
-﻿using System;
-using TheToolsmiths.Ddl.Parser.Models;
+﻿using TheToolsmiths.Ddl.Parser.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -9,14 +8,9 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             var identNode = context.Ident();
 
-            string typeName = identNode.GetText();
+            var identifier = new Identifier(identNode.GetText());
 
-            if (string.IsNullOrWhiteSpace(typeName))
-            {
-                throw new ArgumentException();
-            }
-
-            return new TypeName(typeName);
+            return new TypeName(identifier);
         }
     }
 }

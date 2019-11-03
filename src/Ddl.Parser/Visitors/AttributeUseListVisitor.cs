@@ -1,13 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
-    public class AttributeUseListVisitor : BaseVisitor<IReadOnlyList<AttributeUse>>
+    public class AttributeUseListVisitor : BaseVisitor<IReadOnlyList<IAttributeUse>>
     {
-        public override IReadOnlyList<AttributeUse> VisitAttrUseList(DdlParser.AttrUseListContext context)
+        public override IReadOnlyList<IAttributeUse> VisitAttrUseList(DdlParser.AttrUseListContext context)
         {
-            var attributeUses = new List<AttributeUse>();
+            var attributeUses = new List<IAttributeUse>();
 
             foreach (var attrUseContext in context.attrUse())
             {

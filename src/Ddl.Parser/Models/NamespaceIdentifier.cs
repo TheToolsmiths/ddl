@@ -6,17 +6,17 @@ namespace TheToolsmiths.Ddl.Parser.Models
 {
     public class NamespaceIdentifier
     {
-        public NamespaceIdentifier(IEnumerable<string> identifiers)
+        public NamespaceIdentifier(IEnumerable<Identifier> identifiers)
         {
             Identifiers = identifiers.ToList();
         }
 
         private NamespaceIdentifier()
         {
-            Identifiers = Array.Empty<string>();
+            Identifiers = Array.Empty<Identifier>();
         }
 
-        public IReadOnlyList<string> Identifiers { get; }
+        public IReadOnlyList<Identifier> Identifiers { get; }
 
         public static NamespaceIdentifier Empty { get; } = new NamespaceIdentifier();
     }

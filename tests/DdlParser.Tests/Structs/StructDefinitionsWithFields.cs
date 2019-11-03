@@ -61,7 +61,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
             {
                 Assert.IsNotNull(structDefinition.TypeName.Name);
 
-                Assert.AreEqual("TestStructType", structDefinition.TypeName.Name);
+                Assert.AreEqual(Identifier.FromString("TestStructType"), structDefinition.TypeName.Name);
             }
 
             // Assert Empty Attributes
@@ -71,11 +71,11 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
                 Assert.AreEqual(0, structDefinition.Attributes.Count);
             }
 
-            // Assert Empty Fields
+            // Assert Valid Fields
             {
                 Assert.IsNotNull(structDefinition.Fields);
 
-                Assert.AreEqual(0, structDefinition.Fields.Count);
+                Assert.IsTrue(structDefinition.Fields.Count > 0);
             }
         }
     }

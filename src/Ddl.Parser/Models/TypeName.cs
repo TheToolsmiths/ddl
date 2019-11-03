@@ -2,11 +2,11 @@
 {
     public class TypeName
     {
-        public TypeName(string name)
+        public TypeName(Identifier name)
         {
             Name = name;
         }
 
-        public string Name { get; }
+        public Identifier Name { get; }
     }
 }

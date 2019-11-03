@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Models
             FieldName name,
             TypeIdentifier type,
             ValueInitialization initialization,
-            IReadOnlyList<AttributeUse> attributes)
+            IReadOnlyList<IAttributeUse> attributes)
         {
             Attributes = attributes;
             Initialization = initialization;
@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Models
 
         public TypeIdentifier Type { get; }
 
-        public IReadOnlyList<AttributeUse> Attributes { get; }
+        public IReadOnlyList<IAttributeUse> Attributes { get; }
 
         public ValueInitialization Initialization { get; }
     }

@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Models
     {
         public StructDefinition(
             TypeName typeName,
-            IReadOnlyList<AttributeUse> attributes,
+            IReadOnlyList<IAttributeUse> attributes,
             IReadOnlyList<FieldDefinition> structFields)
         {
             TypeName = typeName;
@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Models
             Fields = structFields;
         }
 
-        public IReadOnlyList<AttributeUse> Attributes { get; }
+        public IReadOnlyList<IAttributeUse> Attributes { get; }
 
         public TypeName TypeName { get; }
 

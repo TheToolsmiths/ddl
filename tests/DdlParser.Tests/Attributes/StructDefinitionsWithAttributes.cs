@@ -4,31 +4,40 @@ using TheToolsmiths.Ddl.Parser.Models;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
 
-namespace TheToolsmiths.Ddl.Parser.Tests.Structs
+namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
 {
     [TestClass]
-    public class StructDefinitions
+    public class StructDefinitionsWithAttributes
     {
-        private const string StructDefinitionFile = "structs/structDefinition.ddl";
+        private const string StructDefinitionWithAttributeFile = "attributes/structDefinitionWithAttribute.ddl";
+        private const string StructDefinitionWithAttributesFile = "attributes/structDefinitionWithAttributes.ddl";
 
         [TestMethod]
-        public void TestStructDefinition()
+        public void TestFileContentsStructDefinitionWithAttribute()
         {
-            var parser = FileParserUtils.CreateParserFromPath(StructDefinitionFile);
+            var parser = FileParserUtils.CreateParserFromPath(StructDefinitionWithAttributeFile);
 
-            var visitor = new StructDefinitionVisitor();
+            var visitor = new FileContentsVisitor();
 
-            var defStruct = parser.defStruct();
+            var fileContentsContext = parser.fileContents();
 
-            var structDefinition = visitor.VisitDefStruct(defStruct);
+            var fileContents = visitor.VisitFileContents(fileContentsContext);
+
+            Assert.IsNotNull(fileContents);
+
+            Assert.IsNotNull(fileContents.StructDefinitions);
+
+            Assert.AreEqual(1, fileContents.StructDefinitions.Count);
+
+            var structDefinition = fileContents.StructDefinitions.First();
 
             AssertStructDefinition(structDefinition);
         }
 
         [TestMethod]
-        public void TestFileContentsStructDefinition()
+        public void TestFileContentsStructDefinitionWithAttributes()
         {
-            var parser = FileParserUtils.CreateParserFromPath(StructDefinitionFile);
+            var parser = FileParserUtils.CreateParserFromPath(StructDefinitionWithAttributesFile);
 
             var visitor = new FileContentsVisitor();
 
@@ -58,11 +67,11 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
                 Assert.AreEqual(Identifier.FromString("TestStructType"), structDefinition.TypeName.Name);
             }
 
-            // Assert Empty Attributes
+            // Assert Attributes
             {
                 Assert.IsNotNull(structDefinition.Attributes);
 
-                Assert.AreEqual(0, structDefinition.Attributes.Count);
+                Assert.IsTrue(structDefinition.Attributes.Count > 0);
             }
 
             // Assert Empty Fields

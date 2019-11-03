@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
@@ -35,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 initialization = visitor.VisitValueInitialization(initializationContext);
             }
 
-            IReadOnlyList<AttributeUse> attributes;
+            IReadOnlyList<IAttributeUse> attributes;
             {
                 var attrContext = context.attrUseList();
 

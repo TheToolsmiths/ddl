@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override StructDefinition VisitDefStruct(DdlParser.DefStructContext context)
         {
-            IReadOnlyList<AttributeUse> attributes;
+            IReadOnlyList<IAttributeUse> attributes;
             {
                 var attrContext = context.attrUseList();
 

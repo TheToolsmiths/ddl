@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Parser.Models;
+using TheToolsmiths.Ddl.Parser.Utils;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -11,40 +12,35 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             var identNodes = context.Ident();
 
-            var identsText = new List<string>();
+            var identifiers = new List<Identifier>();
 
             foreach (var node in identNodes)
             {
-                var nodeText = node.GetText();
+                var identifier = IdentifierUtils.CreateIdentifier(node);
 
-                if (string.IsNullOrWhiteSpace(nodeText))
-                {
-                    throw new ArgumentException();
-                }
-
-                identsText.Add(nodeText);
+                identifiers.Add(identifier);
             }
 
-            if (identsText.Count == 0)
+            if (identifiers.Count == 0)
             {
                 throw new Exception();
             }
 
-            var typeNameText = identsText.Last();
+            var typeNameIdentifier = identifiers.Last();
 
-            if (string.IsNullOrWhiteSpace(typeNameText))
+            if (typeNameIdentifier.IsEmpty)
             {
                 throw new ArgumentException();
             }
 
-            var typeName = new TypeName(typeNameText);
+            var typeName = new TypeName(typeNameIdentifier);
 
-            if (identsText.Count == 1)
+            if (identifiers.Count == 1)
             {
                 return new TypeIdentifier(typeName);
             }
 
-            var namespaceIdents = identsText.GetRange(0, identsText.Count - 1);
+            var namespaceIdents = identifiers.GetRange(0, identifiers.Count - 1);
 
             var namespaceIdentifier = new NamespaceIdentifier(namespaceIdents);
 
