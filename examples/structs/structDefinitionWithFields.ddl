@@ -1,5 +1,5 @@
 // Struct with three fields
-def type TestStructType
+def struct TestStructType
 {
     field1: TestFieldType,
     field2: bool,
@@ -7,7 +7,7 @@ def type TestStructType
 }
 
 // Struct with three fields and trailing comma
-def type TestStructType
+def struct TestStructType
 {
     field1: TestFieldType,
     field2: bool,
