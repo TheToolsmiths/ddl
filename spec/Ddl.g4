@@ -40,7 +40,7 @@ attrUse: keyedAttrUse | typedAttrUse;
 
 keyedAttrUse: Ident '=' (Literal | typedAttrUse);
 
-typedAttrUse: Ident structValueInitialization?;
+typedAttrUse: typeIdent structValueInitialization?;
 
 // ###	Lexer  ###
 
