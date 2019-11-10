@@ -1,0 +1,3 @@
+def struct TestStructType
+{    
+}

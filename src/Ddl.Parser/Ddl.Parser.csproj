@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,10 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\artifacts\antlr-csharp\DdlBaseListener.cs" Link="DdlBaseListener.cs" />
-    <Compile Include="..\..\artifacts\antlr-csharp\DdlLexer.cs" Link="DdlLexer.cs" />
-    <Compile Include="..\..\artifacts\antlr-csharp\DdlListener.cs" Link="DdlListener.cs" />
-    <Compile Include="..\..\artifacts\antlr-csharp\DdlParser.cs" Link="DdlParser.cs" />
+    <Compile Include="..\..\artifacts\antlr-csharp\*.cs" />
   </ItemGroup>
 
 </Project>

@@ -2,40 +2,45 @@ grammar Ddl;
 
 // ###	Parser  ###
 
+// File contents
+fileContents: defStruct*;
+
+// Type usage
+typeIdent: ( Ident NamespaceSeparator)* Ident;
+
+typeName: Ident;
+
 // Struct definition
-defStruct: attrBlockList defStructHeader defStructBody;
-
-defStructHeader: 'def' 'struct' typeIdent;
-
-defStructBody: '{' ( structField ( ',' structField)* ','?)? '}';
-
-structField: attrBlockList fieldIdent ':' typeIdent fieldInitialization?;
-
-fieldInitialization: '=' (Literal | structInitialization);
-
-typeIdent: Ident;
-
-fieldIdent: Ident;
-
-// Struct Initialization
-structInitialization:
-	'{' (
-		structFieldInitialization (',' structFieldInitialization)* ','?
+defStruct:
+	attrUseList 'def' 'struct' typeName '{' (
+		structField ( ',' structField)* ','?
 	)? '}';
 
-structFieldInitialization:
-	fieldIdent ':' (Literal | structInitialization);
+structField:
+	attrUseList fieldName ':' typeIdent ('=' valueInitialization)?;
+
+fieldName: Ident;
+
+// Value Initialization
+valueInitialization: (Literal | structValueInitialization);
+
+structValueInitialization:
+	'{' (
+		fieldValueInitialization (',' fieldValueInitialization)* ','?
+	)? '}';
+
+fieldValueInitialization:
+	fieldName ':' valueInitialization;
+
 
 // Attributes
-attrBlockList: (attrBlock)*;
-
-attrBlock: '[' ( attrUse ( ',' attrUse)* ','?) ']';
+attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
 attrUse: keyedAttrUse | typedAttrUse;
 
 keyedAttrUse: Ident '=' (Literal | typedAttrUse);
 
-typedAttrUse: Ident structInitialization?;
+typedAttrUse: typeIdent structValueInitialization?;
 
 // ###	Lexer  ###
 
@@ -47,12 +52,13 @@ Literal:
 
 BoolLit: 'true' | 'false';
 
-IntLit: DecimalLit | OctalLit | HexLit;
+IntLit: DecimalLit | HexLit;
+
+// Types fragments
+NamespaceSeparator: '::';
 
 // Integer literals
 fragment DecimalLit: [1-9] DecimalDigit*;
-
-fragment OctalLit: '0' OctalDigit*;
 
 fragment HexLit: '0' ('x' | 'X') HexDigit+;
 
@@ -72,20 +78,11 @@ fragment Exponent: ('e' | 'E') ('+' | '-')? Decimals;
 // String literals
 StrLit: '\'' CharValue* '\'' | '"' CharValue* '"';
 
-fragment CharValue:
-	HexEscape
-	| OctEscape
-	| CharEscape
-	| ~[\u0000\n\\];
+fragment CharValue: HexEscape | CharEscape | ~[\u0000\n\\];
 
 fragment HexEscape: '\\' ('x' | 'X') HexDigit HexDigit;
 
-fragment OctEscape: '\\' OctalDigit OctalDigit OctalDigit;
-
 fragment CharEscape: '\\' [abfnrtv\\'"];
-
-// Empty Statement
-emptyStatement: ';';
 
 // Letters and digits
 fragment Letter: [A-Za-z_];
@@ -96,8 +93,14 @@ fragment OctalDigit: [0-7];
 
 fragment HexDigit: [0-9A-Fa-f];
 
-// Identifiers
-Ident: Letter (Letter | DecimalDigit)*;
+fragment Underscore: '_';
 
-// Whitespaces
+// Identifiers
+Ident: Letter (Letter | DecimalDigit | Underscore)*;
+
+// Whitespace and comments
 WhiteSpace: [ \t\r\n] -> skip;
+
+Comment: '/*' .*? '*/' -> skip;
+
+LineComment: '//' ~[\r\n]* -> skip;

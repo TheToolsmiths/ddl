@@ -4,7 +4,7 @@ using System.Text;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 
-namespace TheToolsmiths.Ddl.Parser
+namespace TheToolsmiths.Ddl.Parser.Utils
 {
     public static class TreeUtils
     {
