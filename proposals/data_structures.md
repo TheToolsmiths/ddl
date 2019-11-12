@@ -49,3 +49,26 @@ def struct Foo
 Lately two ways to define fields have become mainstream. The C-like way of `type name`, and other of `name: type`.
 
 C-like has always been a common occurrence in programming, but the latter option might be simpler to parse. Also allows for typeless fields, in case thats is required.
+
+## Attributes
+
+Both structure definitions and field definitions can have attributes applied to them. They follow the standard attribute rules where the attribute is placed before the struct or field definition.
+
+Structure definition with attribute example:
+```
+[TestAttribute]
+def struct TestType
+{
+    bar: int,
+    baz: string,
+}
+```
+
+Field definition with attribute example:
+```
+def struct TestType
+{
+    [TestAttribute] bar: int,
+    [key = KeyedTestAttribute] baz: string,
+}
+```
