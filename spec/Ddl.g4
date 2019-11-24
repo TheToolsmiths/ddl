@@ -3,23 +3,31 @@ grammar Ddl;
 // ###	Parser  ###
 
 // File contents
-fileContents: defStruct*;
+fileContents: (defStruct | fileScope)*;
+
+// Scopes
+fileScope:
+	Scope ('(' conditionalExpression ')')? '{' fileContents '}';
+
+structScope:
+	Scope ('(' conditionalExpression ')')? '{' defStructContents '}';
 
 // Type usage
-typeIdent: ( Ident NamespaceSeparator)* Ident;
+typeIdent: ( Identifier NamespaceSeparator)* Identifier;
 
-typeName: Ident;
+typeName: Identifier;
 
 // Struct definition
 defStruct:
-	attrUseList 'def' 'struct' typeName '{' (
-		structField ( ',' structField)* ','?
-	)? '}';
+	attrUseList 'def' 'struct' typeName '{' defStructContents? '}';
+
+defStructContents:
+	(structField | structScope) ((',' structField) | (','? structScope))* ','?;
 
 structField:
 	attrUseList fieldName ':' typeIdent ('=' valueInitialization)?;
 
-fieldName: Ident;
+fieldName: Identifier;
 
 // Value Initialization
 valueInitialization: (Literal | structValueInitialization);
@@ -29,18 +37,32 @@ structValueInitialization:
 		fieldValueInitialization (',' fieldValueInitialization)* ','?
 	)? '}';
 
-fieldValueInitialization:
-	fieldName ':' valueInitialization;
-
+fieldValueInitialization: fieldName ':' valueInitialization;
 
 // Attributes
 attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
 attrUse: keyedAttrUse | typedAttrUse;
 
-keyedAttrUse: Ident '=' (Literal | typedAttrUse);
+keyedAttrUse: Identifier '=' (Literal | typedAttrUse);
 
 typedAttrUse: typeIdent structValueInitialization?;
+
+// Conditional Expressions
+conditionalExpression:
+	| conditionalExpression ('||' | '&&') conditionalExpression
+	| '!' conditionalExpression
+	| conditionalSymbolExpression
+	| BoolLit;
+
+conditionalSymbolExpression:
+	conditionalSymbolComparison
+	| conditionalSymbolNegation
+	| Identifier;
+
+conditionalSymbolNegation: '!' Identifier;
+
+conditionalSymbolComparison: Identifier ('==' | '!=') StrLit;
 
 // ###	Lexer  ###
 
@@ -95,8 +117,11 @@ fragment HexDigit: [0-9A-Fa-f];
 
 fragment Underscore: '_';
 
+// Keywords
+Scope: 'scope';
+
 // Identifiers
-Ident: Letter (Letter | DecimalDigit | Underscore)*;
+Identifier: Letter (Letter | DecimalDigit | Underscore)*;
 
 // Whitespace and comments
 WhiteSpace: [ \t\r\n] -> skip;
