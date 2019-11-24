@@ -74,11 +74,11 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
                 Assert.IsTrue(structDefinition.Attributes.Count > 0);
             }
 
-            // Assert Empty Fields
+            // Assert Empty Content
             {
-                Assert.IsNotNull(structDefinition.Fields);
+                Assert.IsNotNull(structDefinition.Content);
 
-                Assert.AreEqual(0, structDefinition.Fields.Count);
+                Assert.IsTrue(structDefinition.Content.IsEmpty);
             }
         }
     }

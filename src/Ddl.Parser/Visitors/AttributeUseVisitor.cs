@@ -39,7 +39,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             Identifier key;
             {
-                var identNode = context.Ident();
+                var identNode = context.Identifier();
 
                 key = IdentifierUtils.CreateIdentifier(identNode);
             }

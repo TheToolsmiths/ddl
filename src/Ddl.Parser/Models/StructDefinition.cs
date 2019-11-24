@@ -6,18 +6,18 @@ namespace TheToolsmiths.Ddl.Parser.Models
     {
         public StructDefinition(
             TypeName typeName,
-            IReadOnlyList<IAttributeUse> attributes,
-            IReadOnlyList<FieldDefinition> structFields)
+            StructDefinitionContent content,
+            IReadOnlyList<IAttributeUse> attributes)
         {
             TypeName = typeName;
+            Content = content;
             Attributes = attributes;
-            Fields = structFields;
         }
 
         public IReadOnlyList<IAttributeUse> Attributes { get; }
 
         public TypeName TypeName { get; }
 
-        public IReadOnlyList<FieldDefinition> Fields { get; }
+        public StructDefinitionContent Content { get; }
     }
 }

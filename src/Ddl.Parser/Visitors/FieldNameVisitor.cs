@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override FieldName VisitFieldName(DdlParser.FieldNameContext context)
         {
-            var identNode = context.Ident();
+            var identNode = context.Identifier();
 
             var fieldIdentifier = IdentifierUtils.CreateIdentifier(identNode);
 

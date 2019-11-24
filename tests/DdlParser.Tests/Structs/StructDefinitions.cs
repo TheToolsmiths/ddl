@@ -67,9 +67,16 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
 
             // Assert Empty Fields
             {
-                Assert.IsNotNull(structDefinition.Fields);
+                Assert.IsNotNull(structDefinition.Content.Fields);
 
-                Assert.AreEqual(0, structDefinition.Fields.Count);
+                Assert.AreEqual(0, structDefinition.Content.Fields.Count);
+            }
+
+            // Assert Empty Scopes
+            {
+                Assert.IsNotNull(structDefinition.Content.Scopes);
+
+                Assert.AreEqual(0, structDefinition.Content.Scopes.Count);
             }
         }
     }

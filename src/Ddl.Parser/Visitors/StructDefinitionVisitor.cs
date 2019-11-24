@@ -25,19 +25,23 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 typeName = visitor.VisitTypeName(typeContext);
             }
 
-            var structFields = new List<FieldDefinition>();
+            StructDefinitionContent structContent;
             {
-                foreach (var fieldContext in context.structField())
+                var defStructContents = context.defStructContents();
+
+                if (defStructContents != null)
                 {
-                    var visitor = new StructFieldVisitor();
+                    var visitor = new StructDefinitionContentVisitor();
 
-                    var structField = visitor.VisitStructField(fieldContext);
-
-                    structFields.Add(structField);
+                    structContent = visitor.VisitDefStructContents(defStructContents);
+                }
+                else
+                {
+                    structContent = StructDefinitionContent.CreateEmpty();
                 }
             }
 
-            return new StructDefinition(typeName, attributes, structFields);
+            return new StructDefinition(typeName, structContent, attributes);
         }
     }
 }

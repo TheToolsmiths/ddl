@@ -1,0 +1,6 @@
+def struct TestStructType
+{
+    scope
+    {
+    }
+}

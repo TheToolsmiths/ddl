@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override TypeIdentifier VisitTypeIdent(DdlParser.TypeIdentContext context)
         {
-            var identNodes = context.Ident();
+            var identNodes = context.Identifier();
 
             var identifiers = new List<Identifier>();
 

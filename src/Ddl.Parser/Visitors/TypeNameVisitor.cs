@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override TypeName VisitTypeName(DdlParser.TypeNameContext context)
         {
-            var identNode = context.Ident();
+            var identNode = context.Identifier();
 
             var identifier = new Identifier(identNode.GetText());
 

@@ -29,12 +29,27 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
+        public virtual TResult VisitFileScope(DdlParser.FileScopeContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitStructScope(DdlParser.StructScopeContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual TResult VisitTypeName(DdlParser.TypeNameContext context)
         {
             throw new System.NotImplementedException();
         }
 
         public virtual TResult VisitDefStruct(DdlParser.DefStructContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitDefStructContents(DdlParser.DefStructContentsContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -54,7 +69,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual  TResult VisitStructValueInitialization(DdlParser.StructValueInitializationContext context)
+        public virtual TResult VisitStructValueInitialization(DdlParser.StructValueInitializationContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -85,6 +100,26 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         }
 
         public virtual TResult VisitTypedAttrUse(DdlParser.TypedAttrUseContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitConditionalExpression(DdlParser.ConditionalExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitConditionalSymbolExpression(DdlParser.ConditionalSymbolExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitConditionalSymbolNegation(DdlParser.ConditionalSymbolNegationContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitConditionalSymbolComparison(DdlParser.ConditionalSymbolComparisonContext context)
         {
             throw new System.NotImplementedException();
         }

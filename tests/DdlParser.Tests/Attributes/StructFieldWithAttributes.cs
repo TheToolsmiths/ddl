@@ -74,16 +74,23 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
                 Assert.AreEqual(structDefinition.Attributes.Count, 0);
             }
 
-            // Assert Empty Fields
+            // Assert Single Field
             {
-                Assert.IsNotNull(structDefinition.Fields);
+                Assert.IsNotNull(structDefinition.Content.Fields);
 
-                Assert.AreEqual(structDefinition.Fields.Count, 1);
+                Assert.AreEqual(structDefinition.Content.Fields.Count, 1);
 
-                foreach (var structDefinitionField in structDefinition.Fields)
+                foreach (var structDefinitionField in structDefinition.Content.Fields)
                 {
                     Assert.IsTrue(structDefinitionField.Attributes.Count > 0);
                 }
+            }
+
+            // Assert no other content inside Struct Definition
+            {
+                Assert.IsNotNull(structDefinition.Content.Scopes);
+
+                Assert.AreEqual(0, structDefinition.Content.Scopes.Count);
             }
         }
     }
