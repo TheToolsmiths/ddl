@@ -11,6 +11,6 @@ def struct TestStructType
     field5: TestFieldType,
 
     [TestAttributeType { value1: false, value2: 10 }]
-    [TestAttributeType { struct1: {value1: false, value2: 10 }]
+    [TestAttributeType { struct1: {value1: false, value2: 10 }}]
     field5: TestFieldType,
 }
