@@ -1,26 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TheToolsmiths.Ddl.Parser.Models
 {
     public class StructDefinitionContent
     {
-        public StructDefinitionContent(IReadOnlyList<FieldDefinition> fields, IReadOnlyList<StructScope> scopes)
+        public StructDefinitionContent(IReadOnlyList<IStructDefinitionItem> items)
         {
-            Fields = fields;
-            Scopes = scopes;
+            Items = items;
         }
 
-        public IReadOnlyList<FieldDefinition> Fields { get; }
+        public IReadOnlyList<IStructDefinitionItem> Items { get; }
 
-        public IReadOnlyList<StructScope> Scopes { get; }
-
-        public bool IsEmpty => Fields.Count == 0 && Scopes.Count == 0;
+        public bool IsEmpty => Items.Count == 0;
 
         public static StructDefinitionContent CreateEmpty()
         {
-            return new StructDefinitionContent(
-                new List<FieldDefinition>(),
-                new List<StructScope>());
+            return new StructDefinitionContent(Array.Empty<IStructDefinitionItem>());
         }
     }
 }

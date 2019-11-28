@@ -8,7 +8,8 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         public override StructDefinitionContent VisitDefStructContents(
             DdlParser.DefStructContentsContext context)
         {
-            var fields = new List<FieldDefinition>();
+            var items = new List<IStructDefinitionItem>();
+
             {
                 foreach (var fieldContext in context.structField())
                 {
@@ -16,23 +17,37 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
                     var structField = visitor.VisitStructField(fieldContext);
 
-                    fields.Add(structField);
+                    items.Add(structField);
                 }
             }
 
-            var scopes = new List<StructScope>();
             {
-                foreach (var fieldContext in context.structScope())
+                var structScopeContext = context.structScope();
+
+                if (structScopeContext != null)
                 {
                     var visitor = new StructScopeVisitor();
 
-                    var structScope = visitor.VisitStructScope(fieldContext);
+                    var structScope = visitor.VisitStructScope(structScopeContext);
 
-                    scopes.Add(structScope);
+                    items.Add(structScope);
                 }
             }
 
-            return new StructDefinitionContent(fields, scopes);
+            {
+                var defStructContentsContext = context.defStructContents();
+
+                if (defStructContentsContext != null)
+                {
+                    var visitor = new StructDefinitionContentVisitor();
+
+                    var contents = visitor.VisitDefStructContents(defStructContentsContext);
+
+                    items.AddRange(contents.Items);
+                }
+            }
+
+            return new StructDefinitionContent(items);
         }
     }
 }

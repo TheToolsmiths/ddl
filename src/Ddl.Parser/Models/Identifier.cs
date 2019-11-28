@@ -6,13 +6,15 @@ namespace TheToolsmiths.Ddl.Parser.Models
     {
         public Identifier(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException(nameof(text));
+            }
+
             Text = text;
-            IsEmpty = string.IsNullOrWhiteSpace(text);
         }
 
         public string Text { get; }
-
-        public bool IsEmpty { get; }
 
         public static Identifier FromString(string text)
         {

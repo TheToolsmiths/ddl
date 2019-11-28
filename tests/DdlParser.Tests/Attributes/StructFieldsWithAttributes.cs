@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TheToolsmiths.Ddl.Parser.Extensions;
 using TheToolsmiths.Ddl.Parser.Models;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
@@ -74,13 +75,20 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
                 Assert.AreEqual(structDefinition.Attributes.Count, 0);
             }
 
-            // Assert has Fields
+            // Assert content is valid
             {
                 Assert.IsNotNull(structDefinition.Content);
 
-                Assert.IsTrue(structDefinition.Content.Fields.Count > 0);
+                Assert.IsNotNull(structDefinition.Content.Items);
 
-                foreach (var structDefinitionField in structDefinition.Content.Fields)
+                Assert.IsFalse(structDefinition.Content.IsEmpty);
+            }
+
+            // Assert has Fields
+            {
+                Assert.IsTrue(structDefinition.Content.HasAnyFieldDefinitions());
+
+                foreach (var structDefinitionField in structDefinition.Content.GetAllFields())
                 {
                     Assert.IsTrue(structDefinitionField.Attributes.Count > 0);
                 }
@@ -88,9 +96,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
 
             // Assert no other content inside Struct Definition
             {
-                Assert.IsNotNull(structDefinition.Content.Scopes);
-
-                Assert.AreEqual(0, structDefinition.Content.Scopes.Count);
+                Assert.IsFalse(structDefinition.Content.HasAnyScopes());
             }
         }
     }

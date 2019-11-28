@@ -10,5 +10,4 @@ java -Xmx500M -cp "/usr/local/lib/antlr-${ANTLR_VERSION}-complete.jar:$CLASSPATH
      -Dlanguage=CSharp \
      -package TheToolsmiths.Ddl.Parser \
      -visitor \
-     -no-listener \
      "$ROOT_DIR/spec/Ddl.g4"

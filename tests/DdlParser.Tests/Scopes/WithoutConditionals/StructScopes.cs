@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TheToolsmiths.Ddl.Parser.Extensions;
 using TheToolsmiths.Ddl.Parser.Models;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
@@ -18,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
             StructWithSingleScopeWithFieldsFile
         };
 
-        private const string StructWithFieldsAndSingleScopeFile = FolderName + "structDefinitionWithFieldsAndSingleScope.ddl";
+        private const string StructWithFieldsAndSingleScopeFile = FolderName + "structDefinitionWithFieldsAndSingleEmptyScope.ddl";
         private const string StructWithNestedScopeFile = FolderName + "structDefinitionWithNestedScope.ddl";
         private const string StructWithSingleScopeFile = FolderName + "structDefinitionWithSingleScope.ddl";
         private const string StructWithSingleScopeWithFieldFile = FolderName + "structDefinitionWithSingleScopeWithField.ddl";
@@ -83,20 +85,23 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
                 Assert.AreEqual(0, structDefinition.Attributes.Count);
             }
 
+            // Assert content is valid
+            {
+                Assert.IsNotNull(structDefinition.Content);
+
+                Assert.IsNotNull(structDefinition.Content.Items);
+            }
+
             // Assert any number of Fields
             {
-                Assert.IsNotNull(structDefinition.Content.Fields);
-
-                Assert.IsTrue(structDefinition.Content.Fields.Count >= 0);
+                Assert.IsTrue(structDefinition.Content.GetAllFields().Count() >= 0);
             }
 
             // Assert any number of Scopes
             {
-                Assert.IsNotNull(structDefinition.Content.Scopes);
+                Assert.IsTrue(structDefinition.Content.GetAllScopes().Count() >= 0);
 
-                Assert.IsTrue(structDefinition.Content.Scopes.Count >= 0);
-
-                foreach (var contentScope in structDefinition.Content.Scopes)
+                foreach (var contentScope in structDefinition.Content.GetAllScopes())
                 {
                     AssertStructScope(contentScope);
                 }
@@ -109,22 +114,32 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
 
             Assert.IsNotNull(structScope.StructContent);
 
+            // Assert Conditional Expression is empty
+            {
+                Assert.IsNotNull(structScope.ConditionalExpression);
+
+                Assert.IsTrue(structScope.ConditionalExpression.IsEmpty);
+            }
+
             var content = structScope.StructContent;
+
+            // Assert content is valid
+            {
+                Assert.IsNotNull(content);
+
+                Assert.IsNotNull(content.Items);
+            }
 
             // Assert any number of Field Definitions
             {
-                Assert.IsNotNull(content.Fields);
-
-                Assert.IsTrue(content.Fields.Count >= 0);
+                Assert.IsTrue(content.GetAllFields().Count() >= 0);
             }
 
             // Assert any number of Struct Scopes
             {
-                Assert.IsNotNull(content.Scopes);
+                Assert.IsTrue(content.GetAllScopes().Count() >= 0);
 
-                Assert.IsTrue(content.Scopes.Count >= 0);
-
-                foreach (var fileScope in content.Scopes)
+                foreach (var fileScope in content.GetAllScopes())
                 {
                     AssertStructScope(fileScope);
                 }

@@ -104,12 +104,42 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitConditionalExpression(DdlParser.ConditionalExpressionContext context)
+        public virtual TResult VisitNegateExpression(DdlParser.NegateExpressionContext context)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitConditionalSymbolExpression(DdlParser.ConditionalSymbolExpressionContext context)
+        public virtual TResult VisitBinaryExpression(DdlParser.BinaryExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitParenthesisExpression(DdlParser.ParenthesisExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitSymbolExpression(DdlParser.SymbolExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitBoolLiteralExpression(DdlParser.BoolLiteralExpressionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitCompareSymbols(DdlParser.CompareSymbolsContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitNegateSymbol(DdlParser.NegateSymbolContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitIdentifierSymbol(DdlParser.IdentifierSymbolContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -120,6 +150,26 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         }
 
         public virtual TResult VisitConditionalSymbolComparison(DdlParser.ConditionalSymbolComparisonContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitIntegerLiteral(DdlParser.IntegerLiteralContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitFloatLiteral(DdlParser.FloatLiteralContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitBoolLiteral(DdlParser.BoolLiteralContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitStringLiteral(DdlParser.StringLiteralContext context)
         {
             throw new System.NotImplementedException();
         }

@@ -2,9 +2,9 @@
 using Antlr4.Runtime.Tree;
 using TheToolsmiths.Ddl.Parser.Models;
 
-namespace TheToolsmiths.Ddl.Parser.Utils
+namespace TheToolsmiths.Ddl.Parser.TokenParsers
 {
-    public static class IdentifierUtils
+    public static class IdentifierParsers
     {
         public static Identifier CreateIdentifier(ITerminalNode identifierNode)
         {

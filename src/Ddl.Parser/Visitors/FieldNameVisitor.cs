@@ -1,6 +1,6 @@
 ﻿using System;
 using TheToolsmiths.Ddl.Parser.Models;
-using TheToolsmiths.Ddl.Parser.Utils;
+using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             var identNode = context.Identifier();
 
-            var fieldIdentifier = IdentifierUtils.CreateIdentifier(identNode);
+            var fieldIdentifier = IdentifierParsers.CreateIdentifier(identNode);
 
             return new FieldName(fieldIdentifier);
         }

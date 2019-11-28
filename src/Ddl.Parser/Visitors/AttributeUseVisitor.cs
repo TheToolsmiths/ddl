@@ -1,5 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models;
-using TheToolsmiths.Ddl.Parser.Utils;
+﻿using Antlr4.Runtime.Tree;
+using TheToolsmiths.Ddl.Parser.Models;
+using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -41,17 +42,19 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             {
                 var identNode = context.Identifier();
 
-                key = IdentifierUtils.CreateIdentifier(identNode);
+                key = IdentifierParsers.CreateIdentifier(identNode);
             }
 
             {
-                var literalNode = context.Literal();
+                var literalValueContext = context.literalValue();
 
-                if (literalNode != null)
+                if (literalValueContext != null)
                 {
-                    var literal = LiteralUtils.CreateLiteralInitialization(literalNode);
+                    var listener = new LiteralListener();
 
-                    return new KeyedLiteralAttributeUse(key, literal);
+                    ParseTreeWalker.Default.Walk(listener, literalValueContext);
+
+                    return new KeyedLiteralAttributeUse(key, listener.Value);
                 }
             }
 

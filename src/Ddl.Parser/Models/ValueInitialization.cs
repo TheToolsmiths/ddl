@@ -9,7 +9,7 @@
             return new EmptyValueInitialization();
         }
 
-        public static ValueInitialization CreateLiteral(LiteralInitialization literal)
+        public static ValueInitialization CreateLiteral(LiteralValue literal)
         {
             return new LiteralValueInitialization(literal);
         }

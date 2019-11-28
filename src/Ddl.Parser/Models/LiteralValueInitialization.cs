@@ -2,13 +2,13 @@
 {
     public class LiteralValueInitialization : ValueInitialization
     {
-        public LiteralValueInitialization(LiteralInitialization literal)
+        public LiteralValueInitialization(LiteralValue literal)
         {
             Literal = literal;
         }
 
         public override ValueInitializationType Type => ValueInitializationType.Literal;
 
-        public LiteralInitialization Literal { get; }
+        public LiteralValue Literal { get; }
     }
 }

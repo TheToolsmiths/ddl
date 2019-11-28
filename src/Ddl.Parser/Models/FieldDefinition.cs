@@ -2,7 +2,7 @@
 
 namespace TheToolsmiths.Ddl.Parser.Models
 {
-    public class FieldDefinition
+    public class FieldDefinition : IStructDefinitionItem
     {
         public FieldDefinition(
             FieldName name,
@@ -23,5 +23,7 @@ namespace TheToolsmiths.Ddl.Parser.Models
         public IReadOnlyList<IAttributeUse> Attributes { get; }
 
         public ValueInitialization Initialization { get; }
+
+        public StructDefinitionItemType ItemType => StructDefinitionItemType.FieldDefinition;
     }
 }

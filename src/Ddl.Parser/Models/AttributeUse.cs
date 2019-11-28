@@ -22,7 +22,7 @@
 
     public class KeyedLiteralAttributeUse : BaseAttributeUse, IKeyedLiteralAttributeUse
     {
-        public KeyedLiteralAttributeUse(Identifier key, LiteralInitialization literal)
+        public KeyedLiteralAttributeUse(Identifier key, LiteralValue literal)
         {
             Key = key;
             Literal = literal;
@@ -36,7 +36,7 @@
 
         public Identifier Key { get; }
 
-        public LiteralInitialization Literal { get; }
+        public LiteralValue Literal { get; }
     }
 
     public class KeyedTypedAttributeUse : BaseTypedAttributeUse, IKeyedTypedAttributeUse
@@ -97,7 +97,7 @@
 
     public interface IKeyedLiteralAttributeUse : IKeyedAttributeUse
     {
-        LiteralInitialization Literal { get; }
+        LiteralValue Literal { get; }
     }
 
     public enum AttributeUseType

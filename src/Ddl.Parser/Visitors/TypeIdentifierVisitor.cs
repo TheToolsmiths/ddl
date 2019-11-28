@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Parser.Models;
-using TheToolsmiths.Ddl.Parser.Utils;
+using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
             foreach (var node in identNodes)
             {
-                var identifier = IdentifierUtils.CreateIdentifier(node);
+                var identifier = IdentifierParsers.CreateIdentifier(node);
 
                 identifiers.Add(identifier);
             }
@@ -27,11 +27,6 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             }
 
             var typeNameIdentifier = identifiers.Last();
-
-            if (typeNameIdentifier.IsEmpty)
-            {
-                throw new ArgumentException();
-            }
 
             var typeName = new TypeName(typeNameIdentifier);
 

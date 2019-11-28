@@ -1,5 +1,5 @@
-﻿using System;
-using TheToolsmiths.Ddl.Parser.Models;
+﻿using TheToolsmiths.Ddl.Parser.Models;
+using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -7,6 +7,22 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override FileScope VisitFileScope(DdlParser.FileScopeContext context)
         {
+            ConditionalExpression conditionalExpression;
+            {
+                var expressionContext = context.conditionalExpression();
+
+                if (expressionContext != null)
+                {
+                    var visitor = new ConditionalExpressionVisitor();
+
+                    conditionalExpression = visitor.VisitConditionalExpression(expressionContext);
+                }
+                else
+                {
+                    conditionalExpression = ConditionalExpression.CreateEmpty();
+                }
+            }
+
             FileContents fileContent;
             {
                 var fileContents = context.fileContents();
@@ -23,7 +39,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 }
             }
 
-            return new FileScope(fileContent);
+            return new FileScope(conditionalExpression, fileContent);
         }
     }
 }

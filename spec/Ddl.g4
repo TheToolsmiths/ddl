@@ -10,7 +10,7 @@ fileScope:
 	Scope ('(' conditionalExpression ')')? '{' fileContents '}';
 
 structScope:
-	Scope ('(' conditionalExpression ')')? '{' defStructContents '}';
+	Scope ('(' conditionalExpression ')')? '{' defStructContents? '}';
 
 // Type usage
 typeIdent: ( Identifier NamespaceSeparator)* Identifier;
@@ -22,7 +22,15 @@ defStruct:
 	attrUseList 'def' 'struct' typeName '{' defStructContents? '}';
 
 defStructContents:
-	(structField | structScope) ((',' structField) | (','? structScope))* ','?;
+	structScope ','? defStructContents?
+	| structField ','? structScope ','? defStructContents?
+	| structField (',' structField)* ','? structScope ','? defStructContents?
+	| structField (',' structField)* ','?
+	| structScope ','?
+	| structField ','?
+	| structScope
+	| structField
+	;
 
 structField:
 	attrUseList fieldName ':' typeIdent ('=' valueInitialization)?;
@@ -30,7 +38,7 @@ structField:
 fieldName: Identifier;
 
 // Value Initialization
-valueInitialization: (Literal | structValueInitialization);
+valueInitialization: (literalValue | structValueInitialization);
 
 structValueInitialization:
 	'{' (
@@ -44,48 +52,58 @@ attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
 attrUse: keyedAttrUse | typedAttrUse;
 
-keyedAttrUse: Identifier '=' (Literal | typedAttrUse);
+keyedAttrUse: Identifier '=' (literalValue | typedAttrUse);
 
 typedAttrUse: typeIdent structValueInitialization?;
 
 // Conditional Expressions
 conditionalExpression:
-	| conditionalExpression ('||' | '&&') conditionalExpression
-	| '!' conditionalExpression
-	| conditionalSymbolExpression
-	| BoolLit;
+	'(' conditionalExpression ')'												# ParenthesisExpression
+	| conditionalExpression ConditionalLogicalOperator conditionalExpression	# BinaryExpression
+	| BoolLiteral																# BoolLiteralExpression
+	| conditionalSymbolExpression												# SymbolExpression
+	| '!' conditionalExpression													# NegateExpression
+	;
 
+// Conditional Symbols
 conditionalSymbolExpression:
-	conditionalSymbolComparison
-	| conditionalSymbolNegation
-	| Identifier;
+	conditionalSymbolComparison	# CompareSymbols
+	| conditionalSymbolNegation	# NegateSymbol
+	| Identifier				# IdentifierSymbol;
 
 conditionalSymbolNegation: '!' Identifier;
 
-conditionalSymbolComparison: Identifier ('==' | '!=') StrLit;
+conditionalSymbolComparison:
+	Identifier EqualityComparerOperator StringLiteral;
+
+// Literal rules
+literalValue:
+	('-' | '+')? IntLiteral		# IntegerLiteral
+	| ('-' | '+')? FloatLiteral	# FloatLiteral
+	| BoolLiteral				# BoolLiteral
+	| StringLiteral				# StringLiteral;
 
 // ###	Lexer  ###
 
+ConditionalLogicalOperator: '||' | '&&';
+
+EqualityComparerOperator: '==' | '!=';
+
 // Boolean
-Literal:
-	('-' | '+')? IntLit
-	| ('-' | '+')? FloatLit
-	| ( StrLit | BoolLit);
+BoolLiteral: 'true' | 'false';
 
-BoolLit: 'true' | 'false';
-
-IntLit: DecimalLit | HexLit;
+IntLiteral: DecimalLiteral | HexLiteral;
 
 // Types fragments
 NamespaceSeparator: '::';
 
 // Integer literals
-fragment DecimalLit: [1-9] DecimalDigit*;
+fragment DecimalLiteral: DecimalDigit+;
 
-fragment HexLit: '0' ('x' | 'X') HexDigit+;
+fragment HexLiteral: '0' ('x' | 'X') HexDigit+;
 
 // Floating-point literals
-FloatLit: (
+FloatLiteral: (
 		Decimals '.' Decimals? Exponent?
 		| Decimals Exponent
 		| '.' Decimals Exponent?
@@ -98,7 +116,7 @@ fragment Decimals: DecimalDigit+;
 fragment Exponent: ('e' | 'E') ('+' | '-')? Decimals;
 
 // String literals
-StrLit: '\'' CharValue* '\'' | '"' CharValue* '"';
+StringLiteral: ('\'' CharValue* '\'') | ('"' CharValue* '"');
 
 fragment CharValue: HexEscape | CharEscape | ~[\u0000\n\\];
 

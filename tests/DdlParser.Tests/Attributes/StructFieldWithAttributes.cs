@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TheToolsmiths.Ddl.Parser.Extensions;
 using TheToolsmiths.Ddl.Parser.Models;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
@@ -67,20 +68,27 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
                 Assert.AreEqual(Identifier.FromString("TestStructType"), structDefinition.TypeName.Name);
             }
 
-            // Assert Attributes
+            // Assert Empty Attributes
             {
                 Assert.IsNotNull(structDefinition.Attributes);
 
                 Assert.AreEqual(structDefinition.Attributes.Count, 0);
             }
 
+            // Assert content is valid
+            {
+                Assert.IsNotNull(structDefinition.Content);
+
+                Assert.IsNotNull(structDefinition.Content.Items);
+
+                Assert.IsFalse(structDefinition.Content.IsEmpty);
+            }
+
             // Assert Single Field
             {
-                Assert.IsNotNull(structDefinition.Content.Fields);
+                Assert.IsTrue(structDefinition.Content.HasAnyFieldDefinitions());
 
-                Assert.AreEqual(structDefinition.Content.Fields.Count, 1);
-
-                foreach (var structDefinitionField in structDefinition.Content.Fields)
+                foreach (var structDefinitionField in structDefinition.Content.GetAllFields())
                 {
                     Assert.IsTrue(structDefinitionField.Attributes.Count > 0);
                 }
@@ -88,9 +96,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Attributes
 
             // Assert no other content inside Struct Definition
             {
-                Assert.IsNotNull(structDefinition.Content.Scopes);
-
-                Assert.AreEqual(0, structDefinition.Content.Scopes.Count);
+                Assert.IsFalse(structDefinition.Content.HasAnyScopes());
             }
         }
     }
