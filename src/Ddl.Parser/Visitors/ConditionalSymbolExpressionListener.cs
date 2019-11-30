@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.CompareSymbolsExpressions;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors

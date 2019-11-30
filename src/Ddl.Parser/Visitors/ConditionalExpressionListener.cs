@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
     public class ConditionalExpressionListener : DdlBaseListener
     {
-        private Stack<IConditionalExpressionElement> elements;
+        private readonly Stack<IConditionalExpressionElement> elements;
 
         public ConditionalExpressionListener()
         {

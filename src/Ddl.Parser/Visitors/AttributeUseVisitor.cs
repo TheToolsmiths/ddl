@@ -1,5 +1,7 @@
-﻿using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Parser.Models;
+﻿using System;
+using Antlr4.Runtime.Tree;
+using TheToolsmiths.Ddl.Models;
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
@@ -30,7 +32,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 }
             }
 
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
@@ -53,6 +55,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                     var listener = new LiteralListener();
 
                     ParseTreeWalker.Default.Walk(listener, literalValueContext);
+
+                    if (listener.Value == null)
+                    {
+                        throw new Exception();
+                    }
 
                     return new KeyedLiteralAttributeUse(key, listener.Value);
                 }

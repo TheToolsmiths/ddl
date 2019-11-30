@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Models;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Models;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {

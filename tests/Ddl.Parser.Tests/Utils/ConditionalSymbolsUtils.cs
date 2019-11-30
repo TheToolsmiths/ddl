@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.CompareSymbolsExpressions;
 
 namespace TheToolsmiths.Ddl.Parser.Tests.Utils
 {

@@ -1,5 +1,5 @@
 ﻿using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.CompareSymbolsExpressions;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {

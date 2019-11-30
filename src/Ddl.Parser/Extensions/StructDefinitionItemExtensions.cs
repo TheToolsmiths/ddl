@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models;
+using TheToolsmiths.Ddl.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Extensions
 {

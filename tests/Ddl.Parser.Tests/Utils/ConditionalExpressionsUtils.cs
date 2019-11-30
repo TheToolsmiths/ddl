@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 
 namespace TheToolsmiths.Ddl.Parser.Tests.Utils
 {

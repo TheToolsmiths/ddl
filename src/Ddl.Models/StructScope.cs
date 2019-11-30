@@ -1,0 +1,19 @@
+﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+
+namespace TheToolsmiths.Ddl.Models
+{
+    public class StructScope : IStructDefinitionItem
+    {
+        public StructScope(ConditionalExpression conditionalExpression, StructDefinitionContent structContent)
+        {
+            ConditionalExpression = conditionalExpression;
+            StructContent = structContent;
+        }
+
+        public ConditionalExpression ConditionalExpression { get; }
+
+        public StructDefinitionContent StructContent { get; }
+
+        public StructDefinitionItemType ItemType => StructDefinitionItemType.Scope;
+    }
+}

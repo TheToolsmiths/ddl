@@ -1,6 +1,6 @@
 ﻿using System;
 using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Parser.Models;
+using TheToolsmiths.Ddl.Models;
 
 namespace TheToolsmiths.Ddl.Parser.TokenParsers
 {

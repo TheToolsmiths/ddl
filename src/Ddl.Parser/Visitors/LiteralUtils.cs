@@ -1,10 +1,10 @@
-﻿using TheToolsmiths.Ddl.Parser.Models;
+﻿using TheToolsmiths.Ddl.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
     public class LiteralListener : DdlBaseListener
     {
-        public LiteralValue Value { get; private set; }
+        public LiteralValue? Value { get; private set; }
 
         public override void EnterBoolLiteral(DdlParser.BoolLiteralContext context)
         {
