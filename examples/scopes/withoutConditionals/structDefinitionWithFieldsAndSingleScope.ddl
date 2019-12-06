@@ -1,7 +1,7 @@
 // No comma after scope
 def struct TestStructType
 {
-    scope
+    scope ()
     {
     }    
     field1: TestFieldType,
@@ -26,7 +26,7 @@ def struct TestStructType
     field1: TestFieldType,
     field2: bool,
     field3: i32
-    scope
+    scope ()
     {
     },
 }
@@ -59,7 +59,7 @@ def struct TestStructType
     field1: TestFieldType,
     field2: bool,
     field3: i32,
-    scope
+    scope ()
     {
     }
 }
