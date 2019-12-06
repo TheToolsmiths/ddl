@@ -1,6 +1,6 @@
 ﻿using System;
 using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Models;
+using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {

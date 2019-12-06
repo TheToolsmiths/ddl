@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Structs;
+using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {

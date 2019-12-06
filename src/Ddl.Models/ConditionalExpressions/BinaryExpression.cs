@@ -9,9 +9,9 @@ namespace TheToolsmiths.Ddl.Models.ConditionalExpressions
             IConditionalExpressionElement leftExpression,
             IConditionalExpressionElement rightExpression)
         {
-            Op = op;
-            LeftExpression = leftExpression;
-            RightExpression = rightExpression;
+            this.Op = op;
+            this.LeftExpression = leftExpression;
+            this.RightExpression = rightExpression;
         }
         
         public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Binary;

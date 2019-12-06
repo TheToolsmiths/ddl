@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
     {
         public static IConditionalLogicalOperator ParseConditionalLogicalOperator(ITerminalNode node)
         {
-            var opText = node.GetText();
+            string opText = node.GetText();
 
             switch (opText)
             {
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
 
         public static IEqualityComparerOperator ParseEqualityComparer(ITerminalNode node)
         {
-            var eqText = node.GetText();
+            string eqText = node.GetText();
 
             switch (eqText)
             {

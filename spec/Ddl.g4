@@ -3,14 +3,19 @@ grammar Ddl;
 // ###	Parser  ###
 
 // File contents
-fileContents: (defStruct | fileScope)*;
+fileContents: fileContent*;
+
+fileContent: defStruct | fileScope;
 
 // Scopes
 fileScope:
-	Scope ('(' conditionalExpression ')')? '{' fileContents '}';
+	scopeHeader '{' fileContents '}';
 
 structScope:
-	Scope ('(' conditionalExpression ')')? '{' defStructContents? '}';
+	scopeHeader '{' defStructContents? '}';
+
+scopeHeader:
+	Scope ('(' conditionalExpression? ')')?;
 
 // Type usage
 typeIdent: ( Identifier NamespaceSeparator)* Identifier;
@@ -78,10 +83,13 @@ conditionalSymbolComparison:
 
 // Literal rules
 literalValue:
-	('-' | '+')? IntLiteral		# IntegerLiteral
-	| ('-' | '+')? FloatLiteral	# FloatLiteral
-	| BoolLiteral				# BoolLiteral
-	| StringLiteral				# StringLiteral;
+	('-' | '+')? IntLiteral			# IntegerLiteral
+	| ('-' | '+')? FloatLiteral		# FloatLiteral
+	| BoolLiteral					# BoolLiteral
+	| StringLiteral					# StringLiteral;
+	// | literalString					# StringLiteral;
+
+// literalString: '"' StringContents '"';
 
 // ###	Lexer  ###
 
@@ -119,6 +127,9 @@ fragment Exponent: ('e' | 'E') ('+' | '-')? Decimals;
 StringLiteral: ('\'' CharValue* '\'') | ('"' CharValue* '"');
 
 fragment CharValue: HexEscape | CharEscape | ~[\u0000\n\\];
+// fragment StringContents: StringCharValue*;
+
+// fragment StringCharValue: HexEscape | CharEscape | ~[\u0000\n\\];
 
 fragment HexEscape: '\\' ('x' | 'X') HexDigit HexDigit;
 

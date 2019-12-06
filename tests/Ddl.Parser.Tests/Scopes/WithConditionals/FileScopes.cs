@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Parser.Extensions;
+using TheToolsmiths.Ddl.Models.FileContents;
+using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
 
@@ -27,42 +29,40 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
         [TestMethod]
         public void TestAllFileScopes()
         {
-            foreach (var fileScopeFile in FileScopeFiles)
+            foreach (string fileScopeFile in FileScopeFiles)
             {
                 var parser = FileParserUtils.CreateParserFromPath(fileScopeFile);
 
-                var visitor = new FileContentsVisitor();
+                var visitor = new FileContentVisitor();
 
                 var context = parser.fileContents();
 
                 var fileContents = visitor.VisitFileContents(context);
 
-                AssertFileContents(fileContents);
+                this.AssertFileContents(fileContents);
             }
         }
 
-        private void AssertFileContents(FileContents fileContents)
+        private void AssertFileContents(FileContent fileContent)
         {
-            Assert.IsNotNull(fileContents);
+            Assert.IsNotNull(fileContent);
 
             // Assert no Struct Definitions on File Content Root
             {
-                Assert.IsNotNull(fileContents.StructDefinitions);
+                Assert.IsNotNull(fileContent.Items);
 
-                Assert.AreEqual(0, fileContents.StructDefinitions.Count);
+                Assert.AreEqual(0, fileContent.GetAllStructDefinitions().Count());
             }
 
             // Assert any number of File Scopes
             {
-                Assert.IsNotNull(fileContents.FileScopes);
+                Assert.IsTrue(fileContent.GetAllScopes().Any());
 
-                Assert.IsTrue(fileContents.FileScopes.Count > 0);
-
-                foreach (var fileScope in fileContents.FileScopes)
+                foreach (var fileScope in fileContent.GetAllScopes())
                 {
                     Assert.IsNotNull(fileScope);
 
-                    AssertFileScope(fileScope);
+                    this.AssertFileScope(fileScope);
                 }
             }
         }
@@ -80,34 +80,32 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
                 ConditionalExpressionsUtils.AssertNotEmptyConditionalExpression(fileScope.ConditionalExpression);
             }
 
-            AssertFileScopeContent(fileScope.Contents);
+            this.AssertFileScopeContent(fileScope.Content);
         }
 
-        private void AssertFileScopeContent(FileContents content)
+        private void AssertFileScopeContent(FileContent content)
         {
             Assert.IsNotNull(content);
 
             // Assert any number of Struct Definitions
             {
-                Assert.IsNotNull(content.StructDefinitions);
+                Assert.IsNotNull(content.Items);
 
-                Assert.IsTrue(content.StructDefinitions.Count >= 0);
+                Assert.IsTrue(content.GetAllStructDefinitions().Count() >= 0);
 
-                foreach (var structDefinition in content.StructDefinitions)
+                foreach (var structDefinition in content.GetAllStructDefinitions())
                 {
-                    AssertStructDefinition(structDefinition);
+                    this.AssertStructDefinition(structDefinition);
                 }
             }
 
             // Assert any number of File Scopes
             {
-                Assert.IsNotNull(content.FileScopes);
+                Assert.IsTrue(content.GetAllScopes().Count() >= 0);
 
-                Assert.IsTrue(content.FileScopes.Count >= 0);
-
-                foreach (var fileScope in content.FileScopes)
+                foreach (var fileScope in content.GetAllScopes())
                 {
-                    AssertFileScope(fileScope);
+                    this.AssertFileScope(fileScope);
                 }
             }
         }

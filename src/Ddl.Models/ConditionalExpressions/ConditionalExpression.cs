@@ -4,14 +4,14 @@
     {
         private ConditionalExpression(IConditionalExpressionElement root)
         {
-            Root = root;
-            IsEmpty = false;
+            this.Root = root;
+            this.IsEmpty = false;
         }
 
         private ConditionalExpression()
         {
-            Root = BoolLiteralExpression.CreateTrue();
-            IsEmpty = true;
+            this.Root = BoolLiteralExpression.CreateTrue();
+            this.IsEmpty = true;
         }
 
         public IConditionalExpressionElement Root { get; }

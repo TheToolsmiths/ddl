@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Models.ConditionalExpressions
     {
         public SymbolExpression(IConditionalSymbolExpression expression)
         {
-            Expression = expression;
+            this.Expression = expression;
         }
 
         public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Symbol;

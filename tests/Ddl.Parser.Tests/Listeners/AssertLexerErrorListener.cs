@@ -22,7 +22,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Listeners
             string msg,
             RecognitionException e)
         {
-            throw new AssertParserException($"Parser error in file '{filePath}' at line '{line}' in pos '{charPositionInLine}'.\n{msg}");
+            throw new AssertParserException($"Parser error in file '{this.filePath}' at line '{line}' in pos '{charPositionInLine}'.\n{msg}");
         }
     }
 }

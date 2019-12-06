@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models;
+﻿using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors

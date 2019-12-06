@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models;
+﻿using TheToolsmiths.Ddl.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -8,30 +8,31 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
         public override void EnterBoolLiteral(DdlParser.BoolLiteralContext context)
         {
-            var text = context.BoolLiteral().GetText();
+            string text = context.BoolLiteral().GetText();
 
-            Value = new LiteralValue(LiteralValueType.Boolean, text);
+            this.Value = new LiteralValue(LiteralValueType.Boolean, text);
         }
 
         public override void EnterFloatLiteral(DdlParser.FloatLiteralContext context)
         {
-            var text = context.FloatLiteral().GetText();
+            string text = context.FloatLiteral().GetText();
 
-            Value = new LiteralValue(LiteralValueType.Float, text);
+            this.Value = new LiteralValue(LiteralValueType.Float, text);
         }
 
         public override void EnterIntegerLiteral(DdlParser.IntegerLiteralContext context)
         {
-            var text = context.IntLiteral().GetText();
+            string text = context.IntLiteral().GetText();
 
-            Value = new LiteralValue(LiteralValueType.Integer, text);
+            this.Value = new LiteralValue(LiteralValueType.Integer, text);
         }
 
         public override void EnterStringLiteral(DdlParser.StringLiteralContext context)
         {
-            var text = context.StringLiteral().GetText();
+            var literal = context.StringLiteral();
+            string text = literal.GetText().Trim('"', '\'');
 
-            Value = new LiteralValue(LiteralValueType.String, text);
+            this.Value = new LiteralValue(LiteralValueType.String, text);
         }
     }
 }

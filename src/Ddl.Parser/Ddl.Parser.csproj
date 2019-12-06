@@ -27,8 +27,4 @@
     <ProjectReference Include="..\Ddl.Models\Ddl.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
-
 </Project>

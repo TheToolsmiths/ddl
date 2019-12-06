@@ -4,7 +4,7 @@
     {
         public BoolLiteralExpression(bool value)
         {
-            Value = value;
+            this.Value = value;
         }
 
         public bool Value { get; }

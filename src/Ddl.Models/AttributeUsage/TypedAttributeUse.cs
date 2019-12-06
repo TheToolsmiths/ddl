@@ -1,6 +1,9 @@
-﻿namespace TheToolsmiths.Ddl.Models.AttributeUsage
+﻿using TheToolsmiths.Ddl.Models.Types;
+using TheToolsmiths.Ddl.Models.Values;
+
+namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
-    public class TypedAttributeUse : BaseTypedAttributeUse, ITypedAttributeUse
+    public class TypedAttributeUse : BaseTypedAttributeUse
     {
         public TypedAttributeUse(TypeIdentifier type, StructValueInitialization initialization)
             : base(type, initialization)

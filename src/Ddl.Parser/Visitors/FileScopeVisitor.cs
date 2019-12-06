@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.FileContents;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -9,33 +9,26 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             ConditionalExpression conditionalExpression;
             {
-                var expressionContext = context.conditionalExpression();
+                var scopeHeaderContext = context.scopeHeader();
 
-                if (expressionContext != null)
-                {
-                    var visitor = new ConditionalExpressionVisitor();
+                var visitor = new ScopeHeaderVisitor();
 
-                    conditionalExpression = visitor.VisitConditionalExpression(expressionContext);
-                }
-                else
-                {
-                    conditionalExpression = ConditionalExpression.CreateEmpty();
-                }
+                conditionalExpression = visitor.VisitScopeHeader(scopeHeaderContext);
             }
 
-            FileContents fileContent;
+            FileContent fileContent;
             {
                 var fileContents = context.fileContents();
 
                 if (fileContents != null)
                 {
-                    var visitor = new FileContentsVisitor();
+                    var visitor = new FileContentVisitor();
 
                     fileContent = visitor.VisitFileContents(fileContents);
                 }
                 else
                 {
-                    fileContent = FileContents.CreateEmpty();
+                    fileContent = FileContent.CreateEmpty();
                 }
             }
 

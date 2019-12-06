@@ -1,11 +1,14 @@
-﻿namespace TheToolsmiths.Ddl.Models.AttributeUsage
+﻿using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Literals;
+
+namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
     public class KeyedLiteralAttributeUse : BaseAttributeUse, IKeyedLiteralAttributeUse
     {
         public KeyedLiteralAttributeUse(Identifier key, LiteralValue literal)
         {
-            Key = key;
-            Literal = literal;
+            this.Key = key;
+            this.Literal = literal;
         }
 
         public override AttributeUseType UseType => AttributeUseType.KeyedLiteral;

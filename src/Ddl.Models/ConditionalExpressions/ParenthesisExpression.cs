@@ -4,7 +4,7 @@
     {
         public ParenthesisExpression(IConditionalExpressionElement innerExpression)
         {
-            InnerExpression = innerExpression;
+            this.InnerExpression = innerExpression;
         }
 
         public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Parenthesis;

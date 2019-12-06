@@ -4,7 +4,7 @@
     {
         public NegateExpression(IConditionalExpressionElement innerExpression)
         {
-            InnerExpression = innerExpression;
+            this.InnerExpression = innerExpression;
         }
 
         public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Negate;

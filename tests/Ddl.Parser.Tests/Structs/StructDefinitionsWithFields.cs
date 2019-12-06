@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Parser.Extensions;
+using TheToolsmiths.Ddl.Models.FileContents;
+using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
 
@@ -18,13 +20,13 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
         {
             var parser = FileParserUtils.CreateParserFromPath(StructDefinitionWithFieldFile);
 
-            var visitor = new FileContentsVisitor();
+            var visitor = new FileContentVisitor();
 
             var fileContentsContext = parser.fileContents();
 
             var fileContents = visitor.VisitFileContents(fileContentsContext);
 
-            AssertFileContents(fileContents);
+            this.AssertFileContents(fileContents);
         }
 
         [TestMethod]
@@ -32,26 +34,26 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
         {
             var parser = FileParserUtils.CreateParserFromPath(StructDefinitionWithFieldsFile);
 
-            var visitor = new FileContentsVisitor();
+            var visitor = new FileContentVisitor();
 
             var fileContentsContext = parser.fileContents();
 
             var fileContents = visitor.VisitFileContents(fileContentsContext);
 
-            AssertFileContents(fileContents);
+            this.AssertFileContents(fileContents);
         }
 
-        private void AssertFileContents(FileContents fileContents)
+        private void AssertFileContents(FileContent fileContent)
         {
-            Assert.IsNotNull(fileContents);
+            Assert.IsNotNull(fileContent);
 
-            Assert.IsNotNull(fileContents.StructDefinitions);
+            Assert.IsNotNull(fileContent.Items);
 
-            Assert.AreEqual(2, fileContents.StructDefinitions.Count);
+            Assert.AreEqual(2, fileContent.GetAllStructDefinitions().Count());
 
-            foreach (var structDefinition in fileContents.StructDefinitions)
+            foreach (var structDefinition in fileContent.GetAllStructDefinitions())
             {
-                AssertStructDefinition(structDefinition);
+                this.AssertStructDefinition(structDefinition);
             }
         }
 

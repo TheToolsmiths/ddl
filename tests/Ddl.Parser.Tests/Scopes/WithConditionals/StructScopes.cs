@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Parser.Extensions;
+using TheToolsmiths.Ddl.Models.FileContents;
+using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Tests.Utils;
 using TheToolsmiths.Ddl.Parser.Visitors;
 
@@ -29,43 +31,41 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
         [TestMethod]
         public void TestAllStructScopes()
         {
-            foreach (var fileScopeFile in FileScopeFiles)
+            foreach (string fileScopeFile in FileScopeFiles)
             {
                 var parser = FileParserUtils.CreateParserFromPath(fileScopeFile);
 
-                var visitor = new FileContentsVisitor();
+                var visitor = new FileContentVisitor();
 
                 var context = parser.fileContents();
 
                 var fileContents = visitor.VisitFileContents(context);
 
-                AssertFileContents(fileContents);
+                this.AssertFileContents(fileContents);
             }
         }
 
-        private void AssertFileContents(FileContents fileContents)
+        private void AssertFileContents(FileContent fileContent)
         {
-            Assert.IsNotNull(fileContents);
+            Assert.IsNotNull(fileContent);
 
             // Assert any number of Struct Definitions on File Content Root
             {
-                Assert.IsNotNull(fileContents.StructDefinitions);
+                Assert.IsNotNull(fileContent.Items);
 
-                Assert.IsTrue(fileContents.StructDefinitions.Count > 0);
+                Assert.IsTrue(fileContent.GetAllStructDefinitions().Any());
 
-                foreach (var structDefinition in fileContents.StructDefinitions)
+                foreach (var structDefinition in fileContent.GetAllStructDefinitions())
                 {
                     Assert.IsNotNull(structDefinition);
 
-                    AssertStructDefinition(structDefinition);
+                    this.AssertStructDefinition(structDefinition);
                 }
             }
 
             // Assert no of File Scopes
             {
-                Assert.IsNotNull(fileContents.FileScopes);
-
-                Assert.AreEqual(0, fileContents.FileScopes.Count);
+                Assert.AreEqual(0, fileContent.GetAllScopes().Count());
             }
         }
 
@@ -103,7 +103,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
 
                 foreach (var contentScope in structDefinition.Content.GetAllScopes())
                 {
-                    AssertStructScope(contentScope);
+                    this.AssertStructScope(contentScope);
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
         {
             Assert.IsNotNull(structScope);
 
-            Assert.IsNotNull(structScope.StructContent);
+            Assert.IsNotNull(structScope.Content);
 
             // Assert Conditional Expression is valid
             {
@@ -123,7 +123,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
                 ConditionalExpressionsUtils.AssertNotEmptyConditionalExpression(structScope.ConditionalExpression);
             }
 
-            var content = structScope.StructContent;
+            var content = structScope.Content;
 
             // Assert content is valid
             {
@@ -143,7 +143,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
 
                 foreach (var fileScope in content.GetAllScopes())
                 {
-                    AssertStructScope(fileScope);
+                    this.AssertStructScope(fileScope);
                 }
             }
         }

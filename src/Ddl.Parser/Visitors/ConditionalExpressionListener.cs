@@ -11,38 +11,38 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
         public ConditionalExpressionListener()
         {
-            elements = new Stack<IConditionalExpressionElement>();
+            this.elements = new Stack<IConditionalExpressionElement>();
         }
 
         public ConditionalExpression GetExpression()
         {
-            if (elements.Count > 1)
+            if (this.elements.Count > 1)
             {
                 throw new Exception();
             }
 
-            if (elements.Count == 0)
+            if (this.elements.Count == 0)
             {
                 return ConditionalExpression.CreateEmpty();
             }
 
-            var expression = elements.Pop();
+            var expression = this.elements.Pop();
 
             return ConditionalExpression.Create(expression);
         }
 
         public override void ExitNegateExpression(DdlParser.NegateExpressionContext context)
         {
-            if (elements.Count < 1)
+            if (this.elements.Count < 1)
             {
                 throw new Exception();
             }
 
-            var innerExpression = elements.Pop();
+            var innerExpression = this.elements.Pop();
 
-            var expression = new ParenthesisExpression(innerExpression);
+            var expression = new NegateExpression(innerExpression);
 
-            elements.Push(expression);
+            this.elements.Push(expression);
         }
 
         public override void ExitBinaryExpression(DdlParser.BinaryExpressionContext context)
@@ -51,31 +51,31 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
             var op = OperatorsParsers.ParseConditionalLogicalOperator(node);
 
-            if (elements.Count < 2)
+            if (this.elements.Count < 2)
             {
                 throw new Exception();
             }
 
-            var right = elements.Pop();
-            var left = elements.Pop();
+            var right = this.elements.Pop();
+            var left = this.elements.Pop();
 
             var expression = new BinaryExpression(op, left, right);
 
-            elements.Push(expression);
+            this.elements.Push(expression);
         }
 
         public override void ExitParenthesisExpression(DdlParser.ParenthesisExpressionContext context)
         {
-            if (elements.Count < 1)
+            if (this.elements.Count < 1)
             {
                 throw new Exception();
             }
 
-            var innerExpression = elements.Pop();
+            var innerExpression = this.elements.Pop();
 
             var expression = new ParenthesisExpression(innerExpression);
 
-            elements.Push(expression);
+            this.elements.Push(expression);
         }
 
         public override void ExitSymbolExpression(DdlParser.SymbolExpressionContext context)
@@ -87,16 +87,16 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             var symbols = visitor.VisitConditionalSymbolExpression(symbolExpressionContext);
 
             var expression = new SymbolExpression(symbols);
-            elements.Push(expression);
+            this.elements.Push(expression);
         }
 
         public override void ExitBoolLiteralExpression(DdlParser.BoolLiteralExpressionContext context)
         {
-            var value = LiteralParsers.ParseBooleanValue(context.BoolLiteral());
+            bool value = LiteralParsers.ParseBooleanValue(context.BoolLiteral());
 
             var expression = new BoolLiteralExpression(value);
 
-            elements.Push(expression);
+            this.elements.Push(expression);
         }
     }
 }

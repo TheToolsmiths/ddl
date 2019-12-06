@@ -1,7 +1,9 @@
 ﻿using System;
 using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Types;
+using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
