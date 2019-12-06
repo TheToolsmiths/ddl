@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
+    <AssemblyName>TheToolsmiths.Ddl.Transpiler.Cli</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Transpiler.Cli</RootNamespace>
+    <AssemblyName>TheToolsmiths.Ddl.Transpiler.Cli</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Transpiler.Cli</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\examples\allFeatures.ddl" Link="allFeatures.ddl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ddl.Parser\Ddl.Parser.csproj" />
+    <ProjectReference Include="..\Ddl.Transpiler\Ddl.Transpiler.csproj" />
+  </ItemGroup>
+
+</Project>
