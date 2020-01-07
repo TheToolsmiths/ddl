@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ddl.Transpiler.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "transpile allFeatures.ddl"
+    }
+  }
+}

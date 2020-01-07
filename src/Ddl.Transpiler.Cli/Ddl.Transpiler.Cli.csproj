@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19577.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\Ddl.Transpiler\Ddl.Transpiler.csproj" />
   </ItemGroup>
