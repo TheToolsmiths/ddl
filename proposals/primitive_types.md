@@ -6,19 +6,23 @@ In the case of the ddl these types are not meant to store data. They're simply p
 
 There are several categories of primitive types:
 
-- general
+- General
     - any
 
-- numerical
+- Numerical
     - types
     - scalar
     - vector
     - matrix
 
-- boolean
+- GUID
+
+- Hash
+
+- Boolean
     - bool
 
-- string
+- Text
     - string
     - char
 
@@ -26,7 +30,7 @@ There are several categories of primitive types:
 
 These are generic types that do not represent explicit direct data storage properties, like size, endianess, aligment or struct padding, but map directly to equivalent data types in the target platform.
 
-### any
+### `any`
 
 The type `any` represents anything that can be represented in the target platform. 
 Since languages like C and C++ can only store concrete types inside a struct or on stack, maybe this type should be restricted to a reference type, `&any`.
@@ -44,6 +48,7 @@ The following are what can be perceived as main factors to consider the impact o
 - It allows the format user flexibility to map existing data types to the `ddl` format, and in a way marking the field type as not important.
 
 Since there can be valid points both ways, and its dependent of the user case, we'll keep the `any` type keyword reserved, but can consider allowing it internally to projects, that is, allowed inside the project itself but not on a possible shareable format, if there is feedback that it is useful.
+
 
 ## Numerical
 
@@ -96,6 +101,19 @@ Example:
     mat3x2::i64
     mat8x8::f16
 
+## GUID
+Represents an unique identifier type, but do not specify particular GUID or UUID type, nor any of its variants or versions.
+The choice of the underlying type is the responsability of the programs consuming the `ddl` format.
+
+## Hash
+A hash type represents the hash value result of a hash function over a segment of data.
+
+There are two supported hash types:
+
+- A generic `hash` type that represents any possible hash value type, and allows the consuming program to pick a suitable type.
+
+- A `hash::` namespace that allows to specify the hash value type, such as `hash::md5` or `hash::sha1`
+
 ## Boolean
 
 The usual boolean types in most programming languages. Can have the literal value `true` or `false`.
@@ -112,4 +130,4 @@ Represents a single character.
 
 ### string
 
-Represents a sequence of one or characters.
+Represents a sequence of one or more characters.
