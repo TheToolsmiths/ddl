@@ -104,6 +104,7 @@ Example:
 ## GUID
 Represents an unique identifier type, but do not specify particular GUID or UUID type, nor any of its variants or versions.
 The choice of the underlying type is the responsability of the programs consuming the `ddl` format.
+Uses the `guid` type name.
 
 ## Hash
 A hash type represents the hash value result of a hash function over a segment of data.
@@ -116,7 +117,7 @@ There are two supported hash types:
 
 ## Boolean
 
-The usual boolean types in most programming languages. Can have the literal value `true` or `false`.
+The usual boolean types in most programming languages. Uses the `bool` type name, and can have the literal value `true` or `false`.
 
 ## Text
 
