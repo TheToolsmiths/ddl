@@ -32,6 +32,19 @@ The type `any` represents anything that can be represented in the target platfor
 Since languages like C and C++ can only store concrete types inside a struct or on stack, maybe this type should be restricted to a reference type, `&any`.
 The data stored behind it can be anything, such as a primitive type or an object. Similar to `object` or `void*` in other languages.
 
+#### Availability
+After some feedback questioning the usability of `any` type, it won't be included in the list of allowed primitive types, but will be kept as a reserved keyword for possible future use.
+
+The following are what can be perceived as main factors to consider the impact of this type of keyword, and if it should be available:
+
+- A keyword like has direct impact on any serialization effort since the type of data it points to is unknown, increasing efforts for generating serializers, or any other serialization methods.
+
+- In case the `ddl` format ends up implementing a shareable format, it increases the burden on the shared format consumer to support an `any` type.
+
+- It allows the format user flexibility to map existing data types to the `ddl` format, and in a way marking the field type as not important.
+
+Since there can be valid points both ways, and its dependent of the user case, we'll keep the `any` type keyword reserved, but can consider allowing it internally to projects, that is, allowed inside the project itself but not on a possible shareable format, if there is feedback that it is useful.
+
 ## Numerical
 
 Numerical types represent the storage of numbers. These numbers can be integers or float, signed or unsigned, and have a variable number of bits.
