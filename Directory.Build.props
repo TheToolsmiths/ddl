@@ -8,6 +8,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <NoWarn>3021</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,11 +16,25 @@
     <BaseIntermediateOutputPath>$(TtsRoot)artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
   </PropertyGroup>
 
+  <!-- Add Git Versioning Packages -->
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning">
       <Version>3.0.25</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <!-- Add Code Review Packages to all Projects -->    
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Remove R# files -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.csproj.DotSettings</DefaultItemExcludes>
+  </PropertyGroup>
 
 </Project>

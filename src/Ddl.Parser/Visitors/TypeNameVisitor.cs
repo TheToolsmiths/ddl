@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Models;
+﻿using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {

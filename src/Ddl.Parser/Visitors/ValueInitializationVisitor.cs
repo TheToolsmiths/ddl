@@ -1,5 +1,6 @@
-﻿using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Parser.Models;
+﻿using System;
+using Antlr4.Runtime.Tree;
+using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -20,6 +21,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                     var listener = new LiteralListener();
 
                     ParseTreeWalker.Default.Walk(listener, literalValueContext);
+
+                    if (listener.Value == null)
+                    {
+                        throw new Exception();
+                    }
 
                     return ValueInitialization.CreateLiteral(listener.Value);
                 }

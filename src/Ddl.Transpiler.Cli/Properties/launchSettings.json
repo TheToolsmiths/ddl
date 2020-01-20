@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Ddl.Transpiler.Cli": {
+      "commandName": "Project",
+      //"commandLineArgs": "parse -h"
+      //"commandLineArgs": "parse allFeatures.ddl -o foo.json -f json"
+      "commandLineArgs": "parse allFeatures.ddl -f json"
+    }
+  }
+}

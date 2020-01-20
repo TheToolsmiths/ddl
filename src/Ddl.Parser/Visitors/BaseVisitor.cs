@@ -29,12 +29,22 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
+        public virtual TResult VisitFileContent(DdlParser.FileContentContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual TResult VisitFileScope(DdlParser.FileScopeContext context)
         {
             throw new System.NotImplementedException();
         }
 
         public virtual TResult VisitStructScope(DdlParser.StructScopeContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitScopeHeader(DdlParser.ScopeHeaderContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -99,7 +109,12 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitTypedAttrUse(DdlParser.TypedAttrUseContext context)
+        public virtual TResult VisitTypedStructInitUse(DdlParser.TypedStructInitUseContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitTypedCtorInitUse(DdlParser.TypedCtorInitUseContext context)
         {
             throw new System.NotImplementedException();
         }

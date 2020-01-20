@@ -354,3 +354,6 @@ MigrationBackup/
 
 # Ignore folder created by ANTLR debug
 /spec/.antlr
+
+# Ignore folder created by ANTLR build
+/build/spec

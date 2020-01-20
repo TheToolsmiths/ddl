@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Models;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
@@ -9,18 +9,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             ConditionalExpression conditionalExpression;
             {
-                var expressionContext = context.conditionalExpression();
+                var scopeHeaderContext = context.scopeHeader();
 
-                if (expressionContext != null)
-                {
-                    var visitor = new ConditionalExpressionVisitor();
+                var visitor = new ScopeHeaderVisitor();
 
-                    conditionalExpression = visitor.VisitConditionalExpression(expressionContext);
-                }
-                else
-                {
-                    conditionalExpression = ConditionalExpression.CreateEmpty();
-                }
+                conditionalExpression = visitor.VisitScopeHeader(scopeHeaderContext);
             }
 
             StructDefinitionContent structContent;

@@ -1,6 +1,6 @@
 ﻿using System;
 using Antlr4.Runtime.Tree;
-using TheToolsmiths.Ddl.Parser.Models.Operators;
+using TheToolsmiths.Ddl.Models.Operators;
 
 namespace TheToolsmiths.Ddl.Parser.TokenParsers
 {
@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
     {
         public static IConditionalLogicalOperator ParseConditionalLogicalOperator(ITerminalNode node)
         {
-            var opText = node.GetText();
+            string opText = node.GetText();
 
             switch (opText)
             {
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
 
         public static IEqualityComparerOperator ParseEqualityComparer(ITerminalNode node)
         {
-            var eqText = node.GetText();
+            string eqText = node.GetText();
 
             switch (eqText)
             {

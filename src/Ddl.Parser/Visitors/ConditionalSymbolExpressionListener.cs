@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.CompareSymbolsExpressions;
 using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
@@ -10,12 +10,12 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
         public IConditionalSymbolExpression GetSymbolExpression()
         {
-            if (symbolExpression == null)
+            if (this.symbolExpression == null)
             {
                 throw new Exception();
             }
 
-            return symbolExpression;
+            return this.symbolExpression;
         }
 
         public override void EnterConditionalSymbolComparison(DdlParser.ConditionalSymbolComparisonContext context)
@@ -24,23 +24,23 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
             var comparer = OperatorsParsers.ParseEqualityComparer(context.EqualityComparerOperator());
 
-            var literalValue = LiteralParsers.ParseStringValue(context.StringLiteral());
+            string literalValue = LiteralParsers.ParseStringValue(context.StringLiteral());
 
-            symbolExpression = new CompareSymbolExpression(identifier, comparer, literalValue);
+            this.symbolExpression = new CompareSymbolExpression(identifier, comparer, literalValue);
         }
 
         public override void EnterIdentifierSymbol(DdlParser.IdentifierSymbolContext context)
         {
             var identifier = IdentifierParsers.CreateIdentifier(context.Identifier());
 
-            symbolExpression = new IdentifierSymbolExpression(identifier);
+            this.symbolExpression = new IdentifierSymbolExpression(identifier);
         }
 
         public override void EnterConditionalSymbolNegation(DdlParser.ConditionalSymbolNegationContext context)
         {
             var identifier = IdentifierParsers.CreateIdentifier(context.Identifier());
 
-            symbolExpression = new NegateSymbolExpression(identifier);
+            this.symbolExpression = new NegateSymbolExpression(identifier);
         }
     }
 }

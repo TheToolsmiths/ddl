@@ -1,6 +1,6 @@
 scope
 {
-    scope 
+    scope ()
     {
         def struct TestStructType
         {

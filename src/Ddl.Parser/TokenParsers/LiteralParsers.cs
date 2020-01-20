@@ -6,14 +6,14 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
     {
         public static bool ParseBooleanValue(ITerminalNode node)
         {
-            var boolText = node.GetText();
+            string boolText = node.GetText();
 
             return bool.Parse(boolText);
         }
 
         public static string ParseStringValue(ITerminalNode node)
         {
-            return node.GetText();
+            return node.GetText().Trim('"', '\'');
         }
     }
 }
