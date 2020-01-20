@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
     {
         private const string FolderName = @"scopes\withConditionals\";
 
-        private static readonly string[] FileScopeFiles = {
+        private static readonly string[] fileScopeFiles = {
             NestedScopeFile,
             NestedScopeWithStructFile,
             SingleScopeFile,
@@ -29,7 +29,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
         [TestMethod]
         public void TestAllFileScopes()
         {
-            foreach (string fileScopeFile in FileScopeFiles)
+            foreach (string fileScopeFile in fileScopeFiles)
             {
                 var parser = FileParserUtils.CreateParserFromPath(fileScopeFile);
 
@@ -62,12 +62,12 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
                 {
                     Assert.IsNotNull(fileScope);
 
-                    this.AssertFileScope(fileScope);
+                    AssertFileScope(fileScope);
                 }
             }
         }
 
-        private void AssertFileScope(FileScope fileScope)
+        private static void AssertFileScope(FileScope fileScope)
         {
             Assert.IsNotNull(fileScope);
 
@@ -80,10 +80,10 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
                 ConditionalExpressionsUtils.AssertNotEmptyConditionalExpression(fileScope.ConditionalExpression);
             }
 
-            this.AssertFileScopeContent(fileScope.Content);
+            AssertFileScopeContent(fileScope.Content);
         }
 
-        private void AssertFileScopeContent(FileContent content)
+        private static void AssertFileScopeContent(FileContent content)
         {
             Assert.IsNotNull(content);
 
@@ -95,7 +95,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
 
                 foreach (var structDefinition in content.GetAllStructDefinitions())
                 {
-                    this.AssertStructDefinition(structDefinition);
+                    AssertStructDefinition(structDefinition);
                 }
             }
 
@@ -105,12 +105,12 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
 
                 foreach (var fileScope in content.GetAllScopes())
                 {
-                    this.AssertFileScope(fileScope);
+                    AssertFileScope(fileScope);
                 }
             }
         }
 
-        private void AssertStructDefinition(StructDefinition structDefinition)
+        private static void AssertStructDefinition(StructDefinition structDefinition)
         {
             // Assert TypeName
             {

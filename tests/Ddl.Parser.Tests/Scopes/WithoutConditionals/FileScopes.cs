@@ -64,12 +64,12 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
                 {
                     Assert.IsNotNull(fileScope);
 
-                    this.AssertFileScope(fileScope);
+                    AssertFileScope(fileScope);
                 }
             }
         }
 
-        private void AssertFileScope(FileScope fileScope)
+        private static void AssertFileScope(FileScope fileScope)
         {
             Assert.IsNotNull(fileScope);
 
@@ -80,10 +80,10 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
                 Assert.IsTrue(fileScope.ConditionalExpression.IsEmpty);
             }
 
-            this.AssertFileScopeContent(fileScope.Content);
+            AssertFileScopeContent(fileScope.Content);
         }
 
-        private void AssertFileScopeContent(FileContent content)
+        private static void AssertFileScopeContent(FileContent content)
         {
             Assert.IsNotNull(content);
 
@@ -95,7 +95,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
 
                 foreach (var structDefinition in content.GetAllStructDefinitions())
                 {
-                    this.AssertStructDefinition(structDefinition);
+                    AssertStructDefinition(structDefinition);
                 }
             }
 
@@ -107,12 +107,12 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
 
                 foreach (var fileScope in content.GetAllScopes())
                 {
-                    this.AssertFileScope(fileScope);
+                    AssertFileScope(fileScope);
                 }
             }
         }
 
-        private void AssertStructDefinition(StructDefinition structDefinition)
+        private static void AssertStructDefinition(StructDefinition structDefinition)
         {
             // Assert TypeName
             {

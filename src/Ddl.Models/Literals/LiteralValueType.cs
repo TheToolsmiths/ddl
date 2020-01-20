@@ -2,9 +2,9 @@
 {
     public enum LiteralValueType
     {
-        String,
-        Float,
-        Integer,
-        Boolean
+        StringLiteral,
+        FloatLiteral,
+        IntegerLiteral,
+        BooleanLiteral
     }
 }

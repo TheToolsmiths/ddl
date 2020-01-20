@@ -41,7 +41,7 @@ namespace Ddl.Transpiler
                 case KeyedTypedAttributeUse keyedTypedAttributeUse:
                     WriteKeyedTypedAttributeUse(writer, keyedTypedAttributeUse);
                     break;
-                case TypedAttributeUse typedAttributeUse:
+                case TypedStructInitializationUse typedAttributeUse:
                     WriteTypedAttributeUse(writer, typedAttributeUse);
                     break;
             }
@@ -67,7 +67,7 @@ namespace Ddl.Transpiler
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, keyedTyped.Initialization);
         }
 
-        private static void WriteTypedAttributeUse(Utf8JsonWriter writer, TypedAttributeUse typed)
+        private static void WriteTypedAttributeUse(Utf8JsonWriter writer, TypedStructInitializationUse typed)
         {
             writer.WriteString("attrType", typed.Type.ToString());
 

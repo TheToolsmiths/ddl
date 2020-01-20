@@ -109,7 +109,12 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitTypedAttrUse(DdlParser.TypedAttrUseContext context)
+        public virtual TResult VisitTypedStructInitUse(DdlParser.TypedStructInitUseContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitTypedCtorInitUse(DdlParser.TypedCtorInitUseContext context)
         {
             throw new System.NotImplementedException();
         }

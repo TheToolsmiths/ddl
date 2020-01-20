@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
         {
             if (identifierNode == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(identifierNode));
             }
 
             string text = identifierNode.GetText();

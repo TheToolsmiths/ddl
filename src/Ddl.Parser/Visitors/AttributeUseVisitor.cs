@@ -1,6 +1,7 @@
 ﻿using System;
 using Antlr4.Runtime.Tree;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Types;
 using TheToolsmiths.Ddl.Models.Values;
@@ -24,13 +25,25 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             }
 
             {
-                var typedAttrUse = context.typedAttrUse();
+                var typedStructInitUse = context.typedStructInitUse();
 
-                if (typedAttrUse != null)
+                if (typedStructInitUse != null)
                 {
-                    var visitor = new TypedAttributeUseVisitor();
+                    var visitor = new TypedStructuredInitializationUseVisitor();
 
-                    return visitor.VisitTypedAttrUse(typedAttrUse);
+                    return visitor.VisitTypedStructInitUse(typedStructInitUse);
+                }
+            }
+
+
+            {
+                var typedCtorInitUse = context.typedCtorInitUse();
+
+                if (typedCtorInitUse != null)
+                {
+                    var visitor = new TypedConstructorInitializationUseVisitor();
+
+                    return visitor.VisitTypedCtorInitUse(typedCtorInitUse);
                 }
             }
 
@@ -68,11 +81,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             }
 
             {
-                var typedAttrUse = context.typedAttrUse();
+                var typedStructInitUse = context.typedStructInitUse();
 
                 TypeIdentifier type;
                 {
-                    var typeIdentContext = typedAttrUse.typeIdent();
+                    var typeIdentContext = typedStructInitUse.typeIdent();
 
                     var visitor = new TypeIdentifierVisitor();
 
@@ -81,7 +94,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
                 StructValueInitialization initialization;
                 {
-                    var structInitContext = typedAttrUse.structValueInitialization();
+                    var structInitContext = typedStructInitUse.structValueInitialization();
 
                     var visitor = new StructValueInitializationVisitor();
 
@@ -93,9 +106,9 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         }
     }
 
-    public class TypedAttributeUseVisitor : BaseVisitor<ITypedAttributeUse>
+    public class TypedStructuredInitializationUseVisitor : BaseVisitor<ITypedAttributeUse>
     {
-        public override ITypedAttributeUse VisitTypedAttrUse(DdlParser.TypedAttrUseContext context)
+        public override ITypedAttributeUse VisitTypedStructInitUse(DdlParser.TypedStructInitUseContext context)
         {
             TypeIdentifier type;
             {
@@ -115,7 +128,33 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 initialization = visitor.VisitStructValueInitialization(structInitContext);
             }
 
-            return new TypedAttributeUse(type, initialization);
+            return new TypedStructInitializationUse(type, initialization);
+        }
+    }
+
+    public class TypedConstructorInitializationUseVisitor : BaseVisitor<IAttributeUse>
+    {
+        public override IAttributeUse VisitTypedCtorInitUse(DdlParser.TypedCtorInitUseContext context)
+        {
+            TypeIdentifier type;
+            {
+                var typeIdentContext = context.typeIdent();
+
+                var visitor = new TypeIdentifierVisitor();
+
+                type = visitor.VisitTypeIdent(typeIdentContext);
+            }
+
+            ConditionalExpression conditionalExpression;
+            {
+                var conditionalExpressionContext = context.conditionalExpression();
+
+                var visitor = new ConditionalExpressionVisitor();
+
+                conditionalExpression = visitor.VisitConditionalExpression(conditionalExpressionContext);
+            }
+
+            return new ConditionalAttributeUse(type, conditionalExpression);
         }
     }
 }

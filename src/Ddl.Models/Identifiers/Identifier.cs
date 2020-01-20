@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Models.Identifiers
         {
             if (string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentException(nameof(text));
+                throw new ArgumentException("Identifier text is required", nameof(text));
             }
 
             this.Text = text;
@@ -28,12 +28,12 @@ namespace TheToolsmiths.Ddl.Models.Identifiers
 
         public static bool Equals(Identifier a, Identifier b)
         {
-            if (ReferenceEquals(null, a))
+            if (a is null)
             {
                 return false;
             }
 
-            if (ReferenceEquals(null, b))
+            if (b is null)
             {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace TheToolsmiths.Ddl.Models.Identifiers
 
         public override int GetHashCode()
         {
-            return this.Text != null ? this.Text.GetHashCode() : 0;
+            return this.Text != null ? this.Text.GetHashCode(StringComparison.InvariantCulture) : 0;
         }
 
         public static bool operator ==(Identifier left, Identifier right)

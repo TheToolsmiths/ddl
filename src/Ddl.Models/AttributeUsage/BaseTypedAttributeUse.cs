@@ -14,5 +14,9 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
         public TypeIdentifier Type { get; }
 
         public StructValueInitialization Initialization { get; }
+
+        public override AttributeUseType UseType => AttributeUseType.Typed;
+
+        public override bool IsTyped => true;
     }
 }

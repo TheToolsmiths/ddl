@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Text;
+using System.Buffers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Models.FileContents;
@@ -9,18 +8,25 @@ namespace Ddl.Transpiler
 {
     public static class DdlTranspiler
     {
-        public static async Task<string> TranspileToString(FileContent content)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Reliability",
+            "CA2000:Dispose objects before losing scope",
+            Justification = "Roslyn analysers don't understand await using yet")]
+        public static async Task TranspileToString(FileContent content, IBufferWriter<byte> outputWriter)
         {
             if (content == null)
             {
                 throw new ArgumentNullException(nameof(content));
             }
 
-            await using var stream = new MemoryStream();
+            if (outputWriter == null)
+            {
+                throw new ArgumentNullException(nameof(outputWriter));
+            }
 
             var writerOptions = new JsonWriterOptions { Indented = true };
 
-            await using var writer = new Utf8JsonWriter(stream, writerOptions);
+            await using var writer = new Utf8JsonWriter(outputWriter, writerOptions);
 
             writer.WriteStartObject();
 
@@ -35,9 +41,7 @@ namespace Ddl.Transpiler
 
             writer.WriteEndObject();
 
-            await writer.FlushAsync();
-
-            return Encoding.UTF8.GetString(stream.GetBuffer());
+            await writer.FlushAsync().ConfigureAwait(false);
         }
     }
 }

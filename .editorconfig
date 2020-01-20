@@ -215,3 +215,9 @@ csharp_space_between_square_brackets=false
 csharp_prefer_braces=true:silent
 csharp_preserve_single_line_blocks=true
 csharp_preserve_single_line_statements=true
+
+# Roslyn analysers
+dotnet_diagnostic.CA1062.exclude_extension_method_this_parameter = true
+
+# CA1062: Validate arguments of public methods
+dotnet_diagnostic.CA1062.severity = silent

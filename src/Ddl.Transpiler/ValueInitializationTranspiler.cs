@@ -48,10 +48,10 @@ namespace Ddl.Transpiler
 
             string typeText = literal.ValueType switch
             {
-                LiteralValueType.String => "string",
-                LiteralValueType.Float => "float",
-                LiteralValueType.Integer => "integer",
-                LiteralValueType.Boolean => "bool",
+                LiteralValueType.StringLiteral => "string",
+                LiteralValueType.FloatLiteral => "float",
+                LiteralValueType.IntegerLiteral => "integer",
+                LiteralValueType.BooleanLiteral => "bool",
                 _ => "string"
             };
 

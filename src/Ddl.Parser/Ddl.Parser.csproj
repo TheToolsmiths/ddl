@@ -1,22 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoWarn>3021</NoWarn>
     <AssemblyName>TheToolsmiths.Ddl.Parser</AssemblyName>
     <RootNamespace>TheToolsmiths.Ddl.Parser</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Ddl.Parser.sln.DotSettings" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.8.0" />
   </ItemGroup>
 
   <ItemGroup>

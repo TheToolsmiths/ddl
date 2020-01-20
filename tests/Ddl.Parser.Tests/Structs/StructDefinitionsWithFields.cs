@@ -26,7 +26,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
 
             var fileContents = visitor.VisitFileContents(fileContentsContext);
 
-            this.AssertFileContents(fileContents);
+            AssertFileContents(fileContents);
         }
 
         [TestMethod]
@@ -40,10 +40,10 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
 
             var fileContents = visitor.VisitFileContents(fileContentsContext);
 
-            this.AssertFileContents(fileContents);
+            AssertFileContents(fileContents);
         }
 
-        private void AssertFileContents(FileContent fileContent)
+        private static void AssertFileContents(FileContent fileContent)
         {
             Assert.IsNotNull(fileContent);
 
@@ -53,11 +53,11 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
 
             foreach (var structDefinition in fileContent.GetAllStructDefinitions())
             {
-                this.AssertStructDefinition(structDefinition);
+                AssertStructDefinition(structDefinition);
             }
         }
 
-        private void AssertStructDefinition(StructDefinition structDefinition)
+        private static void AssertStructDefinition(StructDefinition structDefinition)
         {
             Assert.IsNotNull(structDefinition);
 
