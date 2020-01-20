@@ -17,8 +17,11 @@ def struct TestStructType
     field5: TestFieldType,
 
     [TestAttributeType { value1: false, value2: 10 }]
-    field5: TestFieldType,
+    field6: TestFieldType,
 
     [TestAttributeType { struct1: {value1: false, value2: 10 }}]
-    field5: TestFieldType,
+    field7: TestFieldType,
+    
+    [ConditionalAttributeType(FOO || BAR)]
+    field8: TestFieldType,
 }

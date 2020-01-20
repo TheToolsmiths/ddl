@@ -55,11 +55,13 @@ fieldValueInitialization: fieldName ':' valueInitialization;
 // Attributes
 attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
-attrUse: keyedAttrUse | typedAttrUse;
+attrUse: keyedAttrUse | typedStructInitUse | typedCtorInitUse;
 
-keyedAttrUse: Identifier '=' (literalValue | typedAttrUse);
+keyedAttrUse: Identifier '=' (literalValue | typedStructInitUse);
 
-typedAttrUse: typeIdent structValueInitialization?;
+typedStructInitUse: typeIdent structValueInitialization?;
+
+typedCtorInitUse: typeIdent '(' conditionalExpression ')';
 
 // Conditional Expressions
 conditionalExpression:

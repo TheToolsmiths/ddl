@@ -55,6 +55,8 @@ def struct StructWithScopes
     {        
         [TestAttributeType { struct1: {value1: false, value2: 10 }}]
         field1: TestFieldType,
+
+        [Conditional(Define1 || (false || true))]
         field2: bool,
         field3: i32,
     }

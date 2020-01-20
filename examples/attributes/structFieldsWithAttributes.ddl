@@ -1,4 +1,4 @@
-// Struct with single field 
+// Struct with three fields
 def struct TestStructType
 {
     [key = "TestValue"]
