@@ -29,12 +29,17 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitFileContent(DdlParser.FileContentContext context)
+        public virtual TResult VisitRootContent(DdlParser.RootContentContext context)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual TResult VisitFileScope(DdlParser.FileScopeContext context)
+        public virtual TResult VisitRootContentList(DdlParser.RootContentListContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitRootScope(DdlParser.RootScopeContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -49,7 +54,22 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
+        public virtual TResult VisitTypeIdentifier(DdlParser.TypeIdentifierContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual TResult VisitTypeName(DdlParser.TypeNameContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitTypeParameterList(DdlParser.TypeParameterListContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitNamespacePath(DdlParser.NamespacePathContext context)
         {
             throw new System.NotImplementedException();
         }
@@ -85,11 +105,6 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         }
 
         public virtual TResult VisitFieldValueInitialization(DdlParser.FieldValueInitializationContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual TResult VisitTypeIdent(DdlParser.TypeIdentContext context)
         {
             throw new System.NotImplementedException();
         }

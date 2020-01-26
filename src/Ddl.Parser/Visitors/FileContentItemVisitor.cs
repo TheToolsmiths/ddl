@@ -3,9 +3,9 @@ using TheToolsmiths.Ddl.Models.FileContents;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
-    public class FileContentItemVisitor : BaseVisitor<IFileContentItem>
+    public class RootContentItemVisitor : BaseVisitor<IRootContentItem>
     {
-        public override IFileContentItem VisitFileContent(DdlParser.FileContentContext context)
+        public override IRootContentItem VisitRootContent(DdlParser.RootContentContext context)
         {
             {
                 var structContext = context.defStruct();
@@ -19,13 +19,13 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             }
 
             {
-                var fileScopeContext = context.fileScope();
+                var rootScopeContext = context.rootScope();
 
-                if (fileScopeContext != null)
+                if (rootScopeContext != null)
                 {
-                    var visitor = new FileScopeVisitor();
+                    var visitor = new RootScopeVisitor();
 
-                    return visitor.VisitFileScope(fileScopeContext);
+                    return visitor.VisitRootScope(rootScopeContext);
                 }
             }
 

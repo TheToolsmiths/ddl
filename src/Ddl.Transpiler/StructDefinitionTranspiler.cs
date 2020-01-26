@@ -14,7 +14,11 @@ namespace Ddl.Transpiler
 
             writer.WriteString("type", "def-struct");
 
-            writer.WriteString("name", structDefinition.TypeName.ToString());
+            {
+                writer.WritePropertyName("name");
+
+                TypeIdentifierTranspiler.WriteTypeName(writer, structDefinition.TypeName);
+            }
 
             if (structDefinition.Attributes.Any())
             {
@@ -93,7 +97,12 @@ namespace Ddl.Transpiler
 
             writer.WriteString("name", fieldDefinition.Name.ToString());
 
-            writer.WriteString("fieldType", fieldDefinition.FieldType.ToString());
+            
+            {
+                writer.WritePropertyName("fieldType");
+
+                TypeIdentifierTranspiler.WriteTypeIdentifier(writer, fieldDefinition.FieldType);
+            }
 
             if (fieldDefinition.Attributes.Any())
             {

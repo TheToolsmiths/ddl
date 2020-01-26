@@ -85,11 +85,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
                 TypeIdentifier type;
                 {
-                    var typeIdentContext = typedStructInitUse.typeIdent();
+                    var typeIdentifierContext = typedStructInitUse.typeIdentifier();
 
                     var visitor = new TypeIdentifierVisitor();
 
-                    type = visitor.VisitTypeIdent(typeIdentContext);
+                    type = visitor.VisitTypeIdentifier(typeIdentifierContext);
                 }
 
                 StructValueInitialization initialization;
@@ -112,11 +112,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             TypeIdentifier type;
             {
-                var typeIdentContext = context.typeIdent();
+                var typeIdentifierContext = context.typeIdentifier();
 
                 var visitor = new TypeIdentifierVisitor();
 
-                type = visitor.VisitTypeIdent(typeIdentContext);
+                type = visitor.VisitTypeIdentifier(typeIdentifierContext);
             }
 
             StructValueInitialization initialization;
@@ -138,11 +138,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             TypeIdentifier type;
             {
-                var typeIdentContext = context.typeIdent();
+                var typeIdentifierContext = context.typeIdentifier();
 
                 var visitor = new TypeIdentifierVisitor();
 
-                type = visitor.VisitTypeIdent(typeIdentContext);
+                type = visitor.VisitTypeIdentifier(typeIdentifierContext);
             }
 
             ConditionalExpression conditionalExpression;

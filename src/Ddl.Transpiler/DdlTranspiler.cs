@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Models.FileContents;
@@ -24,7 +25,7 @@ namespace Ddl.Transpiler
                 throw new ArgumentNullException(nameof(outputWriter));
             }
 
-            var writerOptions = new JsonWriterOptions { Indented = true };
+            var writerOptions = new JsonWriterOptions { Indented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
             await using var writer = new Utf8JsonWriter(outputWriter, writerOptions);
 

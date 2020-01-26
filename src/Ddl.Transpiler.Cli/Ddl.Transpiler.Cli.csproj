@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\examples\allFeatures.ddl" Link="allFeatures.ddl">
+    <Content Include="..\..\examples\allFeatures.ddl" Link="allFeatures.ddl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

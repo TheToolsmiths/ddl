@@ -7,11 +7,11 @@ namespace Ddl.Transpiler
 {
     public static class FileContentTranspiler
     {
-        public static void WriteFileContentItem(Utf8JsonWriter writer, IFileContentItem item)
+        public static void WriteFileContentItem(Utf8JsonWriter writer, IRootContentItem item)
         {
             switch (item)
             {
-                case FileScope fileScope:
+                case RootScope fileScope:
                     WriteFileScope(writer, fileScope);
                     break;
                 case StructDefinition structDefinition:
@@ -20,26 +20,26 @@ namespace Ddl.Transpiler
             }
         }
 
-        public static void WriteFileScope(Utf8JsonWriter writer, FileScope fileScope)
+        public static void WriteFileScope(Utf8JsonWriter writer, RootScope rootScope)
         {
             writer.WriteStartObject();
 
             writer.WriteString("type", "file-scope");
 
-            if (fileScope.ConditionalExpression.IsEmpty == false)
+            if (rootScope.ConditionalExpression.IsEmpty == false)
             {
                 writer.WritePropertyName("condition");
 
                 ConditionalExpressionTranspiler.WriteConditionalExpression(
                     writer,
-                    fileScope.ConditionalExpression);
+                    rootScope.ConditionalExpression);
             }
 
-            if (fileScope.Content.Items.Any())
+            if (rootScope.ContentItems.Any())
             {
                 writer.WriteStartArray("content");
 
-                foreach (var contentItem in fileScope.Content.Items)
+                foreach (var contentItem in rootScope.ContentItems)
                 {
                     WriteFileContentItem(writer, contentItem);
                 }

@@ -4,20 +4,20 @@ namespace TheToolsmiths.Ddl.Models.Types
 {
     public class TypeIdentifier
     {
-        public TypeIdentifier(TypeName name)
+        public TypeIdentifier(ITypeName typeName)
         {
-            this.Name = name;
-            this.Namespace = NamespaceIdentifier.Empty;
+            this.Name = typeName;
+            this.Namespace = NamespacePath.Empty;
         }
-        public TypeIdentifier(TypeName name, NamespaceIdentifier namespaceIdentifier)
+        public TypeIdentifier(ITypeName typeName, NamespacePath namespacePath)
         {
-            this.Name = name;
-            this.Namespace = namespaceIdentifier;
+            this.Name = typeName;
+            this.Namespace = namespacePath;
         }
 
-        public TypeName Name { get; }
+        public ITypeName Name { get; }
 
-        public NamespaceIdentifier Namespace { get; }
+        public NamespacePath Namespace { get; }
 
         public override string ToString()
         {

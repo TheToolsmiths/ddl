@@ -5,10 +5,10 @@ using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Models.Structs
 {
-    public class StructDefinition : IFileContentItem
+    public class StructDefinition : IRootContentItem
     {
         public StructDefinition(
-            TypeName typeName,
+            ITypeName typeName,
             StructDefinitionContent content,
             IReadOnlyList<IAttributeUse> attributes)
         {
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
 
         public IReadOnlyList<IAttributeUse> Attributes { get; }
 
-        public TypeName TypeName { get; }
+        public ITypeName TypeName { get; }
 
         public StructDefinitionContent Content { get; }
     }

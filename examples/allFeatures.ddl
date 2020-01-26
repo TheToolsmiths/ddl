@@ -47,20 +47,19 @@ def struct StructWithScopes
     // Scope
     scope
     {        
-        field1: TestFieldType
+        field1: TestGenericType<Foo>
     }
 
     // Scope With Conditional Expression
     scope ( Define1 != "Something" || false && true || false || Define2)
     {        
         [TestAttributeType { struct1: {value1: false, value2: 10 }}]
-        field1: TestFieldType,
+        field1: Map<string, Bar>,
 
-        [Conditional(Define1 || (false || true))]
+        [IgnoreWhen(Define1 || (false || true))]
         field2: bool,
         field3: i32,
     }
-}
 }
 
 def struct StructWithFieldsAndScopes
@@ -91,4 +90,12 @@ def struct StructWithMultipleFields
     field1: TestFieldType,
     field2: bool,
     field3: i32,
+}
+
+def struct GenericStructWithSimpleTypeParameter<string>
+{
+}
+
+def struct GenericStructWithMultipleTypeParameter<string, int, std::Foo, std::Bar>
+{
 }

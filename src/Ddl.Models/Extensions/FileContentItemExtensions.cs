@@ -7,29 +7,29 @@ namespace TheToolsmiths.Ddl.Models
 {
     public static class FileContentItemExtensions
     {
-        public static bool HasAnyItemOfType(this FileContent content, FileContentItemType itemType)
+        public static bool HasAnyItemOfType(this IReadOnlyList<IRootContentItem> items, FileContentItemType itemType)
         {
-            return content.Items.Any(i => i.ItemType == itemType);
+            return items.Any(i => i.ItemType == itemType);
         }
 
-        public static bool HasAnyStructDeclarations(this FileContent content)
+        public static bool HasAnyStructDeclarations(this IReadOnlyList<IRootContentItem> items)
         {
-            return content.HasAnyItemOfType(FileContentItemType.StructDeclaration);
+            return items.HasAnyItemOfType(FileContentItemType.StructDeclaration);
         }
 
-        public static bool HasAnyScopes(this FileContent content)
+        public static bool HasAnyScopes(this IReadOnlyList<IRootContentItem> items)
         {
-            return content.HasAnyItemOfType(FileContentItemType.FileScope);
+            return items.HasAnyItemOfType(FileContentItemType.FileScope);
         }
 
-        public static IEnumerable<StructDefinition> GetAllStructDefinitions(this FileContent content)
+        public static IEnumerable<StructDefinition> GetAllStructDefinitions(this IReadOnlyList<IRootContentItem> items)
         {
-            return content.Items.OfType<StructDefinition>();
+            return items.OfType<StructDefinition>();
         }
 
-        public static IEnumerable<FileScope> GetAllScopes(this FileContent content)
+        public static IEnumerable<RootScope> GetAllScopes(this IReadOnlyList<IRootContentItem> items)
         {
-            return content.Items.OfType<FileScope>();
+            return items.OfType<RootScope>();
         }
     }
 }

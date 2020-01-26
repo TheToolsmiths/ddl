@@ -1,46 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TheToolsmiths.Ddl.Models.Identifiers;
+﻿using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Types;
-using TheToolsmiths.Ddl.Parser.TokenParsers;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
     public class TypeIdentifierVisitor : BaseVisitor<TypeIdentifier>
     {
-        public override TypeIdentifier VisitTypeIdent(DdlParser.TypeIdentContext context)
+        public override TypeIdentifier VisitTypeIdentifier(DdlParser.TypeIdentifierContext context)
         {
-            var identNodes = context.Identifier();
-
-            var identifiers = new List<Identifier>();
-
-            foreach (var node in identNodes)
+            ITypeName typeName;
             {
-                var identifier = IdentifierParsers.CreateIdentifier(node);
+                var typeNameContext = context.typeName();
 
-                identifiers.Add(identifier);
+                var visitor = new TypeNameVisitor();
+
+                typeName = visitor.VisitTypeName(typeNameContext);
             }
 
-            if (identifiers.Count == 0)
+            NamespacePath namespacePath;
             {
-                throw new Exception();
+                var namespacePathContext = context.namespacePath();
+
+                if (namespacePathContext == null)
+                {
+                    namespacePath = NamespacePath.Empty;
+                }
+                else
+                {
+                    var visitor = new NamespacePathVisitor();
+
+                    namespacePath = visitor.VisitNamespacePath(namespacePathContext);
+                }
             }
 
-            var typeNameIdentifier = identifiers.Last();
-
-            var typeName = new TypeName(typeNameIdentifier);
-
-            if (identifiers.Count == 1)
-            {
-                return new TypeIdentifier(typeName);
-            }
-
-            var namespaceIdents = identifiers.GetRange(0, identifiers.Count - 1);
-
-            var namespaceIdentifier = new NamespaceIdentifier(namespaceIdents);
-
-            var typeIdentifier = new TypeIdentifier(typeName, namespaceIdentifier);
+            var typeIdentifier = new TypeIdentifier(typeName, namespacePath);
 
             return typeIdentifier;
         }

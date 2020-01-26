@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
 
         public ConditionalExpression ConditionalExpression { get; }
 
-        public override AttributeUseType UseType => AttributeUseType.Typed;
+        public override AttributeUseType UseType => AttributeUseType.Conditional;
         
         public override bool IsKeyed => false;
 

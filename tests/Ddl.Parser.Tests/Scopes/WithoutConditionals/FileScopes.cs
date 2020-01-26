@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Models.FileContents;
@@ -51,16 +52,16 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
             {
                 Assert.IsNotNull(fileContent.Items);
 
-                Assert.AreEqual(0, fileContent.GetAllStructDefinitions().Count());
+                Assert.AreEqual(0, fileContent.Items.GetAllStructDefinitions().Count());
             }
 
             // Assert any number of File Scopes
             {
                 Assert.IsNotNull(fileContent.Items);
 
-                Assert.IsTrue(fileContent.GetAllScopes().Any());
+                Assert.IsTrue(fileContent.Items.GetAllScopes().Any());
 
-                foreach (var fileScope in fileContent.GetAllScopes())
+                foreach (var fileScope in fileContent.Items.GetAllScopes())
                 {
                     Assert.IsNotNull(fileScope);
 
@@ -69,31 +70,31 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
             }
         }
 
-        private static void AssertFileScope(FileScope fileScope)
+        private static void AssertFileScope(RootScope rootScope)
         {
-            Assert.IsNotNull(fileScope);
+            Assert.IsNotNull(rootScope);
 
             // Assert Conditional Expression is empty
             {
-                Assert.IsNotNull(fileScope.ConditionalExpression);
+                Assert.IsNotNull(rootScope.ConditionalExpression);
 
-                Assert.IsTrue(fileScope.ConditionalExpression.IsEmpty);
+                Assert.IsTrue(rootScope.ConditionalExpression.IsEmpty);
             }
 
-            AssertFileScopeContent(fileScope.Content);
+            AssertRootScopeContent(rootScope.ContentItems);
         }
 
-        private static void AssertFileScopeContent(FileContent content)
+        private static void AssertRootScopeContent(IReadOnlyList<IRootContentItem> contentItems)
         {
-            Assert.IsNotNull(content);
+            Assert.IsNotNull(contentItems);
 
             // Assert any number of Struct Definitions
             {
-                Assert.IsNotNull(content.Items);
+                Assert.IsNotNull(contentItems);
 
-                Assert.IsTrue(content.GetAllStructDefinitions().Count() >= 0);
+                Assert.IsTrue(contentItems.GetAllStructDefinitions().Count() >= 0);
 
-                foreach (var structDefinition in content.GetAllStructDefinitions())
+                foreach (var structDefinition in contentItems.GetAllStructDefinitions())
                 {
                     AssertStructDefinition(structDefinition);
                 }
@@ -101,11 +102,11 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithoutConditionals
 
             // Assert any number of File Scopes
             {
-                Assert.IsNotNull(content.Items);
+                Assert.IsNotNull(contentItems);
 
-                Assert.IsTrue(content.GetAllScopes().Count() >= 0);
+                Assert.IsTrue(contentItems.GetAllScopes().Count() >= 0);
 
-                foreach (var fileScope in content.GetAllScopes())
+                foreach (var fileScope in contentItems.GetAllScopes())
                 {
                     AssertFileScope(fileScope);
                 }

@@ -6,16 +6,16 @@ namespace TheToolsmiths.Ddl.Models.FileContents
     public class FileContent
     {
         public FileContent(
-            IReadOnlyList<IFileContentItem> items)
+            IReadOnlyList<IRootContentItem> items)
         {
             this.Items = items;
         }
 
-        public IReadOnlyList<IFileContentItem> Items { get; }
+        public IReadOnlyList<IRootContentItem> Items { get; }
 
         public static FileContent CreateEmpty()
         {
-            return new FileContent(Array.Empty<IFileContentItem>());
+            return new FileContent(Array.Empty<IRootContentItem>());
         }
     }
 }

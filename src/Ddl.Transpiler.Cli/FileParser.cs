@@ -24,11 +24,21 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
 
         private static async Task ParseFile(FileInfo input, PipeWriter pipeWriter)
         {
-            var contents = await DdlTextParser.ReadFromFile(input.FullName);
+            var result = await DdlTextParser.ParseFromFile(input.FullName);
 
-            await DdlTranspiler.TranspileToString(contents, pipeWriter);
+            if (result.IsSuccess
+            && result.Value != null)
+            {
+                await DdlTranspiler.TranspileToString(result.Value, pipeWriter);
 
-            await pipeWriter.CompleteAsync();
+                await pipeWriter.CompleteAsync();
+            }
+            else
+            {
+                Console.WriteLine($"Error parsing from file:" +
+                                  $"{Environment.NewLine}" +
+                                  $"{result.ErrorMessage}");
+            }
         }
 
         private static Task WriteOutput(FileInfo? output, PipeReader pipeReader)
@@ -40,7 +50,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
 
             return WriteOutputToFile(output, pipeReader);
         }
-        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
             "Reliability",
             "CA2000:Dispose objects before losing scope",

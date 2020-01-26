@@ -3,24 +3,27 @@ grammar Ddl;
 // ###	Parser  ###
 
 // File contents
-fileContents: fileContent*;
+fileContents: rootContentList? EOF;
 
-fileContent: defStruct | fileScope;
+rootContent: defStruct | rootScope;
+
+rootContentList: rootContent+;
 
 // Scopes
-fileScope:
-	scopeHeader '{' fileContents '}';
+rootScope: scopeHeader '{' rootContentList? '}';
 
-structScope:
-	scopeHeader '{' defStructContents? '}';
+structScope: scopeHeader '{' defStructContents? '}';
 
-scopeHeader:
-	Scope ('(' conditionalExpression? ')')?;
+scopeHeader: Scope ('(' conditionalExpression? ')')?;
 
 // Type usage
-typeIdent: ( Identifier NamespaceSeparator)* Identifier;
+typeIdentifier: (namespacePath NamespaceSeparator)? typeName;
 
-typeName: Identifier;
+typeName: Identifier typeParameterList?;
+
+typeParameterList: '<' typeIdentifier ( ',' typeIdentifier)* '>';
+
+namespacePath: Identifier (NamespaceSeparator Identifier)*;
 
 // Struct definition
 defStruct:
@@ -34,11 +37,12 @@ defStructContents:
 	| structScope ','?
 	| structField ','?
 	| structScope
-	| structField
-	;
+	| structField;
 
 structField:
-	attrUseList fieldName ':' typeIdent ('=' valueInitialization)?;
+	attrUseList fieldName ':' typeIdentifier (
+		'=' valueInitialization
+	)?;
 
 fieldName: Identifier;
 
@@ -57,11 +61,12 @@ attrUseList: ('[' ( attrUse ( ',' attrUse)* ','?) ']')*;
 
 attrUse: keyedAttrUse | typedStructInitUse | typedCtorInitUse;
 
-keyedAttrUse: Identifier '=' (literalValue | typedStructInitUse);
+keyedAttrUse:
+	Identifier '=' (literalValue | typedStructInitUse);
 
-typedStructInitUse: typeIdent structValueInitialization?;
+typedStructInitUse: typeIdentifier structValueInitialization?;
 
-typedCtorInitUse: typeIdent '(' conditionalExpression ')';
+typedCtorInitUse: typeIdentifier '(' conditionalExpression ')';
 
 // Conditional Expressions
 conditionalExpression:
@@ -69,8 +74,7 @@ conditionalExpression:
 	| conditionalExpression ConditionalLogicalOperator conditionalExpression	# BinaryExpression
 	| BoolLiteral																# BoolLiteralExpression
 	| conditionalSymbolExpression												# SymbolExpression
-	| '!' conditionalExpression													# NegateExpression
-	;
+	| '!' conditionalExpression													# NegateExpression;
 
 // Conditional Symbols
 conditionalSymbolExpression:
@@ -85,11 +89,11 @@ conditionalSymbolComparison:
 
 // Literal rules
 literalValue:
-	('-' | '+')? IntLiteral			# IntegerLiteral
-	| ('-' | '+')? FloatLiteral		# FloatLiteral
-	| BoolLiteral					# BoolLiteral
-	| StringLiteral					# StringLiteral;
-	// | literalString					# StringLiteral;
+	('-' | '+')? IntLiteral		# IntegerLiteral
+	| ('-' | '+')? FloatLiteral	# FloatLiteral
+	| BoolLiteral				# BoolLiteral
+	| StringLiteral				# StringLiteral;
+// | literalString					# StringLiteral;
 
 // literalString: '"' StringContents '"';
 

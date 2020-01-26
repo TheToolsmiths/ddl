@@ -18,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 attributes = attributeVisitor.VisitAttrUseList(attrContext);
             }
 
-            TypeName typeName;
+            ITypeName typeName;
             {
                 var typeContext = context.typeName();
 

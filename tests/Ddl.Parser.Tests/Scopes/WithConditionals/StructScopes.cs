@@ -53,9 +53,9 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
             {
                 Assert.IsNotNull(fileContent.Items);
 
-                Assert.IsTrue(fileContent.GetAllStructDefinitions().Any());
+                Assert.IsTrue(fileContent.Items.GetAllStructDefinitions().Any());
 
-                foreach (var structDefinition in fileContent.GetAllStructDefinitions())
+                foreach (var structDefinition in fileContent.Items.GetAllStructDefinitions())
                 {
                     Assert.IsNotNull(structDefinition);
 
@@ -65,7 +65,7 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Scopes.WithConditionals
 
             // Assert no of File Scopes
             {
-                Assert.AreEqual(0, fileContent.GetAllScopes().Count());
+                Assert.AreEqual(0, fileContent.Items.GetAllScopes().Count());
             }
         }
 

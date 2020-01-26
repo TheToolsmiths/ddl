@@ -4,6 +4,7 @@
     {
         KeyedLiteral,
         KeyedTyped,
-        Typed
+        Typed,
+        Conditional
     }
 }

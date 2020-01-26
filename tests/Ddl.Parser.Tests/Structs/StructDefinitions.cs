@@ -42,9 +42,9 @@ namespace TheToolsmiths.Ddl.Parser.Tests.Structs
 
             Assert.IsNotNull(fileContents.Items);
 
-            Assert.AreEqual(1, fileContents.GetAllStructDefinitions().Count());
+            Assert.AreEqual(1, fileContents.Items.GetAllStructDefinitions().Count());
 
-            var structDefinition = fileContents.GetAllStructDefinitions().First();
+            var structDefinition = fileContents.Items.GetAllStructDefinitions().First();
 
             this.AssertStructDefinition(structDefinition);
         }

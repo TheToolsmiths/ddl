@@ -11,16 +11,17 @@ namespace TheToolsmiths.Ddl.Parser.Utils
             return CreateParser(inputStream);
         }
 
-        public static DdlParser CreateParser(ICharStream stream)
+        private static DdlParser CreateParser(ICharStream stream)
         {
             var lexer = new DdlLexer(stream);
             var commonTokenStream = new CommonTokenStream(lexer);
 
             var parser = new DdlParser(commonTokenStream)
             {
-                BuildParseTree = true
+                BuildParseTree = true,
+                ErrorHandler = new BailErrorStrategy()
             };
-
+            
             return parser;
         }
     }

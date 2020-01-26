@@ -28,6 +28,7 @@ namespace Ddl.Transpiler
                 AttributeUseType.KeyedLiteral => "keyed-literal",
                 AttributeUseType.KeyedTyped => "keyed-typed",
                 AttributeUseType.Typed => "typed",
+                AttributeUseType.Conditional => "conditional",
                 _ => "unknown"
             };
 
@@ -44,6 +45,11 @@ namespace Ddl.Transpiler
                 case TypedStructInitializationUse typedAttributeUse:
                     WriteTypedAttributeUse(writer, typedAttributeUse);
                     break;
+                case ConditionalAttributeUse conditionalAttributeUse:
+                    WriteConditionalAttributeUse(writer, conditionalAttributeUse);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(attributeUse), attributeUse, "Attribute type is not supported");
             }
 
             writer.WriteEndObject();
@@ -74,6 +80,15 @@ namespace Ddl.Transpiler
             writer.WritePropertyName("value");
 
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, typed.Initialization);
+        }
+
+        private static void WriteConditionalAttributeUse(Utf8JsonWriter writer, ConditionalAttributeUse conditional)
+        {
+            writer.WriteString("attrType", conditional.Type.ToString());
+
+            writer.WritePropertyName("expression");
+
+            ConditionalExpressionTranspiler.WriteConditionalExpression(writer, conditional.ConditionalExpression);
         }
     }
 }
