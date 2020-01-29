@@ -81,7 +81,7 @@ def struct StructWithFieldsAndScopes
         field6: bool,
     }
 
-    field1: TestFieldType,
+    field1: TestFieldType[][20][20, 45, 0x02],
 }
 
 def struct StructWithMultipleFields
@@ -96,6 +96,6 @@ def struct GenericStructWithSimpleTypeParameter<string>
 {
 }
 
-def struct GenericStructWithMultipleTypeParameter<string, int, std::Foo, std::Bar>
+def struct GenericStructWithMultipleTypeParameter<string, int, std::Foo, std::experimental::Bar>
 {
 }

@@ -17,7 +17,18 @@ structScope: scopeHeader '{' defStructContents? '}';
 scopeHeader: Scope ('(' conditionalExpression? ')')?;
 
 // Type usage
-typeIdentifier: (namespacePath NamespaceSeparator)? typeName;
+typeIdentifier: arrayTypeIdentifier | qualifiedTypeIdentifier;
+
+arrayTypeIdentifier:
+	qualifiedTypeIdentifier arrayDimensionsDefinitions;
+
+arrayDimensionsDefinitions: (arraySizeDefinition)+;
+
+arraySizeDefinition:
+	'[' IntLiteral (',' IntLiteral)* ']'	# FixedSizeDefinition
+	| '[' ']'								# DynamicSizeDefinition;
+
+qualifiedTypeIdentifier: (namespacePath NamespaceSeparator)? typeName;
 
 typeName: Identifier typeParameterList?;
 

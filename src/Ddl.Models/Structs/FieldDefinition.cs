@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
     {
         public FieldDefinition(
             FieldName name,
-            TypeIdentifier fieldType,
+            ITypeIdentifier fieldType,
             ValueInitialization initialization,
             IReadOnlyList<IAttributeUse> attributes)
         {
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
 
         public FieldName Name { get; }
 
-        public TypeIdentifier FieldType { get; }
+        public ITypeIdentifier FieldType { get; }
 
         public IReadOnlyList<IAttributeUse> Attributes { get; }
 

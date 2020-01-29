@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
     public interface ITypedAttributeUse : IAttributeUse
     {
-        TypeIdentifier Type { get; }
+        ITypeIdentifier Type { get; }
 
         StructValueInitialization Initialization { get; }
     }

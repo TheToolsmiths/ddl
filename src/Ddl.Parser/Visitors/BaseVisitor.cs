@@ -59,6 +59,31 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
             throw new System.NotImplementedException();
         }
 
+        public virtual TResult VisitArrayTypeIdentifier(DdlParser.ArrayTypeIdentifierContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitArrayDimensionsDefinitions(DdlParser.ArrayDimensionsDefinitionsContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitFixedSizeDefinition(DdlParser.FixedSizeDefinitionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitDynamicSizeDefinition(DdlParser.DynamicSizeDefinitionContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual TResult VisitQualifiedTypeIdentifier(DdlParser.QualifiedTypeIdentifierContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual TResult VisitTypeName(DdlParser.TypeNameContext context)
         {
             throw new System.NotImplementedException();

@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
     public class KeyedTypedAttributeUse : BaseTypedAttributeUse, IKeyedTypedAttributeUse
     {
-        public KeyedTypedAttributeUse(Identifier key, TypeIdentifier type, StructValueInitialization initialization)
+        public KeyedTypedAttributeUse(Identifier key, ITypeIdentifier type, StructValueInitialization initialization)
             : base(type, initialization)
         {
             this.Key = key;

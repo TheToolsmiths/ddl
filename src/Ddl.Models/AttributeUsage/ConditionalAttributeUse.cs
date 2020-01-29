@@ -5,13 +5,13 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
     public class ConditionalAttributeUse : BaseAttributeUse
     {
-        public ConditionalAttributeUse(TypeIdentifier type, ConditionalExpression conditionalExpression)
+        public ConditionalAttributeUse(ITypeIdentifier type, ConditionalExpression conditionalExpression)
         {
             this.Type = type;
             this.ConditionalExpression = conditionalExpression;
         }
 
-        public TypeIdentifier Type { get; }
+        public ITypeIdentifier Type { get; }
 
         public ConditionalExpression ConditionalExpression { get; }
 

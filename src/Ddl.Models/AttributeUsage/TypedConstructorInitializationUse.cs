@@ -3,10 +3,10 @@ using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
-    public class TypedStructInitializationUse : TypedInitializationUse
+    public class TypedConstructorInitializationUse : TypedInitializationUse
     {
-        public TypedStructInitializationUse(
-            ITypeIdentifier type, 
+        public TypedConstructorInitializationUse(
+            ITypeIdentifier type,
             StructValueInitialization initialization)
             : base(type, initialization)
         {

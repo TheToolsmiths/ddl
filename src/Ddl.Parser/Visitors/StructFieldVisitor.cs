@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 name = visitor.VisitFieldName(fieldNameContext);
             }
 
-            TypeIdentifier type;
+            ITypeIdentifier type;
             {
                 var typeIdentifierContext = context.typeIdentifier();
 

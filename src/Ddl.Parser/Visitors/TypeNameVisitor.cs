@@ -4,13 +4,13 @@ using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
-    public class TypeParameterListVisitor : BaseVisitor<IReadOnlyList<TypeIdentifier>>
+    public class TypeParameterListVisitor : BaseVisitor<IReadOnlyList<ITypeIdentifier>>
     {
-        public override IReadOnlyList<TypeIdentifier> VisitTypeParameterList(DdlParser.TypeParameterListContext context)
+        public override IReadOnlyList<ITypeIdentifier> VisitTypeParameterList(DdlParser.TypeParameterListContext context)
         {
             var typeIdentifierContexts = context.typeIdentifier();
 
-            var typeArgumentList = new List<TypeIdentifier>();
+            var typeArgumentList = new List<ITypeIdentifier>();
 
             var visitor = new TypeIdentifierVisitor();
 
@@ -41,7 +41,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
         private GenericTypeName VisitGenericTypeName(DdlParser.TypeNameContext context)
         {
-            IReadOnlyList<TypeIdentifier> typeArgumentList;
+            IReadOnlyList<ITypeIdentifier> typeArgumentList;
             {
                 var argumentListContext = context.typeParameterList();
 

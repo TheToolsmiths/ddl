@@ -15,5 +15,10 @@ namespace TheToolsmiths.Ddl.Parser.TokenParsers
         {
             return node.GetText().Trim('"', '\'');
         }
+
+        public static string ParseIntegerLiteralValue(ITerminalNode node)
+        {
+            return node.GetText().Trim('"', '\'');
+        }
     }
 }

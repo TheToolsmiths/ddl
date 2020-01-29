@@ -1,40 +1,35 @@
-﻿using TheToolsmiths.Ddl.Models.Identifiers;
+﻿using System;
 using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
-    public class TypeIdentifierVisitor : BaseVisitor<TypeIdentifier>
+    public class TypeIdentifierVisitor : BaseVisitor<ITypeIdentifier>
     {
-        public override TypeIdentifier VisitTypeIdentifier(DdlParser.TypeIdentifierContext context)
+        public override ITypeIdentifier VisitTypeIdentifier(DdlParser.TypeIdentifierContext context)
         {
-            ITypeName typeName;
             {
-                var typeNameContext = context.typeName();
+                var qualifiedTypeIdentifierContext = context.qualifiedTypeIdentifier();
 
-                var visitor = new TypeNameVisitor();
-
-                typeName = visitor.VisitTypeName(typeNameContext);
-            }
-
-            NamespacePath namespacePath;
-            {
-                var namespacePathContext = context.namespacePath();
-
-                if (namespacePathContext == null)
+                if (qualifiedTypeIdentifierContext != null)
                 {
-                    namespacePath = NamespacePath.Empty;
-                }
-                else
-                {
-                    var visitor = new NamespacePathVisitor();
+                    var visitor = new QualifiedTypeIdentifierVisitor();
 
-                    namespacePath = visitor.VisitNamespacePath(namespacePathContext);
+                    return visitor.VisitQualifiedTypeIdentifier(qualifiedTypeIdentifierContext);
                 }
             }
 
-            var typeIdentifier = new TypeIdentifier(typeName, namespacePath);
+            {
+                var arrayTypeIdentifierContext = context.arrayTypeIdentifier();
 
-            return typeIdentifier;
+                if (arrayTypeIdentifierContext != null)
+                {
+                    var visitor = new ArrayTypeIdentifierVisitor();
+
+                    return visitor.VisitArrayTypeIdentifier(arrayTypeIdentifierContext);
+                }
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

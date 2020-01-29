@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Models.Identifiers;
 
@@ -7,7 +6,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 {
     public class GenericTypeName : ITypeName
     {
-        public GenericTypeName(Identifier name, IReadOnlyList<TypeIdentifier> typeArgumentList)
+        public GenericTypeName(Identifier name, IReadOnlyList<ITypeIdentifier> typeArgumentList)
         {
             this.Name = name;
             this.TypeArgumentList = typeArgumentList;
@@ -15,7 +14,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public Identifier Name { get; }
 
-        public IReadOnlyList<TypeIdentifier> TypeArgumentList { get; }
+        public IReadOnlyList<ITypeIdentifier> TypeArgumentList { get; }
 
         public bool IsGeneric => false;
 
@@ -23,7 +22,6 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public override string ToString()
         {
-
             string parameterList = string.Join(
                 TypeConstants.TypeParameterSpacedSeparator,
                 this.TypeArgumentList.Select(i => i.ToString()));
