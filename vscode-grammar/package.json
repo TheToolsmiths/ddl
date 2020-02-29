@@ -1,0 +1,53 @@
+{
+    "name": "ddl-grammar",
+    "displayName": "ddl-grammar",
+    "description": "TheToolsmiths' ddl grammar",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "scripts": {
+        "build": "npx js-yaml src/ddl.tmLanguage.yaml > syntaxes/ddl.tmLanguage.json",
+        "watch": "npm-watch build"
+    },
+    "watch": {
+        "build": {
+            "patterns": [
+                "syntaxes"
+            ],
+            "extensions": "yaml",
+            "runOnChangeOnly": true
+        }
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "ddl",
+                "aliases": [
+                    "TheToolsmiths DDL",
+                    "ddl"
+                ],
+                "extensions": [
+                    ".ddl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "ddl",
+                "scopeName": "source.thetoolsmiths.ddl",
+                "path": "./syntaxes/ddl.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "js-yaml": "^3.13.1"
+    },
+    "dependencies": {
+        "npm-watch": "^0.6.0"
+    }
+}

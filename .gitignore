@@ -357,3 +357,6 @@ MigrationBackup/
 
 # Ignore folder created by ANTLR build
 /build/spec
+
+# Ignore vscode grammar json files
+*.tmLanguage.json

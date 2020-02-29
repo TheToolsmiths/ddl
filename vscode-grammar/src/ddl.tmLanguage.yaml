@@ -1,0 +1,214 @@
+name: "TheToolsmiths DDL"
+scopeName: source.thetoolsmiths.ddl
+patterns:
+    - include: "#comments"
+    - include: "#root-scope"
+    - include: "#definitions"
+    - include: "#attribute-usage"
+repository:
+    comments:
+        patterns:
+            - begin: '/\*'
+              captures:
+                  "0": { name: punctuation.definition.comment.ddl.comments }
+              end: '\*/'
+              name: comment.block.ddl.comments
+            - captures:
+                  "1": { name: punctuation.definition.comment.ddl.comments }
+              match: '(//).*$\n?'
+              name: comment.line.double-slash.ddl
+
+    strings:
+        name: string.quoted.double.ddl
+        begin: '"'
+        end: '"'
+        patterns:
+            - name: constant.character.escape.ddl
+              match: \.
+
+    definitions:
+        name: meta.type.definition.ddl
+        begin: \b(def)\b\s*
+        beginCaptures:
+            "1":
+                name: keyword.control.def.ts
+        end: '(?<=})|(?=\s*(?:def))'
+        patterns:
+            - include: "#comments"
+            - include: "#struct-definition"
+
+    attribute-usage:
+        name: meta.attribute.usage.ddl
+        begin: (\[)
+        beginCaptures:
+            1:
+                name: punctuation.separator.attribute.begin.ddl
+        end: "(])"
+        endCaptures:
+            1:
+                name: punctuation.separator.attribute.end.ddl
+        patterns:
+            # Match =
+            - match: "(=)"
+              name: keyword.operator.assigment.ddl
+
+            # Match attribute key name
+            - match: "[\\w]+(?=\\s*\\=)"
+              name: entity.name.type.ddl
+
+            - include: "#typed-structure-initialization"
+
+    struct-field-definition:
+        name: meta.field.declaration.ddl
+        begin: '\s*\b([_$[:alpha:]][_$[:alnum:]]*)\b\s*'
+        beginCaptures:
+            1:
+                name: entity.name.type.ddl
+        end: '\s*(\,|(?=\}|scope|def|\{|\/\/|\/\*))'
+        patterns:
+            # Match :
+            - match: "(:)"
+              name: keyword.operator.type.ddl
+
+            # Match reference keywords
+            - match: '\s*\b(owns|ref|handle)\b\s*'
+              name: keyword.operator.reference.ddl
+
+            # Match type identifier
+            - include: "#type-identifier"
+
+    type-name:
+        name: entity.name.type.ddl
+        match: '\s*\b([_$[:alpha:]][_$[:alnum:]]*)\b\s*'
+
+    type-identifier:
+        name: support.type.identifier.ddl
+        begin: '\s*\b([_$[:alpha:]][_$[:alnum:]]*)\b\s*'
+        end: '\s*(?=\}|\,|scope|def|\>|\{|\/\/|\/\*)'
+        patterns:
+            # Match :
+            - match: "(::)"
+              name: keyword.operator.type.ddl
+
+            - name: meta.type.identifier.generic.ddl
+              begin: "(<)"
+              beginCaptures:
+                  1:
+                      name: punctuation.separator.typeparameters.begin.ddl
+              end: '(\>)|(?=\}|scope|def|\{|\/\/|\/\*)'
+              endCaptures:
+                  1:
+                      name: punctuation.separator.typeparameters.end.ddl
+              patterns:
+                  - match: "(,)"
+                    name: punctuation.separator.comma.ddl
+
+                  - include: "#type-identifier"
+
+    typed-structure-initialization:
+        name: meta.type.structure.initialization.ddl
+        begin: '\b([_$[:alpha:]][_$[:alnum:]]*)\b'
+        beginCaptures:
+            1:
+                name: entity.name.type.ddl
+        # Matches end of attribute usage. Should have more matches in the future
+        end: "(?<=\\})|(?=\\]|,|\\})"
+        patterns:
+            - include: "#structure-initialization"
+
+            # # Match field initialization
+            # - name: meta.type.identifier.generic.ddl
+            #   begin: "\\s*([\\w]+)"
+            #   beginCaptures:
+            #       1:
+            #           name: punctuation.separator.typeparameters.begin.ddl
+            #   end: '(,)|(?=\}|scope|def|\{|\/\/|\/\*)'
+            #   endCaptures:
+            #       1:
+            #           name: punctuation.separator.typeparameters.end.ddl
+            #   patterns:
+            #       - match: "(:)"
+            #         name: punctuation.separator.comma.ddl
+
+    structure-initialization:
+        name: meta.structured.initialization.ddl
+        begin: "(\\{)"
+        beginCaptures:
+            1:
+                name: punctuation.separator.structured.initialization.begin.ddl
+        # Matches end of attribute usage. Should have more matches in the future
+        end: "(})"
+        endCaptures:
+            1:
+                name: punctuation.separator.structured.initialization.end.ddl
+        # patterns:
+            # Match field initialization
+            # - name: meta.type.identifier.generic.ddl
+            #   begin: "\\s*([\\w]+)"
+            #   beginCaptures:
+            #       1:
+            #           name: punctuation.separator.typeparameters.begin.ddl
+            #   end: '(,)|(?=\}|scope|def|\{|\/\/|\/\*)'
+            #   endCaptures:
+            #       1:
+            #           name: punctuation.separator.typeparameters.end.ddl
+            #   patterns:
+            #       - match: "(:)"
+            #         name: punctuation.separator.comma.ddl
+
+                  #   - include: "#type-identifier"
+
+    root-scope:
+        name: meta.scope.header.ddl
+        begin: '\s*\b(scope)\b'
+        beginCaptures:
+            1:
+                name: keyword.control.scope.ddl
+        end: '(?<=[}\,])'
+        patterns:
+            - include: "#comments"
+            - include: "#root-scope"
+            - include: "#definitions"
+            - include: "#attribute-usage"
+
+    struct-scope:
+        name: meta.struct.scope.ddl
+        begin: '\s*\b(scope)\b'
+        beginCaptures:
+            1:
+                name: keyword.control.scope.ddl
+        end: '(?<=[}])|(?=\s*(?:def))'
+        patterns:
+            - include: "#comments"
+            - include: "#struct-definition-body"
+
+    struct-definition-body:
+        name: meta.struct.definition.ddl
+        begin: "{"
+        end: "}"
+        patterns:
+            - include: "#comments"
+            - include: "#struct-scope"
+            - include: "#attribute-usage"
+            - include: "#struct-field-definition"
+
+    struct-definition:
+        name: meta.struct.declaration.ddl
+        begin: '\b(struct)\b\s*'
+        beginCaptures:
+            1:
+                name: storage.type.struct.ddl
+            # '1':
+            #     name: keyword.control.def.ddl
+            # '2':
+            #     name: storage.type.struct.ddl
+            # '3':
+            #     name: entity.name.type.ddl
+            # '4':
+            #     name: entity.name.type.ddl
+        end: '(?<=})|(?=\s*(?:def))'
+        patterns:
+            - include: "#comments"
+            - include: "#type-name"
+            - include: "#struct-definition-body"
+            - include: "#type-parameters"
