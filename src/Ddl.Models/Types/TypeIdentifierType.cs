@@ -3,6 +3,7 @@
     public enum TypeIdentifierType
     {
         QualifiedType,
-        ArrayType
+        ArrayType,
+        ReferenceType
     }
 }

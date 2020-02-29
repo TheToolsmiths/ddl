@@ -34,6 +34,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
 
             transpileCommand.Description = "Parse the input file into the specified output";
 
+
             transpileCommand.Handler = CommandHandler.Create<FileInfo, FileInfo, ParseOutputType?>(FileParser.ParseFromFilePath);
 
             var rootCommand = new RootCommand { transpileCommand };

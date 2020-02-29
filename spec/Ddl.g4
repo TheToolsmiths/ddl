@@ -17,7 +17,17 @@ structScope: scopeHeader '{' defStructContents? '}';
 scopeHeader: Scope ('(' conditionalExpression? ')')?;
 
 // Type usage
-typeIdentifier: arrayTypeIdentifier | qualifiedTypeIdentifier;
+typeIdentifier: arrayTypeIdentifier | qualifiedTypeIdentifier | referenceTypeIdentifier;
+
+referenceTypeIdentifier: referencePrefix (arrayTypeIdentifier | qualifiedTypeIdentifier);
+
+referencePrefix: refOwnsPrefix | refReferencePrefix | refHandlePrefix;
+
+refOwnsPrefix: 'owns';
+
+refReferencePrefix: 'ref';
+
+refHandlePrefix: 'handle';
 
 arrayTypeIdentifier:
 	qualifiedTypeIdentifier arrayDimensionsDefinitions;

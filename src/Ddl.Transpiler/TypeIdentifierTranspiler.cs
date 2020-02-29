@@ -12,6 +12,13 @@ namespace Ddl.Transpiler
         {
             writer.WriteStartObject();
 
+            WriteTypeIdentifierProperties(writer, typeIdentifier);
+
+            writer.WriteEndObject();
+        }
+
+        private static void WriteTypeIdentifierProperties(Utf8JsonWriter writer, ITypeIdentifier typeIdentifier)
+        {
             switch (typeIdentifier)
             {
                 case ArrayTypeIdentifier arrayTypeIdentifier:
@@ -20,9 +27,21 @@ namespace Ddl.Transpiler
                 case QualifiedTypeIdentifier qualifiedTypeIdentifier:
                     WriteQualifiedTypeIdentifierProperties(writer, qualifiedTypeIdentifier);
                     break;
+                case ReferenceTypeIdentifier referenceTypeIdentifier:
+                    WriteReferenceTypeIdentifierProperties(writer, referenceTypeIdentifier);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(typeIdentifier));
             }
+        }
+
+        private static void WriteReferenceTypeIdentifierProperties(Utf8JsonWriter writer, ReferenceTypeIdentifier identifier)
+        {
+            writer.WriteString("type", "referenceType");
+
+            writer.WriteStartObject("referenceType");
+
+            WriteTypeIdentifierProperties(writer, identifier.TypeIdentifier);
 
             writer.WriteEndObject();
         }

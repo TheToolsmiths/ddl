@@ -29,6 +29,17 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 }
             }
 
+            {
+                var referenceTypeIdentifierContext = context.referenceTypeIdentifier();
+
+                if (referenceTypeIdentifierContext != null)
+                {
+                    var visitor = new ReferenceTypeIdentifierVisitor();
+
+                    return visitor.VisitReferenceTypeIdentifier(referenceTypeIdentifierContext);
+                }
+            }
+
             throw new NotImplementedException();
         }
     }

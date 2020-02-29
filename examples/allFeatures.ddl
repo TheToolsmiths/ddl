@@ -1,6 +1,28 @@
+// README: This file is meant to have all the grammar features and serve as a test case
+
+/***************
+Sample Block Comment
+***************/
 [key = "TestValue"]
 def struct EmptyStruct
-{    
+{
+
+}
+
+/*def 
+struct /*Foo  EmptyStructOnMultipleLines*/
+
+def 
+struct /*Foo */
+ EmptyStructOnMultipleLines
+{
+// Foo
+
+}
+
+def struct EmptyStructOnMultipleLines
+{
+
 }
 
 def struct EmptyStructWithScopes
@@ -37,7 +59,7 @@ scope ()
     def struct StructWithSingleField
     {    
         [TestAttributeType {}]
-        field1: TestFieldType
+        field1: ref TestFieldType
     }
 }
 
@@ -54,17 +76,17 @@ def struct StructWithScopes
     scope ( Define1 != "Something" || false && true || false || Define2)
     {        
         [TestAttributeType { struct1: {value1: false, value2: 10 }}]
-        field1: Map<string, Bar>,
+        field1: ref test::Map<string<foo>, test::Bar>,
 
         [IgnoreWhen(Define1 || (false || true))]
         field2: bool,
         field3: i32,
-    }
+    }   
 }
 
 def struct StructWithFieldsAndScopes
 {
-    field1: TestFieldType,
+    field1: handle TestFieldType,
     field2: bool,
     field3: i32
 
@@ -77,7 +99,7 @@ def struct StructWithFieldsAndScopes
     // Empty Scope With Conditional Expression
     scope (!false)
     {        
-        field5: TestFieldType,
+        field5: std::experimental::TestFieldType,
         field6: bool,
     }
 
@@ -88,7 +110,7 @@ def struct StructWithMultipleFields
 {    
     [TestAttributeType { struct1: {value1: false, value2: 10 }}]
     field1: TestFieldType,
-    field2: bool,
+    field2: owns std::experimental::bool,
     field3: i32,
 }
 
