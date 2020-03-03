@@ -1,8 +1,11 @@
 {
-    "name": "ddl-grammar",
-    "displayName": "ddl-grammar",
-    "description": "TheToolsmiths' ddl grammar",
+    "name": "ddl-syntax-highlight",
+    "displayName": "The Toolsmiths DDL",
+    "description": "The Toolsmiths DDL syntax highlight",
     "version": "0.0.1",
+    "publisher": "thetoolsmiths",
+    "repository": "https://github.com/TheToolsmiths/ddl",
+    "icon": "icons/thetoolsmiths_avatar_250px.png",
     "engines": {
         "vscode": "^1.42.0"
     },
@@ -27,7 +30,7 @@
             {
                 "id": "ddl",
                 "aliases": [
-                    "TheToolsmiths DDL",
+                    "The Toolsmiths DDL",
                     "ddl"
                 ],
                 "extensions": [

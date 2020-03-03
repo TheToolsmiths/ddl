@@ -360,3 +360,6 @@ MigrationBackup/
 
 # Ignore vscode grammar json files
 *.tmLanguage.json
+
+# Ignore vscode packaged extensions
+*.vsix
