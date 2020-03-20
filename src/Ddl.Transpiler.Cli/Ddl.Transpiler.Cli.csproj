@@ -17,11 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.2" />
     <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19577.1" />
     <PackageReference Include="System.IO.Pipelines" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ddl.Models\Ddl.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\Ddl.Transpiler\Ddl.Transpiler.csproj" />
   </ItemGroup>

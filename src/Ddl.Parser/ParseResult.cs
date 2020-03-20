@@ -1,42 +1,23 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.FileContents;
 
 namespace TheToolsmiths.Ddl.Parser
 {
-    public class ParseResult<T>
-        where T : class
+    public static class ParseResult
     {
-        private ParseResult(T value)
-        {
-            this.Value = value;
-            this.IsSuccess = true;
-            this.ErrorMessage = string.Empty;
-        }
-
-        private ParseResult(string errorMessage)
-        {
-            this.Value = default;
-            this.ErrorMessage = errorMessage;
-            this.IsSuccess = false;
-        }
-
-        public string ErrorMessage { get; }
-
-        public bool IsSuccess { get; }
-
-        public T? Value { get; }
-
-        public static ParseResult<T> FromValue(T fileContents)
+        public static ParseResult<T> FromValue<T>(T fileContents)
+            where T : class
         {
             return new ParseResult<T>(fileContents);
         }
 
-        public static ParseResult<T> FromException(Exception exception)
+        public static ParseResult<T> FromException<T>(Exception exception)
+            where T : class
         {
             return new ParseResult<T>(exception.Message);
         }
 
-        public static ParseResult<T> FromErrorMessage(string errorMessage)
+        public static ParseResult<T> FromErrorMessage<T>(string errorMessage)
+            where T : class
         {
             return new ParseResult<T>(errorMessage: errorMessage);
         }

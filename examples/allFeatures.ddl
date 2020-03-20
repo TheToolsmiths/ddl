@@ -1,4 +1,4 @@
-// README: This file is meant to have all the grammar features and serve as a test case
+﻿// README: This file is meant to have all the grammar features and serve as a test case
 
 /***************
 Sample Block Comment
@@ -10,7 +10,7 @@ def struct EmptyStruct
 }
 
 /*def 
-struct /*Foo  EmptyStructOnMultipleLines*/
+struct Foo  EmptyStructOnMultipleLines*/
 
 def 
 struct /*Foo */

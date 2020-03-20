@@ -42,7 +42,7 @@ namespace Ddl.Transpiler
 
             writer.WriteEndObject();
 
-            await writer.FlushAsync().ConfigureAwait(false);
+            await writer.FlushAsync().ConfigureAwait(true);
         }
     }
 }

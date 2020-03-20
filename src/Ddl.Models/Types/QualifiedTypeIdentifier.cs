@@ -1,4 +1,7 @@
-﻿using TheToolsmiths.Ddl.Models.Identifiers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TheToolsmiths.Ddl.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Models.Types
 {
@@ -30,6 +33,32 @@ namespace TheToolsmiths.Ddl.Models.Types
             }
 
             return $"{this.Namespace}{TypeConstants.TypeSeparator}{this.Name}";
+        }
+
+        public static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers)
+        {
+            if (identifiers == null
+                || identifiers.Count == 0)
+            {
+                throw new ArgumentException(nameof(identifiers));
+            }
+
+            var name = identifiers[^1];
+
+            NamespacePath namespacePath;
+
+            if (identifiers.Count == 1)
+            {
+                namespacePath = NamespacePath.Empty;
+            }
+            else
+            {
+                namespacePath = new NamespacePath(identifiers.GetRange(..^1));
+            }
+
+            ITypeName typeName = new SimpleTypeName(name);
+
+            return new QualifiedTypeIdentifier(typeName, namespacePath);
         }
     }
 }

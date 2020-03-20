@@ -11,15 +11,21 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
 {
     internal static class FileParser
     {
-        public static void ParseFromFilePath(FileInfo input, FileInfo? output, ParseOutputType? format)
+        public static void ParseFromFilePath(FileInfo input, FileInfo? output, ParseOutputType format)
         {
+            Console.WriteLine();
+            Console.WriteLine($"Parsing file '{input.FullName}'");
+
             var pipe = new Pipe();
 
-            var read = ParseFile(input, pipe.Writer);
+            var read = Task.Run(async () => await ParseFile(input, pipe.Writer));
 
-            var write = WriteOutput(output, pipe.Reader);
+            var write = Task.Run(async () => await WriteOutput(output, pipe.Reader));
 
             Task.WaitAll(read, write);
+
+            Console.WriteLine("File parsed");
+            Console.WriteLine();
         }
 
         private static async Task ParseFile(FileInfo input, PipeWriter pipeWriter)
@@ -27,18 +33,19 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
             var result = await DdlTextParser.ParseFromFile(input.FullName);
 
             if (result.IsSuccess
-            && result.Value != null)
+                && result.Value != null)
             {
                 await DdlTranspiler.TranspileToString(result.Value, pipeWriter);
-
-                await pipeWriter.CompleteAsync();
             }
             else
             {
-                Console.WriteLine($"Error parsing from file:" +
+                Console.WriteLine($"Error parsing '{input.FullName}'");
+                Console.WriteLine("Error parsing from file:" +
                                   $"{Environment.NewLine}" +
                                   $"{result.ErrorMessage}");
             }
+
+            await pipeWriter.CompleteAsync();
         }
 
         private static Task WriteOutput(FileInfo? output, PipeReader pipeReader)
@@ -105,6 +112,12 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
                 // Stop reading if there's no more data coming
                 if (result.IsCompleted)
                 {
+                    // Write any possible remains in the buffer
+                    if (buffer.IsEmpty == false)
+                    {
+                        ProcessLine(buffer);
+                    }
+
                     break;
                 }
             }
