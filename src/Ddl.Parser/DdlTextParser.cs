@@ -12,9 +12,9 @@ namespace TheToolsmiths.Ddl.Parser
             throw new NotImplementedException();
         }
 
-        public static Task<ParseResult<FileContent>> ParseFromFile(string path)
+        public static async Task<ParseResult<FileContent>> ParseFromFile(string path)
         {
-            return Task.Run(async () => await ExecuteParseFromFile(path));
+            return await ExecuteParseFromFile(path).ConfigureAwait(false);
         }
 
         private static async Task<ParseResult<FileContent>> ExecuteParseFromFile(string path)
@@ -47,22 +47,5 @@ namespace TheToolsmiths.Ddl.Parser
 
             return ParseResult.FromValue(fileContent);
         }
-
-        ////private static ParseResult<FileContent> ProcessParseCanceledException(ParseCanceledException exception)
-        ////{
-        ////    string? innerErrorText = null;
-        ////    if (exception.InnerException is InputMismatchException inputMismatch)
-        ////    {
-        ////        var offendingToken = inputMismatch.OffendingToken;
-        ////        string offendingTokenText = offendingToken.Text;
-        ////        innerErrorText = $"Mismatched input. Unexpected '{offendingTokenText}'" +
-        ////                         $" found at {offendingToken.Line}:{offendingToken.Column}";
-        ////    }
-
-        ////    string outerErrorText = exception.Message;
-        ////    string errorMessage = innerErrorText == null ? outerErrorText : string.Concat(outerErrorText, Environment.NewLine, innerErrorText);
-
-        ////    return ParseResult<FileContent>.FromErrorMessage(errorMessage);
-        ////}
     }
 }

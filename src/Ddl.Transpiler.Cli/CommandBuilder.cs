@@ -8,15 +8,34 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
     {
         public static RootCommand CreateCommands()
         {
+            var lexerCommand = CreateLexerCommand();
+
             var parseCommand = CreateParseCommand();
 
             var bundleCommand = CreateBundleCommand();
 
-            var rootCommand = new RootCommand { parseCommand, bundleCommand };
+            var rootCommand = new RootCommand { parseCommand, bundleCommand, lexerCommand };
 
             rootCommand.Name = "ddl";
             rootCommand.Description = "TheToolsmiths DDL cli tool";
             return rootCommand;
+        }
+
+        private static Symbol CreateLexerCommand()
+        {
+            var lexerCommand = new Command("lexer")
+            {
+                new Argument<FileInfo>
+                {
+                    Name = "input", Arity = ArgumentArity.ExactlyOne, Description = "Input ddl file"
+                }
+            };
+
+            lexerCommand.Description = "Extracts all Lexer tokens from the input file";
+
+            lexerCommand.Handler = CommandHandler.Create<FileInfo>(FileLexer.LexerFromFilePath);
+
+            return lexerCommand;
         }
 
         private static Symbol CreateParseCommand()

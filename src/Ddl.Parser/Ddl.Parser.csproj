@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ddl.Lexer\Ddl.Lexer.csproj" />
     <ProjectReference Include="..\Ddl.Models\Ddl.Models.csproj" />
   </ItemGroup>
 

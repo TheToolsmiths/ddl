@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 identifiers.Add(identifier);
             }
 
-            return new NamespacePath(identifiers);
+            return NamespacePath.CreateFromIdentifiers(identifiers);
         }
     }
 }

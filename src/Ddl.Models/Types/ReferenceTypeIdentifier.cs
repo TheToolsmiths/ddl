@@ -8,7 +8,7 @@
             this.ReferenceKind = referenceKind;
         }
 
-        public TypeIdentifierType Type => TypeIdentifierType.ReferenceType;
+        public TypeIdentifierKind Kind => TypeIdentifierKind.ReferenceType;
 
         public ITypeIdentifier TypeIdentifier { get; }
 

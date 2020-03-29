@@ -5,6 +5,7 @@
         KeyedLiteral,
         KeyedTyped,
         Typed,
-        Conditional
+        Conditional,
+        KeyedStructInitialization
     }
 }

@@ -17,14 +17,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
         {
             string text = context.FloatLiteral().GetText();
 
-            this.Value = new LiteralValue(LiteralValueType.FloatLiteral, text);
-        }
-
-        public override void EnterIntegerLiteral(DdlParser.IntegerLiteralContext context)
-        {
-            string text = context.IntLiteral().GetText();
-
-            this.Value = new LiteralValue(LiteralValueType.IntegerLiteral, text);
+            this.Value = new LiteralValue(LiteralValueType.NumberLiteral, text);
         }
 
         public override void EnterStringLiteral(DdlParser.StringLiteralContext context)

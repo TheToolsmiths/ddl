@@ -3,9 +3,11 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
+using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.FileContents;
 using TheToolsmiths.Ddl.Parser.Containers;
-using TheToolsmiths.Ddl.Parser.Lexers;
+using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Parsers;
 
 namespace TheToolsmiths.Ddl.Parser
@@ -34,44 +36,50 @@ namespace TheToolsmiths.Ddl.Parser
 
             await lexer.Initialize();
 
-            var mainParsersMap = CreateMainParsersMap();
+            var mainParsersMap = MainParserMapBuilder.CreateMainParsersMap();
 
             return new DdlParser(lexer, arrayBufferWriter, mainParsersMap);
         }
 
-        private static CharSpanKeyedMap<IRootParser<RootParserContext>> CreateMainParsersMap()
-        {
-            var definitionsParser = new DefinitionsParser
-            {
-                {ParserIdentifierConstants.Struct, new StructDefinitionParser()},
-                {ParserIdentifierConstants.Enum, new EnumDefinitionDisambiguatorParser()}
-            };
-
-            return new CharSpanKeyedMap<IRootParser<RootParserContext>> { { ParserIdentifierConstants.Definition, definitionsParser } };
-        }
-
         public async IAsyncEnumerable<ParseResult<IRootContentItem>> ParseFileContents()
         {
-            var tokenResult = await this.lexer.TryGetNextToken();
+            var parsers = new ContextParsers();
 
-            if (tokenResult.IsError)
+            IReadOnlyList<IAttributeUse> attributeList;
+            if (await this.lexer.IsNextOpenAttributeToken())
             {
-                yield break;
+                var attributeContext = new AttributeParserContext(this.lexer, parsers);
+                var result = await parsers.ParseAttributeUseList(attributeContext);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributeList = result.Value;
+            }
+            else
+            {
+                attributeList = Array.Empty<IAttributeUse>();
             }
 
-            var token = tokenResult.Token;
+            var context = new RootParserContext(this.lexer, attributeList, parsers);
 
-            yield return await this.TryHandleInitialToken(token);
+            yield return await this.TryHandleInitialToken(context);
         }
 
-        private async Task<ParseResult<IRootContentItem>> TryHandleInitialToken(LexerToken token)
+        private async Task<ParseResult<IRootContentItem>> TryHandleInitialToken(RootParserContext context)
         {
-            // Check if token is Attribute Open symbol
-
-            // Check if token is known identifier
-            if (token.Kind != LexerTokenKind.Identifier)
+            LexerToken token;
             {
-                throw new NotImplementedException();
+                var tokenResult = await this.lexer.TryGetIdentifierToken();
+
+                if (tokenResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                token = tokenResult.Token;
             }
 
             if (this.mainParsersMap.TryGetValue(token.Memory, out var parser) == false)
@@ -79,10 +87,7 @@ namespace TheToolsmiths.Ddl.Parser
                 throw new NotImplementedException();
             }
 
-            var parsers = new ContextParsers();
-            var context = new RootParserContext(this.lexer, parsers);
-
-            return await parser.ParseRootContent(context);
+            return await parser.ParseRootContent(context).ConfigureAwait(true);
         }
     }
 }

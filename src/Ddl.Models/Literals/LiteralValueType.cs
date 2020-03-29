@@ -3,8 +3,7 @@
     public enum LiteralValueType
     {
         StringLiteral,
-        FloatLiteral,
-        IntegerLiteral,
+        NumberLiteral,
         BooleanLiteral
     }
 }

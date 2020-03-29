@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Antlr4.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Models", "..\src\Ddl.Models\Ddl.Models.csproj", "{BE7C7987-B622-442D-B594-BE69767579FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser", "..\src\Ddl.Parser\Ddl.Parser.csproj", "{3FE7C8E4-2B81-4A41-8D53-955297437852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser", "..\src\Ddl.Parser\Ddl.Parser.csproj", "{3FE7C8E4-2B81-4A41-8D53-955297437852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser.Tests", "..\tests\Ddl.Parser.Tests\Ddl.Parser.Tests.csproj", "{0669B37D-A8CF-4BC1-BFD5-73B9BCE190FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Tests", "..\tests\Ddl.Parser.Tests\Ddl.Parser.Tests.csproj", "{0669B37D-A8CF-4BC1-BFD5-73B9BCE190FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Lexer", "..\src\Ddl.Lexer\Ddl.Lexer.csproj", "{3A9E3D9D-72B0-4DA0-A9C4-E4E2B6DFDE2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Lexer.Tests", "..\tests\Ddl.Lexer.Tests\Ddl.Lexer.Tests.csproj", "{018472AB-9076-45A2-9712-143D5DB367C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{0669B37D-A8CF-4BC1-BFD5-73B9BCE190FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0669B37D-A8CF-4BC1-BFD5-73B9BCE190FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0669B37D-A8CF-4BC1-BFD5-73B9BCE190FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A9E3D9D-72B0-4DA0-A9C4-E4E2B6DFDE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A9E3D9D-72B0-4DA0-A9C4-E4E2B6DFDE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A9E3D9D-72B0-4DA0-A9C4-E4E2B6DFDE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A9E3D9D-72B0-4DA0-A9C4-E4E2B6DFDE2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{018472AB-9076-45A2-9712-143D5DB367C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018472AB-9076-45A2-9712-143D5DB367C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018472AB-9076-45A2-9712-143D5DB367C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018472AB-9076-45A2-9712-143D5DB367C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

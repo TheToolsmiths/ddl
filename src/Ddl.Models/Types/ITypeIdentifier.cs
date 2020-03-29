@@ -2,6 +2,6 @@
 {
     public interface ITypeIdentifier
     {
-        TypeIdentifierType Type { get; }
+        TypeIdentifierKind Kind { get; }
     }
 }

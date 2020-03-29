@@ -1,0 +1,33 @@
+﻿namespace TheToolsmiths.Ddl.Lexer
+{
+    public enum LexerTokenKind
+    {
+        Identifier,
+        OpenScope,
+        CloseScope,
+        ValueAssignment,
+        NamespaceSeparator,
+        Slash,
+        ListSeparator,
+        FieldInitialization,
+        OpenAttribute,
+        CloseAttribute,
+        String,
+        OpenParentheses,
+        CloseParentheses,
+        LogicalAnd,
+        LogicalOr,
+        BinaryAnd,
+        BinaryOr,
+        Number,
+        Boolean,
+        OpenGenerics,
+        CloseGenerics,
+        LogicalNot,
+        Equality,
+        Inequality,
+        OpenArrayDimension,
+        CloseArrayDimension,
+        EndStatement
+    }
+}

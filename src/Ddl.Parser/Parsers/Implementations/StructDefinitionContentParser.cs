@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Types;
 using TheToolsmiths.Ddl.Models.Values;
-using TheToolsmiths.Ddl.Parser.Lexers;
+using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
@@ -25,14 +26,45 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             while (true)
             {
-                var result = await context.Lexer.TryPeekToken();
-
-                if (result.IsError)
+                LexerToken token;
                 {
-                    throw new NotImplementedException();
+                    var result = await context.Lexer.TryPeekToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    token = result.Token;
                 }
 
-                var token = result.Token;
+                IReadOnlyList<IAttributeUse> attributesList;
+                if (token.IsOpenAttribute())
+                {
+                    var parseResult = await context.Parsers.ParseAttributeUseList(context);
+
+                    if (parseResult.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    attributesList = parseResult.Value;
+
+                    {
+                        var result = await context.Lexer.TryPeekToken();
+
+                        if (result.IsError)
+                        {
+                            throw new NotImplementedException();
+                        }
+
+                        token = result.Token;
+                    }
+                }
+                else
+                {
+                    attributesList = Array.Empty<IAttributeUse>();
+                }
 
                 switch (token.Kind)
                 {
@@ -43,7 +75,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                         break;
                     case LexerTokenKind.Identifier:
                         {
-                            var definitionResult = await this.ParseStructDefinitionItem(context);
+                            var definitionResult = await this.ParseStructDefinitionItem(context, attributesList);
 
                             if (definitionResult.IsSuccess == false)
                             {
@@ -59,7 +91,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             }
         }
 
-        private async Task<ParseResult<IStructDefinitionItem>> ParseStructDefinitionItem(IParserContext context)
+        private async Task<ParseResult<IStructDefinitionItem>> ParseStructDefinitionItem(
+            IParserContext context,
+            IReadOnlyList<IAttributeUse> attributesList)
         {
             var result = await context.Lexer.TryPeekIdentifierToken();
 
@@ -77,10 +111,12 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 throw new NotImplementedException();
             }
 
-            return await this.ParseStructFieldDefinition(context);
+            return await this.ParseStructFieldDefinition(context, attributesList);
         }
 
-        private async Task<ParseResult<IStructDefinitionItem>> ParseStructFieldDefinition(IParserContext context)
+        private async Task<ParseResult<IStructDefinitionItem>> ParseStructFieldDefinition(
+            IParserContext context,
+            IReadOnlyList<IAttributeUse> attributesList)
         {
             FieldName fieldName;
             {
@@ -142,10 +178,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 }
             }
 
-
-            var attributes = Array.Empty<IAttributeUse>();
-
-            var field = new FieldDefinition(fieldName, fieldType, initialization, attributes);
+            var field = new FieldDefinition(fieldName, fieldType, initialization, attributesList);
 
             return new ParseResult<IStructDefinitionItem>(field);
         }

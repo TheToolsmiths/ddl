@@ -9,5 +9,7 @@
         public const string Enum = "enum";
 
         public const string Scope = "scope";
+
+        public const string Import = "import";
     }
 }

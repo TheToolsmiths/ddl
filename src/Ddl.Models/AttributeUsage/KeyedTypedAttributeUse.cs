@@ -12,6 +12,11 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
             this.Key = key;
         }
 
+        public KeyedTypedAttributeUse(Identifier key, TypedStructValueInitialization initialization)
+            : this(key, initialization.Type, initialization.Initialization)
+        {
+        }
+
         public override AttributeUseType UseType => AttributeUseType.KeyedTyped;
 
         public override bool IsKeyed => true;

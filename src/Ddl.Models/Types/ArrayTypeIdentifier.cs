@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Models.Types
             this.Sizes = sizes;
         }
 
-        public TypeIdentifierType Type => TypeIdentifierType.ArrayType;
+        public TypeIdentifierKind Kind => TypeIdentifierKind.ArrayType;
 
         public IReadOnlyList<ArraySize> Sizes { get; }
 

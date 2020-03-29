@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TheToolsmiths.Ddl.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Models.Types
@@ -23,7 +22,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public NamespacePath Namespace { get; }
 
-        public TypeIdentifierType Type => TypeIdentifierType.QualifiedType;
+        public TypeIdentifierKind Kind => TypeIdentifierKind.QualifiedType;
 
         public override string ToString()
         {
@@ -36,6 +35,16 @@ namespace TheToolsmiths.Ddl.Models.Types
         }
 
         public static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers)
+        {
+            return BuildFromIdentifierList(identifiers, false);
+        }
+
+        public static QualifiedTypeIdentifier BuildRootedFromIdentifierList(IReadOnlyList<Identifier> identifiers)
+        {
+            return BuildFromIdentifierList(identifiers, true);
+        }
+
+        private static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers, bool isRooted)
         {
             if (identifiers == null
                 || identifiers.Count == 0)
@@ -53,7 +62,7 @@ namespace TheToolsmiths.Ddl.Models.Types
             }
             else
             {
-                namespacePath = new NamespacePath(identifiers.GetRange(..^1));
+                namespacePath = NamespacePath.CreateFromIdentifiers(identifiers.GetRange(..^1));
             }
 
             ITypeName typeName = new SimpleTypeName(name);

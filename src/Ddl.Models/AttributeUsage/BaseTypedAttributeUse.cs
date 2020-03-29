@@ -3,9 +3,10 @@ using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
-    public abstract class BaseTypedAttributeUse : BaseAttributeUse, ITypedAttributeUse
+    public abstract class BaseTypedAttributeUse : BaseStructInitializationAttributeUse, ITypedAttributeUse
     {
         protected BaseTypedAttributeUse(ITypeIdentifier type, StructValueInitialization initialization)
+        : base(initialization)
         {
             this.Type = type;
             this.Initialization = initialization;

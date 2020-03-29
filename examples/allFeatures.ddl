@@ -1,4 +1,17 @@
 ﻿// README: This file is meant to have all the grammar features and serve as a test case
+/******/
+/***************
+**  Imports   ** 
+***************/
+import export1 from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { export1, export2 } from "module-name";
+import { foo , bar } from "module-name/path/to/specific/un-exported/file";
+import { export1 , export2 as alias2 } from "module-name";
+import { export1 } from "module-name";
+
 
 /***************
 Sample Block Comment
@@ -25,6 +38,18 @@ def struct EmptyStructOnMultipleLines
 
 }
 
+[foo1 = "stuff",
+ foo2 = Foo { name: "something" },
+ foo2 = { name: "something" },
+ foo3 = ::std::Foo { name: "something" },
+ ::std::Foo { name: "something" },
+ std::Foo { name: "something" },
+ Foo { name: "something" },
+ Foo]
+def struct EmptyStructWithSingleBlockAttributeWithMultipleEntries
+{
+}
+
 def struct EmptyStructWithScopes
 {
     // Empty Scope
@@ -44,7 +69,7 @@ scope
 }
 
 // Empty Scope With Conditional Expression
-scope (Define1 && ((Define2 != "Something") || false ))
+scope (Define1 && ((Define2 != "Something") && Define3 == "Something else" || false ))
 {        
 }
 
@@ -63,7 +88,7 @@ scope ()
     }
 }
 
-[TestAttributeType { value1: false, value2: 10 }]
+[TestAttributeType { value1: false, value2: 0b10 }]
 def struct StructWithScopes
 {
     // Scope
