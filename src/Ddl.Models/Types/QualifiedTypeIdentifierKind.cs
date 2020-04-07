@@ -2,7 +2,7 @@
 {
     public enum QualifiedTypeIdentifierKind
     {
-        QualifiedType,
+        SimpleType,
         GenericType
     }
 }

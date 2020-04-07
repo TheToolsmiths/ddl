@@ -266,8 +266,8 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 ).ToList();
 
             var typeIdentifier = isRootedType
-                ? QualifiedTypeIdentifier.BuildRootedFromIdentifierList(identifiers)
-                : QualifiedTypeIdentifier.BuildFromIdentifierList(identifiers);
+                ? SimpleTypeIdentifier.BuildRootedFromIdentifierList(identifiers)
+                : SimpleTypeIdentifier.BuildFromIdentifierList(identifiers);
 
             return new ParseResult<IQualifiedTypeIdentifier>(typeIdentifier);
         }

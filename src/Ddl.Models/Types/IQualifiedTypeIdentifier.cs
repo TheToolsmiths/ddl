@@ -9,5 +9,7 @@ namespace TheToolsmiths.Ddl.Models.Types
         NamespacePath NamespacePath { get; }
 
         QualifiedTypeIdentifierKind QualifiedKind { get; }
+        
+        bool IsGeneric { get; }
     }
 }

@@ -48,14 +48,25 @@ namespace TheToolsmiths.Ddl.Transpiler.Cli
             await pipeWriter.CompleteAsync();
         }
 
-        private static Task WriteOutput(FileInfo? output, PipeReader pipeReader)
+        private static async Task WriteOutput(FileInfo? output, PipeReader pipeReader)
         {
-            if (output == null)
+            try
             {
-                return WriteOutputToConsole(pipeReader);
-            }
+                if (output == null)
+                {
+                    await WriteOutputToConsole(pipeReader);
+                    return;
+                }
 
-            return WriteOutputToFile(output, pipeReader);
+                await WriteOutputToFile(output, pipeReader);
+                return;
+            }
+            catch (Exception e)
+            {
+                Console.Write($"Error: {e}");
+
+                await pipeReader.CompleteAsync();
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(

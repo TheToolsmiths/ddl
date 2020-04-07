@@ -6,12 +6,12 @@ namespace TheToolsmiths.Ddl.Models.Types
 {
     public class GenericTypeIdentifier : IQualifiedTypeIdentifier
     {
-        public GenericTypeIdentifier(
+        private GenericTypeIdentifier(
             Identifier name,
             NamespacePath namespacePath,
-            IReadOnlyList<ITypeIdentifier> parameters)
+            IReadOnlyList<ITypeIdentifier> genericParameters)
         {
-            this.Parameters = parameters;
+            this.GenericParameters = genericParameters;
             this.Name = name;
             this.NamespacePath = namespacePath;
         }
@@ -20,15 +20,17 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public NamespacePath NamespacePath { get; }
 
+        public bool IsGeneric => true;
+
         public QualifiedTypeIdentifierKind QualifiedKind => QualifiedTypeIdentifierKind.GenericType;
 
         public TypeIdentifierKind Kind => TypeIdentifierKind.QualifiedType;
 
-        public IReadOnlyList<ITypeIdentifier> Parameters { get; }
+        public IReadOnlyList<ITypeIdentifier> GenericParameters { get; }
 
         public override string ToString()
         {
-            return $"{this.NamespacePath}::{this.Name}<{string.Join(',', this.Parameters.Select(p => p.ToString()))}>";
+            return $"{this.NamespacePath}::{this.Name}<{string.Join(',', this.GenericParameters.Select(p => p.ToString()))}>";
         }
 
         public static GenericTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers,

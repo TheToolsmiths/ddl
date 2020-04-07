@@ -24,12 +24,13 @@ namespace Ddl.Transpiler
                 case ArrayTypeIdentifier arrayTypeIdentifier:
                     WriteArrayTypeIdentifierProperties(writer, arrayTypeIdentifier);
                     break;
-                case QualifiedTypeIdentifier qualifiedTypeIdentifier:
+                case IQualifiedTypeIdentifier qualifiedTypeIdentifier:
                     WriteQualifiedTypeIdentifierProperties(writer, qualifiedTypeIdentifier);
                     break;
                 case ReferenceTypeIdentifier referenceTypeIdentifier:
                     WriteReferenceTypeIdentifierProperties(writer, referenceTypeIdentifier);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(typeIdentifier));
             }
@@ -50,6 +51,15 @@ namespace Ddl.Transpiler
         {
             writer.WriteString("type", "qualifiedType");
 
+            string qualifiedType = identifier.QualifiedKind switch
+            {
+                QualifiedTypeIdentifierKind.SimpleType => "simpleType",
+                QualifiedTypeIdentifierKind.GenericType => "genericType",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            writer.WriteString("qualifiedType", qualifiedType);
+
             var namespacePath = identifier.NamespacePath;
 
             if (namespacePath.IsEmpty == false)
@@ -58,9 +68,21 @@ namespace Ddl.Transpiler
                 writer.WriteString("namespace", namespaceValue);
             }
 
-            throw new NotImplementedException();
+            writer.WriteBoolean("isGeneric", identifier.IsGeneric);
 
-            //WriteTypeNameProperties(writer, identifier);
+            writer.WriteString("name", identifier.Name.ToString());
+
+            if (identifier is GenericTypeIdentifier genericTypeIdentifier)
+            {
+                writer.WriteStartArray("typeArgs");
+
+                foreach (var typeIdentifier in genericTypeIdentifier.GenericParameters)
+                {
+                    WriteTypeIdentifier(writer, typeIdentifier);
+                }
+
+                writer.WriteEndArray();
+            }
         }
 
         private static void WriteArrayTypeIdentifierProperties(Utf8JsonWriter writer, ArrayTypeIdentifier identifier)
@@ -87,7 +109,7 @@ namespace Ddl.Transpiler
 
                 switch (size)
                 {
-                    case DynamicArraySize dynamicSize:
+                    case DynamicArraySize _:
                         writer.WriteString("type", "dynamic");
                         break;
 
@@ -118,41 +140,23 @@ namespace Ddl.Transpiler
         {
             writer.WriteStartObject();
 
-            WriteTypeNameProperties(writer, typeName);
-
-            writer.WriteEndObject();
-        }
-
-        private static void WriteTypeNameProperties(Utf8JsonWriter writer, ITypeName typeName)
-        {
             writer.WriteBoolean("isGeneric", typeName.IsGeneric);
 
             writer.WriteString("name", typeName.Name.ToString());
 
-            switch (typeName)
+            if (typeName is GenericTypeName genericTypeName)
             {
-                case GenericTypeName genericTypeName:
-                    WriteGenericTypeNameProperties(writer, genericTypeName);
-                    break;
-                case SimpleTypeName _:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(typeName));
+                writer.WriteStartArray("typeArgs");
+
+                foreach (var identifier in genericTypeName.TypeArgumentList)
+                {
+                    writer.WriteStringValue(identifier.Text);
+                }
+
+                writer.WriteEndArray();
             }
-        }
 
-        private static void WriteGenericTypeNameProperties(Utf8JsonWriter writer, GenericTypeName genericTypeName)
-        {
-            writer.WriteStartArray("typeArgs");
-
-            throw new NotImplementedException();
-
-            //foreach (var typeIdentifier in genericTypeName.TypeArgumentList)
-            //{
-            //    WriteTypeIdentifier(writer, typeIdentifier);
-            //}
-
-            writer.WriteEndArray();
+            writer.WriteEndObject();
         }
     }
 }

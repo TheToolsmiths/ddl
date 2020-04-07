@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
     {
         public override ITypeIdentifier VisitArrayTypeIdentifier(DdlParser.ArrayTypeIdentifierContext context)
         {
-            QualifiedTypeIdentifier typeIdentifier;
+            SimpleTypeIdentifier typeIdentifier;
             {
                 var qualifiedTypeIdentifierContext = context.qualifiedTypeIdentifier();
 

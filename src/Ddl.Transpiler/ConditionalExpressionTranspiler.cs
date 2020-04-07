@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Operators;
 
@@ -20,6 +21,9 @@ namespace Ddl.Transpiler
                 case BinaryExpression binaryExpression:
                     WriteBinaryExpression(writer, binaryExpression);
                     break;
+                case LogicalCombinedExpressions logicalCombinedExpressions:
+                    WriteLogicalCombinedExpression(writer, logicalCombinedExpressions);
+                    break;
                 case BoolLiteralExpression boolLiteralExpression:
                     WriteBoolLiteralExpression(writer, boolLiteralExpression);
                     break;
@@ -32,6 +36,12 @@ namespace Ddl.Transpiler
                 case SymbolExpression symbolExpression:
                     WriteSymbolExpression(writer, symbolExpression);
                     break;
+
+                case EmptyExpression emptyExpression:
+                    WriteEmptyExpression(writer, emptyExpression);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(expression));
             }
         }
 
@@ -44,6 +54,15 @@ namespace Ddl.Transpiler
             writer.WritePropertyName("expression");
 
             ConditionalSymbolExpressionTranspiler.WriteConditionalSymbolExpression(writer, expression.Expression);
+
+            writer.WriteEndObject();
+        }
+
+        private static void WriteEmptyExpression(Utf8JsonWriter writer, EmptyExpression expression)
+        {
+            writer.WriteStartObject();
+
+            writer.WriteString("type", "empty");
 
             writer.WriteEndObject();
         }
@@ -105,6 +124,33 @@ namespace Ddl.Transpiler
 
             writer.WritePropertyName("right");
             WriteConditionalExpression(writer, expression.RightExpression);
+
+            writer.WriteEndObject();
+        }
+
+        private static void WriteLogicalCombinedExpression(Utf8JsonWriter writer, LogicalCombinedExpressions expression)
+        {
+            writer.WriteStartObject();
+
+            writer.WriteString("type", "logic-combined");
+
+            string opText = expression.Op.LogicalOperatorType switch
+            {
+                ConditionalLogicalOperatorType.And => "and",
+                ConditionalLogicalOperatorType.Or => "or",
+                _ => "unknown",
+            };
+
+            writer.WriteString("op", opText);
+
+            writer.WriteStartArray("expressions");
+
+            foreach (var element in expression.Expressions)
+            {
+                WriteConditionalExpression(writer, element);
+            }
+
+            writer.WriteEndArray();
 
             writer.WriteEndObject();
         }

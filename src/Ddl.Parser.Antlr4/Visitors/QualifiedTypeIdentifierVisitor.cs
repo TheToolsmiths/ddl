@@ -3,9 +3,9 @@ using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Visitors
 {
-    public class QualifiedTypeIdentifierVisitor : BaseVisitor<QualifiedTypeIdentifier>
+    public class QualifiedTypeIdentifierVisitor : BaseVisitor<SimpleTypeIdentifier>
     {
-        public override QualifiedTypeIdentifier VisitQualifiedTypeIdentifier(DdlParser.QualifiedTypeIdentifierContext context)
+        public override SimpleTypeIdentifier VisitQualifiedTypeIdentifier(DdlParser.QualifiedTypeIdentifierContext context)
         {
             ITypeName typeName;
             {
@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
             throw new System.NotImplementedException();
 
-            //var typeIdentifier = new QualifiedTypeIdentifier(typeName, namespacePath);
+            //var typeIdentifier = new SimpleTypeIdentifier(typeName, namespacePath);
 
             //return typeIdentifier;
         }

@@ -29,7 +29,8 @@ namespace Ddl.Transpiler
                 AttributeUseType.KeyedTyped => "keyed-typed",
                 AttributeUseType.Typed => "typed",
                 AttributeUseType.Conditional => "conditional",
-                _ => "unknown"
+                AttributeUseType.KeyedStructInitialization => "keyed-struct-init",
+                _ => throw new NotImplementedException()//"unknown"
             };
 
             writer.WriteString("type", useType);
@@ -47,6 +48,9 @@ namespace Ddl.Transpiler
                     break;
                 case ConditionalAttributeUse conditionalAttributeUse:
                     WriteConditionalAttributeUse(writer, conditionalAttributeUse);
+                    break;
+                case KeyedStructInitializationAttributeUse keyedStructInitializationAttributeUse:
+                    WriteKeyedStructInitializationAttributeUse(writer, keyedStructInitializationAttributeUse);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(attributeUse), attributeUse, "Attribute type is not supported");
@@ -71,6 +75,15 @@ namespace Ddl.Transpiler
             writer.WritePropertyName("value");
 
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, keyedTyped.Initialization);
+        }
+
+        private static void WriteKeyedStructInitializationAttributeUse(Utf8JsonWriter writer, KeyedStructInitializationAttributeUse typed)
+        {
+            writer.WriteString("key", typed.Key.ToString());
+            
+            writer.WritePropertyName("value");
+
+            ValueInitializationTranspiler.WriteStructValueInitialization(writer, typed.Initialization);
         }
 
         private static void WriteTypedAttributeUse(Utf8JsonWriter writer, TypedStructInitializationUse typed)

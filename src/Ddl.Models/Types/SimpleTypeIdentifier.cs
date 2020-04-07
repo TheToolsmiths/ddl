@@ -3,15 +3,9 @@ using TheToolsmiths.Ddl.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Models.Types
 {
-    public class QualifiedTypeIdentifier : IQualifiedTypeIdentifier
+    public class SimpleTypeIdentifier : IQualifiedTypeIdentifier
     {
-        public QualifiedTypeIdentifier(Identifier typeName)
-        {
-            this.Name = typeName;
-            this.NamespacePath = NamespacePath.Empty;
-        }
-
-        public QualifiedTypeIdentifier(Identifier typeName, NamespacePath namespacePath)
+        private SimpleTypeIdentifier(Identifier typeName, NamespacePath namespacePath)
         {
             this.Name = typeName;
             this.NamespacePath = namespacePath;
@@ -21,9 +15,11 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public NamespacePath NamespacePath { get; }
 
+        public bool IsGeneric => false;
+
         public TypeIdentifierKind Kind => TypeIdentifierKind.QualifiedType;
 
-        public QualifiedTypeIdentifierKind QualifiedKind => QualifiedTypeIdentifierKind.QualifiedType;
+        public QualifiedTypeIdentifierKind QualifiedKind => QualifiedTypeIdentifierKind.SimpleType;
 
         public override string ToString()
         {
@@ -35,18 +31,18 @@ namespace TheToolsmiths.Ddl.Models.Types
             return $"{this.NamespacePath}{TypeConstants.TypeSeparator}{this.Name}";
         }
 
-        public static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers)
+        public static SimpleTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers)
         {
             var (namespacePath, name) = GenericTypeBuilderHelper.SplitNamespaceAndIdentifier(identifiers, false);
 
-            return new QualifiedTypeIdentifier(name, namespacePath);
+            return new SimpleTypeIdentifier(name, namespacePath);
         }
 
-        public static QualifiedTypeIdentifier BuildRootedFromIdentifierList(IReadOnlyList<Identifier> identifiers)
+        public static SimpleTypeIdentifier BuildRootedFromIdentifierList(IReadOnlyList<Identifier> identifiers)
         {
             var (namespacePath, name) = GenericTypeBuilderHelper.SplitNamespaceAndIdentifier(identifiers, true);
 
-            return new QualifiedTypeIdentifier(name, namespacePath);
+            return new SimpleTypeIdentifier(name, namespacePath);
         }
     }
 }
