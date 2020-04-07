@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Identifiers;
+using TheToolsmiths.Ddl.Models.Types;
+using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
@@ -16,24 +19,20 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             while (true)
             {
-                {
-                    var result = await this.ParseAttributeUseBlock(context);
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    attributeUses.AddRange(result.Value);
-                }
-
                 // If next token isn't open attribute
+                if (await context.Lexer.IsNextOpenAttributeToken() == false)
                 {
-                    if (await context.Lexer.IsNextOpenAttributeToken() == false)
-                    {
-                        break;
-                    }
+                    break;
                 }
+
+                var result = await this.ParseAttributeUseBlock(context);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributeUses.AddRange(result.Value);
             }
 
             return new ParseResult<IReadOnlyList<IAttributeUse>>(attributeUses);
@@ -121,119 +120,126 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                     return await this.ParseKeyedAttributeUse(context);
                 }
 
-                if (secondToken.IsNamespaceSeparator()
-                    || secondToken.IsOpenScope())
-                {
-                    return await this.ParseAttributeWithTypedStructuredInitialization(context);
-                }
+                //if (secondToken.IsOpenParentheses())
+                //{
+                //    return await this.ParseAttributeWithTypedConditionalExpression(context);
+                //}
+
+                //if (secondToken.IsNamespaceSeparator()
+                //    || secondToken.IsOpenScope())
+                //{
+                //    return await this.ParseAttributeWithTypedStructuredInitialization(context);
+                //}
 
                 return await this.ParseAttributeWithTypedStructuredInitialization(context);
             }
 
             throw new NotImplementedException();
         }
-        private async Task<ParseResult<IAttributeUse>> ParseAttributeUseOld(IParserContext context)
+
+        private async Task<ParseResult<IAttributeUse>> ParseAttributeWithTypedConditionalExpression(
+            IParserContext context)
         {
-            throw new NotImplementedException();
+            ITypeIdentifier typeIdentifier;
+            {
+                var result = await context.Parsers.ParseTypeIdentifier(context);
 
-            //Identifier identifier;
-            //{
-            //    var result = await context.Lexer.TryPeekNextTwoToken();
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //    if (result.IsError)
-            //    {
-            //        throw new NotImplementedException();
-            //    }
+                typeIdentifier = result.Value;
+            }
 
-            //    //var token = result.Token;
+            ConditionalExpression conditionalExpression;
+            {
+                var result = await context.Parsers.ParseConditionalExpressionRoot(context);
 
-            //    //if (token.Kind == LexerTokenKind.NamespaceSeparator)
-            //    //{
-            //    //    return await this.ParseAttributeWithStructuredInitialization(context);
-            //    //}
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //    //if (token.Kind != LexerTokenKind.Identifier)
-            //    //{
-            //    //    throw new NotImplementedException();
-            //    //}
+                conditionalExpression = result.Value;
+            }
 
-            //    //identifier = Identifier.FromString(token.Memory.ToString());
 
-            //    //context.Lexer.PopToken();
-            //}
-
-            //{
-            //    var result = await context.Lexer.TryPeekToken();
-
-            //    if (result.IsError)
-            //    {
-            //        throw new NotImplementedException();
-            //    }
-
-            //    var token = result.Token;
-
-            //    // If theres an assigment its because its a keyed attribute use
-            //    if (token.Kind == LexerTokenKind.ValueAssignment)
-            //    {
-            //        context.Lexer.PopToken();
-
-            //        return await this.ParseKeyedAttributeUse(context);
-            //    }
-
-            //    if (token.Kind == LexerTokenKind.OpenScope)
-            //    {
-            //        return await this.ParseAttributeWithStructuredInitialization(context);
-            //    }
-
-            //    if (token.Kind == LexerTokenKind.NamespaceSeparator)
-            //    {
-            //        return await this.ParseAttributeWithTypedStructuredInitialization(context, identifier);
-            //    }
-
-            //    if (token.Kind == LexerTokenKind.OpenGenerics)
-            //    {
-            //        return await this.ParseAttributeWithGenericType(context);
-            //    }
-            //}
-
-            //{
-            //    var type = new QualifiedTypeIdentifier(new SimpleTypeName(identifier));
-            //    var value = new TypedStructInitializationUse(type, StructValueInitialization.CreateEmpty());
-
-            //    return new ParseResult<IAttributeUse>(value);
-            //}
+            var value = new ConditionalAttributeUse(typeIdentifier, conditionalExpression);
+            return new ParseResult<IAttributeUse>(value);
         }
 
         private async Task<ParseResult<IAttributeUse>> ParseAttributeWithTypedStructuredInitialization(IParserContext context)
         {
-            var result = await context.Parsers.ParseTypedStructValueInitialization(context);
-
-            if (result.IsError)
+            ITypeIdentifier identifier;
             {
-                throw new NotImplementedException();
+                var result = await context.Parsers.ParseTypeIdentifier(context);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                identifier = result.Value;
             }
 
-            var initialization = result.Value;
+            if (await context.Lexer.IsNextOpenParenthesesToken())
+            {
+                var result = await context.Parsers.ParseConditionalExpressionRoot(context);
 
-            var value = new TypedStructInitializationUse(initialization.Type, initialization.Initialization);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            return new ParseResult<IAttributeUse>(value);
+                var conditionalExpression = result.Value;
+
+                var value = new ConditionalAttributeUse(identifier, conditionalExpression);
+
+                return new ParseResult<IAttributeUse>(value);
+            }
+
+            {
+                StructValueInitialization initialization;
+
+                if (await context.Lexer.IsNextOpenScopeToken() == false)
+                {
+                    initialization = StructValueInitialization.CreateEmpty();
+                }
+                else
+                {
+                    var result = await context.Parsers.ParseStructValueInitialization(context);
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    initialization = result.Value;
+                }
+
+                var value = new TypedStructInitializationUse(identifier, initialization);
+
+                return new ParseResult<IAttributeUse>(value);
+            }
         }
 
         private async Task<ParseResult<IAttributeUse>> ParseAttributeWithStructuredInitialization(IParserContext context)
         {
-            var result = await context.Parsers.ParseTypedStructValueInitialization(context);
+            throw new NotImplementedException();
 
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
+            //var result = await context.Parsers.ParseTypedStructValueInitialization(context);
 
-            var initialization = result.Value;
+            //if (result.IsError)
+            //{
+            //    throw new NotImplementedException();
+            //}
 
-            var value = new TypedStructInitializationUse(initialization.Type, initialization.Initialization);
+            //var initialization = result.Value;
 
-            return new ParseResult<IAttributeUse>(value);
+            //var value = new TypedStructInitializationUse(initialization.Type, initialization.Initialization);
+
+            //return new ParseResult<IAttributeUse>(value);
         }
 
         private async Task<ParseResult<IAttributeUse>> ParseKeyedAttributeUse(IParserContext context)
@@ -276,14 +282,38 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 if (token.IsIdentifier()
                     || token.IsNamespaceSeparator())
                 {
-                    var result = await context.Parsers.ParseTypedStructValueInitialization(context);
-
-                    if (result.IsError)
+                    ITypeIdentifier identifier;
                     {
-                        throw new NotImplementedException();
+                        var result = await context.Parsers.ParseTypeIdentifier(context);
+
+                        if (result.IsError)
+                        {
+                            throw new NotImplementedException();
+                        }
+
+                        identifier = result.Value;
                     }
 
-                    var initialization = result.Value;
+                    StructValueInitialization structInitialization;
+                    {
+                        if (await context.Lexer.IsNextOpenScopeToken() == false)
+                        {
+                            structInitialization = StructValueInitialization.CreateEmpty();
+                        }
+                        else
+                        {
+                            var result = await context.Parsers.ParseStructValueInitialization(context);
+
+                            if (result.IsError)
+                            {
+                                throw new NotImplementedException();
+                            }
+
+                            structInitialization = result.Value;
+                        }
+                    }
+
+                    var initialization = new TypedStructValueInitialization(identifier, structInitialization);
 
                     var value = new KeyedTypedAttributeUse(key, initialization);
 

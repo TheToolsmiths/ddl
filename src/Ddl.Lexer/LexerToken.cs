@@ -134,6 +134,21 @@ namespace TheToolsmiths.Ddl.Lexer
             return new LexerToken(LexerTokenKind.BinaryOr, TokenMemoryConstants.BinaryOr);
         }
 
+        public static LexerToken CreateAsteriskToken()
+        {
+            return new LexerToken(LexerTokenKind.Asterisk, TokenMemoryConstants.Asterisk);
+        }
+
+        public static LexerToken CreateBooleanTrueToken()
+        {
+            return new LexerToken(LexerTokenKind.Boolean, TokenMemoryConstants.BooleanTrue);
+        }
+
+        public static LexerToken CreateBooleanFalseToken()
+        {
+            return new LexerToken(LexerTokenKind.Boolean, TokenMemoryConstants.BooleanFalse);
+        }
+
         public override string ToString()
         {
             return LexerTokenHelper.AsString(this);
@@ -144,63 +159,36 @@ namespace TheToolsmiths.Ddl.Lexer
     {
         public static string AsString(in LexerToken token)
         {
-            switch (token.Kind)
+            return token.Kind switch
             {
-                case LexerTokenKind.Identifier:
-                    return $"{nameof(LexerTokenKind.Identifier)} - '{token.Memory}'";
-
-                case LexerTokenKind.OpenScope:
-                    return $"{nameof(LexerTokenKind.OpenScope)} - {TokenMemoryConstants.OpenScope}";
-
-                case LexerTokenKind.CloseScope:
-                    return $"{nameof(LexerTokenKind.CloseScope)} - {TokenMemoryConstants.CloseScope}";
-
-                case LexerTokenKind.ValueAssignment:
-                    return $"{nameof(LexerTokenKind.ValueAssignment)} - {TokenMemoryConstants.ValueAssignment}";
-
-                case LexerTokenKind.NamespaceSeparator:
-                    return $"{nameof(LexerTokenKind.NamespaceSeparator)} - {TokenMemoryConstants.NamespaceSeparator}";
-
-                case LexerTokenKind.ListSeparator:
-                    return $"{nameof(LexerTokenKind.ListSeparator)} - {TokenMemoryConstants.ListSeparator}";
-
-                case LexerTokenKind.OpenAttribute:
-                    return $"{nameof(LexerTokenKind.OpenAttribute)} - {TokenMemoryConstants.OpenAttribute}";
-
-                case LexerTokenKind.CloseAttribute:
-                    return $"{nameof(LexerTokenKind.CloseAttribute)} - {TokenMemoryConstants.CloseAttribute}";
-
-                case LexerTokenKind.FieldInitialization:
-                    return $"{nameof(LexerTokenKind.FieldInitialization)} - {TokenMemoryConstants.FieldInitialization}";
-
-                case LexerTokenKind.String:
-                    return $"{nameof(LexerTokenKind.String)} - '{token.Memory}'";
-                case LexerTokenKind.Boolean:
-                    return $"{nameof(LexerTokenKind.Boolean)} - '{token.Memory}'";
-                case LexerTokenKind.Number:
-                    return $"{nameof(LexerTokenKind.Number)} - '{token.Memory}'";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                //case LexerTokenKind.:
-                //    return $"{nameof(LexerTokenKind.)} - {TokenMemoryConstants.}";
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                LexerTokenKind.Identifier => $"{nameof(LexerTokenKind.Identifier)} - '{token.Memory}'",
+                LexerTokenKind.OpenScope => $"{nameof(LexerTokenKind.OpenScope)} - {TokenMemoryConstants.OpenScope}",
+                LexerTokenKind.CloseScope => $"{nameof(LexerTokenKind.CloseScope)} - {TokenMemoryConstants.CloseScope}",
+                LexerTokenKind.ValueAssignment => $"{nameof(LexerTokenKind.ValueAssignment)} - {TokenMemoryConstants.ValueAssignment}",
+                LexerTokenKind.NamespaceSeparator => $"{nameof(LexerTokenKind.NamespaceSeparator)} - {TokenMemoryConstants.NamespaceSeparator}",
+                LexerTokenKind.ListSeparator => $"{nameof(LexerTokenKind.ListSeparator)} - {TokenMemoryConstants.ListSeparator}",
+                LexerTokenKind.OpenAttribute => $"{nameof(LexerTokenKind.OpenAttribute)} - {TokenMemoryConstants.OpenAttribute}",
+                LexerTokenKind.CloseAttribute => $"{nameof(LexerTokenKind.CloseAttribute)} - {TokenMemoryConstants.CloseAttribute}",
+                LexerTokenKind.FieldInitialization => $"{nameof(LexerTokenKind.FieldInitialization)} - {TokenMemoryConstants.FieldInitialization}",
+                LexerTokenKind.String => $"{nameof(LexerTokenKind.String)} - '{token.Memory}'",
+                LexerTokenKind.Boolean => $"{nameof(LexerTokenKind.Boolean)} - '{token.Memory}'",
+                LexerTokenKind.Number => $"{nameof(LexerTokenKind.Number)} - '{token.Memory}'",
+                LexerTokenKind.EndStatement => $"{nameof(LexerTokenKind.EndStatement)} - '{TokenMemoryConstants.EndStatement}'",
+                LexerTokenKind.Slash => $"{nameof(LexerTokenKind.Slash)} - '{TokenMemoryConstants.Slash}'",
+                LexerTokenKind.OpenParentheses => $"{nameof(LexerTokenKind.OpenParentheses)} - '{TokenMemoryConstants.OpenParentheses}'",
+                LexerTokenKind.CloseParentheses => $"{nameof(LexerTokenKind.CloseParentheses)} - '{TokenMemoryConstants.CloseParentheses}'",
+                LexerTokenKind.LogicalAnd => $"{nameof(LexerTokenKind.LogicalAnd)} - '{TokenMemoryConstants.LogicalAnd}'",
+                LexerTokenKind.LogicalOr => $"{nameof(LexerTokenKind.LogicalOr)} - '{TokenMemoryConstants.LogicalOr}'",
+                LexerTokenKind.BinaryAnd => $"{nameof(LexerTokenKind.BinaryAnd)} - '{TokenMemoryConstants.BinaryAnd}'",
+                LexerTokenKind.BinaryOr => $"{nameof(LexerTokenKind.BinaryOr)} - '{TokenMemoryConstants.BinaryOr}'",
+                LexerTokenKind.LogicalNot => $"{nameof(LexerTokenKind.LogicalNot)} - '{TokenMemoryConstants.LogicalNot}'",
+                LexerTokenKind.OpenGenerics => $"{nameof(LexerTokenKind.OpenGenerics)} - '{TokenMemoryConstants.OpenGenerics}'",
+                LexerTokenKind.CloseGenerics => $"{nameof(LexerTokenKind.CloseGenerics)} - '{TokenMemoryConstants.CloseGenerics}'",
+                LexerTokenKind.Equality => $"{nameof(LexerTokenKind.Equality)} - '{TokenMemoryConstants.Equality}'",
+                LexerTokenKind.Inequality => $"{nameof(LexerTokenKind.Inequality)} - '{TokenMemoryConstants.Inequality}'",
+                LexerTokenKind.Asterisk => $"{nameof(LexerTokenKind.Asterisk)} - '{TokenMemoryConstants.Asterisk}'",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

@@ -15,4 +15,10 @@
     <PackageReference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="LoquatTech.Application">
+      <HintPath>..\..\..\..\LoquatTech\LoquatViewer\artifacts\bin\Debug\LoquatTech.Application\netstandard2.1\LoquatTech.Application.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

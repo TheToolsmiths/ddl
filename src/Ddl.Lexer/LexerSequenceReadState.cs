@@ -94,6 +94,8 @@ namespace TheToolsmiths.Ddl.Lexer
             this.state.HasStageScratchMemory = true;
         }
 
+        public void ClearStageScratchMemory() => this.state.ClearStageScratchMemory();
+
         public void ClearAndSetCharOnStageScratchMemory(in char c)
         {
             var memory = this.ClearAndGetStageScratchMemory(1);

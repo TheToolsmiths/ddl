@@ -54,7 +54,9 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
 
             var identifier = new Identifier(identNode.GetText());
 
-            return new GenericTypeName(identifier, typeArgumentList);
+            throw new System.NotImplementedException();
+
+            //return new GenericTypeName(identifier, typeArgumentList);
         }
 
         private SimpleTypeName VisitSimpleTypeName(DdlParser.TypeNameContext context)

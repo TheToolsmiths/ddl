@@ -35,7 +35,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
                     identifierChars.CopyTo(offset);
 
-                    var lexerToken = LexerToken.CreateIdentifierToken(memory);
+                    var lexerToken = CreateToken(memory);
 
                     readState.EnqueueToken(lexerToken);
 
@@ -72,6 +72,21 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
                 readState.MoveNext();
             }
+        }
+
+        private static LexerToken CreateToken(Memory<char> memory)
+        {
+            if (memory.Span.SequenceEqual(TokenMemoryConstants.BooleanTrue.Span))
+            {
+                return LexerToken.CreateBooleanTrueToken();
+            }
+
+            if (memory.Span.SequenceEqual(TokenMemoryConstants.BooleanFalse.Span))
+            {
+                return LexerToken.CreateBooleanFalseToken();
+            }
+
+            return LexerToken.CreateIdentifierToken(memory);
         }
     }
 }

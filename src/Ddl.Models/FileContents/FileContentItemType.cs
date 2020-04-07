@@ -3,6 +3,7 @@
     public enum FileContentItemType
     {
         FileScope,
-        StructDeclaration
+        StructDeclaration,
+        ImportStatement
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.FileContents;
 using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Types;
@@ -17,6 +19,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         private readonly AttributeUsageParser attributeParser;
         private readonly StructValueInitializationParser structValueParser;
         private readonly LiteralValueInitializationParser literalValueParser;
+        private readonly ConditionalExpressionParser conditionalExpressionsParser;
+        private readonly FileRootContentParser fileRootContentParser;
+        private readonly TypeNameParser typeNameParser;
 
         public ContextParsers()
         {
@@ -25,6 +30,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             this.attributeParser = new AttributeUsageParser();
             this.structValueParser = new StructValueInitializationParser();
             this.literalValueParser = new LiteralValueInitializationParser();
+            this.conditionalExpressionsParser = new ConditionalExpressionParser();
+            this.fileRootContentParser = new FileRootContentParser();
+            this.typeNameParser = new TypeNameParser();
         }
 
         public Task<ParseResult<StructDefinitionContent>> ParseStructDefinitionContentParser(IParserContext context)
@@ -39,17 +47,12 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
         public Task<ParseResult<ITypeName>> ParseTypeName(IParserContext context)
         {
-            return this.typeIdentifierParser.ParseTypeName(context);
+            return this.typeNameParser.ParseTypeName(context);
         }
 
         public Task<ParseResult<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList(IParserContext context)
         {
             return this.attributeParser.ParseAttributeUseList(context);
-        }
-
-        public Task<ParseResult<TypedStructValueInitialization>> ParseTypedStructValueInitialization(IParserContext context)
-        {
-            return this.structValueParser.ParseTypedStructuredInitialization(context);
         }
 
         public Task<ParseResult<StructValueInitialization>> ParseStructValueInitialization(IParserContext context)
@@ -65,6 +68,21 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         public Task<ParseResult<LiteralValue>> ParseLiteralValue(IParserContext context)
         {
             return this.literalValueParser.ParseLiteralValue(context);
+        }
+
+        public Task<ParseResult<ConditionalExpression>> ParseConditionalExpressionRoot(IParserContext context)
+        {
+            return this.conditionalExpressionsParser.ParseConditionalExpressionRoot(context);
+        }
+
+        public Task<ParseResult<IReadOnlyList<IRootContentItem>>> ParseRootContentScope(IRootParserContext context)
+        {
+            return this.fileRootContentParser.ParseRootContentScope(context);
+        }
+
+        public Task<ParseResult<IRootContentItem>> ParseRootContent(IRootParserContext context)
+        {
+            return this.fileRootContentParser.ParseRootContent(context);
         }
     }
 }

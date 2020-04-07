@@ -29,6 +29,16 @@ namespace TheToolsmiths.Ddl.Lexer
             return IsNextTokenOfKind(lexer, LexerTokenKind.CloseAttribute);
         }
 
+        public static ValueTask<bool> IsNextOpenParenthesesToken(this DdlLexer lexer)
+        {
+            return IsNextTokenOfKind(lexer, LexerTokenKind.OpenParentheses);
+        }
+
+        public static ValueTask<bool> IsNextCloseParenthesesToken(this DdlLexer lexer)
+        {
+            return IsNextTokenOfKind(lexer, LexerTokenKind.CloseParentheses);
+        }
+
         public static ValueTask<bool> IsNextValueAssignmentToken(this DdlLexer lexer)
         {
             return IsNextTokenOfKind(lexer, LexerTokenKind.ValueAssignment);

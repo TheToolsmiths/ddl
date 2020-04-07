@@ -9,14 +9,13 @@ using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {
-    internal class CategoryRootParser<TContext> : IEnumerable<KeyValuePair<string, IRootParser<TContext>>>,
-        IRootParser<TContext> where TContext : RootParserContext
+    public class CategoryRootParser : IEnumerable<KeyValuePair<string, IRootParser>>, IRootParser
     {
-        private readonly CharSpanKeyedMap<IRootParser<TContext>> categoryParsersMap;
+        private readonly CharSpanKeyedMap<IRootParser> categoryParsersMap;
 
-        protected CategoryRootParser()
+        public CategoryRootParser()
         {
-            this.categoryParsersMap = new CharSpanKeyedMap<IRootParser<TContext>>();
+            this.categoryParsersMap = new CharSpanKeyedMap<IRootParser>();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -24,12 +23,12 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return this.GetEnumerator();
         }
 
-        public IEnumerator<KeyValuePair<string, IRootParser<TContext>>> GetEnumerator()
+        public IEnumerator<KeyValuePair<string, IRootParser>> GetEnumerator()
         {
             return this.categoryParsersMap.GetEnumerator();
         }
 
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(TContext context)
+        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             var result = await context.Lexer.TryGetIdentifierToken();
 
@@ -48,7 +47,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return await parser.ParseRootContent(context);
         }
 
-        public void Add(string key, IRootParser<TContext> rootParser)
+        public void Add(string key, IRootParser rootParser)
         {
             this.categoryParsersMap.Add(key, rootParser);
         }

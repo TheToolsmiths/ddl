@@ -95,15 +95,16 @@ conditionalExpression:
 	| conditionalExpression ConditionalLogicalOperator conditionalExpression	# BinaryExpression
 	| BoolLiteral																# BoolLiteralExpression
 	| conditionalSymbolExpression												# SymbolExpression
-	| '!' conditionalExpression													# NegateExpression;
+	| negateConditionalExpression												# NegateExpression;
+
+parenthesesConditionalExpression: '(' conditionalExpression ')';
+
+negateConditionalExpression: '!' (BoolLiteral | Identifier | parenthesesConditionalExpression);
 
 // Conditional Symbols
 conditionalSymbolExpression:
 	conditionalSymbolComparison	# CompareSymbols
-	| conditionalSymbolNegation	# NegateSymbol
 	| Identifier				# IdentifierSymbol;
-
-conditionalSymbolNegation: '!' Identifier;
 
 conditionalSymbolComparison:
 	Identifier EqualityComparerOperator StringLiteral;

@@ -32,9 +32,11 @@ namespace TheToolsmiths.Ddl.Parser.Visitors
                 }
             }
 
-            var typeIdentifier = new QualifiedTypeIdentifier(typeName, namespacePath);
+            throw new System.NotImplementedException();
 
-            return typeIdentifier;
+            //var typeIdentifier = new QualifiedTypeIdentifier(typeName, namespacePath);
+
+            //return typeIdentifier;
         }
     }
 }

@@ -11,5 +11,15 @@
         public const string Scope = "scope";
 
         public const string Import = "import";
+
+        public const string As = "as";
+
+        public const string From = "from";
+
+        public const string Reference = "ref";
+
+        public const string Owns = "owns";
+
+        public const string Handle = "handle";
     }
 }

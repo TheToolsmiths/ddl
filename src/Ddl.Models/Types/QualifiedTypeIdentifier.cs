@@ -1,73 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Models.Types
 {
-    public class QualifiedTypeIdentifier : ITypeIdentifier
+    public class QualifiedTypeIdentifier : IQualifiedTypeIdentifier
     {
-        public QualifiedTypeIdentifier(ITypeName typeName)
+        public QualifiedTypeIdentifier(Identifier typeName)
         {
             this.Name = typeName;
-            this.Namespace = NamespacePath.Empty;
+            this.NamespacePath = NamespacePath.Empty;
         }
 
-        public QualifiedTypeIdentifier(ITypeName typeName, NamespacePath namespacePath)
+        public QualifiedTypeIdentifier(Identifier typeName, NamespacePath namespacePath)
         {
             this.Name = typeName;
-            this.Namespace = namespacePath;
+            this.NamespacePath = namespacePath;
         }
 
-        public ITypeName Name { get; }
+        public Identifier Name { get; }
 
-        public NamespacePath Namespace { get; }
+        public NamespacePath NamespacePath { get; }
 
         public TypeIdentifierKind Kind => TypeIdentifierKind.QualifiedType;
 
+        public QualifiedTypeIdentifierKind QualifiedKind => QualifiedTypeIdentifierKind.QualifiedType;
+
         public override string ToString()
         {
-            if (this.Namespace.IsEmpty)
+            if (this.NamespacePath.IsEmpty)
             {
                 return this.Name.ToString();
             }
 
-            return $"{this.Namespace}{TypeConstants.TypeSeparator}{this.Name}";
+            return $"{this.NamespacePath}{TypeConstants.TypeSeparator}{this.Name}";
         }
 
         public static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers)
         {
-            return BuildFromIdentifierList(identifiers, false);
+            var (namespacePath, name) = GenericTypeBuilderHelper.SplitNamespaceAndIdentifier(identifiers, false);
+
+            return new QualifiedTypeIdentifier(name, namespacePath);
         }
 
         public static QualifiedTypeIdentifier BuildRootedFromIdentifierList(IReadOnlyList<Identifier> identifiers)
         {
-            return BuildFromIdentifierList(identifiers, true);
-        }
+            var (namespacePath, name) = GenericTypeBuilderHelper.SplitNamespaceAndIdentifier(identifiers, true);
 
-        private static QualifiedTypeIdentifier BuildFromIdentifierList(IReadOnlyList<Identifier> identifiers, bool isRooted)
-        {
-            if (identifiers == null
-                || identifiers.Count == 0)
-            {
-                throw new ArgumentException(nameof(identifiers));
-            }
-
-            var name = identifiers[^1];
-
-            NamespacePath namespacePath;
-
-            if (identifiers.Count == 1)
-            {
-                namespacePath = NamespacePath.Empty;
-            }
-            else
-            {
-                namespacePath = NamespacePath.CreateFromIdentifiers(identifiers.GetRange(..^1));
-            }
-
-            ITypeName typeName = new SimpleTypeName(name);
-
-            return new QualifiedTypeIdentifier(typeName, namespacePath);
+            return new QualifiedTypeIdentifier(name, namespacePath);
         }
     }
 }

@@ -26,8 +26,7 @@
         LogicalNot,
         Equality,
         Inequality,
-        OpenArrayDimension,
-        CloseArrayDimension,
-        EndStatement
+        EndStatement,
+        Asterisk
     }
 }

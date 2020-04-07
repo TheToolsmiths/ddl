@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.FileContents;
 using TheToolsmiths.Ddl.Parser.Containers;
 using TheToolsmiths.Ddl.Parser.Contexts;
@@ -16,12 +16,12 @@ namespace TheToolsmiths.Ddl.Parser
     {
         private readonly ArrayBufferWriter<char> arrayBufferWriter;
         private readonly DdlLexer lexer;
-        private readonly CharSpanKeyedMap<IRootParser<RootParserContext>> mainParsersMap;
+        private readonly CharSpanKeyedMap<IRootParser> mainParsersMap;
 
         private DdlParser(
             DdlLexer lexer,
             ArrayBufferWriter<char> arrayBufferWriter,
-            CharSpanKeyedMap<IRootParser<RootParserContext>> mainParsersMap)
+            CharSpanKeyedMap<IRootParser> mainParsersMap)
         {
             this.lexer = lexer;
             this.arrayBufferWriter = arrayBufferWriter;
@@ -43,51 +43,38 @@ namespace TheToolsmiths.Ddl.Parser
 
         public async IAsyncEnumerable<ParseResult<IRootContentItem>> ParseFileContents()
         {
-            var parsers = new ContextParsers();
-
-            IReadOnlyList<IAttributeUse> attributeList;
-            if (await this.lexer.IsNextOpenAttributeToken())
+            while (this.lexer.HasNextToken)
             {
-                var attributeContext = new AttributeParserContext(this.lexer, parsers);
-                var result = await parsers.ParseAttributeUseList(attributeContext);
-
-                if (result.IsError)
+                if (await this.lexer.TryParseTokens() == false)
                 {
-                    throw new NotImplementedException();
+                    yield break;
                 }
 
-                attributeList = result.Value;
+                yield return await this.ParseFileContent();
             }
-            else
-            {
-                attributeList = Array.Empty<IAttributeUse>();
-            }
-
-            var context = new RootParserContext(this.lexer, attributeList, parsers);
-
-            yield return await this.TryHandleInitialToken(context);
         }
 
-        private async Task<ParseResult<IRootContentItem>> TryHandleInitialToken(RootParserContext context)
+        private async Task<ParseResult<IRootContentItem>> ParseFileContent()
         {
-            LexerToken token;
+            try
             {
-                var tokenResult = await this.lexer.TryGetIdentifierToken();
+                var parsers = new ContextParsers();
 
-                if (tokenResult.IsError)
+                var context = new RootParserContext(this.lexer, parsers, this.mainParsersMap);
+
+                var result = await parsers.ParseRootContent(context);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                if (Debugger.IsAttached)
                 {
-                    throw new NotImplementedException();
+                    Debugger.Break();
                 }
 
-                token = tokenResult.Token;
+                return new ParseResult<IRootContentItem>(e.ToString());
             }
-
-            if (this.mainParsersMap.TryGetValue(token.Memory, out var parser) == false)
-            {
-                throw new NotImplementedException();
-            }
-
-            return await parser.ParseRootContent(context).ConfigureAwait(true);
         }
     }
 }

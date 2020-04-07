@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Models.ConditionalExpressions
             this.LeftExpression = leftExpression;
             this.RightExpression = rightExpression;
         }
-        
+
         public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Binary;
 
         public IConditionalLogicalOperator Op { get; }

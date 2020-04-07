@@ -51,14 +51,9 @@ namespace TheToolsmiths.Ddl.Parser.Containers
 
         public bool TryGetValue(in ReadOnlySpan<char> key, out TItem value)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool TryGetValue(in ReadOnlyMemory<char> key, [NotNullWhen(true)] out TItem value)
-        {
             foreach ((string entryKey, var entryItem) in this.entries)
             {
-                if (key.Span.SequenceEqual(entryKey))
+                if (key.SequenceEqual(entryKey))
                 {
                     value = entryItem;
                     return true;
@@ -67,6 +62,11 @@ namespace TheToolsmiths.Ddl.Parser.Containers
 
             value = default!;
             return false;
+        }
+
+        public bool TryGetValue(in ReadOnlyMemory<char> key, [NotNullWhen(true)] out TItem value)
+        {
+            return this.TryGetValue(key.Span, out value);
         }
 
         public IEnumerator<KeyValuePair<string, TItem>> GetEnumerator()

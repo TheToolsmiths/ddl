@@ -15,6 +15,7 @@ namespace TheToolsmiths.Ddl.Lexer
         private readonly Decoder decoder;
         private readonly PipeReader streamReader;
         private readonly LexerState state;
+        private bool isReadComplete;
 
         public DdlLexer(PipeReader streamReader, ArrayBufferWriter<char> arrayBufferWriter)
         {
@@ -23,6 +24,26 @@ namespace TheToolsmiths.Ddl.Lexer
             this.decoder = Encoding.UTF8.GetDecoder();
 
             this.state = new LexerState();
+        }
+
+        public bool HasNextToken
+        {
+            get
+            {
+                if (this.state.TokenQueue.Count > 0)
+                {
+                    return true;
+                }
+
+                return this.isReadComplete == false;
+            }
+        }
+
+        public async Task<bool> TryParseTokens()
+        {
+            await this.ParseTokens();
+
+            return this.HasNextToken;
         }
 
         public async ValueTask<TokenResult> TryGetNextToken()
@@ -104,6 +125,8 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public void PopToken()
         {
+            Console.WriteLine($"Popped {this.state.TokenQueue.Peek()}");
+
             this.state.TokenQueue.Dequeue();
         }
 
@@ -111,20 +134,31 @@ namespace TheToolsmiths.Ddl.Lexer
         {
             while (true)
             {
+                if (this.isReadComplete)
+                {
+                    return;
+                }
+
                 var readResult = await this.streamReader.ReadAsync();
 
                 this.ReadBufferTokens(readResult);
 
                 this.streamReader.AdvanceTo(readResult.Buffer.End);
 
+                this.isReadComplete = readResult.IsCompleted;
+
+                if (this.isReadComplete)
+                {
+                    await this.streamReader.CompleteAsync();
+                }
+
                 if (this.state.TokenQueue.Any())
                 {
                     return;
                 }
 
-                if (readResult.IsCompleted)
+                if (this.isReadComplete)
                 {
-                    await this.streamReader.CompleteAsync();
                     return;
                 }
             }
@@ -214,6 +248,8 @@ namespace TheToolsmiths.Ddl.Lexer
 
                 return sequence.GetPosition(3);
             }
+
+            this.isReadComplete = buffer.Length <= 3 && readResult.IsCompleted;
         }
     }
 }

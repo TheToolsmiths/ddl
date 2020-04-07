@@ -14,5 +14,10 @@ namespace TheToolsmiths.Ddl.Parser.Contexts
         public DdlLexer Lexer { get; }
 
         public ContextParsers Parsers { get; }
+
+        public static AttributeParserContext FromParentContext(IParserContext context)
+        {
+            return new AttributeParserContext(context.Lexer, context.Parsers);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Models.Arrays;
 using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Types;
 using TheToolsmiths.Ddl.Parser.Contexts;
@@ -15,8 +16,36 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
         {
             var identifiersList = new List<LexerToken>();
 
-            bool isRootedType = false;
+            ReferenceKind? referenceKind = null;
+            {
+                var result = await context.Lexer.TryPeekIdentifierToken();
 
+                if (result.HasToken)
+                {
+                    var token = result.Token;
+
+                    if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Reference))
+                    {
+                        context.Lexer.PopToken();
+
+                        referenceKind = ReferenceKind.Reference;
+                    }
+                    else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Handle))
+                    {
+                        context.Lexer.PopToken();
+
+                        referenceKind = ReferenceKind.Handle;
+                    }
+                    else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Owns))
+                    {
+                        context.Lexer.PopToken();
+
+                        referenceKind = ReferenceKind.Owns;
+                    }
+                }
+            }
+
+            bool isRootedType = false;
             {
                 var result = await context.Lexer.TryPeekToken();
 
@@ -36,22 +65,96 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             while (true)
             {
-                {
-                    var result = await context.Lexer.TryPeekIdentifierToken();
+                var result = await context.Lexer.TryGetIdentifierToken();
 
-                    if (result.IsError)
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var identifierToken = result.Token;
+
+                identifiersList.Add(identifierToken);
+
+                if (await context.Lexer.TryConsumeNamespaceSeparatorToken() == false)
+                {
+                    break;
+                }
+            }
+
+            IQualifiedTypeIdentifier genericIdentifier;
+            {
+                var result = await context.Lexer.TryPeekOpenGenericsToken();
+
+                ParseResult<IQualifiedTypeIdentifier> parseResult;
+                if (result.HasToken)
+                {
+                    parseResult = await this.ParseGenericType(context, identifiersList, isRootedType);
+                }
+                else
+                {
+                    parseResult = this.CreateQualifiedType(identifiersList, isRootedType);
+                }
+
+                if (parseResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                genericIdentifier = parseResult.Value;
+            }
+
+            ITypeIdentifier arrayTypeIdentifier;
+            {
+                var result = await context.Lexer.TryPeekOpenAttributeToken();
+
+                if (result.HasToken)
+                {
+                    var parseResult = await this.ParseArrayType(context, genericIdentifier);
+
+                    if (parseResult.IsError)
                     {
                         throw new NotImplementedException();
                     }
 
-                    var identifierToken = result.Token;
-
-                    identifiersList.Add(identifierToken);
-
-                    context.Lexer.PopToken();
+                    arrayTypeIdentifier = parseResult.Value;
                 }
-
+                else
                 {
+                    arrayTypeIdentifier = genericIdentifier;
+                }
+            }
+
+            return this.CreateReferenceType(arrayTypeIdentifier, referenceKind);
+        }
+
+        private async Task<ParseResult<IQualifiedTypeIdentifier>> ParseGenericType(
+            IParserContext context,
+            IReadOnlyList<LexerToken> identifiersList,
+            bool isRootedType)
+        {
+            if (await context.Lexer.TryConsumeOpenGenericsToken() == false)
+            {
+                throw new NotImplementedException();
+            }
+
+            var parameters = new List<ITypeIdentifier>();
+
+            await ParseGenericParametersList();
+
+            async Task ParseGenericParametersList()
+            {
+                while (true)
+                {
+                    var parseResult = await context.Parsers.ParseTypeIdentifier(context);
+
+                    if (parseResult.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    parameters.Add(parseResult.Value);
+
                     var result = await context.Lexer.TryPeekToken();
 
                     if (result.IsError)
@@ -59,67 +162,124 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                         throw new NotImplementedException();
                     }
 
-                    var identifierToken = result.Token;
+                    var token = result.Token;
 
-                    switch (identifierToken.Kind)
+                    switch (token.Kind)
                     {
-                        case LexerTokenKind.NamespaceSeparator:
+                        case LexerTokenKind.ListSeparator:
                             context.Lexer.PopToken();
-                            break;
-
-                        // TODO: Add Support for generic and start array tokens
-                        case LexerTokenKind.OpenGenerics:
-                        case LexerTokenKind.OpenArrayDimension:
-                            throw new NotImplementedException();
-
-
+                            continue;
+                        case LexerTokenKind.CloseGenerics:
+                            return;
                         default:
-                            return CreateQualifiedType();
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
             }
 
-            ParseResult<ITypeIdentifier> CreateQualifiedType()
-            {
-                if (identifiersList.Count == 0)
-                {
-                    throw new NotImplementedException();
-                }
-
-                var identifiers = identifiersList.Select(i =>
-                        new Identifier(i.Memory.ToString())
-                    ).ToList();
-
-                QualifiedTypeIdentifier typeIdentifier;
-                if (isRootedType)
-                {
-                    typeIdentifier = QualifiedTypeIdentifier.BuildRootedFromIdentifierList(identifiers);
-                }
-                else
-                {
-                    typeIdentifier = QualifiedTypeIdentifier.BuildFromIdentifierList(identifiers);
-                }
-
-                return new ParseResult<ITypeIdentifier>(typeIdentifier);
-            }
-        }
-
-        public async Task<ParseResult<ITypeName>> ParseTypeName(IParserContext context)
-        {
-            var result = await context.Lexer.TryGetIdentifierToken();
-
-            if (result.IsError)
+            if (await context.Lexer.TryConsumeCloseGenericsToken() == false)
             {
                 throw new NotImplementedException();
             }
 
-            var identifierToken = result.Token;
+            if (identifiersList.Count == 0)
+            {
+                throw new NotImplementedException();
+            }
 
-            var identifier = new Identifier(identifierToken.Memory.ToString());
+            var identifiers = identifiersList.Select(i =>
+                new Identifier(i.Memory.ToString())
+            ).ToList();
 
-            ITypeName value = new SimpleTypeName(identifier);
+            var genericTypeIdentifier = isRootedType
+                ? GenericTypeIdentifier.BuildRootedFromIdentifierList(identifiers, parameters)
+                : GenericTypeIdentifier.BuildFromIdentifierList(identifiers, parameters);
 
-            return new ParseResult<ITypeName>(value);
+            return new ParseResult<IQualifiedTypeIdentifier>(genericTypeIdentifier);
+        }
+
+        private async Task<ParseResult<ITypeIdentifier>> ParseArrayType(IParserContext context, IQualifiedTypeIdentifier typeIdentifier)
+        {
+            var sizes = new List<ArraySize>();
+
+            while (await context.Lexer.IsNextOpenAttributeToken())
+            {
+                await ParseGenericParametersList();
+            }
+
+            async Task ParseGenericParametersList()
+            {
+                if (await context.Lexer.TryConsumeOpenAttributeToken() == false)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var literals = new List<LexerToken>();
+
+                while (true)
+                {
+                    var result = await context.Lexer.TryPeekNumberToken();
+
+                    if (result.IsError)
+                    {
+                        break;
+                    }
+
+                    literals.Add(result.Token);
+
+                    context.Lexer.PopToken();
+
+                    if (await context.Lexer.TryConsumeListSeparatorToken() == false)
+                    {
+                        break;
+                    }
+                }
+
+                if (await context.Lexer.TryConsumeCloseAttributeToken() == false)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var dimensions = literals.Select(lt => lt.Memory.ToString()).ToList();
+
+                var size = dimensions.Count == 0
+                    ? (ArraySize)new DynamicArraySize()
+                    : new FixedArraySize(dimensions);
+                sizes.Add(size);
+            }
+
+            var arrayTypeIdentifier = new ArrayTypeIdentifier(typeIdentifier, sizes);
+
+            return new ParseResult<ITypeIdentifier>(arrayTypeIdentifier);
+        }
+
+        private ParseResult<IQualifiedTypeIdentifier> CreateQualifiedType(List<LexerToken> identifiersList,
+            bool isRootedType)
+        {
+            if (identifiersList.Count == 0)
+            {
+                throw new NotImplementedException();
+            }
+
+            var identifiers = identifiersList.Select(i =>
+                    new Identifier(i.Memory.ToString())
+                ).ToList();
+
+            var typeIdentifier = isRootedType
+                ? QualifiedTypeIdentifier.BuildRootedFromIdentifierList(identifiers)
+                : QualifiedTypeIdentifier.BuildFromIdentifierList(identifiers);
+
+            return new ParseResult<IQualifiedTypeIdentifier>(typeIdentifier);
+        }
+
+        ParseResult<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceKind? referenceKind)
+        {
+            if (referenceKind != null)
+            {
+                typeIdentifier = new ReferenceTypeIdentifier(typeIdentifier, referenceKind.Value);
+            }
+
+            return new ParseResult<ITypeIdentifier>(typeIdentifier);
         }
     }
 }

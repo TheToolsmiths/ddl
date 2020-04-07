@@ -11,9 +11,9 @@ using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
-    internal class EnumStructDefinitionParser : IRootParser<RootParserContext>
+    internal class EnumStructDefinitionParser : IRootParser
     {
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(RootParserContext context)
+        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             ITypeName typeName;
             {
@@ -54,7 +54,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             return new ParseResult<IRootContentItem>(value);
         }
 
-        private async Task<ParseResult<EnumStructDefinitionContent>> ParseBlockContent(RootParserContext context)
+        private async Task<ParseResult<EnumStructDefinitionContent>> ParseBlockContent(IRootItemParserContext context)
         {
             var items = new List<IEnumStructDefinitionItem>();
 

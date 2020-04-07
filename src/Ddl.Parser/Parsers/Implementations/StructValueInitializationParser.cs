@@ -5,7 +5,6 @@ using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Structs;
-using TheToolsmiths.Ddl.Models.Types;
 using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
 
@@ -13,44 +12,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
     internal class StructValueInitializationParser
     {
-        public async Task<ParseResult<TypedStructValueInitialization>> ParseTypedStructuredInitialization(IParserContext context)
-        {
-            ITypeIdentifier identifier;
-            {
-                var result = await context.Parsers.ParseTypeIdentifier(context);
-
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                identifier = result.Value;
-            }
-
-            StructValueInitialization structInitialization;
-            {
-                if (await context.Lexer.IsNextOpenScopeToken() == false)
-                {
-                    structInitialization = StructValueInitialization.CreateEmpty();
-                }
-                else
-                {
-                    var result = await context.Parsers.ParseStructValueInitialization(context);
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    structInitialization = result.Value;
-                }
-            }
-
-            var value = new TypedStructValueInitialization(identifier, structInitialization);
-
-            return new ParseResult<TypedStructValueInitialization>(value);
-        }
-
         public async Task<ParseResult<StructValueInitialization>> ParseStructuredInitialization(IParserContext context)
         {
             if (await context.Lexer.TryConsumeOpenScopeToken() == false)
@@ -93,16 +54,25 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             return token.Kind switch
             {
-                LexerTokenKind.OpenScope => ParseStructuredInitialization(),
+                LexerTokenKind.OpenScope => await ParseStructuredInitialization(),
                 LexerTokenKind.String => CreateStringInitialization(),
                 LexerTokenKind.Number => CreateNumberInitialization(),
                 LexerTokenKind.Boolean => CreateBoolInitialization(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            ParseResult<ValueInitialization> ParseStructuredInitialization()
+            async Task<ParseResult<ValueInitialization>> ParseStructuredInitialization()
             {
-                throw new NotImplementedException();
+                var parseResult = await context.Parsers.ParseStructValueInitialization(context);
+
+                if (parseResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var initialization = parseResult.Value;
+
+                return new ParseResult<ValueInitialization>(initialization);
             }
 
             ParseResult<ValueInitialization> CreateStringInitialization()
@@ -181,7 +151,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
                 ValueInitialization initialization;
                 {
-                    var result = await ParseStructuredInitializationValue(context);
+                    var result = await this.ParseStructuredInitializationValue(context);
 
                     if (result.IsError)
                     {

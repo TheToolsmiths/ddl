@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 {
     public class GenericTypeName : ITypeName
     {
-        public GenericTypeName(Identifier name, IReadOnlyList<ITypeIdentifier> typeArgumentList)
+        public GenericTypeName(Identifier name, IReadOnlyList<Identifier> typeArgumentList)
         {
             this.Name = name;
             this.TypeArgumentList = typeArgumentList;
@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public Identifier Name { get; }
 
-        public IReadOnlyList<ITypeIdentifier> TypeArgumentList { get; }
+        public IReadOnlyList<Identifier> TypeArgumentList { get; }
 
         public bool IsGeneric => false;
 

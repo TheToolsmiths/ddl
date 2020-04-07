@@ -25,6 +25,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
                 case CharConstants.OpenGenerics:
                 case CharConstants.CloseGenerics:
                 case CharConstants.Semicolon:
+                case CharConstants.Asterisk:
                     HandleSingleCharToken(ref readState);
                     return;
 
@@ -51,6 +52,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
                 case CharConstants.Equal:
                     HandleEqualToken(ref readState);
                     return;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(firstChar), firstChar, "Unexpected value on switch");
             }
@@ -70,6 +72,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
                 CharConstants.CloseGenerics => LexerToken.CreateCloseGenericsToken(),
                 CharConstants.Comma => LexerToken.CreateListSeparatorToken(),
                 CharConstants.Semicolon => LexerToken.CreateEndStatementToken(),
+                CharConstants.Asterisk => LexerToken.CreateAsteriskToken(),
                 _ => throw new ArgumentOutOfRangeException(nameof(readState.CurrentChar), readState.CurrentChar,
                     "Char is not valid single token")
             };
@@ -83,28 +86,45 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
         private static void HandleSlash(ref LexerSequenceReadState readState)
         {
-            if (readState.GetWrittenStageScratchMemory().IsEmpty == false)
-            {
-                throw new NotImplementedException();
-            }
+            char next;
 
-            // If there is no next char available
-            // Save current char and return
-            if (readState.TryPeek(out char next) == false)
+            if (readState.TryGetFirstCharScratchMemory(out char first) == false)
             {
-                // If stream is completed Enqueue current char as token and return
-                if (readState.IsCompleted)
+                first = readState.CurrentChar;
+
+                // If there is no next char available
+                // Save current char and return
+                if (readState.TryPeek(out next) == false)
                 {
-                    var token = LexerToken.CreateSlashToken();
-                    readState.EnqueueToken(token);
+                    // If stream is completed Enqueue current char as token and return
+                    if (readState.IsCompleted)
+                    {
+                        var token = LexerToken.CreateSlashToken();
+                        readState.EnqueueToken(token);
+                        readState.MoveNext();
+
+                        return;
+                    }
+
+                    var start = readState.CurrentIndex;
+                    var end = readState.CurrentIndex.Next();
+
+                    var range = new Range(start, end);
+
+                    var identifierChars = readState.GetRange(range);
+
+                    readState.SetStageScratchMemory(identifierChars);
+
                     readState.MoveNext();
 
                     return;
                 }
+            }
+            else
+            {
+                readState.ClearStageScratchMemory();
 
-                throw new NotImplementedException();
-
-                return;
+                next = readState.CurrentChar;
             }
 
             // If next char is also a slash
@@ -121,10 +141,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
             if (next == CharConstants.Asterisk)
             {
                 // then MoveNext for current char
-                readState.MoveNext();
-
-                // MoveNext for next char
-                readState.MoveNext();
+                readState.MoveForCurrentAndNextChar();
 
                 // Go to LineComment state
                 readState.MoveToState(LexerStatePhase.BlockComment);

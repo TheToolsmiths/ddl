@@ -4,9 +4,8 @@ using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {
-    public interface IRootParser<in TContext>
-        where TContext : RootParserContext
+    public interface IRootParser
     {
-        ValueTask<ParseResult<IRootContentItem>> ParseRootContent(TContext context);
+        ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context);
     }
 }

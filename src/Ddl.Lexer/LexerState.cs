@@ -23,5 +23,11 @@ namespace TheToolsmiths.Ddl.Lexer
 
             this.HasStageScratchMemory = false;
         }
+
+        public void ClearStageScratchMemory()
+        {
+            this.StageScratchMemory.Clear();
+            this.HasStageScratchMemory = false;
+        }
     }
 }

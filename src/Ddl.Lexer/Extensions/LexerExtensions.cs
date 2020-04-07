@@ -54,6 +54,16 @@ namespace TheToolsmiths.Ddl.Lexer
             return TryPeekTokenOfKind(lexer, LexerTokenKind.CloseScope);
         }
 
+        public static ValueTask<TokenResult> TryPeekOpenGenericsToken(this DdlLexer lexer)
+        {
+            return TryPeekTokenOfKind(lexer, LexerTokenKind.OpenGenerics);
+        }
+
+        public static ValueTask<TokenResult> TryPeekCloseGenericsToken(this DdlLexer lexer)
+        {
+            return TryPeekTokenOfKind(lexer, LexerTokenKind.CloseGenerics);
+        }
+
         public static ValueTask<TokenResult> TryGetValueAssignmentToken(this DdlLexer lexer)
         {
             return TryGetTokenOfKind(lexer, LexerTokenKind.ValueAssignment);
@@ -72,6 +82,36 @@ namespace TheToolsmiths.Ddl.Lexer
         public static ValueTask<TokenResult> TryGetListSeparatorToken(this DdlLexer lexer)
         {
             return TryGetTokenOfKind(lexer, LexerTokenKind.ListSeparator);
+        }
+
+        public static ValueTask<TokenResult> TryGetStringToken(this DdlLexer lexer)
+        {
+            return TryGetTokenOfKind(lexer, LexerTokenKind.String);
+        }
+
+        public static ValueTask<TokenResult> TryGetNumberToken(this DdlLexer lexer)
+        {
+            return TryGetTokenOfKind(lexer, LexerTokenKind.Number);
+        }
+
+        public static ValueTask<TokenResult> TryGetBooleanToken(this DdlLexer lexer)
+        {
+            return TryGetTokenOfKind(lexer, LexerTokenKind.Boolean);
+        }
+
+        public static ValueTask<TokenResult> TryPeekStringToken(this DdlLexer lexer)
+        {
+            return TryPeekTokenOfKind(lexer, LexerTokenKind.String);
+        }
+
+        public static ValueTask<TokenResult> TryPeekNumberToken(this DdlLexer lexer)
+        {
+            return TryPeekTokenOfKind(lexer, LexerTokenKind.Number);
+        }
+
+        public static ValueTask<TokenResult> TryPeekBooleanToken(this DdlLexer lexer)
+        {
+            return TryPeekTokenOfKind(lexer, LexerTokenKind.Boolean);
         }
 
         public static async ValueTask<TokenResult> TryGetLiteralToken(this DdlLexer lexer)
@@ -93,19 +133,22 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public static async ValueTask<TokenResult> TryGetTokenOfKind(DdlLexer lexer, LexerTokenKind tokenKind)
         {
-            var result = await lexer.TryGetNextToken();
+            var result = await lexer.TryPeekToken();
 
             if (result.IsError)
             {
                 return result;
             }
 
-            if (result.Token.Kind == tokenKind)
+            if (result.Token.Kind != tokenKind)
             {
-                return result;
+                throw new System.NotImplementedException();
             }
 
-            throw new System.NotImplementedException();
+            lexer.PopToken();
+
+            return result;
+
         }
 
         public static async ValueTask<TokenResult> TryPeekTokenOfKind(DdlLexer lexer, LexerTokenKind tokenKind)
@@ -122,7 +165,7 @@ namespace TheToolsmiths.Ddl.Lexer
                 return result;
             }
 
-            throw new System.NotImplementedException();
+            return TokenResult.CreateNotFound();
         }
     }
 }

@@ -6,7 +6,7 @@ using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
-    internal class EnumDefinitionDisambiguationParser : IRootParser<RootParserContext>
+    internal class EnumDefinitionDisambiguationParser : IRootParser
     {
         public EnumDefinitionDisambiguationParser()
         {
@@ -19,9 +19,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
         public EnumStructDefinitionParser EnumStructParser { get; }
 
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(RootParserContext context)
+        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
-            var result = await context.Lexer.TryGetIdentifierToken();
+            var result = await context.Lexer.TryPeekIdentifierToken();
 
             if (result.IsError)
             {
@@ -32,12 +32,12 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Struct))
             {
+                context.Lexer.PopToken();
+
                 return await this.EnumStructParser.ParseRootContent(context);
             }
 
-            var enumContext = EnumParserContext.WithIdentifier(context, token);
-
-            return await this.EnumParser.ParseRootContent(enumContext);
+            return await this.EnumParser.ParseRootContent(context);
         }
     }
 }

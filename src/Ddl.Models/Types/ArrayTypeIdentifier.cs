@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 {
     public class ArrayTypeIdentifier : ITypeIdentifier
     {
-        public ArrayTypeIdentifier(QualifiedTypeIdentifier typeIdentifier, IReadOnlyList<ArraySize> sizes)
+        public ArrayTypeIdentifier(IQualifiedTypeIdentifier typeIdentifier, IReadOnlyList<ArraySize> sizes)
         {
             this.TypeIdentifier = typeIdentifier;
             this.Sizes = sizes;
@@ -15,8 +15,7 @@ namespace TheToolsmiths.Ddl.Models.Types
 
         public IReadOnlyList<ArraySize> Sizes { get; }
 
-
-        public QualifiedTypeIdentifier TypeIdentifier { get; }
+        public IQualifiedTypeIdentifier TypeIdentifier { get; }
 
 
         public override string ToString()

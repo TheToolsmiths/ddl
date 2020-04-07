@@ -4,8 +4,10 @@
     {
         Parenthesis,
         Binary,
+        LogicalCombinedExpressions,
         Negate,
         BooleanLiteral,
-        Symbol
+        Symbol,
+        Empty
     }
 }

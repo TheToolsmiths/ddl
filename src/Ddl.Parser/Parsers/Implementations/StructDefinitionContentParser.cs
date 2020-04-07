@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Identifiers;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Types;
@@ -26,6 +27,18 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             while (true)
             {
+                IReadOnlyList<IAttributeUse> attributesList;
+                {
+                    var result = await context.Parsers.ParseAttributeUseList(context);
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    attributesList = result.Value;
+                }
+
                 LexerToken token;
                 {
                     var result = await context.Lexer.TryPeekToken();
@@ -36,34 +49,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                     }
 
                     token = result.Token;
-                }
-
-                IReadOnlyList<IAttributeUse> attributesList;
-                if (token.IsOpenAttribute())
-                {
-                    var parseResult = await context.Parsers.ParseAttributeUseList(context);
-
-                    if (parseResult.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    attributesList = parseResult.Value;
-
-                    {
-                        var result = await context.Lexer.TryPeekToken();
-
-                        if (result.IsError)
-                        {
-                            throw new NotImplementedException();
-                        }
-
-                        token = result.Token;
-                    }
-                }
-                else
-                {
-                    attributesList = Array.Empty<IAttributeUse>();
                 }
 
                 switch (token.Kind)
@@ -95,23 +80,136 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             IParserContext context,
             IReadOnlyList<IAttributeUse> attributesList)
         {
-            var result = await context.Lexer.TryPeekIdentifierToken();
+            {
+                var result = await context.Lexer.TryPeekIdentifierToken();
 
-            if (result.IsError)
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var token = result.Token;
+
+                // If its a scope identifier
+                if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Scope))
+                {
+                }
+            }
+
+            if (await CheckIsScopeToken(context))
+            {
+                return await this.ParseStructScopeBlock(context);
+            }
+
+            var parseResult = await this.ParseStructFieldDefinition(context, attributesList);
+
+            if (await CheckTokenFollowingFieldIsValid(context) == false)
             {
                 throw new NotImplementedException();
             }
 
-            var token = result.Token;
+            return parseResult;
 
-            // If its a scope identifier
-            if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Scope))
+
+            static async Task<bool> CheckIsScopeToken(IParserContext context)
+            {
+                var result = await context.Lexer.TryPeekIdentifierToken();
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var token = result.Token;
+
+                // If its a scope identifier
+                return token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Scope);
+            }
+
+            static async Task<bool> CheckTokenFollowingFieldIsValid(IParserContext context)
+            {
+                var result = await context.Lexer.TryPeekToken();
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var token = result.Token;
+
+                return token.IsListSeparator() || token.IsCloseScope();
+            }
+        }
+
+        private async Task<ParseResult<IStructDefinitionItem>> ParseStructScopeBlock(IParserContext context)
+        {
+            context.Lexer.PopToken();
+
+            LexerToken token;
+            {
+                var result = await context.Lexer.TryPeekToken();
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                token = result.Token;
+            }
+
+            ConditionalExpression expression;
+            if (token.IsOpenParentheses())
+            {
+                var parseResult = await context.Parsers.ParseConditionalExpressionRoot(context);
+
+                if (parseResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                expression = parseResult.Value;
+
+                {
+                    var result = await context.Lexer.TryPeekToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    token = result.Token;
+                }
+            }
+            else
+            {
+                expression = ConditionalExpression.CreateEmpty();
+            }
+
+            if (token.IsOpenScope() == false)
+            {
+                throw new NotImplementedException();
+            }
+
             {
                 context.Lexer.PopToken();
-                throw new NotImplementedException();
-            }
 
-            return await this.ParseStructFieldDefinition(context, attributesList);
+                var result = await this.Parse(context);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var content = result.Value;
+
+                if (await context.Lexer.TryConsumeCloseScopeToken() == false)
+                {
+                    throw new NotImplementedException();
+                }
+
+                IStructDefinitionItem value = new StructScope(expression, content);
+                return new ParseResult<IStructDefinitionItem>(value);
+            }
         }
 
         private async Task<ParseResult<IStructDefinitionItem>> ParseStructFieldDefinition(

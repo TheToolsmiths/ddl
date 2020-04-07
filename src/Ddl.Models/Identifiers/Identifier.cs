@@ -14,7 +14,14 @@ namespace TheToolsmiths.Ddl.Models.Identifiers
             this.Text = text;
         }
 
+        private Identifier()
+        {
+            this.Text = string.Empty;
+        }
+
         public string Text { get; }
+
+        public static Identifier Empty { get; } = new Identifier();
 
         public override string ToString()
         {

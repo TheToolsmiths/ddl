@@ -20,6 +20,10 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public static readonly ReadOnlyMemory<char> CloseGenerics = new[] { CharConstants.CloseGenerics };
 
+        public static readonly ReadOnlyMemory<char> OpenArrayDimension = new[] { CharConstants.OpenAttribute };
+
+        public static readonly ReadOnlyMemory<char> CloseArrayDimension = new[] { CharConstants.CloseAttribute };
+
         public static readonly ReadOnlyMemory<char> Equality = new[] { CharConstants.Equals, CharConstants.Equals };
 
         public static readonly ReadOnlyMemory<char> Inequality = new[] { CharConstants.Not, CharConstants.Equals };
@@ -37,7 +41,7 @@ namespace TheToolsmiths.Ddl.Lexer
         public static readonly ReadOnlyMemory<char> NamespaceSeparator = new[] { CharConstants.Colon, CharConstants.Colon };
 
         public static readonly ReadOnlyMemory<char> ListSeparator = new[] { CharConstants.Comma };
-        
+
         public static readonly ReadOnlyMemory<char> EndStatement = new[] { CharConstants.Semicolon };
 
         public static readonly ReadOnlyMemory<char> Slash = new[] { CharConstants.Slash };
@@ -45,5 +49,11 @@ namespace TheToolsmiths.Ddl.Lexer
         public static readonly ReadOnlyMemory<char> LogicalNot = new[] { CharConstants.Not };
 
         public static readonly ReadOnlyMemory<char> FieldInitialization = new[] { CharConstants.Equals };
+
+        public static readonly ReadOnlyMemory<char> Asterisk = new[] { CharConstants.Asterisk };
+
+        public static readonly ReadOnlyMemory<char> BooleanTrue = new ReadOnlyMemory<char>("true".ToCharArray());
+
+        public static readonly ReadOnlyMemory<char> BooleanFalse = new ReadOnlyMemory<char>("false".ToCharArray());
     }
 }

@@ -46,11 +46,11 @@ namespace Ddl.Transpiler
             writer.WriteEndObject();
         }
 
-        private static void WriteQualifiedTypeIdentifierProperties(Utf8JsonWriter writer, QualifiedTypeIdentifier identifier)
+        private static void WriteQualifiedTypeIdentifierProperties(Utf8JsonWriter writer, IQualifiedTypeIdentifier identifier)
         {
             writer.WriteString("type", "qualifiedType");
 
-            var namespacePath = identifier.Namespace;
+            var namespacePath = identifier.NamespacePath;
 
             if (namespacePath.IsEmpty == false)
             {
@@ -58,8 +58,9 @@ namespace Ddl.Transpiler
                 writer.WriteString("namespace", namespaceValue);
             }
 
+            throw new NotImplementedException();
 
-            WriteTypeNameProperties(writer, identifier.Name);
+            //WriteTypeNameProperties(writer, identifier);
         }
 
         private static void WriteArrayTypeIdentifierProperties(Utf8JsonWriter writer, ArrayTypeIdentifier identifier)
@@ -144,10 +145,12 @@ namespace Ddl.Transpiler
         {
             writer.WriteStartArray("typeArgs");
 
-            foreach (var typeIdentifier in genericTypeName.TypeArgumentList)
-            {
-                WriteTypeIdentifier(writer, typeIdentifier);
-            }
+            throw new NotImplementedException();
+
+            //foreach (var typeIdentifier in genericTypeName.TypeArgumentList)
+            //{
+            //    WriteTypeIdentifier(writer, typeIdentifier);
+            //}
 
             writer.WriteEndArray();
         }
