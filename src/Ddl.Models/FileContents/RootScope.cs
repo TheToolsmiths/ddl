@@ -3,7 +3,7 @@ using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 
 namespace TheToolsmiths.Ddl.Models.FileContents
 {
-    public class RootScope : IRootContentItem
+    public class RootScope : RootContentItem
     {
         public RootScope(
             ConditionalExpression conditionalExpression,
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Models.FileContents
             this.ContentItems = contentItems;
         }
 
-        public FileContentItemType ItemType => FileContentItemType.FileScope;
+        public override FileContentItemType ItemType => FileContentItemType.FileScope;
 
         public ConditionalExpression ConditionalExpression { get; }
 

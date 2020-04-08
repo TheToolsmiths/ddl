@@ -14,6 +14,7 @@ namespace TheToolsmiths.Ddl.Models.Imports
         public Identifier Identifier { get; }
 
         public Identifier AliasIdentifier { get; }
+
         public bool IsImportAll { get; }
 
         public static ImportedItem CreateAll(Identifier aliasIdentifier)

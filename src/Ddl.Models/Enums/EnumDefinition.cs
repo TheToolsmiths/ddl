@@ -5,19 +5,19 @@ using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Models.Enums
 {
-    public class EnumStructDefinition : TypedRootContentItem
+    public class EnumDefinition : TypedAttributableRootContentItem
     {
-        public EnumStructDefinition(
+        public EnumDefinition(
             ITypeName typeName,
-            EnumStructDefinitionContent content,
+            EnumDefinitionContent content,
             IReadOnlyList<IAttributeUse> attributes)
-        : base(typeName, attributes)
+            : base(typeName, attributes)
         {
             this.Content = content;
         }
 
         public override FileContentItemType ItemType => FileContentItemType.StructDeclaration;
 
-        public EnumStructDefinitionContent Content { get; }
+        public EnumDefinitionContent Content { get; }
     }
 }

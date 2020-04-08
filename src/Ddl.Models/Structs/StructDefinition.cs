@@ -5,23 +5,18 @@ using TheToolsmiths.Ddl.Models.Types;
 
 namespace TheToolsmiths.Ddl.Models.Structs
 {
-    public class StructDefinition : IRootContentItem
+    public class StructDefinition : TypedRootContentItem
     {
         public StructDefinition(
             ITypeName typeName,
             StructDefinitionContent content,
-            IReadOnlyList<IAttributeUse> attributes)
+            IReadOnlyList<IAttributeUse> attributes) 
+            : base(typeName, attributes)
         {
-            this.TypeName = typeName;
             this.Content = content;
-            this.Attributes = attributes;
         }
 
-        public FileContentItemType ItemType => FileContentItemType.StructDeclaration;
-
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
-
-        public ITypeName TypeName { get; }
+        public override FileContentItemType ItemType => FileContentItemType.StructDeclaration;
 
         public StructDefinitionContent Content { get; }
     }

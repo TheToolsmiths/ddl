@@ -20,45 +20,55 @@
 
         public static void HandleBlockComment(ref LexerSequenceReadState readState)
         {
-            if (readState.TryGetFirstCharScratchMemory(out char first) == false)
+            char next;
+            if (readState.TryGetFirstCharScratchMemory(out char first))
             {
+                next = readState.CurrentChar;
+            }
+            else
+            {
+                if (readState.TryPeek(out next) == false)
+                {
+                    readState.ClearAndSetCharOnStageScratchMemory(readState.CurrentChar);
+
+                    readState.MoveNext();
+
+                    return;
+                }
+
                 first = readState.CurrentChar;
             }
 
             while (readState.HasCurrent)
             {
                 // If current char is *
-                if (first == CharConstants.Asterisk)
+                // If there is a next char and it is a slash
+                if (first == CharConstants.Asterisk && next == CharConstants.Slash)
                 {
-                    // But we don't have a next char
-                    if (readState.TryPeek(out char next) == false)
-                    {
-                        readState.ClearAndSetCharOnStageScratchMemory(CharConstants.Asterisk);
+                    // Stop reading comment block
+                    readState.MoveToState(LexerStatePhase.Searching);
 
-                        readState.MoveNext();
+                    readState.MoveNext();
 
-                        return;
-                    }
+                    return;
+                }
 
-                    // If there is a next char and it is a slash
-                    if (next == CharConstants.Slash)
-                    {
-                        // Stop reading comment block
-                        readState.MoveToState(LexerStatePhase.Searching);
+                first = readState.CurrentChar;
 
-                        readState.MoveForCurrentAndNextChar();
+                // But we don't have a next char
+                if (readState.TryPeek(out next) == false)
+                {
+                    readState.ClearAndSetCharOnStageScratchMemory(readState.CurrentChar);
 
-                        return;
-                    }
+                    readState.MoveNext();
+
+                    return;
                 }
 
                 readState.MoveNext();
-
-                if (readState.HasCurrent)
-                {
-                    first = readState.CurrentChar;
-                }
             }
+
+            readState.ClearAndSetCharOnStageScratchMemory(next);
         }
     }
 }

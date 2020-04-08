@@ -51,7 +51,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryDequeue(out var token))
                 {
-                    Console.WriteLine($"Dequeued {token}");
+                    //Console.WriteLine($"Dequeued {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -62,7 +62,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryDequeue(out var token))
                 {
-                    Console.WriteLine($"Dequeued {token}");
+                    //Console.WriteLine($"Dequeued {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -76,7 +76,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    Console.WriteLine($"Peeked {token}");
+                    //Console.WriteLine($"Peeked {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -87,7 +87,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    Console.WriteLine($"Peeked {token}");
+                    //Console.WriteLine($"Peeked {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -125,7 +125,7 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public void PopToken()
         {
-            Console.WriteLine($"Popped {this.state.TokenQueue.Peek()}");
+            //Console.WriteLine($"Popped {this.state.TokenQueue.Peek()}");
 
             this.state.TokenQueue.Dequeue();
         }

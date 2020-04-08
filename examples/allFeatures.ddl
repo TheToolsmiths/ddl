@@ -159,10 +159,47 @@ def struct StructWithMultipleFields
     field3: i32,
 }
 
+/*********************
+    Generic Types
+**********************/
 def struct GenericStructWithSimpleTypeParameter<TString>
 {
 }
 
 def struct GenericStructWithMultipleTypeParameter<TString, TFoo, TBar>
 {
+}
+
+/*********************
+    Enum Types
+**********************/
+def enum struct ConstantValue
+{
+    Unit,
+    Bool {
+        value: scalar::bool,
+    }
+    Int {
+        value: u32
+    }   
+    Float {
+        value: f32
+    }
+    Vector2 {
+        value: vec2::f32
+    }
+    Vector3 {
+        value: vec3::f32
+    }
+    Vector4 {                  
+        value: vec4::f32
+    }
+}
+
+def enum TextureType
+{
+    Unknown,
+    Texture2D,
+    Texture3D,
+    TextureCube
 }

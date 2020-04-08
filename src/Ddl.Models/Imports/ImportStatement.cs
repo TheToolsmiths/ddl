@@ -3,7 +3,7 @@ using TheToolsmiths.Ddl.Models.FileContents;
 
 namespace TheToolsmiths.Ddl.Models.Imports
 {
-    public class ImportStatement : IRootContentItem
+    public class ImportStatement : RootContentItem
     {
         public ImportStatement(IReadOnlyList<ImportedItem> items, string path)
         {
@@ -15,6 +15,6 @@ namespace TheToolsmiths.Ddl.Models.Imports
 
         public string Path { get; }
 
-        public FileContentItemType ItemType => FileContentItemType.ImportStatement;
+        public override FileContentItemType ItemType => FileContentItemType.ImportStatement;
     }
 }

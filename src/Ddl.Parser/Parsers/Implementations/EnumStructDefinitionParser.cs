@@ -125,12 +125,12 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 }
 
                 {
-                    var result = await context.Lexer.TryGetCloseScopeToken();
-
-                    if (result.IsError)
+                    if (await context.Lexer.TryConsumeCloseScopeToken() == false)
                     {
                         throw new NotImplementedException();
                     }
+
+                    await context.Lexer.TryConsumeListSeparatorToken();
                 }
             }
 

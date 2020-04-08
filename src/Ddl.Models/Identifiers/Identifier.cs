@@ -21,7 +21,11 @@ namespace TheToolsmiths.Ddl.Models.Identifiers
 
         public string Text { get; }
 
+        public bool IsEmpty => string.IsNullOrEmpty(this.Text);
+
         public static Identifier Empty { get; } = new Identifier();
+
+        public bool IsValid => this.IsEmpty == false;
 
         public override string ToString()
         {

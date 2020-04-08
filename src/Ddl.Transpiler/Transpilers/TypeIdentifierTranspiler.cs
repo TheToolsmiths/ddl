@@ -4,7 +4,7 @@ using System.Text.Json;
 using TheToolsmiths.Ddl.Models.Arrays;
 using TheToolsmiths.Ddl.Models.Types;
 
-namespace Ddl.Transpiler
+namespace Ddl.Transpiler.Transpilers
 {
     public static class TypeIdentifierTranspiler
     {

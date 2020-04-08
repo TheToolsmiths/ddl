@@ -17,11 +17,9 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public void MoveToState(LexerStatePhase phase)
         {
-            this.StageScratchMemory.Clear();
+            this.ClearStageScratchMemory();
 
             this.StatePhase = phase;
-
-            this.HasStageScratchMemory = false;
         }
 
         public void ClearStageScratchMemory()
