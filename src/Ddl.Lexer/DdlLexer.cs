@@ -39,6 +39,8 @@ namespace TheToolsmiths.Ddl.Lexer
             }
         }
 
+        public LexerScopeLevel LexerScopeLevel { get; private set; }
+
         public async Task<bool> TryParseTokens()
         {
             await this.ParseTokens();
@@ -51,7 +53,9 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryDequeue(out var token))
                 {
-                    //Console.WriteLine($"Dequeued {token}");
+                    UpdateScopeLevel(in token);
+
+                    Console.WriteLine($"Dequeued {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -62,13 +66,28 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryDequeue(out var token))
                 {
-                    //Console.WriteLine($"Dequeued {token}");
+                    UpdateScopeLevel(in token);
+
+                    Console.WriteLine($"Dequeued {token}");
 
                     return TokenResult.CreateResult(token);
                 }
             }
 
             return TokenResult.CreateNotFound();
+
+            void UpdateScopeLevel(in LexerToken token)
+            {
+                switch (token.Kind)
+                {
+                    case LexerTokenKind.OpenScope:
+                        this.LexerScopeLevel = this.LexerScopeLevel.Increase();
+                        break;
+                    case LexerTokenKind.CloseScope:
+                        this.LexerScopeLevel = this.LexerScopeLevel.Decrease();
+                        break;
+                }
+            }
         }
 
         public async ValueTask<TokenResult> TryPeekToken()
@@ -76,7 +95,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    //Console.WriteLine($"Peeked {token}");
+                    Console.WriteLine($"Peeked {token}");
 
                     return TokenResult.CreateResult(token);
                 }
@@ -87,7 +106,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    //Console.WriteLine($"Peeked {token}");
+                    Console.WriteLine($"Peeked {token}");
 
                     return TokenResult.CreateResult(token);
                 }

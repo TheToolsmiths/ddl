@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TheToolsmiths.Ddl.Lexer.Tests.Utils;
 
@@ -15,7 +14,6 @@ namespace TheToolsmiths.Ddl.Lexer.Tests
         {
             var lexer = await FileLexerUtils.CreateLexerFromPath(AllFeaturesFile);
 
-            var tokens = new List<LexerToken>();
             while (true)
             {
                 var result = await lexer.TryGetNextToken();
@@ -26,8 +24,6 @@ namespace TheToolsmiths.Ddl.Lexer.Tests
                 }
 
                 var token = result.Token;
-
-                tokens.Add(token);
             }
         }
     }

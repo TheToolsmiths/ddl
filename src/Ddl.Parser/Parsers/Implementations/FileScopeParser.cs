@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
@@ -10,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
     internal class FileScopeParser : IRootParser
     {
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             LexerToken token;
             {
@@ -75,7 +74,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 }
 
                 var value = new RootScope(expression, content);
-                return new ParseResult<IRootContentItem>(value);
+                return RootParseResult<IRootContentItem>.FromResult(value);
             }
         }
     }

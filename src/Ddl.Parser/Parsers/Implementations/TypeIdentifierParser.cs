@@ -16,7 +16,19 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
         {
             var identifiersList = new List<LexerToken>();
 
-            ReferenceKind? referenceKind = null;
+            Stack<ModifierTypeKind> modifiers;
+            {
+                var parseResult = await this.ParseTypeModifiers(context);
+
+                if (parseResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                modifiers = parseResult.Value;
+            }
+
+            ReferenceTypeKind? referenceKind = null;
             {
                 var result = await context.Lexer.TryPeekIdentifierToken();
 
@@ -28,19 +40,19 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                     {
                         context.Lexer.PopToken();
 
-                        referenceKind = ReferenceKind.Reference;
+                        referenceKind = ReferenceTypeKind.Reference;
                     }
                     else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Handle))
                     {
                         context.Lexer.PopToken();
 
-                        referenceKind = ReferenceKind.Handle;
+                        referenceKind = ReferenceTypeKind.Handle;
                     }
                     else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Owns))
                     {
                         context.Lexer.PopToken();
 
-                        referenceKind = ReferenceKind.Owns;
+                        referenceKind = ReferenceTypeKind.Owns;
                     }
                 }
             }
@@ -125,7 +137,50 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 }
             }
 
-            return this.CreateReferenceType(arrayTypeIdentifier, referenceKind);
+            ITypeIdentifier referenceIdentifier;
+            {
+                var parseResult = this.CreateReferenceType(arrayTypeIdentifier, referenceKind);
+
+                if (parseResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                referenceIdentifier = parseResult.Value;
+            }
+
+            return this.CreateModifiersType(referenceIdentifier, modifiers);
+        }
+
+        private async Task<ParseResult<Stack<ModifierTypeKind>>> ParseTypeModifiers(IParserContext context)
+        {
+
+            var modifiers = new Stack<ModifierTypeKind>();
+
+            while (true)
+            {
+                var result = await context.Lexer.TryPeekIdentifierToken();
+
+                if (result.IsError)
+                {
+                    break;
+                }
+
+                var token = result.Token;
+
+                if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Constant))
+                {
+                    context.Lexer.PopToken();
+
+                    modifiers.Push(ModifierTypeKind.Constant);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return new ParseResult<Stack<ModifierTypeKind>>(modifiers);
         }
 
         private async Task<ParseResult<IQualifiedTypeIdentifier>> ParseGenericType(
@@ -272,11 +327,27 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             return new ParseResult<IQualifiedTypeIdentifier>(typeIdentifier);
         }
 
-        ParseResult<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceKind? referenceKind)
+        ParseResult<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceTypeKind? referenceKind)
         {
             if (referenceKind != null)
             {
                 typeIdentifier = new ReferenceTypeIdentifier(typeIdentifier, referenceKind.Value);
+            }
+
+            return new ParseResult<ITypeIdentifier>(typeIdentifier);
+        }
+
+        private ParseResult<ITypeIdentifier> CreateModifiersType(
+            ITypeIdentifier typeIdentifier,
+            Stack<ModifierTypeKind> modifiers)
+        {
+            while (modifiers.TryPop(out var modifierKind))
+            {
+                typeIdentifier = modifierKind switch
+                {
+                    ModifierTypeKind.Constant => new ConstantTypeIdentifier(typeIdentifier),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
 
             return new ParseResult<ITypeIdentifier>(typeIdentifier);

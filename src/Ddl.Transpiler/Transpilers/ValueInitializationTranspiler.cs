@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Values;
 
@@ -13,12 +14,21 @@ namespace Ddl.Transpiler.Transpilers
                 case EmptyValueInitialization _:
                     WriteEmptyValueInitialization(writer);
                     break;
+
                 case LiteralValueInitialization literalValue:
                     WriteLiteralValueInitialization(writer, literalValue);
                     break;
+
                 case StructValueInitialization structValue:
                     WriteStructValueInitialization(writer, structValue);
                     break;
+
+                case TypeIdentifierInitialization typeIdentifier:
+                    WriteTypeIdentifierInitialization(writer, typeIdentifier);
+                    break;
+
+                default:
+                    throw new NotImplementedException();
             }
         }
 
@@ -56,6 +66,21 @@ namespace Ddl.Transpiler.Transpilers
 
             writer.WriteString("literalType", typeText);
             writer.WriteString("literalText", literal.Text);
+
+            writer.WriteEndObject();
+        }
+
+        private static void WriteTypeIdentifierInitialization(Utf8JsonWriter writer, TypeIdentifierInitialization initialization)
+        {
+            writer.WriteStartObject();
+
+            writer.WriteString("type", "type-identifier");
+
+            {
+                writer.WritePropertyName("typeIdentifier");
+
+                TypeIdentifierTranspiler.WriteTypeIdentifier(writer, initialization.TypeIdentifier);
+            }
 
             writer.WriteEndObject();
         }

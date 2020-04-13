@@ -2,7 +2,7 @@
 {
     public class ReferenceTypeIdentifier : ITypeIdentifier
     {
-        public ReferenceTypeIdentifier(ITypeIdentifier typeIdentifier, ReferenceKind referenceKind)
+        public ReferenceTypeIdentifier(ITypeIdentifier typeIdentifier, ReferenceTypeKind referenceKind)
         {
             this.TypeIdentifier = typeIdentifier;
             this.ReferenceKind = referenceKind;
@@ -12,8 +12,7 @@
 
         public ITypeIdentifier TypeIdentifier { get; }
 
-        public ReferenceKind ReferenceKind { get; }
-
+        public ReferenceTypeKind ReferenceKind { get; }
 
         public override string ToString()
         {

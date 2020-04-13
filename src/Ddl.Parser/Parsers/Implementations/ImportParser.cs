@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
     internal class ImportParser : IRootParser
     {
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             IReadOnlyList<ImportedItem> items;
             {
@@ -60,7 +60,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             var value = new ImportStatement(items, path);
 
-            return new ParseResult<IRootContentItem>(value);
+            return RootParseResult<IRootContentItem>.FromResult(value);
         }
 
         private async Task<ParseResult<string>> ParsePathStatement(IRootItemParserContext context)

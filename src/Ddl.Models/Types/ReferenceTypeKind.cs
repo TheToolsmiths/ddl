@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Models.Types
 {
-    public enum ReferenceKind
+    public enum ReferenceTypeKind
     {
         Owns,
         Handle,

@@ -4,6 +4,7 @@
     {
         Empty,
         Literal,
-        Struct
+        Struct,
+        TypeIdentifier
     }
 }

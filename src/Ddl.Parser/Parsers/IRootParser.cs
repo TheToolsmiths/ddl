@@ -6,6 +6,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public interface IRootParser
     {
-        ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context);
+        ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context);
     }
 }

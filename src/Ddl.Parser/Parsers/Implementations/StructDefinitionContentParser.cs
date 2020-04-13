@@ -268,7 +268,16 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
                 if (token.Kind == LexerTokenKind.FieldInitialization)
                 {
-                    throw new NotImplementedException();
+                    context.Lexer.PopToken();
+
+                    var parseResult = await context.Parsers.ParseFieldInitialization(context);
+
+                    if (parseResult.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    initialization = parseResult.Value;
                 }
                 else
                 {

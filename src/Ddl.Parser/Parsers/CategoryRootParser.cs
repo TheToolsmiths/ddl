@@ -28,7 +28,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return this.categoryParsersMap.GetEnumerator();
         }
 
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             var result = await context.Lexer.TryGetIdentifierToken();
 
@@ -41,7 +41,8 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
             if (this.categoryParsersMap.TryGetValue(token.Memory, out var parser) == false)
             {
-                throw new NotImplementedException();
+                string[] identifiers = { token.Memory.Span.ToString() };
+                return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
             }
 
             return await parser.ParseRootContent(context);

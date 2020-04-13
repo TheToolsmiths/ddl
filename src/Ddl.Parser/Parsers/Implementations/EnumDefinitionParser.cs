@@ -5,7 +5,7 @@ using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.Enums;
 using TheToolsmiths.Ddl.Models.FileContents;
 using TheToolsmiths.Ddl.Models.Identifiers;
-using TheToolsmiths.Ddl.Models.Structs;
+using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Types;
 using TheToolsmiths.Ddl.Parser.Contexts;
 
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 {
     internal class EnumDefinitionParser : IRootParser
     {
-        public async ValueTask<ParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
             ITypeName typeName;
             {
@@ -51,7 +51,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             var value = new EnumDefinition(typeName, content, context.AttributeList);
 
-            return new ParseResult<IRootContentItem>(value);
+            return RootParseResult<IRootContentItem>.FromResult(value);
         }
 
         private async Task<ParseResult<EnumDefinitionContent>> ParseBlockContent(IRootItemParserContext context)
@@ -65,22 +65,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                     break;
                 }
 
-                {
-                    var result = await context.Lexer.TryGetIdentifierToken();
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    var token = result.Token;
-
-                    var identifier = new Identifier(token.Memory.ToString());
-
-                    var item = new EnumDefinitionConstantDefinition(identifier);
-
-                    items.Add(item);
-                }
+                await ParseEnumDefinition();
 
                 if (await context.Lexer.TryConsumeListSeparatorToken())
                 {
@@ -98,6 +83,44 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             var value = new EnumDefinitionContent(items);
 
             return new ParseResult<EnumDefinitionContent>(value);
+
+            async Task ParseEnumDefinition()
+            {
+                LexerToken token;
+                {
+                    var result = await context.Lexer.TryGetIdentifierToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    token = result.Token;
+                }
+
+                var identifier = new Identifier(token.Memory.ToString());
+
+                LiteralValue literalValue;
+                if (await context.Lexer.TryConsumeFieldInitializationToken())
+                {
+                    var parseResult = await context.Parsers.ParseLiteralValue(context);
+
+                    if (parseResult.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    literalValue = parseResult.Value;
+                }
+                else
+                {
+                    literalValue = LiteralValue.CreateEmpty();
+                }
+
+                var item = new EnumDefinitionConstantDefinition(identifier, literalValue);
+
+                items.Add(item);
+            }
         }
     }
 }

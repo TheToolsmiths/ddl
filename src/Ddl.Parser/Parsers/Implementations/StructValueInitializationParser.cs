@@ -58,6 +58,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 LexerTokenKind.String => CreateStringInitialization(),
                 LexerTokenKind.Number => CreateNumberInitialization(),
                 LexerTokenKind.Boolean => CreateBoolInitialization(),
+                LexerTokenKind.Identifier => await CreateTypeIdentifierInitialization(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -102,6 +103,20 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                 var literal = new LiteralValue(LiteralValueType.BooleanLiteral, token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
+                return new ParseResult<ValueInitialization>(value);
+            }
+
+            async Task<ParseResult<ValueInitialization>> CreateTypeIdentifierInitialization()
+            {
+                var typeResult = await context.Parsers.ParseTypeIdentifier(context);
+
+                if (typeResult.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var value = new TypeIdentifierInitialization(typeResult.Value);
+
                 return new ParseResult<ValueInitialization>(value);
             }
         }

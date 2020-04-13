@@ -24,9 +24,15 @@ namespace Ddl.Transpiler.Transpilers
                 case ArrayTypeIdentifier arrayTypeIdentifier:
                     WriteArrayTypeIdentifierProperties(writer, arrayTypeIdentifier);
                     break;
+
+                case ConstantTypeIdentifier constantTypeIdentifier:
+                    WriteConstantTypeIdentifierProperties(writer, constantTypeIdentifier);
+                    break;
+
                 case IQualifiedTypeIdentifier qualifiedTypeIdentifier:
                     WriteQualifiedTypeIdentifierProperties(writer, qualifiedTypeIdentifier);
                     break;
+
                 case ReferenceTypeIdentifier referenceTypeIdentifier:
                     WriteReferenceTypeIdentifierProperties(writer, referenceTypeIdentifier);
                     break;
@@ -94,6 +100,20 @@ namespace Ddl.Transpiler.Transpilers
             writer.WriteStartObject("arrayType");
 
             WriteQualifiedTypeIdentifierProperties(writer, identifier.TypeIdentifier);
+
+            writer.WriteEndObject();
+
+        }
+
+        private static void WriteConstantTypeIdentifierProperties(Utf8JsonWriter writer, ConstantTypeIdentifier identifier)
+        {
+            writer.WriteString("type", "modifierType");
+
+            writer.WriteString("modifier-type", "const");
+
+            writer.WriteStartObject("constType");
+
+            WriteTypeIdentifierProperties(writer, identifier.TypeIdentifier);
 
             writer.WriteEndObject();
 

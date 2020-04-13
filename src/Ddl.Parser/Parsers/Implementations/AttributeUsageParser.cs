@@ -120,17 +120,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
                     return await this.ParseKeyedAttributeUse(context);
                 }
 
-                //if (secondToken.IsOpenParentheses())
-                //{
-                //    return await this.ParseAttributeWithTypedConditionalExpression(context);
-                //}
-
-                //if (secondToken.IsNamespaceSeparator()
-                //    || secondToken.IsOpenScope())
-                //{
-                //    return await this.ParseAttributeWithTypedStructuredInitialization(context);
-                //}
-
                 return await this.ParseAttributeWithTypedStructuredInitialization(context);
             }
 
@@ -163,7 +152,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
                 conditionalExpression = result.Value;
             }
-
 
             var value = new ConditionalAttributeUse(typeIdentifier, conditionalExpression);
             return new ParseResult<IAttributeUse>(value);
@@ -222,24 +210,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
                 return new ParseResult<IAttributeUse>(value);
             }
-        }
-
-        private async Task<ParseResult<IAttributeUse>> ParseAttributeWithStructuredInitialization(IParserContext context)
-        {
-            throw new NotImplementedException();
-
-            //var result = await context.Parsers.ParseTypedStructValueInitialization(context);
-
-            //if (result.IsError)
-            //{
-            //    throw new NotImplementedException();
-            //}
-
-            //var initialization = result.Value;
-
-            //var value = new TypedStructInitializationUse(initialization.Type, initialization.Initialization);
-
-            //return new ParseResult<IAttributeUse>(value);
         }
 
         private async Task<ParseResult<IAttributeUse>> ParseKeyedAttributeUse(IParserContext context)

@@ -35,20 +35,63 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             return new ParseResult<IReadOnlyList<IRootContentItem>>(items);
         }
 
-        public async Task<ParseResult<IRootContentItem>> ParseRootContent(IRootParserContext context)
+        public async Task<RootParseResult<IRootContentItem>> ParseRootContent(IRootParserContext context)
         {
             // Skip all possible ; in the root scope
             await SkipAllEndStatementTokens(context);
 
-            // Parse possible attributes
-            var result = await context.Parsers.ParseAttributeUseList(context);
+            var scopeLevel = context.Lexer.LexerScopeLevel;
 
-            if (result.IsError)
+            // Parse possible attributes
+            IReadOnlyList<IAttributeUse> attributes;
             {
-                throw new NotImplementedException();
+                var result = await context.Parsers.ParseAttributeUseList(context);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
             }
 
-            return await this.TryHandleInitialToken(context, result.Value);
+            {
+                var result = await this.TryHandleInitialToken(context, attributes);
+
+                if (result.IsError)
+                {
+                    await this.SkipNonParseableStruct(context, scopeLevel);
+                }
+
+                return result;
+            }
+        }
+
+        private async Task SkipNonParseableStruct(IRootParserContext context, LexerScopeLevel scopeLevel)
+        {
+            var lexer = context.Lexer;
+
+            while (lexer.HasNextToken)
+            {
+                var result = await lexer.TryGetNextToken();
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var token = result.Token;
+
+                if ((token.IsCloseScope() || token.IsEndStatement()) == false)
+                {
+                    continue;
+                }
+
+                if (lexer.LexerScopeLevel == scopeLevel)
+                {
+                    return;
+                }
+            }
         }
 
         private static async Task SkipAllEndStatementTokens(IRootParserContext context)
@@ -58,7 +101,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
             }
         }
 
-        private async Task<ParseResult<IRootContentItem>> TryHandleInitialToken(
+        private async Task<RootParseResult<IRootContentItem>> TryHandleInitialToken(
             IRootParserContext context,
             IReadOnlyList<IAttributeUse> attributeList)
         {
@@ -76,7 +119,8 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Implementations
 
             if (context.TryGetParserForRootKeyword(token.Memory.Span, out var parser) == false)
             {
-                throw new NotImplementedException();
+                string[] identifiers = { token.Memory.Span.ToString() };
+                return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
             }
 
             var itemParserContext = context.CreateItemParserContext(attributeList);

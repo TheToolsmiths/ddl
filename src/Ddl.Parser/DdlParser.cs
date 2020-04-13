@@ -14,17 +14,14 @@ namespace TheToolsmiths.Ddl.Parser
 {
     public class DdlParser
     {
-        private readonly ArrayBufferWriter<char> arrayBufferWriter;
         private readonly DdlLexer lexer;
         private readonly CharSpanKeyedMap<IRootParser> mainParsersMap;
 
         private DdlParser(
             DdlLexer lexer,
-            ArrayBufferWriter<char> arrayBufferWriter,
             CharSpanKeyedMap<IRootParser> mainParsersMap)
         {
             this.lexer = lexer;
-            this.arrayBufferWriter = arrayBufferWriter;
             this.mainParsersMap = mainParsersMap;
         }
 
@@ -38,10 +35,10 @@ namespace TheToolsmiths.Ddl.Parser
 
             var mainParsersMap = MainParserMapBuilder.CreateMainParsersMap();
 
-            return new DdlParser(lexer, arrayBufferWriter, mainParsersMap);
+            return new DdlParser(lexer, mainParsersMap);
         }
 
-        public async IAsyncEnumerable<ParseResult<IRootContentItem>> ParseFileContents()
+        public async IAsyncEnumerable<RootParseResult<IRootContentItem>> ParseFileContents()
         {
             while (this.lexer.HasNextToken)
             {
@@ -54,7 +51,7 @@ namespace TheToolsmiths.Ddl.Parser
             }
         }
 
-        private async Task<ParseResult<IRootContentItem>> ParseFileContent()
+        private async Task<RootParseResult<IRootContentItem>> ParseFileContent()
         {
             try
             {
@@ -73,7 +70,7 @@ namespace TheToolsmiths.Ddl.Parser
                     Debugger.Break();
                 }
 
-                return new ParseResult<IRootContentItem>(e.ToString());
+                return RootParseResult<IRootContentItem>.FromError(e.ToString());
             }
         }
     }

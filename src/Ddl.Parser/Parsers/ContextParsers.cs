@@ -22,6 +22,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         private readonly ConditionalExpressionParser conditionalExpressionsParser;
         private readonly FileRootContentParser fileRootContentParser;
         private readonly TypeNameParser typeNameParser;
+        private readonly FieldInitializationParser fieldInitializationParser;
 
         public ContextParsers()
         {
@@ -33,6 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             this.conditionalExpressionsParser = new ConditionalExpressionParser();
             this.fileRootContentParser = new FileRootContentParser();
             this.typeNameParser = new TypeNameParser();
+            this.fieldInitializationParser = new FieldInitializationParser();
         }
 
         public Task<ParseResult<StructDefinitionContent>> ParseStructDefinitionContentParser(IParserContext context)
@@ -60,11 +62,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return this.structValueParser.ParseStructuredInitialization(context);
         }
 
-        public Task<ParseResult<LiteralValueInitialization>> ParseLiteralValueInitialization(IParserContext context)
-        {
-            return this.literalValueParser.ParseLiteralValueInitialization(context);
-        }
-
         public Task<ParseResult<LiteralValue>> ParseLiteralValue(IParserContext context)
         {
             return this.literalValueParser.ParseLiteralValue(context);
@@ -80,9 +77,14 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return this.fileRootContentParser.ParseRootContentScope(context);
         }
 
-        public Task<ParseResult<IRootContentItem>> ParseRootContent(IRootParserContext context)
+        public Task<RootParseResult<IRootContentItem>> ParseRootContent(IRootParserContext context)
         {
             return this.fileRootContentParser.ParseRootContent(context);
+        }
+
+        public Task<ParseResult<ValueInitialization>> ParseFieldInitialization(IParserContext context)
+        {
+            return this.fieldInitializationParser.ParseFieldInitialization(context);
         }
     }
 }

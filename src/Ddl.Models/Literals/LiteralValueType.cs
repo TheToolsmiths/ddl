@@ -2,6 +2,8 @@
 {
     public enum LiteralValueType
     {
+        Default,
+        Empty,
         StringLiteral,
         NumberLiteral,
         BooleanLiteral

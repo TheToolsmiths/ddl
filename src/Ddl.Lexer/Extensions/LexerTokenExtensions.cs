@@ -94,6 +94,11 @@ namespace TheToolsmiths.Ddl.Lexer
             return token.Kind == LexerTokenKind.Inequality;
         }
 
+        public static bool IsEndStatement(this in LexerToken token)
+        {
+            return token.Kind == LexerTokenKind.EndStatement;
+        }
+
         public static bool IsBoolean(this in LexerToken token)
         {
             return token.Kind == LexerTokenKind.Boolean;

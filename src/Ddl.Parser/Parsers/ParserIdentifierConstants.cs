@@ -21,5 +21,9 @@
         public const string Owns = "owns";
 
         public const string Handle = "handle";
+
+        public const string Constant = "const";
+
+        public const string Default = "default";
     }
 }

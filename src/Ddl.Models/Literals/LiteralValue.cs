@@ -16,5 +16,15 @@
         {
             return this.Text;
         }
+
+        public static LiteralValue CreateEmpty()
+        {
+            return new LiteralValue(LiteralValueType.Empty, string.Empty);
+        }
+
+        public static LiteralValue CreateDefault()
+        {
+            return new LiteralValue(LiteralValueType.Default, string.Empty);
+        }
     }
 }
