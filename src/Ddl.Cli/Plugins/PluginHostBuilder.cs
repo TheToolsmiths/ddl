@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
         public void RegisterParserProvider<T>()
             where T : class, IRootParserProvider
         {
-            this.services.AddScoped<IRootParserProvider, T>();
+            this.services.AddTransient<IRootParserProvider, T>();
         }
 
         public void RegisterParserType<T>()
