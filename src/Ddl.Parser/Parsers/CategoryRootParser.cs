@@ -1,31 +1,19 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.FileContents;
-using TheToolsmiths.Ddl.Parser.Containers;
-using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Shared;
+using TheToolsmiths.Ddl.Parser.Shared.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {
-    public class CategoryRootParser : IEnumerable<KeyValuePair<string, IRootParser>>, IRootParser
+    public class CategoryRootParser : IRootItemParser
     {
-        private readonly CharSpanKeyedMap<IRootParser> categoryParsersMap;
+        private readonly IParserMapRegistry registry;
 
-        public CategoryRootParser()
+        public CategoryRootParser(IParserMapRegistry registry)
         {
-            this.categoryParsersMap = new CharSpanKeyedMap<IRootParser>();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        public IEnumerator<KeyValuePair<string, IRootParser>> GetEnumerator()
-        {
-            return this.categoryParsersMap.GetEnumerator();
+            this.registry = registry;
         }
 
         public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
@@ -39,18 +27,14 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
             var token = result.Token;
 
-            if (this.categoryParsersMap.TryGetValue(token.Memory, out var parser) == false)
+            if (this.registry.TryGetParser(token.Memory.Span, out var parser) == false)
             {
                 string[] identifiers = { token.Memory.Span.ToString() };
+
                 return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
             }
 
             return await parser.ParseRootContent(context);
-        }
-
-        public void Add(string key, IRootParser rootParser)
-        {
-            this.categoryParsersMap.Add(key, rootParser);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace TheToolsmiths.Ddl.Parser.Containers
 {
@@ -62,11 +61,6 @@ namespace TheToolsmiths.Ddl.Parser.Containers
 
             value = default!;
             return false;
-        }
-
-        public bool TryGetValue(in ReadOnlyMemory<char> key, [NotNullWhen(true)] out TItem value)
-        {
-            return this.TryGetValue(key.Span, out value);
         }
 
         public IEnumerator<KeyValuePair<string, TItem>> GetEnumerator()

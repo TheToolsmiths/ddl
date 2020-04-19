@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Tests.Utils;
 
 namespace TheToolsmiths.Ddl.Lexer.Tests.Utils
 {
@@ -8,9 +8,11 @@ namespace TheToolsmiths.Ddl.Lexer.Tests.Utils
     {
         public static Task<DdlLexer> CreateLexerFromPath(string filePath)
         {
-            filePath = Path.Join(PathConstants.ExamplesFolder, filePath);
+            throw new NotImplementedException();
 
-            return DdlTextLexer.LexerFromFile(filePath);
+            //filePath = Path.Join(PathConstants.ExamplesFolder, filePath);
+
+            //return DdlTextLexer.LexerFromFile(filePath);
         }
     }
 }

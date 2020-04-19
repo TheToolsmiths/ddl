@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Tests.Utils
+﻿namespace TheToolsmiths.Ddl.Lexer.Tests.Utils
 {
     public static class PathConstants
     {

@@ -1,44 +1,52 @@
 ﻿using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO.Pipelines;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Models.FileContents;
-using TheToolsmiths.Ddl.Parser.Containers;
-using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Parsers;
+using TheToolsmiths.Ddl.Parser.Shared;
+using TheToolsmiths.Ddl.Parser.Shared.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser
 {
     public class DdlParser
     {
-        private readonly DdlLexer lexer;
-        private readonly CharSpanKeyedMap<IRootParser> mainParsersMap;
+        private readonly IDdlLexer lexer;
+        private readonly ILogger<DdlParser> log;
+        private readonly IFileRootContentParser rootContentParser;
+        private readonly IParserContext parserContext;
 
-        private DdlParser(
-            DdlLexer lexer,
-            CharSpanKeyedMap<IRootParser> mainParsersMap)
+        public DdlParser(
+            ILogger<DdlParser> log,
+            IDdlLexer lexer,
+            IFileRootContentParser rootContentParser,
+            IParserContext parserContext)
         {
+            this.log = log;
             this.lexer = lexer;
-            this.mainParsersMap = mainParsersMap;
+            this.rootContentParser = rootContentParser;
+            this.parserContext = parserContext;
         }
 
-        public static async ValueTask<DdlParser> Create(PipeReader streamReader)
+        public async Task<ParseResult<FileContent>> ParseFileContents()
         {
-            var arrayBufferWriter = new ArrayBufferWriter<char>();
+            var items = new List<IRootContentItem>();
 
-            var lexer = new DdlLexer(streamReader, arrayBufferWriter);
+            await foreach (var result in this.ParseAllFileContents())
+            {
+                if (result.IsSuccess)
+                {
+                    items.Add(result.Value!);
+                }
+            }
 
-            await lexer.Initialize();
+            var fileContent = new FileContent(items);
 
-            var mainParsersMap = MainParserMapBuilder.CreateMainParsersMap();
-
-            return new DdlParser(lexer, mainParsersMap);
+            return ParseResult.FromValue(fileContent);
         }
 
-        public async IAsyncEnumerable<RootParseResult<IRootContentItem>> ParseFileContents()
+        private async IAsyncEnumerable<RootParseResult<IRootContentItem>> ParseAllFileContents()
         {
             while (this.lexer.HasNextToken)
             {
@@ -55,13 +63,7 @@ namespace TheToolsmiths.Ddl.Parser
         {
             try
             {
-                var parsers = new ContextParsers();
-
-                var context = new RootParserContext(this.lexer, parsers, this.mainParsersMap);
-
-                var result = await parsers.ParseRootContent(context);
-
-                return result;
+                return await this.rootContentParser.ParseRootContent(parserContext);
             }
             catch (Exception e)
             {

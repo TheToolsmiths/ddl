@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>TheToolsmiths.Ddl.Lexer.Shared</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Lexer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" Version="4.7.1" />
+  </ItemGroup>
+
+</Project>

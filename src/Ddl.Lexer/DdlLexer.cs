@@ -5,22 +5,28 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer.Lexers;
 
 namespace TheToolsmiths.Ddl.Lexer
 {
-    public class DdlLexer
+    public class DdlLexer : IDdlLexer
     {
+        private readonly ILogger<DdlLexer> log;
         private readonly ArrayBufferWriter<char> arrayBufferWriter;
         private readonly Decoder decoder;
-        private readonly PipeReader streamReader;
         private readonly LexerState state;
+        private readonly PipeReader pipeReader;
+
         private bool isReadComplete;
 
-        public DdlLexer(PipeReader streamReader, ArrayBufferWriter<char> arrayBufferWriter)
+        public DdlLexer(
+            ILogger<DdlLexer> log,
+            PipeReader pipeReader)
         {
-            this.streamReader = streamReader;
-            this.arrayBufferWriter = arrayBufferWriter;
+            this.log = log;
+            this.pipeReader = pipeReader;
+            this.arrayBufferWriter = new ArrayBufferWriter<char>();
             this.decoder = Encoding.UTF8.GetDecoder();
 
             this.state = new LexerState();
@@ -55,7 +61,7 @@ namespace TheToolsmiths.Ddl.Lexer
                 {
                     UpdateScopeLevel(in token);
 
-                    Console.WriteLine($"Dequeued {token}");
+                    this.log.LogTrace("Dequeued {token}", token);
 
                     return TokenResult.CreateResult(token);
                 }
@@ -68,7 +74,7 @@ namespace TheToolsmiths.Ddl.Lexer
                 {
                     UpdateScopeLevel(in token);
 
-                    Console.WriteLine($"Dequeued {token}");
+                    this.log.LogTrace("Dequeued {token}", token);
 
                     return TokenResult.CreateResult(token);
                 }
@@ -95,7 +101,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    Console.WriteLine($"Peeked {token}");
+                    this.log.LogTrace("Peeked {token}", token);
 
                     return TokenResult.CreateResult(token);
                 }
@@ -106,7 +112,7 @@ namespace TheToolsmiths.Ddl.Lexer
             {
                 if (this.state.TokenQueue.TryPeek(out var token))
                 {
-                    Console.WriteLine($"Peeked {token}");
+                    this.log.LogTrace("Peeked {token}", token);
 
                     return TokenResult.CreateResult(token);
                 }
@@ -144,7 +150,7 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public void PopToken()
         {
-            //Console.WriteLine($"Popped {this.state.TokenQueue.Peek()}");
+            this.log.LogTrace("Popped {token}", this.state.TokenQueue.Peek());
 
             this.state.TokenQueue.Dequeue();
         }
@@ -158,17 +164,17 @@ namespace TheToolsmiths.Ddl.Lexer
                     return;
                 }
 
-                var readResult = await this.streamReader.ReadAsync();
+                var readResult = await this.pipeReader.ReadAsync();
 
                 this.ReadBufferTokens(readResult);
 
-                this.streamReader.AdvanceTo(readResult.Buffer.End);
+                this.pipeReader.AdvanceTo(readResult.Buffer.End);
 
                 this.isReadComplete = readResult.IsCompleted;
 
                 if (this.isReadComplete)
                 {
-                    await this.streamReader.CompleteAsync();
+                    await this.pipeReader.CompleteAsync();
                 }
 
                 if (this.state.TokenQueue.Any())
@@ -240,13 +246,13 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public async Task Initialize()
         {
-            var readResult = await this.streamReader.ReadAsync();
+            var readResult = await this.pipeReader.ReadAsync();
 
             var buffer = readResult.Buffer;
 
             var position = SkipBom(buffer);
 
-            this.streamReader.AdvanceTo(position);
+            this.pipeReader.AdvanceTo(position);
 
             SequencePosition SkipBom(ReadOnlySequence<byte> sequence)
             {

@@ -1,51 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Shared;
 
 namespace TheToolsmiths.Ddl.Parser
 {
-    public static class DdlTextParser
+    public class DdlTextParser
     {
-        public static Task<ParseResult<FileContent>> ParseFromString(string contents)
+        private readonly ILogger<DdlTextParser> log;
+        private readonly IServiceProvider serviceProvider;
+
+        public DdlTextParser(
+            ILogger<DdlTextParser> log,
+            IServiceProvider serviceProvider)
+        {
+            this.log = log;
+            this.serviceProvider = serviceProvider;
+        }
+
+        public Task<ParseResult<FileContent>> ParseFromString(string contents)
         {
             throw new NotImplementedException();
         }
 
-        public static async Task<ParseResult<FileContent>> ParseFromFile(string path)
+        public async Task<ParseResult<FileContent>> ParseFromFile(string path)
         {
-            return await ExecuteParseFromFile(path).ConfigureAwait(false);
+            return await this.ExecuteParseFromFile(path).ConfigureAwait(false);
         }
 
-        private static async Task<ParseResult<FileContent>> ExecuteParseFromFile(string path)
+        private async Task<ParseResult<FileContent>> ExecuteParseFromFile(string path)
         {
             try
             {
-                var parser = await DdlParserBuilder.CreateParserForPath(path);
+                using (var scope = this.serviceProvider.CreateScope())
+                {
+                    var scopeProvider = scope.ServiceProvider;
 
-                return await ParseFileContents(parser);
+                    var parser = await scopeProvider
+                        .GetRequiredService<DdlParserFactory>()
+                        .CreateForFile(path);
+
+                    return await parser.ParseFileContents();
+                }
             }
             catch (Exception e)
             {
                 return ParseResult.FromException<FileContent>(e);
             }
-        }
-
-        private static async Task<ParseResult<FileContent>> ParseFileContents(DdlParser parser)
-        {
-            var items = new List<IRootContentItem>();
-
-            await foreach (var result in parser.ParseFileContents())
-            {
-                if (result.IsSuccess)
-                {
-                    items.Add(result.Value!);
-                }
-            }
-
-            var fileContent = new FileContent(items);
-
-            return ParseResult.FromValue(fileContent);
         }
     }
 }
