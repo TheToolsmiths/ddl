@@ -1,7 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=AF4C339AE41D704398B36EC1B0359B6B/AbsolutePath/@EntryValue">C:\Users\Tiago\source\repos\thetoolsmiths\ddl\configuration\resharper\TheToolsmiths.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=AF4C339AE41D704398B36EC1B0359B6B/RelativePath/@EntryValue">..\..\configuration\resharper\TheToolsmiths.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=AF4C339AE41D704398B36EC1B0359B6B/@KeyIndexDefined">True</s:Boolean>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileAF4C339AE41D704398B36EC1B0359B6B/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileAF4C339AE41D704398B36EC1B0359B6B/DisplayName/@EntryValue">TheToolsmiths</s:String>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileAF4C339AE41D704398B36EC1B0359B6B/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>

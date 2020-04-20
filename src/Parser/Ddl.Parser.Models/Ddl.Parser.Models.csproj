@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Models</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Models</RootNamespace>
+  </PropertyGroup>
+
+</Project>

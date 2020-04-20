@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Shared</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Shared</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ddl.Lexer.Shared\Ddl.Lexer.Shared.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Models\Ddl.Parser.Models.csproj" />
+  </ItemGroup>
+
+</Project>

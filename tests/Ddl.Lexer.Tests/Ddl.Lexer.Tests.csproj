@@ -29,8 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ddl.Lexer\Ddl.Lexer.csproj" />
-    <ProjectReference Include="..\..\src\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\..\src\Parser\Ddl.Lexer\Ddl.Lexer.csproj" />
   </ItemGroup>
 
 </Project>
