@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
-using TheToolsmiths.Ddl.Parser.Shared;
-using TheToolsmiths.Ddl.Parser.Shared.Contexts;
+using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {

@@ -1,6 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Lexer;
 
-namespace TheToolsmiths.Ddl.Parser.Shared.Contexts
+namespace TheToolsmiths.Ddl.Parser.Contexts
 {
     public interface IParserContext
     {

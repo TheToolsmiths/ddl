@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
 

@@ -1,6 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Shared;
-
-namespace TheToolsmiths.Ddl.Parser.Parsers
+﻿namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class CategoryParserFactory : ICategoryParserFactory
     {

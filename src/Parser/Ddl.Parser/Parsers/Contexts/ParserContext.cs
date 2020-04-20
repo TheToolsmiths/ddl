@@ -2,8 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Common;
-using TheToolsmiths.Ddl.Parser.Shared;
-using TheToolsmiths.Ddl.Parser.Shared.Contexts;
+using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Contexts
 {

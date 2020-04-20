@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using TheToolsmiths.Ddl.Parser.Shared;
+using TheToolsmiths.Ddl.Parser;
 
 namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
 {

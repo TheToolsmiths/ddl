@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Shared.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {

@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Transpiler.Transpilers;
 
 namespace TheToolsmiths.Ddl.Transpiler
@@ -14,11 +14,11 @@ namespace TheToolsmiths.Ddl.Transpiler
             "Reliability",
             "CA2000:Dispose objects before losing scope",
             Justification = "Roslyn analysers don't understand await using yet")]
-        public static async Task TranspileToString(FileContent content, IBufferWriter<byte> outputWriter)
+        public static async Task TranspileToString(ContentUnit contentUnit, IBufferWriter<byte> outputWriter)
         {
-            if (content == null)
+            if (contentUnit == null)
             {
-                throw new ArgumentNullException(nameof(content));
+                throw new ArgumentNullException(nameof(contentUnit));
             }
 
             if (outputWriter == null)
@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Transpiler
 
             writer.WriteStartArray("content");
 
-            foreach (var item in content.Items)
+            foreach (var item in contentUnit.Items)
             {
                 FileContentTranspiler.WriteFileContentItem(writer, item);
             }

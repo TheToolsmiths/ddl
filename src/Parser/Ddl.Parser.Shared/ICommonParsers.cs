@@ -7,7 +7,7 @@ using TheToolsmiths.Ddl.Parser.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Models.Types;
 using TheToolsmiths.Ddl.Parser.Models.Values;
 
-namespace TheToolsmiths.Ddl.Parser.Shared
+namespace TheToolsmiths.Ddl.Parser
 {
     public interface ICommonParsers
     {

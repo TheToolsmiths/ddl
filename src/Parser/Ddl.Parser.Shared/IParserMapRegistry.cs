@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheToolsmiths.Ddl.Parser.Shared
+namespace TheToolsmiths.Ddl.Parser
 {
     public interface IParserMapRegistry
     {

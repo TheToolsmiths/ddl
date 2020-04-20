@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

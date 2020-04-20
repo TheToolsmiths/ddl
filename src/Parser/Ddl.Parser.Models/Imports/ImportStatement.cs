@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Imports
 {
@@ -15,6 +15,6 @@ namespace TheToolsmiths.Ddl.Parser.Models.Imports
 
         public string Path { get; }
 
-        public override FileContentItemType ItemType => FileContentItemType.ImportStatement;
+        public override ContentUnitItemType ItemType => ContentUnitItemType.ImportStatement;
     }
 }

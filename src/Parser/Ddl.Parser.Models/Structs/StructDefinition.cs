@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Structs
@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
             this.Content = content;
         }
 
-        public override FileContentItemType ItemType => FileContentItemType.StructDeclaration;
+        public override ContentUnitItemType ItemType => ContentUnitItemType.StructDeclaration;
 
         public StructDefinitionContent Content { get; }
     }

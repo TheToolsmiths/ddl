@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Parsers.Contexts;
-using TheToolsmiths.Ddl.Parser.Shared;
-using TheToolsmiths.Ddl.Parser.Shared.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser
 {

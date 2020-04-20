@@ -1,6 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Shared;
-
-namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
+﻿namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
 {
     public class ImplementationsRootParserProvider : IRootParserProvider
     {

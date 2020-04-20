@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
 
-namespace TheToolsmiths.Ddl.Parser.Models.FileContents
+namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
     public class RootScope : RootContentItem
     {
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.FileContents
             this.ContentItems = contentItems;
         }
 
-        public override FileContentItemType ItemType => FileContentItemType.FileScope;
+        public override ContentUnitItemType ItemType => ContentUnitItemType.RootScope;
 
         public ConditionalExpression ConditionalExpression { get; }
 

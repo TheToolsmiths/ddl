@@ -1,6 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Shared;
-
-namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
+﻿namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {
     internal class ParserMapRegistryBuilder : IParserMapRegistryBuilder
     {

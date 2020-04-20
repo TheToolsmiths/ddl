@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
-using TheToolsmiths.Ddl.Parser.Shared;
+using TheToolsmiths.Ddl.Parser;
 
 namespace TheToolsmiths.Ddl.Cli.Plugins
 {

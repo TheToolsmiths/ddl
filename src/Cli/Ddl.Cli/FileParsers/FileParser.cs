@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Buffers;
 using System.IO;
 using System.IO.Pipelines;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Cli.Writers;
@@ -39,12 +37,12 @@ namespace TheToolsmiths.Ddl.Cli.FileParsers
 
         private async Task ParseFile(FileInfo input, PipeWriter pipeWriter)
         {
-            var result = await this.textParser.ParseFromFile(input.FullName);
+            var result = await this.textParser.ParseFromFile(input);
 
             if (result.IsSuccess
-                && result.Value != null)
+                && result.Content != null)
             {
-                await DdlTranspiler.TranspileToString(result.Value, pipeWriter);
+                await DdlTranspiler.TranspileToString(result.Content, pipeWriter);
             }
             else
             {

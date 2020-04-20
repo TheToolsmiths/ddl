@@ -1,7 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=06F70411E680DA4384BE794C06F9A1BE/AbsolutePath/@EntryValue">C:\Users\Tiago\source\repos\thetoolsmiths\ddl\configuration\resharper\TheToolsmiths.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=06F70411E680DA4384BE794C06F9A1BE/RelativePath/@EntryValue">..\..\configuration\resharper\TheToolsmiths.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=06F70411E680DA4384BE794C06F9A1BE/@KeyIndexDefined">True</s:Boolean>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File06F70411E680DA4384BE794C06F9A1BE/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File06F70411E680DA4384BE794C06F9A1BE/DisplayName/@EntryValue">TheToolsmiths</s:String>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File06F70411E680DA4384BE794C06F9A1BE/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=BCD83E3A8039714891414CEF063A62AF/AbsolutePath/@EntryValue">C:\Users\Tiago\source\repos\thetoolsmiths\ddl\configuration\resharper\TheToolsmiths.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=BCD83E3A8039714891414CEF063A62AF/RelativePath/@EntryValue">..\configuration\resharper\TheToolsmiths.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=BCD83E3A8039714891414CEF063A62AF/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileBCD83E3A8039714891414CEF063A62AF/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileBCD83E3A8039714891414CEF063A62AF/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>

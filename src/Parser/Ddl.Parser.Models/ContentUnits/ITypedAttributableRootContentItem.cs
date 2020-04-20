@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.FileContents
+﻿namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
     public interface ITypedAttributableRootContentItem : IAttributableRootContentItem, ITypedRootContentItem
     {

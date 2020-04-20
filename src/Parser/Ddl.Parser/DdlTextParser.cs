@@ -1,9 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
-using TheToolsmiths.Ddl.Parser.Shared;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
 {
@@ -20,34 +20,35 @@ namespace TheToolsmiths.Ddl.Parser
             this.serviceProvider = serviceProvider;
         }
 
-        public Task<ParseResult<FileContent>> ParseFromString(string contents)
+        public Task<ContentUnitParseResult> ParseFromString(string contents)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<ParseResult<FileContent>> ParseFromFile(string path)
+        public async Task<ContentUnitParseResult> ParseFromFile(FileInfo file)
         {
-            return await this.ExecuteParseFromFile(path).ConfigureAwait(false);
+            return await this.ExecuteParseFromFile(file).ConfigureAwait(false);
         }
 
-        private async Task<ParseResult<FileContent>> ExecuteParseFromFile(string path)
+        private async Task<ContentUnitParseResult> ExecuteParseFromFile(FileInfo file)
         {
             try
             {
-                using (var scope = this.serviceProvider.CreateScope())
-                {
-                    var scopeProvider = scope.ServiceProvider;
+                using var scope = this.serviceProvider.CreateScope();
 
-                    var parser = await scopeProvider
-                        .GetRequiredService<DdlParserFactory>()
-                        .CreateForFile(path);
+                string id = $"file///:{file.FullName}";
+                string name = Path.GetFileNameWithoutExtension(file.Name);
+                var info = new ContentUnitInfo(id, name, file);
 
-                    return await parser.ParseFileContents();
-                }
+                var parser = await scope.ServiceProvider
+                    .GetRequiredService<DdlParserFactory>()
+                    .CreateForFile(file.FullName);
+
+                return await parser.ParseContentUnit(info);
             }
             catch (Exception e)
             {
-                return ParseResult.FromException<FileContent>(e);
+                return ContentUnitParseResult.FromException(e);
             }
         }
     }

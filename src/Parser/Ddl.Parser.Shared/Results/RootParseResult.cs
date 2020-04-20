@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
-namespace TheToolsmiths.Ddl.Parser.Shared
+namespace TheToolsmiths.Ddl.Parser
 {
     public class RootParseResult<T>
         where T : IRootContentItem

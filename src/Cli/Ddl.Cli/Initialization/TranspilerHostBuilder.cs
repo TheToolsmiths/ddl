@@ -35,6 +35,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
             services.RegisterParserServices();
 
             services.AddTransient<FileParser>();
+            services.AddTransient<GlobParser>();
             services.AddTransient<FileLexer>();
             services.AddScoped<DdlLexerTokenWriter>();
 

@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Models.FileContents;
-using TheToolsmiths.Ddl.Parser.Shared;
-using TheToolsmiths.Ddl.Parser.Shared.Contexts;
+using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
 {
@@ -29,7 +28,7 @@ namespace TheToolsmiths.Ddl.Parser
             this.parserContext = parserContext;
         }
 
-        public async Task<ParseResult<FileContent>> ParseFileContents()
+        public async Task<ContentUnitParseResult> ParseContentUnit(ContentUnitInfo info)
         {
             var items = new List<IRootContentItem>();
 
@@ -41,9 +40,9 @@ namespace TheToolsmiths.Ddl.Parser
                 }
             }
 
-            var fileContent = new FileContent(items);
+            var fileContent = new ContentUnit(info, items);
 
-            return ParseResult.FromValue(fileContent);
+            return ContentUnitParseResult.FromValue(fileContent);
         }
 
         private async IAsyncEnumerable<RootParseResult<IRootContentItem>> ParseAllFileContents()

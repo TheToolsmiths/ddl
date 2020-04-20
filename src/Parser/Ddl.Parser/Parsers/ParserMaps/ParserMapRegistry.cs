@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using TheToolsmiths.Ddl.Parser.Shared;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {

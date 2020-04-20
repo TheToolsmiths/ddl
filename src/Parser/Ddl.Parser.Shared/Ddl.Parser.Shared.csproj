@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>TheToolsmiths.Ddl.Parser.Shared</AssemblyName>
-    <RootNamespace>TheToolsmiths.Ddl.Parser.Shared</RootNamespace>
+    <RootNamespace>TheToolsmiths.Ddl.Parser</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

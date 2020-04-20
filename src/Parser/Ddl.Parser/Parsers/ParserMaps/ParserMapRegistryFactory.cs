@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Parser.Containers;
-using TheToolsmiths.Ddl.Parser.Shared;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {

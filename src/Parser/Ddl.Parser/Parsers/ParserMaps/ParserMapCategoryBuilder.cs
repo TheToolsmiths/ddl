@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Shared;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {
