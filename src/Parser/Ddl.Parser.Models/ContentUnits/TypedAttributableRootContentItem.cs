@@ -4,18 +4,14 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
-    public abstract class TypedAttributableRootContentItem : ITypedAttributableRootContentItem
+    public abstract class TypedAttributableRootContentItem : TypedRootContentItem, ITypedAttributableRootContentItem
     {
         protected TypedAttributableRootContentItem(ITypeName typeName, IReadOnlyList<IAttributeUse> attributes)
+        : base(typeName)
         {
-            this.TypeName = typeName;
             this.Attributes = attributes;
         }
 
-        public abstract ContentUnitItemType ItemType { get; }
-
         public IReadOnlyList<IAttributeUse> Attributes { get; }
-
-        public ITypeName TypeName { get; }
     }
 }

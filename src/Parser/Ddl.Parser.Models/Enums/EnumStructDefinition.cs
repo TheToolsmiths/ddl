@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Ddl.Common.Models;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Enums
 {
-    public class EnumStructDefinition : TypedRootContentItem
+    public class EnumStructDefinition : TypedAttributableRootContentItem
     {
         public EnumStructDefinition(
             ITypeName typeName,
@@ -16,8 +17,10 @@ namespace TheToolsmiths.Ddl.Parser.Models.Enums
             this.Content = content;
         }
 
-        public override ContentUnitItemType ItemType => ContentUnitItemType.StructDeclaration;
+        public override ContentUnitItemType ItemType => ContentUnitItemType.EnumStructDeclaration;
 
         public EnumStructDefinitionContent Content { get; }
+        
+        public ContentUnitItemId ItemId { get; }
     }
 }

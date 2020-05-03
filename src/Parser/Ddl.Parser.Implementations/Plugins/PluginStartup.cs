@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
     {
         public void Configure(IPluginHostBuilder builder)
         {
-            builder.RegisterParserProvider<ImplementationsRootParserProvider>();
+            builder.RegisterParserProvider<ImplementationsRootParserRegister>();
 
             builder.RegisterParserType<StructDefinitionParser>();
             builder.RegisterParserType<EnumDefinitionDisambiguationParser>();

@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 
             using (var _ = provider.CreateScope())
             {
-                var parserProviders = provider.GetServices<IRootParserProvider>();
+                var parserProviders = provider.GetServices<IRootParserRegister>();
 
                 foreach (var parserProvider in parserProviders)
                 {
@@ -20,21 +20,19 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
                 }
             }
 
-            var rootCategory = CreateCategory(provider, builder.RootCategoryBuilder);
+            var rootCategory = CreateCategory(builder.RootCategoryBuilder);
 
             return new ParserMapRegistry(rootCategory);
         }
 
-        private static ParserCategoryRegistry CreateCategory(
-            IServiceProvider provider,
-            ParserMapCategoryBuilder builder)
+        private static ParserCategoryRegistry CreateCategory(ParserMapCategoryBuilder builder)
         {
             var parsersMap = new CharSpanKeyedMap<Type>();
             var categoriesMap = new CharSpanKeyedMap<ParserCategoryRegistry>();
 
             foreach ((string key, var categoryBuilder) in builder.Categories)
             {
-                categoriesMap.Add(key, CreateCategory(provider, categoryBuilder));
+                categoriesMap.Add(key, CreateCategory(categoryBuilder));
             }
 
             foreach ((string key, var parserType) in builder.Parsers)
@@ -47,7 +45,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
                 parsersMap.Add(key, parserType);
             }
 
-            return new ParserCategoryRegistry(provider, parsersMap, categoriesMap);
+            return new ParserCategoryRegistry(parsersMap, categoriesMap);
         }
     }
 }

@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
+﻿using Ddl.Common.Models;
 using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
     public abstract class TypedRootContentItem : ITypedRootContentItem
     {
-        protected TypedRootContentItem(ITypeName typeName, IReadOnlyList<IAttributeUse> attributes)
+        protected TypedRootContentItem(ITypeName typeName)
         {
+            this.ItemId = ContentUnitItemId.CreateNew();
             this.TypeName = typeName;
-            this.Attributes = attributes;
         }
 
         public abstract ContentUnitItemType ItemType { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
-
         public ITypeName TypeName { get; }
+
+        public ContentUnitItemId ItemId { get; }
     }
 }

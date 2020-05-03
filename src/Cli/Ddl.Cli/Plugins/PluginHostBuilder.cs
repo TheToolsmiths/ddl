@@ -18,9 +18,9 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
         public IConfiguration Configuration { get; }
 
         public void RegisterParserProvider<T>()
-            where T : class, IRootParserProvider
+            where T : class, IRootParserRegister
         {
-            this.services.AddTransient<IRootParserProvider, T>();
+            this.services.AddTransient<IRootParserRegister, T>();
         }
 
         public void RegisterParserType<T>()

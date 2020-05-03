@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Literals;
@@ -8,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class LiteralValueInitializationParser
     {
-        public async Task<ParseResult<LiteralValue>> ParseLiteralValue(IParserContext context)
+        public async Task<Result<LiteralValue>> ParseLiteralValue(IParserContext context)
         {
             if (await context.Lexer.IsNextIdentifierToken())
             {
@@ -24,7 +25,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Default))
                 {
                     var value = LiteralValue.CreateDefault();
-                    return new ParseResult<LiteralValue>(value);
+                    return Result.FromValue(value);
                 }
             }
 
@@ -51,7 +52,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var value = new LiteralValue(type, text);
 
-                return new ParseResult<LiteralValue>(value);
+                return Result.FromValue(value);
             }
         }
     }

@@ -82,16 +82,7 @@ def struct EmptyStructWithScopes
     }
 }
 
-// Empty Scope
-scope
-{        
-}
-
-// Empty Scope With Conditional Expression
-scope ((DEFINE_1 && ((DEFINE_2 != "Something") && DEFINE_3 == "Something else"))|| false)
-{        
-};;;;
-
+// Scope with empty condition and def structs
 scope ()
 {   
     [key = TestAttributeType]
@@ -106,6 +97,16 @@ scope ()
         field1: ref TestFieldType
     }
 }
+
+// Empty Scope
+scope
+{        
+}
+
+// Empty Scope With Conditional Expression
+scope ((DEFINE_1 && ((DEFINE_2 != "Something") && DEFINE_3 == "Something else"))|| false)
+{        
+};;;;
 
 [TestAttributeType { value1: false, value2: 0b10 }]
 def struct StructWithScopes

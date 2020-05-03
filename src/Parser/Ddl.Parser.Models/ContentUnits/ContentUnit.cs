@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Ddl.Common.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
@@ -13,7 +14,10 @@ namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
         {
             this.Info = info;
             this.Items = items;
+            this.Id = ContentUnitId.CreateNew();
         }
+
+        public ContentUnitId Id { get; }
 
         public ContentUnitInfo Info { get; }
 

@@ -25,20 +25,26 @@ namespace TheToolsmiths.Ddl.Parser
             throw new NotImplementedException();
         }
 
-        public async Task<ContentUnitParseResult> ParseFromFile(FileInfo file)
-        {
-            return await this.ExecuteParseFromFile(file).ConfigureAwait(false);
-        }
-
-        private async Task<ContentUnitParseResult> ExecuteParseFromFile(FileInfo file)
+        public async Task<ContentUnitParseResult> ParseFromFile(FileInfo file, DirectoryInfo? rootDirectory = null)
         {
             try
             {
+                string relativePath;
+
+                if (rootDirectory != null)
+                {
+                    relativePath = Path.GetRelativePath(rootDirectory.FullName, file.FullName);
+                }
+                else
+                {
+                    relativePath = file.Name;
+                }
+
                 using var scope = this.serviceProvider.CreateScope();
 
                 string id = $"file///:{file.FullName}";
                 string name = Path.GetFileNameWithoutExtension(file.Name);
-                var info = new ContentUnitInfo(id, name, file);
+                var info = new ContentUnitInfo(id, name, relativePath, file);
 
                 var parser = await scope.ServiceProvider
                     .GetRequiredService<DdlParserFactory>()

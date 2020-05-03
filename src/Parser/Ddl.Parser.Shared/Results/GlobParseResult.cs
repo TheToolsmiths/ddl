@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Errors;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser
     {
         private GlobParseResult(
             IReadOnlyList<ContentUnit> contents,
-            IReadOnlyList<ContentUnitParseError> errors,
+            IReadOnlyList<ResultError> errors,
             in bool isSuccess,
             in bool hasErrors,
             in bool isEmpty)
@@ -26,15 +26,16 @@ namespace TheToolsmiths.Ddl.Parser
         public bool IsSuccess { get; }
 
         public bool HasErrors { get; }
+
         public bool IsEmpty { get; }
 
         public IReadOnlyList<ContentUnit> Contents { get; }
 
-        public IReadOnlyList<ContentUnitParseError> Errors { get; }
+        public IReadOnlyList<ResultError> Errors { get; }
 
         public static GlobParseResult FromResults(
             IEnumerable<ContentUnit> contents,
-            IEnumerable<ContentUnitParseError> errors)
+            IEnumerable<ResultError> errors)
         {
             var contentsList = contents.ToList();
 

@@ -18,6 +18,8 @@ namespace TheToolsmiths.Ddl.Parser.Services
             services.AddScoped<IRootItemParserContextFactory, RootItemParserContextFactory>();
             
             services.AddTransient<ICategoryParserFactory, CategoryParserFactory>();
+            
+            services.AddScoped<IRootParserResolver, RootParserResolver>();
 
             services.AddSingleton(ParserMapRegistryFactory.CreateMap);
 

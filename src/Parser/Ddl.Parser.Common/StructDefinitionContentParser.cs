@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
@@ -14,15 +15,15 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class StructDefinitionContentParser
     {
-        public async Task<ParseResult<StructDefinitionContent>> Parse(IParserContext context)
+        public async Task<Result<StructDefinitionContent>> Parse(IParserContext context)
         {
             var items = new List<IStructDefinitionItem>();
 
-            ParseResult<StructDefinitionContent> CreateStructBodyResult()
+            Result<StructDefinitionContent> CreateStructBodyResult()
             {
                 var value = new StructDefinitionContent(items);
 
-                return new ParseResult<StructDefinitionContent>(value);
+                return Result.FromValue(value);
             }
 
             while (true)
@@ -76,7 +77,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
         }
 
-        private async Task<ParseResult<IStructDefinitionItem>> ParseStructDefinitionItem(
+        private async Task<Result<IStructDefinitionItem>> ParseStructDefinitionItem(
             IParserContext context,
             IReadOnlyList<IAttributeUse> attributesList)
         {
@@ -141,7 +142,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
         }
 
-        private async Task<ParseResult<IStructDefinitionItem>> ParseStructScopeBlock(IParserContext context)
+        private async Task<Result<IStructDefinitionItem>> ParseStructScopeBlock(IParserContext context)
         {
             context.Lexer.PopToken();
 
@@ -208,11 +209,11 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
 
                 IStructDefinitionItem value = new StructScope(expression, content);
-                return new ParseResult<IStructDefinitionItem>(value);
+                return Result.FromValue(value);
             }
         }
 
-        private async Task<ParseResult<IStructDefinitionItem>> ParseStructFieldDefinition(
+        private async Task<Result<IStructDefinitionItem>> ParseStructFieldDefinition(
             IParserContext context,
             IReadOnlyList<IAttributeUse> attributesList)
         {
@@ -287,7 +288,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var field = new FieldDefinition(fieldName, fieldType, initialization, attributesList);
 
-            return new ParseResult<IStructDefinitionItem>(field);
+            return Result.FromValue<IStructDefinitionItem>(field);
         }
     }
 }

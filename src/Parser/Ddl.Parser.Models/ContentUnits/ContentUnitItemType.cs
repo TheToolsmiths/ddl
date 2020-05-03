@@ -2,8 +2,10 @@
 {
     public enum ContentUnitItemType
     {
-        RootScope,
         StructDeclaration,
-        ImportStatement
+        ImportStatement,
+        EnumDeclaration,
+        EnumStructDeclaration,
+        RootScope
     }
 }

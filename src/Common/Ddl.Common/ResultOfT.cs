@@ -1,16 +1,16 @@
-﻿namespace TheToolsmiths.Ddl.Parser
+﻿namespace Ddl.Common
 {
-    public class ParseResult<T>
+    public class Result<T>
         where T : class
     {
-        public ParseResult(T value)
+        internal Result(T value)
         {
             this.Value = value;
             this.IsSuccess = true;
             this.ErrorMessage = string.Empty;
         }
 
-        public ParseResult(string errorMessage)
+        internal Result(string errorMessage)
         {
             this.Value = default!;
             this.ErrorMessage = errorMessage;

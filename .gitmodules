@@ -1,0 +1,3 @@
+[submodule "libs/StronglyTypedId"]
+	path = libs/StronglyTypedId
+	url = https://github.com/andrewlock/StronglyTypedId.git

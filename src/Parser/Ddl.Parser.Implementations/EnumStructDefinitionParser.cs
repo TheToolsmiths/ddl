@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
@@ -54,7 +55,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             return RootParseResult<IRootContentItem>.FromResult(value);
         }
 
-        private async Task<ParseResult<EnumStructDefinitionContent>> ParseBlockContent(IRootItemParserContext context)
+        private async Task<Result<EnumStructDefinitionContent>> ParseBlockContent(IRootItemParserContext context)
         {
             var items = new List<IEnumStructDefinitionItem>();
 
@@ -152,7 +153,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
             var value = new EnumStructDefinitionContent(items);
 
-            return new ParseResult<EnumStructDefinitionContent>(value);
+            return Result.FromValue(value);
         }
     }
 }

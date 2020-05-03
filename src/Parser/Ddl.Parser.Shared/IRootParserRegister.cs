@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser
 {
-    public interface IRootParserProvider
+    public interface IRootParserRegister
     {
         void RegisterParsers(IParserMapRegistryBuilder builder);
     }

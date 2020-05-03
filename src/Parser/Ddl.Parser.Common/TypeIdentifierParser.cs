@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Arrays;
@@ -12,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class TypeIdentifierParser
     {
-        public async Task<ParseResult<ITypeIdentifier>> Parse(IParserContext context)
+        public async Task<Result<ITypeIdentifier>> Parse(IParserContext context)
         {
             var identifiersList = new List<LexerToken>();
 
@@ -98,7 +99,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             {
                 var result = await context.Lexer.TryPeekOpenGenericsToken();
 
-                ParseResult<IQualifiedTypeIdentifier> parseResult;
+                Result<IQualifiedTypeIdentifier> parseResult;
                 if (result.HasToken)
                 {
                     parseResult = await this.ParseGenericType(context, identifiersList, isRootedType);
@@ -152,7 +153,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return this.CreateModifiersType(referenceIdentifier, modifiers);
         }
 
-        private async Task<ParseResult<Stack<ModifierTypeKind>>> ParseTypeModifiers(IParserContext context)
+        private async Task<Result<Stack<ModifierTypeKind>>> ParseTypeModifiers(IParserContext context)
         {
 
             var modifiers = new Stack<ModifierTypeKind>();
@@ -180,10 +181,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
             }
 
-            return new ParseResult<Stack<ModifierTypeKind>>(modifiers);
+            return Result.FromValue(modifiers);
         }
 
-        private async Task<ParseResult<IQualifiedTypeIdentifier>> ParseGenericType(
+        private async Task<Result<IQualifiedTypeIdentifier>> ParseGenericType(
             IParserContext context,
             IReadOnlyList<LexerToken> identifiersList,
             bool isRootedType)
@@ -250,10 +251,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 ? GenericTypeIdentifier.BuildRootedFromIdentifierList(identifiers, parameters)
                 : GenericTypeIdentifier.BuildFromIdentifierList(identifiers, parameters);
 
-            return new ParseResult<IQualifiedTypeIdentifier>(genericTypeIdentifier);
+            return Result.FromValue<IQualifiedTypeIdentifier>(genericTypeIdentifier);
         }
 
-        private async Task<ParseResult<ITypeIdentifier>> ParseArrayType(IParserContext context, IQualifiedTypeIdentifier typeIdentifier)
+        private async Task<Result<ITypeIdentifier>> ParseArrayType(IParserContext context, IQualifiedTypeIdentifier typeIdentifier)
         {
             var sizes = new List<ArraySize>();
 
@@ -305,10 +306,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var arrayTypeIdentifier = new ArrayTypeIdentifier(typeIdentifier, sizes);
 
-            return new ParseResult<ITypeIdentifier>(arrayTypeIdentifier);
+            return Result.FromValue<ITypeIdentifier>(arrayTypeIdentifier);
         }
 
-        private ParseResult<IQualifiedTypeIdentifier> CreateQualifiedType(List<LexerToken> identifiersList,
+        private Result<IQualifiedTypeIdentifier> CreateQualifiedType(List<LexerToken> identifiersList,
             bool isRootedType)
         {
             if (identifiersList.Count == 0)
@@ -324,20 +325,20 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 ? SimpleTypeIdentifier.BuildRootedFromIdentifierList(identifiers)
                 : SimpleTypeIdentifier.BuildFromIdentifierList(identifiers);
 
-            return new ParseResult<IQualifiedTypeIdentifier>(typeIdentifier);
+            return Result.FromValue<IQualifiedTypeIdentifier>(typeIdentifier);
         }
 
-        ParseResult<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceTypeKind? referenceKind)
+        Result<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceTypeKind? referenceKind)
         {
             if (referenceKind != null)
             {
                 typeIdentifier = new ReferenceTypeIdentifier(typeIdentifier, referenceKind.Value);
             }
 
-            return new ParseResult<ITypeIdentifier>(typeIdentifier);
+            return Result.FromValue(typeIdentifier);
         }
 
-        private ParseResult<ITypeIdentifier> CreateModifiersType(
+        private Result<ITypeIdentifier> CreateModifiersType(
             ITypeIdentifier typeIdentifier,
             Stack<ModifierTypeKind> modifiers)
         {
@@ -350,7 +351,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 };
             }
 
-            return new ParseResult<ITypeIdentifier>(typeIdentifier);
+            return Result.FromValue(typeIdentifier);
         }
     }
 }

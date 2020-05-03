@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TheToolsmiths.Ddl.Cli.FileParsers;
+using TheToolsmiths.Ddl.Cli.Parsers;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 {

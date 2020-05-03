@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Common.Models\Ddl.Common.Models.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Models\Ddl.Parser.Models.csproj" />
+  </ItemGroup>
+
+</Project>

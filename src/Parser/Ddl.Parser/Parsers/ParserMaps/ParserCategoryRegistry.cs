@@ -1,44 +1,37 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Parser.Containers;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {
     internal class ParserCategoryRegistry : IParserMapRegistry
     {
-        private readonly IServiceProvider provider;
         private readonly CharSpanKeyedMap<Type> parsersMap;
         private readonly CharSpanKeyedMap<ParserCategoryRegistry> categoriesMap;
 
 
         public ParserCategoryRegistry(
-            IServiceProvider provider,
             CharSpanKeyedMap<Type> parsersMap,
             CharSpanKeyedMap<ParserCategoryRegistry> categoriesMap)
         {
             this.parsersMap = parsersMap;
             this.categoriesMap = categoriesMap;
-            this.provider = provider;
         }
 
-        public bool TryGetParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootItemParser itemParser)
+        public bool TryGetParserType(in ReadOnlySpan<char> key, out Type type)
         {
-            if (this.parsersMap.TryGetValue(key, out Type type))
-            {
-                itemParser = this.provider.GetRequiredService(type) as IRootItemParser;
+            return this.parsersMap.TryGetValue(key, out type);
+        }
 
-                return itemParser != null;
+        public bool TryGetCategoryRegistry(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IParserMapRegistry registry)
+        {
+            if (this.categoriesMap.TryGetValue(key, out var categoryRegistry))
+            {
+                registry = categoryRegistry;
+                return true;
             }
 
-            if (this.categoriesMap.TryGetValue(key, out var entry))
-            {
-                itemParser = this.provider.GetRequiredService<ICategoryParserFactory>().CreateCategoryParser(entry);
-
-                return itemParser != null;
-            }
-
-            itemParser = default;
+            registry = default;
             return false;
         }
     }

@@ -8,11 +8,11 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class CategoryRootParser : IRootItemParser
     {
-        private readonly IParserMapRegistry registry;
+        private readonly IRootParserResolver parserResolver;
 
-        public CategoryRootParser(IParserMapRegistry registry)
+        public CategoryRootParser(IRootParserResolver parserResolver)
         {
-            this.registry = registry;
+            this.parserResolver = parserResolver;
         }
 
         public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
@@ -26,7 +26,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
             var token = result.Token;
 
-            if (this.registry.TryGetParser(token.Memory.Span, out var parser) == false)
+            if (this.parserResolver.TryResolveParser(token.Memory.Span, out var parser) == false)
             {
                 string[] identifiers = { token.Memory.Span.ToString() };
 

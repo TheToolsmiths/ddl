@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
@@ -10,18 +11,18 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class FileRootContentParser : IFileRootContentParser
     {
-        private readonly IParserMapRegistry parserMap;
+        private readonly IRootParserResolver parserResolver;
         private readonly IRootItemParserContextFactory itemContextFactory;
 
         public FileRootContentParser(
-            IParserMapRegistry parserMap,
+            IRootParserResolver parserResolver,
             IRootItemParserContextFactory itemContextFactory)
         {
-            this.parserMap = parserMap;
             this.itemContextFactory = itemContextFactory;
+            this.parserResolver = parserResolver;
         }
 
-        public async Task<ParseResult<IReadOnlyList<IRootContentItem>>> ParseRootContentScope(IParserContext context)
+        public async Task<Result<IReadOnlyList<IRootContentItem>>> ParseRootContentScope(IParserContext context)
         {
             var items = new List<IRootContentItem>();
 
@@ -43,7 +44,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
                 items.Add(result.Value);
             }
 
-            return new ParseResult<IReadOnlyList<IRootContentItem>>(items);
+            return Result.FromValue<IReadOnlyList<IRootContentItem>>(items);
         }
 
         public async Task<RootParseResult<IRootContentItem>> ParseRootContent(IParserContext context)
@@ -128,15 +129,15 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
                 token = tokenResult.Token;
             }
 
-            if (this.parserMap.TryGetParser(token.Memory.Span, out var parser) == false)
+            if (this.parserResolver.TryResolveParser(token.Memory.Span, out var parser))
             {
-                string[] identifiers = { token.Memory.Span.ToString() };
-                return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
+                var itemParserContext = this.itemContextFactory.CreateContext(context, attributeList);
+
+                return await parser.ParseRootContent(itemParserContext).ConfigureAwait(true);
             }
 
-            var itemParserContext = this.itemContextFactory.CreateContext(context, attributeList);
-
-            return await parser.ParseRootContent(itemParserContext).ConfigureAwait(true);
+            string[] identifiers = { token.Memory.Span.ToString() };
+            return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
         }
     }
 }

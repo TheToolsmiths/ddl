@@ -39,11 +39,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Implementations\Ddl.Parser.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Models\Ddl.Parser.Models.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
+    <ProjectReference Include="..\..\Resolve\Ddl.Resolve\Ddl.Resolve.csproj" />
     <ProjectReference Include="..\..\Transpiler\Ddl.Transpiler\Ddl.Transpiler.csproj" />
     <ProjectReference Include="..\Ddl.Cli.Abstractions\Ddl.Cli.Abstractions.csproj" />
   </ItemGroup>

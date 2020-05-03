@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
@@ -10,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class TypeNameParser
     {
-        public async Task<ParseResult<ITypeName>> ParseTypeName(IParserContext context)
+        public async Task<Result<ITypeName>> ParseTypeName(IParserContext context)
         {
             Identifier identifier;
             {
@@ -38,14 +39,14 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
         }
 
-        private ParseResult<ITypeName> CreateSimpleType(Identifier identifier)
+        private Result<ITypeName> CreateSimpleType(Identifier identifier)
         {
             ITypeName value = new SimpleTypeName(identifier);
 
-            return new ParseResult<ITypeName>(value);
+            return Result.FromValue(value);
         }
 
-        private async Task<ParseResult<ITypeName>> ParseGenericType(IParserContext context, Identifier identifier)
+        private async Task<Result<ITypeName>> ParseGenericType(IParserContext context, Identifier identifier)
         {
             if (await context.Lexer.TryConsumeOpenGenericsToken() == false)
             {
@@ -80,7 +81,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var typeName = new GenericTypeName(identifier, argumentList);
 
-            return new ParseResult<ITypeName>(typeName);
+            return Result.FromValue<ITypeName>(typeName);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
 {
-    public class ImplementationsRootParserProvider : IRootParserProvider
+    public class ImplementationsRootParserRegister : IRootParserRegister
     {
         public void RegisterParsers(IParserMapRegistryBuilder builder)
         {

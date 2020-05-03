@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using Ddl.Common;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Cli.Utils;
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Parser.Errors;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
-namespace TheToolsmiths.Ddl.Cli.FileParsers
+namespace TheToolsmiths.Ddl.Cli.Parsers
 {
     internal class GlobParser
     {
         private readonly ILogger<GlobParser> log;
-        private readonly IServiceProvider provider;
+        private readonly DdlTextParser textParser;
 
         public GlobParser(
             ILogger<GlobParser> log,
-            IServiceProvider provider)
+            DdlTextParser textParser)
         {
             this.log = log;
-            this.provider = provider;
+            this.textParser = textParser;
         }
 
         public async Task<GlobParseResult> ParseDirectoryGlob(DirectoryInfo rootDirectory, string glob)
@@ -32,15 +30,11 @@ namespace TheToolsmiths.Ddl.Cli.FileParsers
 
 
             var contents = new List<ContentUnit>();
-            var errors = new List<ContentUnitParseError>();
+            var errors = new List<ResultError>();
 
             foreach (var inputFile in FileGlobResolver.ResolveAbsoluteFiles(glob, rootDirectory))
             {
-                using var scope = this.provider.CreateScope();
-
-                var fileParser = scope.ServiceProvider.GetService<DdlTextParser>();
-
-                var result = await fileParser.ParseFromFile(inputFile);
+                var result = await this.textParser.ParseFromFile(inputFile, rootDirectory);
 
                 if (result.IsSuccess)
                 {
@@ -48,7 +42,7 @@ namespace TheToolsmiths.Ddl.Cli.FileParsers
                 }
                 else
                 {
-                    errors.Add(ContentUnitParseError.FromParseResult(result));
+                    errors.Add(ResultError.FromErrorMessage(result.ErrorMessage));
                 }
             }
 

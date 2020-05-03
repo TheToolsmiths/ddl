@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Values;
@@ -8,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class FieldInitializationParser
     {
-        public async Task<ParseResult<ValueInitialization>> ParseFieldInitialization(IParserContext context)
+        public async Task<Result<ValueInitialization>> ParseFieldInitialization(IParserContext context)
         {
             LexerToken token;
             {
@@ -65,7 +66,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 throw new NotImplementedException();
             }
 
-            return new ParseResult<ValueInitialization>(value);
+            return Result.FromValue(value);
         }
     }
 }

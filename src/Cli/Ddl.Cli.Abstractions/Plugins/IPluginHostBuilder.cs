@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
         IConfiguration Configuration { get; }
 
         void RegisterParserProvider<T>()
-            where T : class, IRootParserProvider;
+            where T : class, IRootParserRegister;
 
         void RegisterParserType<T>()
             where T : class, IParser;

@@ -7,7 +7,7 @@ using TheToolsmiths.Ddl.Cli.Writers;
 using TheToolsmiths.Ddl.Parser;
 using TheToolsmiths.Ddl.Transpiler;
 
-namespace TheToolsmiths.Ddl.Cli.FileParsers
+namespace TheToolsmiths.Ddl.Cli.Parsers
 {
     internal class FileParser
     {

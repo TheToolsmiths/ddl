@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
@@ -12,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class StructValueInitializationParser
     {
-        public async Task<ParseResult<StructValueInitialization>> ParseStructuredInitialization(IParserContext context)
+        public async Task<Result<StructValueInitialization>> ParseStructuredInitialization(IParserContext context)
         {
             if (await context.Lexer.TryConsumeOpenScopeToken() == false)
             {
@@ -37,10 +38,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
 
             var value = new StructValueInitialization(fields);
-            return new ParseResult<StructValueInitialization>(value);
+            return Result.FromValue(value);
         }
 
-        private async Task<ParseResult<ValueInitialization>> ParseStructuredInitializationValue(
+        private async Task<Result<ValueInitialization>> ParseStructuredInitializationValue(
             IParserContext context)
         {
             var result = await context.Lexer.TryPeekToken();
@@ -62,7 +63,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            async Task<ParseResult<ValueInitialization>> ParseStructuredInitialization()
+            async Task<Result<ValueInitialization>> ParseStructuredInitialization()
             {
                 var parseResult = await context.Parsers.ParseStructValueInitialization();
 
@@ -73,40 +74,40 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var initialization = parseResult.Value;
 
-                return new ParseResult<ValueInitialization>(initialization);
+                return Result.FromValue<ValueInitialization>(initialization);
             }
 
-            ParseResult<ValueInitialization> CreateStringInitialization()
+            Result<ValueInitialization> CreateStringInitialization()
             {
                 context.Lexer.PopToken();
 
                 var literal = new LiteralValue(LiteralValueType.StringLiteral, token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
-                return new ParseResult<ValueInitialization>(value);
+                return Result.FromValue<ValueInitialization>(value);
             }
 
-            ParseResult<ValueInitialization> CreateNumberInitialization()
+            Result<ValueInitialization> CreateNumberInitialization()
             {
                 context.Lexer.PopToken();
 
                 var literal = new LiteralValue(LiteralValueType.NumberLiteral, token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
-                return new ParseResult<ValueInitialization>(value);
+                return Result.FromValue<ValueInitialization>(value);
             }
 
-            ParseResult<ValueInitialization> CreateBoolInitialization()
+            Result<ValueInitialization> CreateBoolInitialization()
             {
                 context.Lexer.PopToken();
 
                 var literal = new LiteralValue(LiteralValueType.BooleanLiteral, token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
-                return new ParseResult<ValueInitialization>(value);
+                return Result.FromValue<ValueInitialization>(value);
             }
 
-            async Task<ParseResult<ValueInitialization>> CreateTypeIdentifierInitialization()
+            async Task<Result<ValueInitialization>> CreateTypeIdentifierInitialization()
             {
                 var typeResult = await context.Parsers.ParseTypeIdentifier();
 
@@ -117,11 +118,11 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var value = new TypeIdentifierInitialization(typeResult.Value);
 
-                return new ParseResult<ValueInitialization>(value);
+                return Result.FromValue<ValueInitialization>(value);
             }
         }
 
-        private async Task<ParseResult<IReadOnlyList<FieldValueInitialization>>> ParseStructuredInitializationFields(
+        private async Task<Result<IReadOnlyList<FieldValueInitialization>>> ParseStructuredInitializationFields(
             IParserContext context)
         {
             var fields = new List<FieldValueInitialization>();
@@ -180,7 +181,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 fields.Add(field);
             }
 
-            return new ParseResult<IReadOnlyList<FieldValueInitialization>>(fields);
+            return Result.FromValue<IReadOnlyList<FieldValueInitialization>>(fields);
         }
     }
 }

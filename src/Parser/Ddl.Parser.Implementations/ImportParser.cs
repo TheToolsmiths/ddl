@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
@@ -15,35 +16,40 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
         {
             IReadOnlyList<ImportedItem> items;
             {
-                var result = await context.Lexer.TryPeekToken();
-
-                if (result.IsError)
+                LexerToken token;
                 {
-                    throw new NotImplementedException();
+                    var result = await context.Lexer.TryPeekToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    token = result.Token;
                 }
 
-                var token = result.Token;
+                {
+                    Result<IReadOnlyList<ImportedItem>> result;
+                    if (token.IsIdentifier() || token.IsAsterisk())
+                    {
+                        result = await this.ParseSingleImportStatement(context);
+                    }
+                    else if (token.IsOpenScope())
+                    {
+                        result = await this.ParseScopedImportStatement(context);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
 
-                ParseResult<IReadOnlyList<ImportedItem>> parseResult;
-                if (token.IsIdentifier() || token.IsAsterisk())
-                {
-                    parseResult = await this.ParseSingleImportStatement(context);
-                }
-                else if (token.IsOpenScope())
-                {
-                    parseResult = await this.ParseScopedImportStatement(context);
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
 
-                if (parseResult.IsError)
-                {
-                    throw new NotImplementedException();
+                    items = result.Value;
                 }
-
-                items = parseResult.Value;
             }
 
             string path;
@@ -63,7 +69,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             return RootParseResult<IRootContentItem>.FromResult(value);
         }
 
-        private async Task<ParseResult<string>> ParsePathStatement(IRootItemParserContext context)
+        private async Task<Result<string>> ParsePathStatement(IRootItemParserContext context)
         {
             {
                 var result = await context.Lexer.TryGetIdentifierToken();
@@ -95,10 +101,10 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 path = token.Memory.ToString();
             }
 
-            return new ParseResult<string>(value: path);
+            return Result.FromValue(path);
         }
 
-        private async Task<ParseResult<IReadOnlyList<ImportedItem>>> ParseScopedImportStatement(IRootItemParserContext context)
+        private async Task<Result<IReadOnlyList<ImportedItem>>> ParseScopedImportStatement(IRootItemParserContext context)
         {
             if (await context.Lexer.TryConsumeOpenScopeToken() == false)
             {
@@ -131,10 +137,10 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 throw new NotImplementedException();
             }
 
-            return new ParseResult<IReadOnlyList<ImportedItem>>(items);
+            return Result.FromValue<IReadOnlyList<ImportedItem>>(items);
         }
 
-        private async Task<ParseResult<IReadOnlyList<ImportedItem>>> ParseSingleImportStatement(IRootItemParserContext context)
+        private async Task<Result<IReadOnlyList<ImportedItem>>> ParseSingleImportStatement(IRootItemParserContext context)
         {
             var result = await this.ParseImportedIdentity(context);
 
@@ -146,10 +152,10 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             var item = result.Value;
 
             var items = new List<ImportedItem> { item };
-            return new ParseResult<IReadOnlyList<ImportedItem>>(items);
+            return Result.FromValue<IReadOnlyList<ImportedItem>>(items);
         }
 
-        private async Task<ParseResult<ImportedItem>> ParseImportedIdentity(IRootItemParserContext context)
+        private async Task<Result<ImportedItem>> ParseImportedIdentity(IRootItemParserContext context)
         {
             Identifier? identifier;
             bool isAllImport;
@@ -219,7 +225,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 item = ImportedItem.Create(identifier, aliasIdentifier);
             }
 
-            return new ParseResult<ImportedItem>(item);
+            return Result.FromValue(item);
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Enums
+﻿using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+
+namespace TheToolsmiths.Ddl.Parser.Models.Enums
 {
-    public interface IEnumStructDefinitionItem
+    public interface IEnumStructDefinitionItem : ITypedContentSubItem
     {
         EnumStructDefinitionItemType ItemType { get; }
     }

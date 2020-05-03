@@ -14,6 +14,9 @@ namespace TheToolsmiths.Ddl.Cli
 
             var parser = new CommandLineBuilder(rootCommand)
                 .UseDefaults()
+                .EnableDirectives()
+                .UseVersionOption()
+                .UseHelp()
                 .UseTranspilerHost()
                 .Build();
 

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TheToolsmiths.Ddl.Cli.FileParsers;
+using TheToolsmiths.Ddl.Cli.Parsers;
+using TheToolsmiths.Ddl.Cli.Resolvers;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 {
@@ -17,11 +20,36 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
         {
             var serviceProvider = host.Services;
 
-            using var scope = serviceProvider.CreateScope();
+            IReadOnlyList<ContentUnit> contentUnits;
+            {
+                using var scope = serviceProvider.CreateScope();
 
-            var fileParser = scope.ServiceProvider.GetRequiredService<GlobParser>();
+                var fileParser = scope.ServiceProvider.GetRequiredService<GlobParser>();
 
-            var result = await fileParser.ParseDirectoryGlob(baseDirectory, glob);
+                var result = await fileParser.ParseDirectoryGlob(baseDirectory, glob);
+
+                if (result.HasErrors)
+                {
+                    throw new NotImplementedException();
+                }
+
+                contentUnits = result.Contents;
+            }
+
+            {
+                using var scope = serviceProvider.CreateScope();
+
+                var resolver = scope.ServiceProvider.GetRequiredService<ContentUnitsResolver>();
+
+                var result = resolver.ResolveContentUnits(contentUnits);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                throw new NotImplementedException();
+            }
 
             throw new NotImplementedException();
         }

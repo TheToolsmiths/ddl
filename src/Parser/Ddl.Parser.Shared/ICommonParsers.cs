@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Models.Literals;
@@ -11,20 +12,20 @@ namespace TheToolsmiths.Ddl.Parser
 {
     public interface ICommonParsers
     {
-        Task<ParseResult<StructDefinitionContent>> ParseStructDefinitionContentParser();
+        Task<Result<StructDefinitionContent>> ParseStructDefinitionContentParser();
 
-        Task<ParseResult<ITypeIdentifier>> ParseTypeIdentifier();
+        Task<Result<ITypeIdentifier>> ParseTypeIdentifier();
 
-        Task<ParseResult<ITypeName>> ParseTypeName();
+        Task<Result<ITypeName>> ParseTypeName();
 
-        Task<ParseResult<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList();
+        Task<Result<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList();
 
-        Task<ParseResult<StructValueInitialization>> ParseStructValueInitialization();
+        Task<Result<StructValueInitialization>> ParseStructValueInitialization();
 
-        Task<ParseResult<LiteralValue>> ParseLiteralValue();
+        Task<Result<LiteralValue>> ParseLiteralValue();
 
-        Task<ParseResult<ConditionalExpression>> ParseConditionalExpressionRoot();
+        Task<Result<ConditionalExpression>> ParseConditionalExpressionRoot();
 
-        Task<ParseResult<ValueInitialization>> ParseFieldInitialization();
+        Task<Result<ValueInitialization>> ParseFieldInitialization();
     }
 }

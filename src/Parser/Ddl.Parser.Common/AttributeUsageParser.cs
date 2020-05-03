@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
@@ -13,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class AttributeUsageParser
     {
-        public async Task<ParseResult<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList(IParserContext context)
+        public async Task<Result<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList(IParserContext context)
         {
             var attributeUses = new List<IAttributeUse>();
 
@@ -35,10 +36,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 attributeUses.AddRange(result.Value);
             }
 
-            return new ParseResult<IReadOnlyList<IAttributeUse>>(attributeUses);
+            return Result.FromValue<IReadOnlyList<IAttributeUse>>(attributeUses);
         }
 
-        private async Task<ParseResult<IReadOnlyList<IAttributeUse>>> ParseAttributeUseBlock(IParserContext context)
+        private async Task<Result<IReadOnlyList<IAttributeUse>>> ParseAttributeUseBlock(IParserContext context)
         {
             var attributeUses = new List<IAttributeUse>();
 
@@ -92,10 +93,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
             }
 
-            return new ParseResult<IReadOnlyList<IAttributeUse>>(attributeUses);
+            return Result.FromValue<IReadOnlyList<IAttributeUse>>(attributeUses);
         }
 
-        private async Task<ParseResult<IAttributeUse>> ParseAttributeUse(IParserContext context)
+        private async Task<Result<IAttributeUse>> ParseAttributeUse(IParserContext context)
         {
             var result = await context.Lexer.TryPeekNextTwoToken();
 
@@ -126,7 +127,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             throw new NotImplementedException();
         }
 
-        private async Task<ParseResult<IAttributeUse>> ParseAttributeWithTypedConditionalExpression(
+        private async Task<Result<IAttributeUse>> ParseAttributeWithTypedConditionalExpression(
             IParserContext context)
         {
             ITypeIdentifier typeIdentifier;
@@ -154,10 +155,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
 
             var value = new ConditionalAttributeUse(typeIdentifier, conditionalExpression);
-            return new ParseResult<IAttributeUse>(value);
+            return Result.FromValue<IAttributeUse>(value);
         }
 
-        private async Task<ParseResult<IAttributeUse>> ParseAttributeWithTypedStructuredInitialization(IParserContext context)
+        private async Task<Result<IAttributeUse>> ParseAttributeWithTypedStructuredInitialization(IParserContext context)
         {
             ITypeIdentifier identifier;
             {
@@ -184,7 +185,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var value = new ConditionalAttributeUse(identifier, conditionalExpression);
 
-                return new ParseResult<IAttributeUse>(value);
+                return Result.FromValue<IAttributeUse>(value);
             }
 
             {
@@ -208,11 +209,11 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var value = new TypedStructInitializationUse(identifier, initialization);
 
-                return new ParseResult<IAttributeUse>(value);
+                return Result.FromValue<IAttributeUse>(value);
             }
         }
 
-        private async Task<ParseResult<IAttributeUse>> ParseKeyedAttributeUse(IParserContext context)
+        private async Task<Result<IAttributeUse>> ParseKeyedAttributeUse(IParserContext context)
         {
 
             Identifier key;
@@ -287,7 +288,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                     var value = new KeyedTypedAttributeUse(key, initialization);
 
-                    return new ParseResult<IAttributeUse>(value);
+                    return Result.FromValue<IAttributeUse>(value);
                 }
 
                 if (token.IsLiteral())
@@ -303,7 +304,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                     var value = new KeyedLiteralAttributeUse(key, initialization);
 
-                    return new ParseResult<IAttributeUse>(value);
+                    return Result.FromValue<IAttributeUse>(value);
                 }
 
                 if (token.IsOpenScope())
@@ -319,7 +320,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                     var value = new KeyedStructInitializationAttributeUse(key, initialization);
 
-                    return new ParseResult<IAttributeUse>(value);
+                    return Result.FromValue<IAttributeUse>(value);
                 }
             }
 

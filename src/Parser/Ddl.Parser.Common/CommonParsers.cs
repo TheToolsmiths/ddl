@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ddl.Common;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
@@ -23,42 +24,42 @@ namespace TheToolsmiths.Ddl.Parser.Common
             this.provider = provider;
         }
 
-        public Task<ParseResult<StructDefinitionContent>> ParseStructDefinitionContentParser()
+        public Task<Result<StructDefinitionContent>> ParseStructDefinitionContentParser()
         {
             return this.provider.GetRequiredService<StructDefinitionContentParser>().Parse(this.context);
         }
 
-        public Task<ParseResult<ITypeIdentifier>> ParseTypeIdentifier()
+        public Task<Result<ITypeIdentifier>> ParseTypeIdentifier()
         {
             return this.provider.GetRequiredService<TypeIdentifierParser>().Parse(this.context);
         }
 
-        public Task<ParseResult<ITypeName>> ParseTypeName()
+        public Task<Result<ITypeName>> ParseTypeName()
         {
             return this.provider.GetRequiredService<TypeNameParser>().ParseTypeName(this.context);
         }
 
-        public Task<ParseResult<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList()
+        public Task<Result<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList()
         {
             return this.provider.GetRequiredService<AttributeUsageParser>().ParseAttributeUseList(this.context);
         }
 
-        public Task<ParseResult<StructValueInitialization>> ParseStructValueInitialization()
+        public Task<Result<StructValueInitialization>> ParseStructValueInitialization()
         {
             return this.provider.GetRequiredService<StructValueInitializationParser>().ParseStructuredInitialization(this.context);
         }
 
-        public Task<ParseResult<LiteralValue>> ParseLiteralValue()
+        public Task<Result<LiteralValue>> ParseLiteralValue()
         {
             return this.provider.GetRequiredService<LiteralValueInitializationParser>().ParseLiteralValue(this.context);
         }
 
-        public Task<ParseResult<ConditionalExpression>> ParseConditionalExpressionRoot()
+        public Task<Result<ConditionalExpression>> ParseConditionalExpressionRoot()
         {
             return this.provider.GetRequiredService<ConditionalExpressionParser>().ParseConditionalExpressionRoot(this.context);
         }
 
-        public Task<ParseResult<ValueInitialization>> ParseFieldInitialization()
+        public Task<Result<ValueInitialization>> ParseFieldInitialization()
         {
             return this.provider.GetRequiredService<FieldInitializationParser>().ParseFieldInitialization(this.context);
         }
