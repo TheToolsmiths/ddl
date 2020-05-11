@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Entries;
 
 namespace TheToolsmiths.Ddl.Parser
 {
     public class RootParseResult<T>
-        where T : IRootContentItem
+        where T : class, IRootContentEntry
     {
         private RootParseResult(T value, RootParseResultKind resultKind)
         {
@@ -44,19 +44,31 @@ namespace TheToolsmiths.Ddl.Parser
 
         public RootParseResultKind ResultKind { get; }
 
-        public static RootParseResult<IRootContentItem> CreateParserHandlerNotFound(IEnumerable<string> parserLookupIdentifiers)
+        public static RootParseResult<T> CreateParserHandlerNotFound(IEnumerable<string> parserLookupIdentifiers)
         {
-            return new RootParseResult<IRootContentItem>(default!, parserLookupIdentifiers, RootParseResultKind.ParserHandlerNotFound);
+            return new RootParseResult<T>(default!, parserLookupIdentifiers, RootParseResultKind.ParserHandlerNotFound);
         }
 
-        public static RootParseResult<IRootContentItem> FromResult(T value)
+        public static RootParseResult<T> FromResult(T value)
         {
-            return new RootParseResult<IRootContentItem>(value, RootParseResultKind.Success);
+            return new RootParseResult<T>(value, RootParseResultKind.Success);
         }
 
-        public static RootParseResult<IRootContentItem> FromError(string errorMessage)
+        public static RootParseResult<T> FromError(string errorMessage)
         {
-            return new RootParseResult<IRootContentItem>(errorMessage, RootParseResultKind.Error);
+            return new RootParseResult<T>(errorMessage, RootParseResultKind.Error);
+        }
+
+        public RootParseResult<TResult> As<TResult>()
+            where TResult : class, IRootContentEntry
+        {
+            return this.ResultKind switch
+            {
+                RootParseResultKind.Success => RootParseResult<TResult>.FromResult(this.Value as TResult ?? throw new ArgumentException()),
+                RootParseResultKind.Error => RootParseResult<TResult>.FromError(this.ErrorMessage),
+                RootParseResultKind.ParserHandlerNotFound => RootParseResult<TResult>.CreateParserHandlerNotFound(this.ParserLookupIdentifiers),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

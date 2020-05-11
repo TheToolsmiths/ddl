@@ -10,7 +10,10 @@ namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
         void RegisterParserProvider<T>()
             where T : class, IRootParserRegister;
 
-        void RegisterParserType<T>()
-            where T : class, IParser;
+        void RegisterItemParserType<T>()
+            where T : class, IRootItemParser;
+
+        void RegisterScopeParserType<T>()
+            where T : class, IRootScopeParser;
     }
 }

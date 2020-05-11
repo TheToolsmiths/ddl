@@ -128,7 +128,7 @@ namespace TheToolsmiths.Ddl.Lexer
                 return result;
             }
 
-            throw new System.NotImplementedException();
+            return TokenResult.CreateNotFound();
         }
 
         public static async ValueTask<TokenResult> TryGetTokenOfKind(ILexer lexer, LexerTokenKind tokenKind)
@@ -140,14 +140,14 @@ namespace TheToolsmiths.Ddl.Lexer
                 return result;
             }
 
-            if (result.Token.Kind != tokenKind)
+            if (result.Token.Kind == tokenKind)
             {
-                throw new System.NotImplementedException();
+                lexer.PopToken();
+
+                return result;
             }
 
-            lexer.PopToken();
-
-            return result;
+            return TokenResult.CreateNotFound();
 
         }
 

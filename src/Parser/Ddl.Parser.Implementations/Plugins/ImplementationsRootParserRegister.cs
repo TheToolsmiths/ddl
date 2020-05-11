@@ -7,12 +7,20 @@
             {
                 var defParser = builder.AddCategoryParser(ParserIdentifierConstants.Definition);
 
-                defParser.AddParser<StructDefinitionParser>(ParserIdentifierConstants.Struct);
-                defParser.AddParser<EnumDefinitionDisambiguationParser>(ParserIdentifierConstants.Enum);
+                defParser.AddItemParser<StructDefinitionParser>(ParserIdentifierConstants.Struct);
+
+                {
+                    var enumParser = defParser.AddCategoryParser(ParserIdentifierConstants.Enum);
+
+                    enumParser.SetDefaultParser<EnumDefinitionParser>();
+
+                    enumParser.AddItemParser<EnumStructDefinitionParser>(ParserIdentifierConstants.Struct);
+                }
             }
 
-            builder.AddParser<ImportParser>(ParserIdentifierConstants.Import);
-            builder.AddParser<FileScopeParser>(ParserIdentifierConstants.Scope);
+            builder.AddItemParser<ImportParser>(ParserIdentifierConstants.Import);
+            
+            builder.AddScopeParser<RootScopeParser>(ParserIdentifierConstants.Scope);
         }
     }
 }

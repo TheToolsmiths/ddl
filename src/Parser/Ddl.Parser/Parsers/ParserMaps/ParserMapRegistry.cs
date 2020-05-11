@@ -12,9 +12,19 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
             this.rootRegistry = rootRegistry;
         }
 
-        public bool TryGetParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out Type type)
+        public bool TryGetItemParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out Type type)
         {
-            return this.rootRegistry.TryGetParserType(key, out type);
+            return this.rootRegistry.TryGetItemParserType(key, out type);
+        }
+
+        public bool TryGetScopeParserType(in ReadOnlySpan<char> key, out Type type)
+        {
+            return this.rootRegistry.TryGetScopeParserType(key, out type);
+        }
+
+        public bool TryGetDefaultParserType(out Type type)
+        {
+            return this.rootRegistry.TryGetDefaultParserType(out type);
         }
 
         public bool TryGetCategoryRegistry(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IParserMapRegistry registry)

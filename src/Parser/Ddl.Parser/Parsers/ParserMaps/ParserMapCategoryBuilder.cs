@@ -8,17 +8,34 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
         public ParserMapCategoryBuilder()
         {
             this.Categories = new Dictionary<string, ParserMapCategoryBuilder>(StringComparer.OrdinalIgnoreCase);
-            this.Parsers = new Dictionary<string, Type>();
+            this.ItemParsers = new Dictionary<string, Type>();
+            this.ScopeParsers = new Dictionary<string, Type>();
         }
 
         public Dictionary<string, ParserMapCategoryBuilder> Categories { get; }
 
-        public Dictionary<string, Type> Parsers { get; }
+        public Dictionary<string, Type> ItemParsers { get; }
 
-        public void AddParser<T>(string keyword)
-            where T : class, IParser
+        public Dictionary<string, Type> ScopeParsers { get; }
+
+        public Type? DefaultParser { get; private set; }
+
+        public void AddItemParser<T>(string keyword)
+            where T : class, IRootItemParser
         {
-            this.Parsers.Add(keyword, typeof(T));
+            this.ItemParsers.Add(keyword, typeof(T));
+        }
+
+        public void AddScopeParser<T>(string keyword)
+            where T : class, IRootScopeParser
+        {
+            this.ScopeParsers.Add(keyword, typeof(T));
+        }
+
+        public void SetDefaultParser<T>()
+            where T : class, IRootItemParser
+        {
+            this.DefaultParser = typeof(T);
         }
 
         public IParserMapCategoryBuilder AddCategoryParser(string keyword)

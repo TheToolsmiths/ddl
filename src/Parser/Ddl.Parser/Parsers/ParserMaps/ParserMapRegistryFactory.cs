@@ -27,7 +27,8 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 
         private static ParserCategoryRegistry CreateCategory(ParserMapCategoryBuilder builder)
         {
-            var parsersMap = new CharSpanKeyedMap<Type>();
+            var itemParsersMap = new CharSpanKeyedMap<Type>();
+            var scopeParsersMap = new CharSpanKeyedMap<Type>();
             var categoriesMap = new CharSpanKeyedMap<ParserCategoryRegistry>();
 
             foreach ((string key, var categoryBuilder) in builder.Categories)
@@ -35,17 +36,32 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
                 categoriesMap.Add(key, CreateCategory(categoryBuilder));
             }
 
-            foreach ((string key, var parserType) in builder.Parsers)
+            foreach ((string key, var parserType) in builder.ItemParsers)
             {
                 if (categoriesMap.Contains(key))
                 {
                     throw new NotImplementedException();
                 }
 
-                parsersMap.Add(key, parserType);
+                itemParsersMap.Add(key, parserType);
             }
 
-            return new ParserCategoryRegistry(parsersMap, categoriesMap);
+            foreach ((string key, var parserType) in builder.ScopeParsers)
+            {
+                if (categoriesMap.Contains(key))
+                {
+                    throw new NotImplementedException();
+                }
+                
+                if (itemParsersMap.Contains(key))
+                {
+                    throw new NotImplementedException();
+                }
+
+                scopeParsersMap.Add(key, parserType);
+            }
+
+            return new ParserCategoryRegistry(builder.DefaultParser, itemParsersMap, scopeParsersMap, categoriesMap);
         }
     }
 }

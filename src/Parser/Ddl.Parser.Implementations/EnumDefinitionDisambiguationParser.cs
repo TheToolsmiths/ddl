@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {

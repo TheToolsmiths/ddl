@@ -1,60 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ddl.Common;
+using Ddl.Resolve.Models.FirstPhase;
+using Ddl.Resolve.Models.FirstPhase.Scopes;
+using Ddl.Resolve.Models.FirstPhase.TypePaths;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers;
+using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class FirstPhaseContentUnitResolver
     {
-        private readonly FirstPhaseContentUnitCollectionResolver contentUnitResolver;
+        private readonly FirstPhaseRootContentItemResolver contentItemResolver;
+        private readonly NamespacePathResolver namespacePathResolver;
         private readonly FirstPhaseContentUnitTypeIndexer typeIndexer;
 
         public FirstPhaseContentUnitResolver(
             FirstPhaseContentUnitTypeIndexer typeIndexer,
-            FirstPhaseContentUnitCollectionResolver contentUnitResolver)
+            FirstPhaseRootContentItemResolver contentItemResolver,
+            NamespacePathResolver namespacePathResolver)
         {
             this.typeIndexer = typeIndexer;
-            this.contentUnitResolver = contentUnitResolver;
+            this.contentItemResolver = contentItemResolver;
+            this.namespacePathResolver = namespacePathResolver;
         }
 
-        public Result<FirstPhaseResolvedContent> ResolveContentUnits(IReadOnlyList<ContentUnit> contentUnits)
+        public Result<FirstPhaseResolvedContentUnit> ResolveContentUnit(ContentUnit contentUnit)
         {
-            var context = new ContentUnitsCollectionResolveContext();
-
+            FirstPhaseNamespacePath namespacePath;
             {
-                var result = this.contentUnitResolver.ResolveContentUnits(context, contentUnits);
+                var result = this.namespacePathResolver.ResolveContentUnitNamespace(contentUnit.Info);
 
                 if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
+
+                namespacePath = result.Value;
             }
 
-            {
-                var result = this.IndexTypes(context);
+            throw new System.NotImplementedException();
 
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            //FirstPhaseResolvedScope rootScope;
+            //{
+            //    var scopeContext = ContentUnitScopeResolveContext.CreateRootContext(namespacePath);
 
-            var content = new FirstPhaseResolvedContent(context.IndexedTypes, context.ContentUnits);
-            
-            return Result.FromValue(content);
-        }
+            //    foreach (var contentItem in contentUnit.Items)
+            //    {
+            //        var result = this.contentItemResolver.ResolveContentItem(scopeContext, contentItem);
 
-        private Result IndexTypes(ContentUnitsCollectionResolveContext context)
-        {
-            var result = this.typeIndexer.IndexTypes(context);
+            //        if (result.IsError)
+            //        {
+            //            throw new NotImplementedException();
+            //        }
+            //    }
 
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
+            //    rootScope = scopeContext.BuildResolvedScope();
+            //}
 
-            return Result.Success;
+            //var resolvedContentUnit = new FirstPhaseResolvedContentUnit(contentUnit.Id, namespacePath, rootScope);
+
+            //return Result.FromValue(resolvedContentUnit);
         }
     }
 }

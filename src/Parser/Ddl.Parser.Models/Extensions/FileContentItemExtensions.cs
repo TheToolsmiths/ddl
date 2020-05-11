@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Parser.Models
@@ -17,19 +18,9 @@ namespace TheToolsmiths.Ddl.Parser.Models
             return items.HasAnyItemOfType(ContentUnitItemType.StructDeclaration);
         }
 
-        public static bool HasAnyScopes(this IReadOnlyList<IRootContentItem> items)
-        {
-            return items.HasAnyItemOfType(ContentUnitItemType.RootScope);
-        }
-
         public static IEnumerable<StructDefinition> GetAllStructDefinitions(this IReadOnlyList<IRootContentItem> items)
         {
             return items.OfType<StructDefinition>();
-        }
-
-        public static IEnumerable<RootScope> GetAllScopes(this IReadOnlyList<IRootContentItem> items)
-        {
-            return items.OfType<RootScope>();
         }
     }
 }

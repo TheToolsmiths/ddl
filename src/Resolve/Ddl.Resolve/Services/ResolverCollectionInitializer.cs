@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Resolve.FirstPhase;
-using TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 using TheToolsmiths.Ddl.Resolve.SecondPhase;
 
@@ -10,7 +9,9 @@ namespace TheToolsmiths.Ddl.Resolve.Services
     {
         public static IServiceCollection RegisterResolverServices(this IServiceCollection services)
         {
-            services.AddScoped<DdlContentUnitsResolver>();
+            services.AddScoped<DdlContentUnitResolver>();
+
+            services.AddScoped<IDdlContentUnitCollectionResolver, DdlContentUnitCollectionResolver>();
 
             services = RegisterFirstPhaseServices(services);
 
@@ -25,17 +26,15 @@ namespace TheToolsmiths.Ddl.Resolve.Services
 
             services.AddScoped<FirstPhaseContentUnitTypeIndexer>();
 
-            services.AddScoped<FirstPhaseContentUnitCollectionResolver>();
-
             // Root Item Resolvers
-            services.AddScoped<FirstPhaseRootContentItemResolver>();
-            services.AddScoped<ContentUnitItemResolverProvider>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.FirstPhaseRootContentItemResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.ContentUnitItemResolverProvider>();
 
-            services.AddScoped<EnumDefinitionResolver>();
-            services.AddScoped<EnumStructDefinitionResolver>();
-            services.AddScoped<StructDefinitionResolver>();
-            services.AddScoped<RootScopeResolver>();
-            services.AddScoped<ImportStatementResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.EnumDefinitionResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.EnumStructDefinitionResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.StructDefinitionResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.RootScopeResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.ImportStatementResolver>();
 
             services.AddScoped<NamespacePathResolver>();
 
@@ -45,6 +44,19 @@ namespace TheToolsmiths.Ddl.Resolve.Services
         private static IServiceCollection RegisterSecondPhaseServices(IServiceCollection services)
         {
             services.AddScoped<SecondPhaseContentUnitResolver>();
+
+            services.AddScoped<SecondPhaseContentUnitItemsResolver>();
+
+            // Root Item Resolvers
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.SecondPhaseRootContentItemResolver>();
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.ContentUnitItemResolverProvider>();
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.RootScopeResolver>();
+
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.EnumDefinitionResolver>();
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.EnumStructDefinitionResolver>();
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.StructDefinitionResolver>();
+
+            services.AddScoped<NamespacePathResolver>();
 
             return services;
         }

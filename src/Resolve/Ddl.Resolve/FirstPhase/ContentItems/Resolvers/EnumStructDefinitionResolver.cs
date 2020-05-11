@@ -10,13 +10,13 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
     public class EnumStructDefinitionResolver : IRootContentItemResolver<EnumStructDefinition>
     {
-        public Result CatalogItem(ContentUnitScopeResolveContext unitContext, EnumStructDefinition definition)
+        public Result CatalogItem(ContentUnitScopeResolveContext unitContext, EnumStructDefinition item)
         {
             var context = new ItemResolveContext();
 
-            CatalogEnumStructType(context, definition);
+            CatalogEnumStructType(context, item);
 
-            CatalogVariants(context, definition);
+            CatalogVariants(context, item);
 
             CreateResolvedItem(unitContext, context);
 

@@ -2,6 +2,7 @@
 using System.Buffers;
 using System.IO.Pipelines;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 
@@ -9,7 +10,7 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
 {
     public class DdlLexerTokenWriter
     {
-        public async Task WriteToString(DdlLexer lexer, PipeWriter outputWriter)
+        public async Task WriteToString(IDdlLexer lexer, PipeWriter outputWriter)
         {
             if (lexer == null)
             {
@@ -21,7 +22,7 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
                 throw new ArgumentNullException(nameof(outputWriter));
             }
 
-            string lineFeed = "\r\n";
+            string lineFeed = "\n";
 
             using var lineFeedMemoryOwner = MemoryPool<byte>.Shared.Rent(lineFeed.AsSpan().Length);
 
@@ -33,6 +34,8 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
 
             var arrayBuffer = new ArrayBufferWriter<byte>();
 
+            var encoding = Encoding.UTF8;
+
             while (true)
             {
                 var result = await lexer.TryGetNextToken();
@@ -42,34 +45,28 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
                     return;
                 }
 
-                var memory = WriteToken(result.Token);
-
-                if (memory.IsEmpty == false)
                 {
+                    var token = result.Token;
+
+                    int byteCount = encoding.GetByteCount(token.Memory.Span);
+
+                    if (byteCount == 0)
+                    {
+                        continue;
+                    }
+
+                    var memory = arrayBuffer.GetMemory(byteCount);
+
+                    int writtenBytes = encoding.GetBytes(token.Memory.Span, memory.Slice(0, byteCount).Span);
+
+                    memory = memory.Slice(0, writtenBytes);
+
                     await outputWriter.WriteAsync(memory);
+
+                    arrayBuffer.Clear();
 
                     await outputWriter.WriteAsync(lineFeedMemory);
                 }
-
-                arrayBuffer.Clear();
-            }
-
-            Memory<byte> WriteToken(LexerToken token)
-            {
-                int byteCount = token.Memory.Span.Length * sizeof(char);
-
-                if (byteCount == 0)
-                {
-                    return Memory<byte>.Empty;
-                }
-
-                var memory = arrayBuffer.GetMemory(byteCount);
-
-                var bytes = memory.Slice(0, byteCount).Span;
-
-                MemoryMarshal.Cast<char, byte>(token.Memory.Span).CopyTo(bytes);
-
-                return memory.Slice(0, byteCount);
             }
         }
     }

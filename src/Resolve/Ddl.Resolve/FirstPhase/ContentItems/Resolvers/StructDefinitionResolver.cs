@@ -9,11 +9,11 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
     public class StructDefinitionResolver : IRootContentItemResolver<StructDefinition>
     {
-        public Result CatalogItem(ContentUnitScopeResolveContext unitContext, StructDefinition definition)
+        public Result CatalogItem(ContentUnitScopeResolveContext unitContext, StructDefinition item)
         {
             var context = new ItemResolveContext();
 
-            CatalogStructType(context, definition);
+            CatalogStructType(context, item);
 
             CreateResolvedItem(unitContext, context);
 

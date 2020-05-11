@@ -6,24 +6,42 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {
     internal class ParserCategoryRegistry : IParserMapRegistry
     {
-        private readonly CharSpanKeyedMap<Type> parsersMap;
+        private readonly Type? defaultParser;
         private readonly CharSpanKeyedMap<ParserCategoryRegistry> categoriesMap;
-
+        private readonly CharSpanKeyedMap<Type> itemParsersMap;
+        private readonly CharSpanKeyedMap<Type> scopeParsersMap;
 
         public ParserCategoryRegistry(
-            CharSpanKeyedMap<Type> parsersMap,
+            Type? defaultParser,
+            CharSpanKeyedMap<Type> itemParsersMap,
+            CharSpanKeyedMap<Type> scopeParsersMap,
             CharSpanKeyedMap<ParserCategoryRegistry> categoriesMap)
         {
-            this.parsersMap = parsersMap;
+            this.defaultParser = defaultParser;
+            this.itemParsersMap = itemParsersMap;
+            this.scopeParsersMap = scopeParsersMap;
             this.categoriesMap = categoriesMap;
         }
 
-        public bool TryGetParserType(in ReadOnlySpan<char> key, out Type type)
+        public bool TryGetItemParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out Type type)
         {
-            return this.parsersMap.TryGetValue(key, out type);
+            return this.itemParsersMap.TryGetValue(key, out type);
         }
 
-        public bool TryGetCategoryRegistry(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IParserMapRegistry registry)
+        public bool TryGetScopeParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out Type type)
+        {
+            return this.scopeParsersMap.TryGetValue(key, out type);
+        }
+
+        public bool TryGetDefaultParserType([MaybeNullWhen(false)] out Type type)
+        {
+            type = this.defaultParser;
+            return type != null;
+        }
+
+        public bool TryGetCategoryRegistry(
+            in ReadOnlySpan<char> key,
+            [MaybeNullWhen(false)] out IParserMapRegistry registry)
         {
             if (this.categoriesMap.TryGetValue(key, out var categoryRegistry))
             {

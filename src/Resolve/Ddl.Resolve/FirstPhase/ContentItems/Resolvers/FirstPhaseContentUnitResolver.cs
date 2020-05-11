@@ -1,6 +1,8 @@
 ﻿using System;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
@@ -20,7 +22,8 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
         {
             var result = contentItem switch
             {
-                RootScope rootScope => this.resolverProvider.CreateRootScopeResolver().CatalogItem(context, rootScope),
+                ConditionalRootScope rootScope => this.resolverProvider.CreateRootScopeResolver()
+                    .CatalogScope(context, rootScope),
 
                 EnumDefinition enumDefinition => this.resolverProvider.CreateEnumDefinitionResolver()
                     .CatalogItem(context, enumDefinition),

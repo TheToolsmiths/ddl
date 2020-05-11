@@ -49,6 +49,11 @@ namespace TheToolsmiths.Ddl.Lexer
             return IsNextTokenOfKind(lexer, LexerTokenKind.ListSeparator);
         }
 
+        public static ValueTask<bool> IsNextAsteriskToken(this ILexer lexer)
+        {
+            return IsNextTokenOfKind(lexer, LexerTokenKind.Asterisk);
+        }
+
         public static async ValueTask<bool> IsNextTokenOfKind(ILexer lexer, LexerTokenKind tokenKind)
         {
             var result = await lexer.TryPeekToken();

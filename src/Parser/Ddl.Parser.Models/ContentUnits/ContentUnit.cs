@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Ddl.Common.Models;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
 {
@@ -10,22 +9,18 @@ namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
     {
         public ContentUnit(
             ContentUnitInfo info,
-            IReadOnlyList<IRootContentItem> items)
+            IFileRootScope fileRootScope)
         {
-            this.Info = info;
-            this.Items = items;
             this.Id = ContentUnitId.CreateNew();
+
+            this.Info = info;
+            this.FileRootScope = fileRootScope;
         }
 
         public ContentUnitId Id { get; }
 
         public ContentUnitInfo Info { get; }
 
-        public IReadOnlyList<IRootContentItem> Items { get; }
-
-        public static ContentUnit CreateEmpty(ContentUnitInfo info)
-        {
-            return new ContentUnit(info, Array.Empty<IRootContentItem>());
-        }
+        public IFileRootScope FileRootScope { get; }
     }
 }

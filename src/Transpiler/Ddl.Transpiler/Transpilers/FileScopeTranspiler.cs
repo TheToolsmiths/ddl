@@ -1,37 +1,40 @@
 ﻿using System.Linq;
 using System.Text.Json;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class FileScopeTranspiler
     {
-        public static void WriteFileScope(Utf8JsonWriter writer, RootScope rootScope)
+        public static void WriteFileScope(Utf8JsonWriter writer, ConditionalRootScope conditionalScope)
         {
             writer.WriteStartObject();
 
             writer.WriteString("type", "file-scope");
 
-            if (rootScope.ConditionalExpression.IsEmpty == false)
+            if (conditionalScope.ConditionalExpression.IsEmpty == false)
             {
                 writer.WritePropertyName("condition");
 
                 ConditionalExpressionTranspiler.WriteConditionalExpression(
                     writer,
-                    rootScope.ConditionalExpression);
+                    conditionalScope.ConditionalExpression);
             }
 
-            if (rootScope.ContentItems.Any())
-            {
-                writer.WriteStartArray("content");
+            throw new System.NotImplementedException();
 
-                foreach (var contentItem in rootScope.ContentItems)
-                {
-                    FileContentTranspiler.WriteFileContentItem(writer, contentItem);
-                }
+            //if (conditionalScope.ContentItems.Any())
+            //{
+            //    writer.WriteStartArray("content");
 
-                writer.WriteEndArray();
-            }
+            //    foreach (var contentItem in conditionalScope.ContentItems)
+            //    {
+            //        FileContentTranspiler.WriteFileContentItem(writer, contentItem);
+            //    }
+
+            //    writer.WriteEndArray();
+            //}
 
             writer.WriteEndObject();
         }

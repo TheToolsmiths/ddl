@@ -64,6 +64,7 @@ namespace TheToolsmiths.Ddl.Lexer
             }
 
             lexer.PopToken();
+
             return true;
 
         }

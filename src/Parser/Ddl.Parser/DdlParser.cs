@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Ddl.Common;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser
 {
@@ -13,56 +14,77 @@ namespace TheToolsmiths.Ddl.Parser
     {
         private readonly IDdlLexer lexer;
         private readonly ILogger<DdlParser> log;
-        private readonly IFileRootContentParser rootContentParser;
+        private readonly IRootScopeContentParser rootParser;
         private readonly IParserContext parserContext;
 
         public DdlParser(
             ILogger<DdlParser> log,
             IDdlLexer lexer,
-            IFileRootContentParser rootContentParser,
-            IParserContext parserContext)
+            IParserContext parserContext,
+            IRootScopeContentParser rootParser)
         {
             this.log = log;
             this.lexer = lexer;
-            this.rootContentParser = rootContentParser;
             this.parserContext = parserContext;
+            this.rootParser = rootParser;
         }
 
         public async Task<ContentUnitParseResult> ParseContentUnit(ContentUnitInfo info)
         {
-            var items = new List<IRootContentItem>();
+            var result = await this.ParseFileScopeContent(info);
 
-            await foreach (var result in this.ParseAllFileContents())
+            if (result.IsError)
             {
-                if (result.IsSuccess)
-                {
-                    items.Add(result.Value!);
-                }
+                throw new NotImplementedException();
             }
 
-            var fileContent = new ContentUnit(info, items);
+            var rootScope = result.Value;
+
+            var fileContent = new ContentUnit(info, rootScope);
 
             return ContentUnitParseResult.FromValue(fileContent);
         }
 
-        private async IAsyncEnumerable<RootParseResult<IRootContentItem>> ParseAllFileContents()
-        {
-            while (this.lexer.HasNextToken)
-            {
-                if (await this.lexer.TryParseTokens() == false)
-                {
-                    yield break;
-                }
+        // TODO: Refactor into IFileRootScopeContentParser and Delete
+        //private async Task<Result<IFileRootScope>> ParseRootScope(ContentUnitInfo info)
+        //{
 
-                yield return await this.ParseFileContent();
-            }
-        }
+        //    while (this.lexer.HasNextToken)
+        //    {
+        //        if (await this.lexer.TryParseTokens() == false)
+        //        {
+        //            break;
+        //        }
 
-        private async Task<RootParseResult<IRootContentItem>> ParseFileContent()
+        //        var result = await this.ParseFileScopeContent();
+
+        //        if (result.IsError)
+        //        {
+        //            throw new NotImplementedException();
+        //        }
+
+        //        items.Add(result.Value);
+        //    }
+
+        //    var value = new FileRootScope();
+
+        //    return Result.FromValue<IFileRootScope>(value);
+        //}
+
+        private async Task<Result<IFileRootScope>> ParseFileScopeContent(ContentUnitInfo info)
         {
             try
             {
-                return await this.rootContentParser.ParseRootContent(parserContext);
+                var result = await this.rootParser.ParseRootScopeContent(this.parserContext);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var value = new FileRootScope(result.Value);
+
+                return Result.FromValue<IFileRootScope>(value);
             }
             catch (Exception e)
             {
@@ -71,7 +93,7 @@ namespace TheToolsmiths.Ddl.Parser
                     Debugger.Break();
                 }
 
-                return RootParseResult<IRootContentItem>.FromError(e.ToString());
+                return Result.FromErrorMessage<IFileRootScope>(e.ToString());
             }
         }
     }

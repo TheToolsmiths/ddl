@@ -49,6 +49,11 @@ namespace TheToolsmiths.Ddl.Lexer
             return TryConsumeTokenOfKind(lexer, LexerTokenKind.CloseGenerics);
         }
 
+        public static ValueTask<bool> TryConsumeAsteriskToken(this ILexer lexer)
+        {
+            return TryConsumeTokenOfKind(lexer, LexerTokenKind.Asterisk);
+        }
+
         public static ValueTask<bool> TryConsumeValueAssignmentToken(this ILexer lexer)
         {
             return TryConsumeTokenOfKind(lexer, LexerTokenKind.ValueAssignment);
@@ -84,6 +89,11 @@ namespace TheToolsmiths.Ddl.Lexer
             return TryConsumeTokenOfKind(lexer, LexerTokenKind.NamespaceSeparator);
         }
 
+        public static ValueTask<bool> TryConsumeEndStatementToken(this ILexer lexer)
+        {
+            return TryConsumeTokenOfKind(lexer, LexerTokenKind.EndStatement);
+        }
+
         private static async ValueTask<bool> TryConsumeTokenOfKind(ILexer lexer, LexerTokenKind tokenKind)
         {
             var result = await lexer.TryPeekToken();
@@ -99,6 +109,7 @@ namespace TheToolsmiths.Ddl.Lexer
             }
 
             lexer.PopToken();
+
             return true;
 
         }

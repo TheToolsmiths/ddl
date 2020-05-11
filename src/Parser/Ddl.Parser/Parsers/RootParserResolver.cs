@@ -17,9 +17,36 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             this.registry = registry;
         }
 
-        public bool TryResolveParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootItemParser itemParser)
+
+        public bool TryResolveScopeParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootScopeParser scopeParser)
         {
-            if (this.registry.TryGetParserType(key, out var type))
+            if (this.registry.TryGetScopeParserType(key, out var type))
+            {
+                scopeParser = (IRootScopeParser)this.provider.GetRequiredService(type);
+
+                return scopeParser != null;
+            }
+
+            scopeParser = default;
+            return false;
+        }
+
+        public bool TryResolveDefaultItemParser([MaybeNullWhen(false)]  out IRootItemParser itemParser)
+        {
+            if (this.registry.TryGetDefaultParserType(out var type))
+            {
+                itemParser = (IRootItemParser)this.provider.GetRequiredService(type);
+
+                return itemParser != null;
+            }
+
+            itemParser = default;
+            return false;
+        }
+
+        public bool TryResolveItemParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootItemParser itemParser)
+        {
+            if (this.registry.TryGetItemParserType(key, out var type))
             {
                 itemParser = (IRootItemParser)this.provider.GetRequiredService(type);
 

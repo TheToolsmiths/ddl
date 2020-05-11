@@ -4,7 +4,6 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
-using TheToolsmiths.Ddl.Transpiler.Transpilers;
 
 namespace TheToolsmiths.Ddl.Transpiler
 {
@@ -34,10 +33,12 @@ namespace TheToolsmiths.Ddl.Transpiler
 
             writer.WriteStartArray("content");
 
-            foreach (var item in contentUnit.Items)
-            {
-                FileContentTranspiler.WriteFileContentItem(writer, item);
-            }
+            throw new NotImplementedException();
+
+            //foreach (var item in contentUnit.Items)
+            //{
+            //    FileContentTranspiler.WriteFileContentItem(writer, item);
+            //}
 
             writer.WriteEndArray();
 

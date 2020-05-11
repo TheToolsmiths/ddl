@@ -13,9 +13,10 @@ namespace TheToolsmiths.Ddl.Parser.Services
             
             services.AddTransient<DdlParserFactory>();
 
-            services.AddScoped<IFileRootContentParser, FileRootContentParser>();
+            services.AddScoped<IRootScopeContentParser, RootScopeScopeContentParser>();
 
             services.AddScoped<IRootItemParserContextFactory, RootItemParserContextFactory>();
+            services.AddScoped<IRootScopeParserContextFactory, RootScopeParserContextFactory>();
             
             services.AddTransient<ICategoryParserFactory, CategoryParserFactory>();
             

@@ -12,13 +12,13 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
     {
         public Result CatalogItem(
             ContentUnitScopeResolveContext unitContext,
-            EnumDefinition definition)
+            EnumDefinition item)
         {
             var context = new ItemResolveContext();
 
-            CatalogEnumType(context, definition);
+            CatalogEnumType(context, item);
 
-            CatalogVariants(context, definition);
+            CatalogVariants(context, item);
 
             CreateResolvedItem(unitContext, context);
 

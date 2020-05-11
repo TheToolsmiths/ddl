@@ -5,6 +5,7 @@ using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 
@@ -14,170 +15,20 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
     {
         public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
-            IReadOnlyList<ImportedItem> items;
+            bool isRootedType = await context.Lexer.TryConsumeNamespaceSeparatorToken();
+
+            ImportItem importItem;
             {
-                LexerToken token;
-                {
-                    var result = await context.Lexer.TryPeekToken();
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    token = result.Token;
-                }
-
-                {
-                    Result<IReadOnlyList<ImportedItem>> result;
-                    if (token.IsIdentifier() || token.IsAsterisk())
-                    {
-                        result = await this.ParseSingleImportStatement(context);
-                    }
-                    else if (token.IsOpenScope())
-                    {
-                        result = await this.ParseScopedImportStatement(context);
-                    }
-                    else
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    items = result.Value;
-                }
-            }
-
-            string path;
-            {
-                var parseResult = await this.ParsePathStatement(context);
-
-                if (parseResult.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                path = parseResult.Value;
-            }
-
-            var value = new ImportStatement(items, path);
-
-            return RootParseResult<IRootContentItem>.FromResult(value);
-        }
-
-        private async Task<Result<string>> ParsePathStatement(IRootItemParserContext context)
-        {
-            {
-                var result = await context.Lexer.TryGetIdentifierToken();
+                var result = await this.ParseImportPath(context).ConfigureAwait(false);
 
                 if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
 
-                var token = result.Token;
-
-                if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.From) == false)
+                if (result.Value is ImportItem rootItem)
                 {
-                    throw new NotImplementedException();
-                }
-            }
-
-            string path;
-            {
-                var result = await context.Lexer.TryGetStringToken();
-
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                var token = result.Token;
-
-                path = token.Memory.ToString();
-            }
-
-            return Result.FromValue(path);
-        }
-
-        private async Task<Result<IReadOnlyList<ImportedItem>>> ParseScopedImportStatement(IRootItemParserContext context)
-        {
-            if (await context.Lexer.TryConsumeOpenScopeToken() == false)
-            {
-                throw new NotImplementedException();
-            }
-
-            var items = new List<ImportedItem>();
-            while (context.Lexer.HasNextToken)
-            {
-                while (await context.Lexer.TrySkipListSeparatorToken()) { }
-
-                if (await context.Lexer.IsNextCloseScopeToken())
-                {
-                    break;
-                }
-
-                var result = await this.ParseImportedIdentity(context);
-
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                var item = result.Value;
-                items.Add(item);
-            }
-
-            if (await context.Lexer.TryConsumeCloseScopeToken() == false)
-            {
-                throw new NotImplementedException();
-            }
-
-            return Result.FromValue<IReadOnlyList<ImportedItem>>(items);
-        }
-
-        private async Task<Result<IReadOnlyList<ImportedItem>>> ParseSingleImportStatement(IRootItemParserContext context)
-        {
-            var result = await this.ParseImportedIdentity(context);
-
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
-
-            var item = result.Value;
-
-            var items = new List<ImportedItem> { item };
-            return Result.FromValue<IReadOnlyList<ImportedItem>>(items);
-        }
-
-        private async Task<Result<ImportedItem>> ParseImportedIdentity(IRootItemParserContext context)
-        {
-            Identifier? identifier;
-            bool isAllImport;
-            {
-                var result = await context.Lexer.TryGetNextToken();
-
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                var token = result.Token;
-
-                if (token.IsIdentifier())
-                {
-                    identifier = new Identifier(token.Memory.ToString());
-                    isAllImport = false;
-                }
-                else if (token.IsAsterisk())
-                {
-                    identifier = null;
-                    isAllImport = true;
+                    importItem = rootItem;
                 }
                 else
                 {
@@ -185,47 +36,145 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 }
             }
 
-            var aliasIdentifier = Identifier.Empty;
+            if (await context.Lexer.TryConsumeEndStatementToken() == false)
             {
-                var result = await context.Lexer.TryPeekIdentifierToken();
+                throw new NotImplementedException();
+            }
 
-                if (result.HasToken)
+            var importRoot = isRootedType ? ImportRoot.CreateWithChildItem(importItem) : importItem;
+
+            var importStatement = new ImportStatement(importRoot);
+            return RootParseResult<IRootContentItem>.FromResult(importStatement);
+        }
+
+        private async Task<Result<ImportItem>> ParseImportPath(IRootItemParserContext context)
+        {
+            var identifiers = new List<Identifier>();
+
+            // Parse all `identifier::` in the import path
+            while (true)
+            {
+                var result = await context.Lexer.TryGetIdentifierToken();
+
+                if (result.IsError)
                 {
-                    var token = result.Token;
-                    if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.As))
-                    {
-                        context.Lexer.PopToken();
+                    break;
+                }
 
-                        var aliasResult = await context.Lexer.TryGetIdentifierToken();
+                var identifierToken = result.Token;
 
-                        if (aliasResult.IsError)
-                        {
-                            throw new NotImplementedException();
-                        }
+                Identifier identifier = Identifier.FromString(identifierToken.Memory.ToString());
+                identifiers.Add(identifier);
 
-                        var aliasToken = aliasResult.Token;
-
-                        aliasIdentifier = new Identifier(aliasToken.Memory.ToString());
-                    }
+                if (await context.Lexer.TryConsumeNamespaceSeparatorToken() == false)
+                {
+                    break;
                 }
             }
 
-            ImportedItem item;
-            if (isAllImport)
+            // If its starting a path group
+            // e.g. `{ foo, bar }`
+            if (await context.Lexer.IsNextOpenScopeToken())
             {
-                item = ImportedItem.CreateAll(aliasIdentifier);
-            }
-            else
-            {
-                if (identifier == null)
+                // Parse group
+                var result = await this.ParseImportGroup(context).ConfigureAwait(false);
+
+                if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
 
-                item = ImportedItem.Create(identifier, aliasIdentifier);
+                // Build the path with the existing identifier list and the parsed group;
+                var scope = result.Value;
+                var value = ImportItemBuilder.CreateFromIdentifierListWithGroup(identifiers, scope);
+
+                return Result.FromValue<ImportItem>(value);
             }
 
-            return Result.FromValue(item);
+            // If import path does not end with *
+            // e.g. `std::bar` `std::bar as Alias`
+            {
+                // If statement has an alias
+                // e.g. `std::bar as Alias`
+                if (await this.TryConsumeAsIdentifier(context))
+                {
+                    var result = await context.Lexer.TryGetIdentifierToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    var resultToken = result.Token;
+
+                    var aliasIdentifier = new Identifier(resultToken.Memory.ToString());
+
+                    var value = ImportItemBuilder.CreateAliasFromIdentifierList(identifiers, aliasIdentifier);
+
+                    return Result.FromValue<ImportItem>(value);
+                }
+
+                {
+                    var value = ImportItemBuilder.CreateFromIdentifierList(identifiers);
+
+                    return Result.FromValue<ImportItem>(value);
+                }
+            }
+
+        }
+
+        private async Task<bool> TryConsumeAsIdentifier(IRootItemParserContext context)
+        {
+            var tokenResult = await context.Lexer.TryPeekIdentifierToken();
+
+            if (tokenResult.HasToken)
+            {
+                if (tokenResult.Token.Memory.Span.SequenceEqual(ParserIdentifierConstants.As))
+                {
+                    context.Lexer.PopToken();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private async Task<Result<ImportGroup>> ParseImportGroup(IRootItemParserContext context)
+        {
+            if (await context.Lexer.TryConsumeOpenScopeToken() == false)
+            {
+                throw new NotImplementedException();
+            }
+
+            var items = new List<ImportItem>();
+
+            while (true)
+            {
+                var result = await this.ParseImportPath(context).ConfigureAwait(false);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                var importItem = result.Value;
+
+                if (await context.Lexer.TryConsumeListSeparatorToken() == false)
+                {
+                    break;
+                }
+
+                items.Add(importItem);
+            }
+
+            if (await context.Lexer.TryConsumeCloseScopeToken() == false)
+            {
+                throw new NotImplementedException();
+            }
+
+            var importGroup = ImportGroup.Create(items);
+
+            return Result.FromValue(importGroup);
         }
     }
 }

@@ -4,7 +4,10 @@
     {
         IParserMapCategoryBuilder AddCategoryParser(string keyword);
 
-        public void AddParser<T>(string keyword)
-            where T : class, IParser;
+        public void AddItemParser<T>(string keyword)
+            where T : class, IRootItemParser;
+        
+        public void AddScopeParser<T>(string keyword)
+            where T : class, IRootScopeParser;
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {
@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
         public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
         {
-            var result = await context.Lexer.TryGetIdentifierToken();
+            var result = await context.Lexer.TryPeekIdentifierToken();
 
             if (result.IsError)
             {
@@ -26,14 +26,23 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
             var token = result.Token;
 
-            if (this.parserResolver.TryResolveParser(token.Memory.Span, out var parser) == false)
+            if (this.parserResolver.TryResolveItemParser(token.Memory.Span, out var itemParser))
             {
-                string[] identifiers = { token.Memory.Span.ToString() };
+                context.Lexer.PopToken();
 
-                return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
+                return await itemParser.ParseRootContent(context);
             }
 
-            return await parser.ParseRootContent(context);
+            if (this.parserResolver.TryResolveDefaultItemParser(out var defaultItemParser))
+            {
+                return await defaultItemParser.ParseRootContent(context);
+            }
+
+
+            string[] identifiers = { token.Memory.Span.ToString() };
+
+            return RootParseResult<IRootContentItem>.CreateParserHandlerNotFound(identifiers);
+
         }
     }
 }

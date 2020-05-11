@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
@@ -7,38 +8,40 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
     {
         public static void WriteImportStatement(Utf8JsonWriter writer, ImportStatement importStatement)
         {
-            writer.WriteStartObject();
+            throw new NotImplementedException();
 
-            writer.WriteString("type", "import");
+            //writer.WriteStartObject();
 
-            writer.WriteStartArray("items");
+            //writer.WriteString("type", "import");
 
-            foreach (var importedItem in importStatement.Items)
-            {
-                writer.WriteStartObject();
+            //writer.WriteStartArray("items");
 
-                if (importedItem.IsImportAll)
-                {
-                    writer.WriteBoolean("importAll", true);
-                }
-                else
-                {
-                    writer.WriteString("name", importedItem.Identifier.ToString());
-                }
+            //foreach (var importedItem in importStatement.Items)
+            //{
+            //    writer.WriteStartObject();
 
-                if (importedItem.AliasIdentifier.IsValid)
-                {
-                    writer.WriteString("alias", importedItem.AliasIdentifier.ToString());
-                }
+            //    if (importedItem.IsImportAll)
+            //    {
+            //        writer.WriteBoolean("importAll", true);
+            //    }
+            //    else
+            //    {
+            //        writer.WriteString("name", importedItem.Identifier.ToString());
+            //    }
 
-                writer.WriteEndObject();
-            }
+            //    if (importedItem.AliasIdentifier.IsValid)
+            //    {
+            //        writer.WriteString("alias", importedItem.AliasIdentifier.ToString());
+            //    }
 
-            writer.WriteEndArray();
+            //    writer.WriteEndObject();
+            //}
 
-            writer.WriteString("path", importStatement.Path);
+            //writer.WriteEndArray();
 
-            writer.WriteEndObject();
+            //writer.WriteString("path", importStatement.Path);
+
+            //writer.WriteEndObject();
         }
     }
 }

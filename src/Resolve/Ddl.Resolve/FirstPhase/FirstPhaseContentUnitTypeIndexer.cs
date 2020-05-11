@@ -1,49 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class FirstPhaseContentUnitTypeIndexer
     {
-        public Result IndexTypes(ContentUnitsCollectionResolveContext context)
+        public Result<IReadOnlyList<IndexedTypeReference>> IndexTypes(
+            FirstPhaseResolvedContentUnit contentUnit)
         {
-            foreach (var contentUnit in context.ContentUnits)
+            var indexContext = ContentUnitTypeIndexingContext.FromContentUnit(contentUnit);
+
             {
-                var indexContext = ContentUnitTypeIndexingContext.FromContentUnit(contentUnit);
+                var result = this.IndexContentUnitTypes(indexContext, contentUnit);
 
+                if (result.IsError)
                 {
-                    var result = this.IndexContentUnitTypes(indexContext, contentUnit);
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-                }
-
-                {
-                    var result = this.IntegrateContentUnitIndexing(context, indexContext);
-
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
+                    throw new NotImplementedException();
                 }
             }
 
-            return Result.Success;
-        }
-
-        private Result IntegrateContentUnitIndexing(
-            ContentUnitsCollectionResolveContext context,
-            ContentUnitTypeIndexingContext indexContext)
-        {
-            context.IndexedTypes.AddRange(indexContext.IndexedTypes);
-
-            return Result.Success;
+            return Result.FromValue<IReadOnlyList<IndexedTypeReference>>(indexContext.IndexedTypes);
         }
 
         private Result IndexContentUnitTypes(
@@ -87,7 +67,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 
         private Result IndexScopeItem(ContentUnitTypeIndexingContext context, FirstPhaseResolvedItem item)
         {
-            if(item.ItemReference != null)
+            if (item.ItemReference != null)
             {
                 var typePathReference = item.ItemReference;
 

@@ -3,7 +3,6 @@
     public enum FirstPhaseResolvedItemType
     {
         StructDeclaration,
-        ImportStatement,
         EnumDeclaration,
         EnumStructDeclaration
     }

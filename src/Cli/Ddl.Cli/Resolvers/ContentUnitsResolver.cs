@@ -10,11 +10,11 @@ namespace TheToolsmiths.Ddl.Cli.Resolvers
     public class ContentUnitsResolver
     {
         private readonly ILogger<ContentUnitsResolver> log;
-        private readonly DdlContentUnitsResolver resolver;
+        private readonly IDdlContentUnitCollectionResolver resolver;
 
         public ContentUnitsResolver(
             ILogger<ContentUnitsResolver> log,
-            DdlContentUnitsResolver resolver)
+            IDdlContentUnitCollectionResolver resolver)
         {
             this.log = log;
             this.resolver = resolver;

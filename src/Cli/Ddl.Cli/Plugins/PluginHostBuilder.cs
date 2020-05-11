@@ -23,8 +23,14 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
             this.services.AddTransient<IRootParserRegister, T>();
         }
 
-        public void RegisterParserType<T>()
-            where T : class, IParser
+        public void RegisterItemParserType<T>()
+            where T : class, IRootItemParser
+        {
+            this.services.AddTransient<T>();
+        }
+
+        public void RegisterScopeParserType<T>()
+            where T : class, IRootScopeParser
         {
             this.services.AddTransient<T>();
         }

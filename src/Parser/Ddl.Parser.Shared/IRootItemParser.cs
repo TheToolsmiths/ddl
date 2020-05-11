@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser
 {
-    public interface IRootItemParser : IParser
+    public interface IRootItemParser
     {
         ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context);
     }

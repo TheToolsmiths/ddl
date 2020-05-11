@@ -254,8 +254,11 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
                 readState.EnqueueToken(token);
                 readState.MoveNext();
 
-                // MoveNext for next char
-                readState.MoveNext();
+                if (alreadyMovedFirstChar == false)
+                {
+                    // MoveNext for next char
+                    readState.MoveNext();
+                }
             }
             // If next char isn't on the list,
             else

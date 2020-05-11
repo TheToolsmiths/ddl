@@ -51,7 +51,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
         {
             config.AddJsonFile("appsettings.json");
 
-            config.AddJsonFile($"appsettings.{context.HostingEnvironment}.json", optional: true);
+            config.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
 
 #if DEBUG
             config.AddJsonFile($"appsettings.Debug.json", optional: true);

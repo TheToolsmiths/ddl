@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+﻿using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Imports
 {
     public class ImportStatement : RootContentItem
     {
-        public ImportStatement(IReadOnlyList<ImportedItem> items, string path)
+        public ImportStatement(ImportItem rootItem)
         {
-            this.Items = items;
-            this.Path = path;
+            this.RootItem = rootItem;
         }
 
-        public IReadOnlyList<ImportedItem> Items { get; }
-
-        public string Path { get; }
+        public ImportItem RootItem { get; }
 
         public override ContentUnitItemType ItemType => ContentUnitItemType.ImportStatement;
     }

@@ -1,20 +1,24 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Cli.Writers;
+using TheToolsmiths.Ddl.Lexer;
 
 namespace TheToolsmiths.Ddl.Cli.Lexers
 {
     internal class FileLexer
     {
         private readonly ILogger<FileLexer> log;
+        private readonly IDdlLexerFactory lexerFactory;
         private readonly DdlLexerTokenWriter tokenWriter;
 
-        public FileLexer(ILogger<FileLexer> log, DdlLexerTokenWriter tokenWriter)
+        public FileLexer(ILogger<FileLexer> log,
+            IDdlLexerFactory lexerFactory,
+            DdlLexerTokenWriter tokenWriter)
         {
             this.log = log;
+            this.lexerFactory = lexerFactory;
             this.tokenWriter = tokenWriter;
         }
 
@@ -37,13 +41,11 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
 
         private async Task LexerFile(string input, PipeWriter pipeWriter)
         {
-            throw new NotImplementedException();
+            var lexer = await this.lexerFactory.CreateForFile(input);
 
-            //var lexer = await this.textLexer.LexerFromFile(input);
+            await this.tokenWriter.WriteToString(lexer, pipeWriter);
 
-            //await this.tokenWriter.WriteToString(lexer, pipeWriter);
-
-            //await pipeWriter.CompleteAsync();
+            await pipeWriter.CompleteAsync();
         }
     }
 }

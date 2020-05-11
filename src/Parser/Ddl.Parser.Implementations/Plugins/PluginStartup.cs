@@ -11,10 +11,13 @@ namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
         {
             builder.RegisterParserProvider<ImplementationsRootParserRegister>();
 
-            builder.RegisterParserType<StructDefinitionParser>();
-            builder.RegisterParserType<EnumDefinitionDisambiguationParser>();
-            builder.RegisterParserType<ImportParser>();
-            builder.RegisterParserType<FileScopeParser>();
+            builder.RegisterItemParserType<StructDefinitionParser>();
+            builder.RegisterItemParserType<EnumDefinitionDisambiguationParser>();
+            builder.RegisterItemParserType<EnumStructDefinitionParser>();
+            builder.RegisterItemParserType<EnumDefinitionParser>();
+            builder.RegisterItemParserType<ImportParser>();
+
+            builder.RegisterScopeParserType<RootScopeParser>();
         }
     }
 }
