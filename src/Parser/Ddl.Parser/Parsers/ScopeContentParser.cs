@@ -6,18 +6,17 @@ using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Entries;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {
-    public class RootScopeScopeContentParser : IRootScopeContentParser
+    public class ScopeContentParser : IScopeContentParser
     {
         private readonly IRootParserResolver parserResolver;
         private readonly IRootItemParserContextFactory itemContextFactory;
         private readonly IRootScopeParserContextFactory scopeContextFactory;
 
-        public RootScopeScopeContentParser(
+        public ScopeContentParser(
             IRootParserResolver parserResolver,
             IRootItemParserContextFactory itemContextFactory,
             IRootScopeParserContextFactory scopeContextFactory)
@@ -27,9 +26,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             this.parserResolver = parserResolver;
         }
 
-        public async Task<Result<RootScopeContent>> ParseRootScopeContent(IParserContext context)
+        public async Task<Result<ScopeContent>> ParseRootScopeContent(IParserContext context)
         {
-            var items = new List<IRootContentEntry>();
+            var scopeContext = new ScopeContentParseContext();
 
             while (true)
             {
@@ -39,22 +38,22 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
                     break;
                 }
 
-                var result = await this.ParseRootContent(context);
+                var result = await this.ParseRootContent(context, scopeContext);
 
                 if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
-
-                items.Add(result.Value);
             }
 
-            var scopeContent = new RootScopeContent(items);
+            var scopeContent = scopeContext.CreateScopeContent();
 
             return Result.FromValue(scopeContent);
         }
 
-        private async Task<RootParseResult<IRootContentEntry>> ParseRootContent(IParserContext context)
+        private async Task<RootParseResult> ParseRootContent(
+            IParserContext context,
+            ScopeContentParseContext scopeContext)
         {
             // Skip all possible ; in the root scope
             await SkipAllEndStatementTokens(context);
@@ -75,7 +74,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             }
 
             {
-                var result = await this.TryHandleInitialToken(context, attributes);
+                var result = await this.TryHandleInitialToken(context, scopeContext, attributes);
 
                 if (result.IsError)
                 {
@@ -86,8 +85,9 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             }
         }
 
-        private async Task<RootParseResult<IRootContentEntry>> TryHandleInitialToken(
+        private async Task<RootParseResult> TryHandleInitialToken(
             IParserContext context,
+            ScopeContentParseContext scopeContext,
             IReadOnlyList<IAttributeUse> attributeList)
         {
             LexerToken token;
@@ -106,18 +106,36 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             {
                 var itemParserContext = this.itemContextFactory.CreateContext(context, attributeList);
 
-                return (await itemParser.ParseRootContent(itemParserContext).ConfigureAwait(true)).As<IRootContentEntry>();
+                var result = await itemParser.ParseRootContent(itemParserContext).ConfigureAwait(true);
+
+                if (result.IsError)
+                {
+                    return result;
+                }
+
+                scopeContext.Items.Add(result.Value);
+
+                return result;
             }
 
             if (this.parserResolver.TryResolveScopeParser(token.Memory.Span, out var scopeParser))
             {
                 var itemParserContext = this.scopeContextFactory.CreateContext(context, attributeList);
 
-                return (await scopeParser.ParseRootScope(itemParserContext).ConfigureAwait(true)).As<IRootContentEntry>();
+                var result = await scopeParser.ParseRootScope(itemParserContext).ConfigureAwait(true);
+
+                if (result.IsError)
+                {
+                    return result;
+                }
+
+                scopeContext.Scopes.Add(result.Value);
+
+                return result;
             }
 
             string[] identifiers = { token.Memory.Span.ToString() };
-            return RootParseResult<IRootContentEntry>.CreateParserHandlerNotFound(identifiers);
+            return RootParseResult.CreateParserHandlerNotFound<IRootEntry>(identifiers);
         }
 
         private async Task SkipNonParseableStruct(IParserContext context, LexerScopeLevel scopeLevel)

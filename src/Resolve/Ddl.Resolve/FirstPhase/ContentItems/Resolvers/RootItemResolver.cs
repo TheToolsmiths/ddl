@@ -1,30 +1,25 @@
 ﻿using System;
 using Ddl.Common;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
-    public class FirstPhaseRootContentItemResolver
+    public class RootItemResolver
     {
-        private readonly ContentUnitItemResolverProvider resolverProvider;
+        private readonly ContentUnitEntityResolverProvider resolverProvider;
 
-        public FirstPhaseRootContentItemResolver(ContentUnitItemResolverProvider resolverProvider)
+        public RootItemResolver(ContentUnitEntityResolverProvider resolverProvider)
         {
             this.resolverProvider = resolverProvider;
         }
 
-        public Result ResolveContentItem(ContentUnitScopeResolveContext context, IRootContentItem contentItem)
+        public Result ResolveItem(ContentUnitScopeResolveContext context, IRootItem item)
         {
-            var result = contentItem switch
+            var result = item switch
             {
-                ConditionalRootScope rootScope => this.resolverProvider.CreateRootScopeResolver()
-                    .CatalogScope(context, rootScope),
-
                 EnumDefinition enumDefinition => this.resolverProvider.CreateEnumDefinitionResolver()
                     .CatalogItem(context, enumDefinition),
 
@@ -37,7 +32,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
                 StructDefinition structDefinition => this.resolverProvider.CreateStructDefinitionResolver()
                     .CatalogItem(context, structDefinition),
 
-                _ => throw new ArgumentOutOfRangeException(nameof(contentItem))
+                _ => throw new ArgumentOutOfRangeException(nameof(item))
             };
 
             if (result.IsError)

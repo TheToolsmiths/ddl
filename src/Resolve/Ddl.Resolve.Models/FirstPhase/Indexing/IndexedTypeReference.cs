@@ -1,7 +1,7 @@
 ﻿using Ddl.Common.Models;
 using Ddl.Resolve.Models.FirstPhase.TypePaths;
 
-namespace TheToolsmiths.Ddl.Resolve.FirstPhase
+namespace Ddl.Resolve.Models.FirstPhase.Indexing
 {
     public abstract class IndexedTypeReference
     {

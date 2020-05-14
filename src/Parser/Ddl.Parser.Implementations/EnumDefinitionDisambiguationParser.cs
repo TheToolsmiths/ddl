@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
         public EnumStructDefinitionParser EnumStructParser { get; }
 
-        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
         {
             var result = await context.Lexer.TryPeekIdentifierToken();
 

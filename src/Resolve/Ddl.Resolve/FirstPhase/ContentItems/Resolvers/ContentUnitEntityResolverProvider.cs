@@ -3,18 +3,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
-    public class ContentUnitItemResolverProvider
+    public class ContentUnitEntityResolverProvider
     {
         private readonly IServiceProvider provider;
 
-        public ContentUnitItemResolverProvider(IServiceProvider provider)
+        public ContentUnitEntityResolverProvider(IServiceProvider provider)
         {
             this.provider = provider;
         }
 
-        public RootScopeResolver CreateRootScopeResolver()
+        public ConditionalRootScopeResolver CreateRootScopeResolver()
         {
-            return this.provider.GetRequiredService<RootScopeResolver>();
+            return this.provider.GetRequiredService<ConditionalRootScopeResolver>();
         }
 
         public EnumDefinitionResolver CreateEnumDefinitionResolver()

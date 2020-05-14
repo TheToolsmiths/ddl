@@ -21,5 +21,10 @@
         {
             return new ResolvedImportRoot(path, isRooted: false);
         }
+
+        public override string ToString()
+        {
+            return $"{(this.IsRooted ? "::" : "")}{this.ChildItem}";
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class FileContentTranspiler
     {
-        public static void WriteFileContentItem(Utf8JsonWriter writer, IRootContentItem item)
+        public static void WriteFileContentItem(Utf8JsonWriter writer, IRootItem item)
         {
             switch (item)
             {

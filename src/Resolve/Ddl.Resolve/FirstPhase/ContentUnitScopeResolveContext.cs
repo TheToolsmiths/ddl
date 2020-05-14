@@ -32,12 +32,17 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 
         public FirstPhaseResolvedScope BuildResolvedScope()
         {
-            return new FirstPhaseResolvedScope(this.ResolvedItems, this.ResolvedScopes, this.Properties);
+            return new FirstPhaseResolvedScope(this.ResolvedItems, this.ResolvedScopes, this.ResolvedImportPaths, this.Properties);
         }
 
         public static ContentUnitScopeResolveContext CreateRootContext(FirstPhaseNamespacePath rootNamespace)
         {
             return new ContentUnitScopeResolveContext(rootNamespace, Array.Empty<FirstPhaseResolvedScopeProperty>());
+        }
+
+        public ContentUnitScopeResolveContext CreateChildContext()
+        {
+            return new ContentUnitScopeResolveContext(this.ScopeNamespace, this.Properties);
         }
 
         public ContentUnitScopeResolveContext CreateScopeWithAdditionalProperties(

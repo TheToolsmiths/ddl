@@ -38,10 +38,20 @@ namespace Ddl.Common
             return new Result<T>(exception.Message);
         }
 
+        public static Result FromException(Exception exception)
+        {
+            return new Result(exception.Message);
+        }
+
         public static Result<T> FromErrorMessage<T>(string errorMessage)
             where T : class
         {
             return new Result<T>(errorMessage: errorMessage);
+        }
+
+        public static Result FromErrorMessage(string errorMessage)
+        {
+            return new Result(errorMessage: errorMessage);
         }
     }
 }

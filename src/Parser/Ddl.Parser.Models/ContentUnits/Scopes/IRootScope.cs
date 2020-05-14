@@ -2,7 +2,7 @@
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
 {
-    public interface IRootScope : IRootContentEntry
+    public interface IRootScope : IRootEntry
     {
         ContentUnitScopeType ScopeType { get; }
     }

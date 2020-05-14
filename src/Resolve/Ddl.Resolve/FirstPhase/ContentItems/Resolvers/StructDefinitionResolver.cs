@@ -15,14 +15,17 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
             CatalogStructType(context, item);
 
-            CreateResolvedItem(unitContext, context);
+            CreateResolvedItem(unitContext, context, item);
 
             return Result.Success;
         }
 
-        private static void CreateResolvedItem(ContentUnitScopeResolveContext unitContext, ItemResolveContext context)
+        private static void CreateResolvedItem(
+            ContentUnitScopeResolveContext unitContext,
+            ItemResolveContext context,
+            StructDefinition structDefinition)
         {
-            var content = new StructDefinitionResolvedContent();
+            var content = new StructDefinitionResolvedContent(structDefinition.Content);
             
             var itemReference = context.RootTypeReference;
             var subItemReferences = context.SubItemTypesReferences;

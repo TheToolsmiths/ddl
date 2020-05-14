@@ -15,5 +15,10 @@ namespace Ddl.Resolve.Models.FirstPhase.ImportPaths
         public Identifier AliasIdentifier { get; }
 
         public override ResolvedImportedItemKind ItemKind => ResolvedImportedItemKind.IdentifierAlias;
+
+        public override string ToString()
+        {
+            return $"{this.Identifier} as {this.AliasIdentifier}";
+        }
     }
 }

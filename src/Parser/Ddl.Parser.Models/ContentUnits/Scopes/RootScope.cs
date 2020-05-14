@@ -2,14 +2,14 @@
 {
     public abstract class RootScope : IRootScope
     {
-        protected RootScope(RootScopeContent content)
+        protected RootScope(ScopeContent content)
         {
             this.Content = content;
         }
 
         public abstract ContentUnitScopeType ScopeType { get; }
         
-        public RootScopeContent Content { get; }
+        public ScopeContent Content { get; }
     }
 
 

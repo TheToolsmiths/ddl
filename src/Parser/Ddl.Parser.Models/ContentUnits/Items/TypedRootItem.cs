@@ -3,9 +3,9 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
 {
-    public abstract class TypedRootContentItem : ITypedRootContentItem
+    public abstract class TypedRootItem : ITypedRootItem
     {
-        protected TypedRootContentItem(ITypeName typeName)
+        protected TypedRootItem(ITypeName typeName)
         {
             this.ItemId = ContentUnitItemId.CreateNew();
             this.TypeName = typeName;

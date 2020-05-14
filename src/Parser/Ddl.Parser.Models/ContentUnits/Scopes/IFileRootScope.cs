@@ -2,6 +2,6 @@
 {
     public interface IFileRootScope
     {
-        RootScopeContent Content { get; }
+        ScopeContent Content { get; }
     }
 }

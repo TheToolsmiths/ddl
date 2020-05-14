@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Ddl.Common.Models;
-using Ddl.Resolve.Models.FirstPhase;
+using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.TypePaths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
-    public class ContentUnitTypeIndexingContext
+    internal class ContentUnitTypeIndexingContext
     {
-        private ContentUnitTypeIndexingContext(in ContentUnitId contentUnitId, FirstPhaseNamespacePath namespacePath)
+        public ContentUnitTypeIndexingContext(in ContentUnitId contentUnitId, FirstPhaseNamespacePath namespacePath)
         {
             this.ContentUnitId = contentUnitId;
             this.NamespacePath = namespacePath;
@@ -20,10 +20,5 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
         public FirstPhaseNamespacePath NamespacePath { get; }
 
         public List<IndexedTypeReference> IndexedTypes { get; }
-
-        public static ContentUnitTypeIndexingContext FromContentUnit(FirstPhaseResolvedContentUnit contentUnit)
-        {
-            return new ContentUnitTypeIndexingContext(contentUnit.Id, contentUnit.NamespacePath);
-        }
     }
 }

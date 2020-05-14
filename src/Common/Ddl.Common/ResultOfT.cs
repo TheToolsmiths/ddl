@@ -1,4 +1,6 @@
-﻿namespace Ddl.Common
+﻿using System;
+
+namespace Ddl.Common
 {
     public class Result<T>
         where T : class
@@ -24,5 +26,15 @@
         public bool IsError => this.IsSuccess == false;
 
         public T Value { get; }
+
+        public Result AsResult()
+        {
+            if (this.IsSuccess)
+            {
+                throw new NotImplementedException();
+            }
+
+            return Result.FromErrorMessage(this.ErrorMessage);
+        }
     }
 }

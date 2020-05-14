@@ -9,5 +9,9 @@
 
         public ResolvedImportRoot ImportRoot { get; }
 
+        public override string ToString()
+        {
+            return this.ImportRoot.ToString()!;
+        }
     }
 }

@@ -3,22 +3,6 @@
 
 ;;;;;;
 
-// Scope with empty condition and def structs
-scope ()
-{   
-    [key = TestAttributeType]
-    def struct EmptyStruct
-    {    
-    }
-
-    [TestAttributeType]
-    def struct StructWithSingleField
-    {    
-        [TestAttributeType {}]
-        field1: ref TestFieldType
-    }
-}
-
 /***************
 **  Imports   ** 
 ***************/
@@ -99,6 +83,22 @@ def struct EmptyStructWithScopes
     // Empty Scope With Conditional Expression
     scope (false)
     {        
+    }
+}
+
+// Scope with empty condition and def structs
+scope ()
+{   
+    [key = TestAttributeType]
+    def struct EmptyStruct
+    {    
+    }
+
+    [TestAttributeType]
+    def struct StructWithSingleField
+    {    
+        [TestAttributeType {}]
+        field1: ref TestFieldType
     }
 }
 

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Models.Types;
@@ -11,11 +10,11 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class StructDefinitionParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IRootContentItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
         {
             ITypeName typeName;
             {
-                var result = await context.Parsers.ParseTypeName();
+                var result = await context.Parsers.ParseTypeName().ConfigureAwait(false);
 
                 if (result.IsError)
                 {
@@ -32,7 +31,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
             StructDefinitionContent content;
             {
-                var parseResult = await context.Parsers.ParseStructDefinitionContentParser();
+                var parseResult = await context.Parsers.ParseStructDefinitionContentParser().ConfigureAwait(false);
 
                 if (parseResult.IsError)
                 {
@@ -49,7 +48,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
             var value = new StructDefinition(typeName, content, context.AttributeList);
 
-            return RootParseResult<IRootContentItem>.FromResult(value);
+            return RootParseResult.FromResult<IRootItem>(value);
         }
     }
 }

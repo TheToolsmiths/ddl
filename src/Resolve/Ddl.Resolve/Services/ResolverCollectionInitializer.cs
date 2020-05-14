@@ -24,16 +24,18 @@ namespace TheToolsmiths.Ddl.Resolve.Services
         {
             services.AddScoped<FirstPhaseContentUnitResolver>();
 
-            services.AddScoped<FirstPhaseContentUnitTypeIndexer>();
+            services.AddScoped<TypeReferenceIndexer>();
+            services.AddScoped<ScopeContentResolver>();
 
             // Root Item Resolvers
-            services.AddScoped<FirstPhase.ContentItems.Resolvers.FirstPhaseRootContentItemResolver>();
-            services.AddScoped<FirstPhase.ContentItems.Resolvers.ContentUnitItemResolverProvider>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.RootItemResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.RootScopeResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.ContentUnitEntityResolverProvider>();
 
             services.AddScoped<FirstPhase.ContentItems.Resolvers.EnumDefinitionResolver>();
             services.AddScoped<FirstPhase.ContentItems.Resolvers.EnumStructDefinitionResolver>();
             services.AddScoped<FirstPhase.ContentItems.Resolvers.StructDefinitionResolver>();
-            services.AddScoped<FirstPhase.ContentItems.Resolvers.RootScopeResolver>();
+            services.AddScoped<FirstPhase.ContentItems.Resolvers.ConditionalRootScopeResolver>();
             services.AddScoped<FirstPhase.ContentItems.Resolvers.ImportStatementResolver>();
 
             services.AddScoped<NamespacePathResolver>();

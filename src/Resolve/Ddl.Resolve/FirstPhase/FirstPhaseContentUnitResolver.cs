@@ -1,28 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase;
+using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
 using Ddl.Resolve.Models.FirstPhase.TypePaths;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
-using TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class FirstPhaseContentUnitResolver
     {
-        private readonly FirstPhaseRootContentItemResolver contentItemResolver;
         private readonly NamespacePathResolver namespacePathResolver;
-        private readonly FirstPhaseContentUnitTypeIndexer typeIndexer;
+        private readonly ScopeContentResolver rootScopeResolver;
+        private readonly TypeReferenceIndexer typeReferenceIndexer;
 
         public FirstPhaseContentUnitResolver(
-            FirstPhaseContentUnitTypeIndexer typeIndexer,
-            FirstPhaseRootContentItemResolver contentItemResolver,
-            NamespacePathResolver namespacePathResolver)
+            NamespacePathResolver namespacePathResolver,
+            ScopeContentResolver rootScopeResolver,
+            TypeReferenceIndexer typeReferenceIndexer)
         {
-            this.typeIndexer = typeIndexer;
-            this.contentItemResolver = contentItemResolver;
             this.namespacePathResolver = namespacePathResolver;
+            this.rootScopeResolver = rootScopeResolver;
+            this.typeReferenceIndexer = typeReferenceIndexer;
         }
 
         public Result<FirstPhaseResolvedContentUnit> ResolveContentUnit(ContentUnit contentUnit)
@@ -39,28 +40,36 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 namespacePath = result.Value;
             }
 
-            throw new System.NotImplementedException();
+            FirstPhaseResolvedScope rootScope;
+            {
+                var scopeContext = ContentUnitScopeResolveContext.CreateRootContext(namespacePath);
 
-            //FirstPhaseResolvedScope rootScope;
-            //{
-            //    var scopeContext = ContentUnitScopeResolveContext.CreateRootContext(namespacePath);
+                var result = this.rootScopeResolver
+                    .ResolveScopeContent(scopeContext, contentUnit.FileRootScope.Content);
 
-            //    foreach (var contentItem in contentUnit.Items)
-            //    {
-            //        var result = this.contentItemResolver.ResolveContentItem(scopeContext, contentItem);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //        if (result.IsError)
-            //        {
-            //            throw new NotImplementedException();
-            //        }
-            //    }
+                rootScope = result.Value;
+            }
 
-            //    rootScope = scopeContext.BuildResolvedScope();
-            //}
+            IReadOnlyList<IndexedTypeReference> indexedTypes;
+            {
+                var result = this.typeReferenceIndexer.IndexResolvedScopeTypes(contentUnit.Id, namespacePath, rootScope);
 
-            //var resolvedContentUnit = new FirstPhaseResolvedContentUnit(contentUnit.Id, namespacePath, rootScope);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //return Result.FromValue(resolvedContentUnit);
+                indexedTypes = result.Value;
+            }
+
+            var resolvedContentUnit = new FirstPhaseResolvedContentUnit(contentUnit.Id, namespacePath, rootScope, indexedTypes);
+
+            return Result.FromValue(resolvedContentUnit);
         }
     }
 }

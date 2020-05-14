@@ -6,7 +6,7 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Structs
 {
-    public class StructDefinition : TypedAttributableRootContentItem
+    public class StructDefinition : TypedAttributableRootItem
     {
         public StructDefinition(
             ITypeName typeName,

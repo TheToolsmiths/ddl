@@ -2,11 +2,11 @@
 {
     public class FileRootScope : IFileRootScope
     {
-        public FileRootScope(RootScopeContent content)
+        public FileRootScope(ScopeContent content)
         {
             this.Content = content;
         }
 
-        public RootScopeContent Content { get; }
+        public ScopeContent Content { get; }
     }
 }

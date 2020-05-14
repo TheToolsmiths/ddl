@@ -22,7 +22,7 @@ namespace TheToolsmiths.Ddl.Parser
 
             var log = this.provider.GetRequiredService<ILoggerFactory>().CreateLogger<DdlParser>();
 
-            var rootContentParser = this.provider.GetRequiredService<IRootScopeContentParser>();
+            var rootContentParser = this.provider.GetRequiredService<IScopeContentParser>();
 
             var parserContext = new ParserContext(this.provider, lexer);
 

@@ -15,5 +15,10 @@ namespace Ddl.Resolve.Models.FirstPhase.ImportPaths
         public Identifier PathIdentifier { get; }
 
         public override ResolvedImportedItemKind ItemKind => ResolvedImportedItemKind.PathItem;
+
+        public override string ToString()
+        {
+            return $"{this.PathIdentifier}::{this.ChildItem}";
+        }
     }
 }

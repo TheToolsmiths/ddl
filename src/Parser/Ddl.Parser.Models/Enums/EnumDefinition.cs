@@ -7,7 +7,7 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Enums
 {
-    public class EnumDefinition : TypedAttributableRootContentItem
+    public class EnumDefinition : TypedAttributableRootItem
     {
         public EnumDefinition(
             ITypeName typeName,

@@ -15,10 +15,12 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             this.contentItemResolver = contentItemResolver;
         }
 
-        public Result CatalogScope(ContentUnitScopeResolveContext unitContext, FirstPhaseResolvedScope rootScope)
+        public Result CatalogScope(ScopeItemResolveContext parentScopeContext, FirstPhaseResolvedScope rootScope)
         {
+            var scopeContext = parentScopeContext.CreateChildScope(rootScope.ImportPaths);
+
             {
-                var result = this.CatalogScopeItems(unitContext, rootScope.ResolvedItems);
+                var result = this.CatalogScopeItems(scopeContext, rootScope.Items);
 
                 if (result.IsError)
                 {
@@ -26,8 +28,9 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
                 }
             }
 
+            foreach (var childScope in rootScope.Scopes)
             {
-                var result = this.CatalogChildScopes(unitContext, rootScope.ResolvedScopes);
+                var result = this.CatalogScope(scopeContext, childScope);
 
                 if (result.IsError)
                 {
@@ -38,15 +41,8 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             return Result.Success;
         }
 
-        private Result CatalogChildScopes(ContentUnitScopeResolveContext unitContext, IReadOnlyList<FirstPhaseResolvedScope> scopes)
+        private Result CatalogScopeItems(ScopeItemResolveContext scopeContext, IReadOnlyList<FirstPhaseResolvedItem> items)
         {
-            throw new NotImplementedException();
-        }
-
-        private Result CatalogScopeItems(ContentUnitScopeResolveContext unitContext, IReadOnlyList<FirstPhaseResolvedItem> items)
-        {
-            var scopeContext = new ContentUnitScopeResolveContext();
-
             foreach (var contentItem in items)
             {
                 var result = this.contentItemResolver.ResolveContentItem(scopeContext, contentItem);

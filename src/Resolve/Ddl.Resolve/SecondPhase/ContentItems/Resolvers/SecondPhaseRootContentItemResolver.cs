@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             this.resolverProvider = resolverProvider;
         }
 
-        public Result ResolveContentItem(ContentUnitScopeResolveContext context, FirstPhaseResolvedItem contentItem)
+        public Result ResolveContentItem(ScopeItemResolveContext context, FirstPhaseResolvedItem contentItem)
         {
 
             var foo = contentItem.Content;

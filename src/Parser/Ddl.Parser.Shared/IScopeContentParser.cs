@@ -5,8 +5,8 @@ using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser
 {
-    public interface IRootScopeContentParser
+    public interface IScopeContentParser
     {
-        Task<Result<RootScopeContent>> ParseRootScopeContent(IParserContext context);
+        Task<Result<ScopeContent>> ParseRootScopeContent(IParserContext context);
     }
 }

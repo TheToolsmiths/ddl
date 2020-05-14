@@ -28,9 +28,9 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             //{
             //    writer.WriteStartArray("content");
 
-            //    foreach (var contentItem in conditionalScope.ContentItems)
+            //    foreach (var item in conditionalScope.ContentItems)
             //    {
-            //        FileContentTranspiler.WriteFileContentItem(writer, contentItem);
+            //        FileContentTranspiler.WriteFileContentItem(writer, item);
             //    }
 
             //    writer.WriteEndArray();

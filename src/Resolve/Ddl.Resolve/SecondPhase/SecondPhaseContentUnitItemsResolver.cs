@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
         {
             var rootScope = contentUnit.RootScope;
 
-            var scopeContext = new ContentUnitScopeResolveContext();
+            var scopeContext = ScopeItemResolveContext.CreateForRoot(contentUnit.IndexedTypes);
 
             {
                 var result = this.rootScopeResolver.CatalogScope(scopeContext, rootScope);

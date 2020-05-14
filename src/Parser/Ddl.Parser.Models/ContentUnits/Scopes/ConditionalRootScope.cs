@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
     {
         public ConditionalRootScope(
             ConditionalExpression conditionalExpression,
-            RootScopeContent content)
+            ScopeContent content)
             : base(content)
         {
             this.ConditionalExpression = conditionalExpression;

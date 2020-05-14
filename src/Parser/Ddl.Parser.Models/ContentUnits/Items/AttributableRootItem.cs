@@ -4,9 +4,9 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
 {
-    public abstract class AttributableRootContentItem : IAttributableRootContentItem
+    public abstract class AttributableRootItem : IAttributableRootItem
     {
-        protected AttributableRootContentItem(ITypeName typeName, IReadOnlyList<IAttributeUse> attributes)
+        protected AttributableRootItem(ITypeName typeName, IReadOnlyList<IAttributeUse> attributes)
         {
             this.TypeName = typeName;
             this.Attributes = attributes;

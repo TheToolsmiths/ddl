@@ -2,7 +2,7 @@
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
 {
-    public interface ITypedRootContentItem : IRootContentItem, ITypedContentItem
+    public interface ITypedRootItem : IRootItem, ITypedContentItem
     {
         ITypeName TypeName { get; }
     }

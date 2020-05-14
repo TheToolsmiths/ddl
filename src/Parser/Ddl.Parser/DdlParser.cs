@@ -14,19 +14,19 @@ namespace TheToolsmiths.Ddl.Parser
     {
         private readonly IDdlLexer lexer;
         private readonly ILogger<DdlParser> log;
-        private readonly IRootScopeContentParser rootParser;
+        private readonly IScopeContentParser parser;
         private readonly IParserContext parserContext;
 
         public DdlParser(
             ILogger<DdlParser> log,
             IDdlLexer lexer,
             IParserContext parserContext,
-            IRootScopeContentParser rootParser)
+            IScopeContentParser parser)
         {
             this.log = log;
             this.lexer = lexer;
             this.parserContext = parserContext;
-            this.rootParser = rootParser;
+            this.parser = parser;
         }
 
         public async Task<ContentUnitParseResult> ParseContentUnit(ContentUnitInfo info)
@@ -75,7 +75,7 @@ namespace TheToolsmiths.Ddl.Parser
         {
             try
             {
-                var result = await this.rootParser.ParseRootScopeContent(this.parserContext);
+                var result = await this.parser.ParseRootScopeContent(this.parserContext);
 
                 if (result.IsError)
                 {

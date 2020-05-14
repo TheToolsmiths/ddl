@@ -1,49 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ddl.Common;
-using Ddl.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
-    public class RootScopeResolver : IRootContentScopeResolver<ConditionalRootScope>
+    public class RootScopeResolver
     {
-        private readonly FirstPhaseRootContentItemResolver contentItemResolver;
+        private readonly ContentUnitEntityResolverProvider resolverProvider;
 
-        public RootScopeResolver(FirstPhaseRootContentItemResolver contentItemResolver)
+        public RootScopeResolver(ContentUnitEntityResolverProvider resolverProvider)
         {
-            this.contentItemResolver = contentItemResolver;
+            this.resolverProvider = resolverProvider;
         }
 
-        public Result CatalogScope(ContentUnitScopeResolveContext unitContext, ConditionalRootScope item)
+        public Result ResolveScope(ContentUnitScopeResolveContext context, IRootScope item)
         {
-            var additionalProperties = new List<FirstPhaseResolvedScopeProperty>();
-
-            if (item.ConditionalExpression.IsEmpty == false)
+            var result = item switch
             {
-                additionalProperties.Add(new ConditionalProperty(item.ConditionalExpression));
+                ConditionalRootScope rootScope => this.resolverProvider.CreateRootScopeResolver()
+                    .CatalogScope(context, rootScope),
+
+                _ => throw new ArgumentOutOfRangeException(nameof(item))
+            };
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
             }
 
-            throw new System.NotImplementedException();
-
-            //var scopeContext = unitContext.CreateScopeWithAdditionalProperties(additionalProperties);
-
-            //foreach (var contentItem in item.ContentItems)
-            //{
-            //    var result = this.contentItemResolver.ResolveContentItem(scopeContext, contentItem);
-
-            //    if (result.IsError)
-            //    {
-            //        throw new NotImplementedException();
-            //    }
-            //}
-
-            //var scope = scopeContext.BuildResolvedScope();
-
-            //unitContext.ResolvedScopes.Add(scope);
-
-            //return Result.Success;
+            return Result.Success;
         }
     }
 }

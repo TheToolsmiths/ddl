@@ -7,10 +7,13 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
     public class StructDefinitionResolver : IRootContentItemResolver<StructDefinitionResolvedContent>
     {
         public Result CatalogItem(
-            ContentUnitScopeResolveContext unitContext,
+            ScopeItemResolveContext unitContext,
             StructDefinitionResolvedContent definition)
         {
             var context = new ItemResolveContext();
+
+            var content = definition.Content;
+            
 
             throw new NotImplementedException();
 

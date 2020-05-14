@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ddl.Common;
-using Ddl.Resolve.Models.FirstPhase;
+using Ddl.Common.Models;
+using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
+using Ddl.Resolve.Models.FirstPhase.TypePaths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
-    public class FirstPhaseContentUnitTypeIndexer
+    public class TypeReferenceIndexer
     {
-        public Result<IReadOnlyList<IndexedTypeReference>> IndexTypes(
-            FirstPhaseResolvedContentUnit contentUnit)
+        public Result<IReadOnlyList<IndexedTypeReference>> IndexResolvedScopeTypes(
+            in ContentUnitId contentUnitId,
+            FirstPhaseNamespacePath namespacePath,
+            FirstPhaseResolvedScope rootScope)
         {
-            var indexContext = ContentUnitTypeIndexingContext.FromContentUnit(contentUnit);
+            var context = new ContentUnitTypeIndexingContext(contentUnitId, namespacePath);
 
             {
-                var result = this.IndexContentUnitTypes(indexContext, contentUnit);
+                var result = this.IndexScopeTypes(context, rootScope);
 
                 if (result.IsError)
                 {
@@ -23,28 +27,14 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 }
             }
 
-            return Result.FromValue<IReadOnlyList<IndexedTypeReference>>(indexContext.IndexedTypes);
-        }
-
-        private Result IndexContentUnitTypes(
-            ContentUnitTypeIndexingContext context,
-            FirstPhaseResolvedContentUnit contentUnit)
-        {
-            var result = this.IndexScopeTypes(context, contentUnit.RootScope);
-
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
-
-            return Result.Success;
+            return Result.FromValue<IReadOnlyList<IndexedTypeReference>>(context.IndexedTypes);
         }
 
         private Result IndexScopeTypes(ContentUnitTypeIndexingContext context, FirstPhaseResolvedScope scope)
         {
-            foreach (var item in scope.ResolvedItems)
+            foreach (var childScope in scope.Scopes)
             {
-                var result = this.IndexScopeItem(context, item);
+                var result = this.IndexScopeTypes(context, childScope);
 
                 if (result.IsError)
                 {
@@ -52,9 +42,9 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 }
             }
 
-            foreach (var childScope in scope.ResolvedScopes)
+            foreach (var item in scope.Items)
             {
-                var result = this.IndexScopeTypes(context, childScope);
+                var result = this.IndexScopeItem(context, item);
 
                 if (result.IsError)
                 {

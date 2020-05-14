@@ -1,23 +1,19 @@
 ﻿using Ddl.Common.Models;
 using Ddl.Resolve.Models.FirstPhase.TypePaths;
 
-namespace TheToolsmiths.Ddl.Resolve.FirstPhase
+namespace Ddl.Resolve.Models.FirstPhase.Indexing
 {
-    public class IndexedTypeSubItemReference : IndexedTypeReference
+    public class IndexedTypeItemReference : IndexedTypeReference
     {
-        public IndexedTypeSubItemReference(
+        public IndexedTypeItemReference(
             FirstPhaseTypeName fullDeclaredTypeName,
             ContentUnitId contentUnitId,
-            ContentUnitItemId itemId,
-            ContentUnitSubItemId subItemId)
+            ContentUnitItemId itemId)
             : base(fullDeclaredTypeName, contentUnitId)
         {
             this.ItemId = itemId;
-            this.SubItemId = subItemId;
         }
 
         public ContentUnitItemId ItemId { get; }
-
-        public ContentUnitSubItemId SubItemId { get; }
     }
 }

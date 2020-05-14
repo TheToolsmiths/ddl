@@ -9,11 +9,11 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class RootScopeParser : IRootScopeParser
     {
-        private readonly IRootScopeContentParser rootScopeContentParser;
+        private readonly IScopeContentParser scopeContentParser;
 
-        public RootScopeParser(IRootScopeContentParser rootScopeContentParser)
+        public RootScopeParser(IScopeContentParser scopeContentParser)
         {
-            this.rootScopeContentParser = rootScopeContentParser;
+            this.scopeContentParser = scopeContentParser;
         }
 
         public async ValueTask<RootParseResult<IRootScope>> ParseRootScope(IRootScopeParserContext context)
@@ -66,7 +66,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             {
                 context.Lexer.PopToken();
 
-                var result = await this.rootScopeContentParser.ParseRootScopeContent(context.ParserContext);
+                var result = await this.scopeContentParser.ParseRootScopeContent(context.ParserContext);
 
                 if (result.IsError)
                 {
@@ -82,7 +82,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
                 var value = new ConditionalRootScope(expression, rootContent);
 
-                return RootParseResult<IRootScope>.FromResult(value);
+                return RootParseResult.FromResult<IRootScope>(value);
             }
         }
     }
