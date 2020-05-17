@@ -1,9 +1,10 @@
 ﻿using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Items.Content;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
-using Ddl.Resolve.Models.FirstPhase.TypeReferences;
+using Ddl.Resolve.Models.ItemReferences;
+using Ddl.Resolve.Models.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
@@ -26,7 +27,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
             StructDefinition structDefinition)
         {
             var content = new StructDefinitionResolvedContent(structDefinition.Content);
-            
+
             var itemReference = context.RootTypeReference;
             var subItemReferences = context.SubItemTypesReferences;
 
@@ -37,9 +38,12 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
         private static void CatalogStructType(ItemResolveContext context, StructDefinition definition)
         {
-            var typePath = FirstPhaseTypeName.FromTypeName(definition.TypeName);
+            var typePath = TypeReferencePathBuilder.FromTypeName(definition.TypeName);
 
-            var rootType = new FirstPhaseTypePathItemReference(typePath, definition.ItemId);
+            var itemReference = new ItemReference(definition.ItemId);
+
+            var rootType = new FirstPhaseItemTypeReference(typePath, itemReference);
+
             context.RootType = typePath;
             context.RootTypeReference = rootType;
         }

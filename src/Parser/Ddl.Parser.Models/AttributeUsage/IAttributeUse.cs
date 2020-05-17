@@ -2,7 +2,7 @@
 {
     public interface IAttributeUse
     {
-        AttributeUseType UseType { get; }
+        AttributeUseKind UseKind { get; }
 
         bool IsKeyed { get; }
 

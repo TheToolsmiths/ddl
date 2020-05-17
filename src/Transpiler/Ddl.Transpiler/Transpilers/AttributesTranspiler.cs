@@ -23,13 +23,13 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
         {
             writer.WriteStartObject();
 
-            string useType = attributeUse.UseType switch
+            string useType = attributeUse.UseKind switch
             {
-                AttributeUseType.KeyedLiteral => "keyed-literal",
-                AttributeUseType.KeyedTyped => "keyed-typed",
-                AttributeUseType.Typed => "typed",
-                AttributeUseType.Conditional => "conditional",
-                AttributeUseType.KeyedStructInitialization => "keyed-struct-init",
+                AttributeUseKind.KeyedLiteral => "keyed-literal",
+                AttributeUseKind.KeyedTyped => "keyed-typed",
+                AttributeUseKind.Typed => "typed",
+                AttributeUseKind.Conditional => "conditional",
+                AttributeUseKind.KeyedStructInitialization => "keyed-struct-init",
                 _ => throw new NotImplementedException()//"unknown"
             };
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
 {

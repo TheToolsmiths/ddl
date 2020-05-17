@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Ddl.Common.Models;
-using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
+using Ddl.Resolve.Models.TypeReferences;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
 
 namespace Ddl.Resolve.Models.FirstPhase
 {
@@ -10,9 +10,9 @@ namespace Ddl.Resolve.Models.FirstPhase
     {
         public FirstPhaseResolvedContentUnit(
             ContentUnitId id,
-            FirstPhaseNamespacePath namespacePath,
+            NamespacePath namespacePath,
             FirstPhaseResolvedScope rootScope,
-            IReadOnlyList<IndexedTypeReference> indexedTypes)
+            IReadOnlyList<TypePathEntityReference> indexedTypes)
         {
             this.Id = id;
             this.RootScope = rootScope;
@@ -24,8 +24,8 @@ namespace Ddl.Resolve.Models.FirstPhase
 
         public FirstPhaseResolvedScope RootScope { get; }
 
-        public IReadOnlyList<IndexedTypeReference> IndexedTypes { get; }
+        public IReadOnlyList<TypePathEntityReference> IndexedTypes { get; }
 
-        public FirstPhaseNamespacePath NamespacePath { get; }
+        public NamespacePath NamespacePath { get; }
     }
 }

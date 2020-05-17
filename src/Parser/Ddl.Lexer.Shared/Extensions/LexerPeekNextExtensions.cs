@@ -39,6 +39,16 @@ namespace TheToolsmiths.Ddl.Lexer
             return IsNextTokenOfKind(lexer, LexerTokenKind.CloseParentheses);
         }
 
+        public static ValueTask<bool> IsNextOpenGenericsToken(this ILexer lexer)
+        {
+            return IsNextTokenOfKind(lexer, LexerTokenKind.OpenGenerics);
+        }
+
+        public static ValueTask<bool> IsNextCloseGenericsToken(this ILexer lexer)
+        {
+            return IsNextTokenOfKind(lexer, LexerTokenKind.CloseGenerics);
+        }
+
         public static ValueTask<bool> IsNextValueAssignmentToken(this ILexer lexer)
         {
             return IsNextTokenOfKind(lexer, LexerTokenKind.ValueAssignment);

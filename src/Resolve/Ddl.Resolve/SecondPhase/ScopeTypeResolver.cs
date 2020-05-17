@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Ddl.Resolve.Models.FirstPhase.ImportPaths;
-using Ddl.Resolve.Models.FirstPhase.Indexing;
+using Ddl.Resolve.Models.TypeReferences;
+using Ddl.Resolve.Models.TypeResolve;
+using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {
     public class ScopeTypeResolver
     {
-        private ScopeTypeResolver(
-            IReadOnlyList<IndexedTypeReference> indexedTypes,
-            IReadOnlyList<ScopeTypeImportPathLayer> importLayers)
+        private ScopeTypeResolver(IndexedTypePathMap indexedTypes)
+            : this(indexedTypes, Array.Empty<IndexedImportPathMap>())
+        {
+        }
+
+        private ScopeTypeResolver(IndexedTypePathMap indexedTypes, IReadOnlyList<IndexedImportPathMap> importLayers)
         {
             this.IndexedTypes = indexedTypes;
             this.ImportLayers = importLayers;
         }
 
-        public IReadOnlyList<IndexedTypeReference> IndexedTypes { get; }
+        public IndexedTypePathMap IndexedTypes { get; }
 
-        public IReadOnlyList<ScopeTypeImportPathLayer> ImportLayers { get; }
+        public IReadOnlyList<IndexedImportPathMap> ImportLayers { get; }
 
-        internal ScopeTypeResolver CreateScopeWithImportPathLayer(IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
+        internal ScopeTypeResolver CreateScopeWithImportPathLayer(
+            NamespacePath scopeNamespace,
+            IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
         {
-            var layers = new List<ScopeTypeImportPathLayer>
+            var layers = new List<IndexedImportPathMap>
             {
-                ScopeTypeImportPathLayer.FromImportPaths(importPaths)
+                IndexedImportPathMap.FromImportPaths(scopeNamespace, importPaths)
             };
 
             layers.AddRange(this.ImportLayers);
@@ -31,9 +41,56 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return new ScopeTypeResolver(this.IndexedTypes, layers);
         }
 
-        public static ScopeTypeResolver CreateFromIndexedTypes(IReadOnlyList<IndexedTypeReference> indexedTypes)
+        public static ScopeTypeResolver CreateFromIndexedTypes(
+            NamespacePath scopeNamespace,
+            IReadOnlyList<TypePathEntityReference> indexedTypes)
         {
-            return new ScopeTypeResolver(indexedTypes, Array.Empty<ScopeTypeImportPathLayer>());
+            return new ScopeTypeResolver(IndexedTypePathMap.FromIndexedTypes(scopeNamespace, indexedTypes));
+        }
+
+        public bool TryResolveType(TypeIdentifierPath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        {
+            if (this.IndexedTypes.TryResolveType(typePath, out resolvedType))
+            {
+                return true;
+            }
+
+            foreach (var importTypeMap in this.ImportLayers)
+            {
+                if (importTypeMap.TryResolveType(typePath, out resolvedType))
+                {
+                    return true;
+                }
+            }
+
+            resolvedType = default;
+            return false;
+        }
+
+        public bool TryResolveType(TypeReferencePath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        {
+            if (this.IndexedTypes.TryResolveType(typePath, out resolvedType))
+            {
+                return true;
+            }
+
+            foreach (var importTypeMap in this.ImportLayers)
+            {
+                if (importTypeMap.TryResolveType(typePath, out resolvedType))
+                {
+                    return true;
+                }
+            }
+
+            resolvedType = default;
+            return false;
+        }
+
+        public bool TryResolveType(ITypeIdentifier typeIdentifier, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        {
+            var qualifiedTypeIdentifier = TypeIdentifierHelpers.GetQualifiedType(typeIdentifier);
+
+            return this.TryResolveType(qualifiedTypeIdentifier.TypePath, out resolvedType);
         }
     }
 }

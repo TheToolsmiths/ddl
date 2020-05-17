@@ -1,5 +1,6 @@
 ﻿using Ddl.Common.Models;
 using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
 {

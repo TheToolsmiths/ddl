@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 
         public StructValueInitialization Initialization { get; }
 
-        public override AttributeUseType UseType => throw new NotImplementedException();
+        public override AttributeUseKind UseKind => throw new NotImplementedException();
 
         public override bool IsTyped => false;
     }

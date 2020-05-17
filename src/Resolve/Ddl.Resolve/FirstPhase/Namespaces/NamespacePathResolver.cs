@@ -2,19 +2,22 @@
 using System.IO;
 using System.Linq;
 using Ddl.Common;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces
 {
     public class NamespacePathResolver
     {
-        public Result<FirstPhaseNamespacePath> ResolveContentUnitNamespace(ContentUnitInfo info)
+        public Result<NamespacePath> ResolveContentUnitNamespace(ContentUnitInfo info)
         {
             var relativePath = info.RelativePath;
 
-            string? relativeDir = Path.GetDirectoryName(relativePath.Replace('\\', '/'));
+            string? relativeDir = Path.GetFileNameWithoutExtension(relativePath.Replace('\\', '/'));
+
+            // TODO: Change to directory name
+            //string? relativeDir = Path.GetDirectoryName(relativePath.Replace('\\', '/'));
 
             if (relativeDir == null)
             {
@@ -23,7 +26,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces
 
             var identifiers = relativeDir.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries).Select(Identifier.FromString);
 
-            var path = FirstPhaseNamespacePath.FromIdentifiers(identifiers);
+            var path = NamespacePath.CreateRootedFromIdentifiers(identifiers);
 
             return Result.FromValue(path);
         }

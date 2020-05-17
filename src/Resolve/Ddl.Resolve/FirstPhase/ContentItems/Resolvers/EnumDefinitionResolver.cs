@@ -2,9 +2,9 @@
 using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Items.Content;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
-using Ddl.Resolve.Models.FirstPhase.TypeReferences;
+using Ddl.Resolve.Models.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Models.Enums;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
@@ -41,9 +41,11 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
         private static void CatalogEnumType(ItemResolveContext context, EnumDefinition definition)
         {
-            var typePath = FirstPhaseTypeName.FromTypeName(definition.TypeName);
+            var typePath = TypeReferencePathBuilder.FromTypeName(definition.TypeName);
 
-            var rootType = new FirstPhaseTypePathItemReference(typePath, definition.ItemId);
+            var itemReference = new ItemReference(definition.ItemId);
+
+            var rootType = new FirstPhaseItemTypeReference(typePath, itemReference);
             context.RootType = typePath;
             context.RootTypeReference = rootType;
         }
@@ -73,9 +75,11 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
             EnumDefinition definition,
             EnumDefinitionConstantDefinition constant)
         {
-            var enumConstantTypePath = context.RootTypeReference.TypeName.AppendEntry(constant.Name);
+            var enumConstantTypePath = TypeReferencePathBuilder.AppendIdentifier(context.RootType, constant.Name);
 
-            var entry = new FirstPhaseTypePathSubItemReference(enumConstantTypePath, definition.ItemId, constant.ItemId);
+            var subItemReference = new SubItemReference(definition.ItemId, constant.ItemId);
+
+            var entry = new FirstPhaseSubItemTypeReference(enumConstantTypePath, subItemReference);
 
             context.SubItemTypesReferences.Add(entry);
         }

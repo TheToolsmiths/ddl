@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase;
-using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
+using Ddl.Resolve.Models.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
@@ -28,7 +28,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 
         public Result<FirstPhaseResolvedContentUnit> ResolveContentUnit(ContentUnit contentUnit)
         {
-            FirstPhaseNamespacePath namespacePath;
+            NamespacePath namespacePath;
             {
                 var result = this.namespacePathResolver.ResolveContentUnitNamespace(contentUnit.Info);
 
@@ -55,9 +55,9 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 rootScope = result.Value;
             }
 
-            IReadOnlyList<IndexedTypeReference> indexedTypes;
+            IReadOnlyList<TypePathEntityReference> indexedTypes;
             {
-                var result = this.typeReferenceIndexer.IndexResolvedScopeTypes(contentUnit.Id, namespacePath, rootScope);
+                var result = this.typeReferenceIndexer.IndexResolvedScopeTypes(namespacePath, rootScope);
 
                 if (result.IsError)
                 {

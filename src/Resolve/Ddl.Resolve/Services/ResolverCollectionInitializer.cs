@@ -57,6 +57,7 @@ namespace TheToolsmiths.Ddl.Resolve.Services
             services.AddScoped<SecondPhase.ContentItems.Resolvers.EnumDefinitionResolver>();
             services.AddScoped<SecondPhase.ContentItems.Resolvers.EnumStructDefinitionResolver>();
             services.AddScoped<SecondPhase.ContentItems.Resolvers.StructDefinitionResolver>();
+            services.AddScoped<SecondPhase.ContentItems.Resolvers.StructDefinitionContentResolver>();
 
             services.AddScoped<NamespacePathResolver>();
 

@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ddl.Common;
-using Ddl.Common.Models;
-using Ddl.Resolve.Models.FirstPhase.Indexing;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
+using Ddl.Resolve.Models.TypeReferences;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class TypeReferenceIndexer
     {
-        public Result<IReadOnlyList<IndexedTypeReference>> IndexResolvedScopeTypes(
-            in ContentUnitId contentUnitId,
-            FirstPhaseNamespacePath namespacePath,
+        public Result<IReadOnlyList<TypePathEntityReference>> IndexResolvedScopeTypes(
+            NamespacePath namespacePath,
             FirstPhaseResolvedScope rootScope)
         {
-            var context = new ContentUnitTypeIndexingContext(contentUnitId, namespacePath);
+            var context = new ContentUnitTypeIndexingContext(namespacePath);
 
             {
                 var result = this.IndexScopeTypes(context, rootScope);
@@ -27,7 +26,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 }
             }
 
-            return Result.FromValue<IReadOnlyList<IndexedTypeReference>>(context.IndexedTypes);
+            return Result.FromValue<IReadOnlyList<TypePathEntityReference>>(context.IndexedTypes);
         }
 
         private Result IndexScopeTypes(ContentUnitTypeIndexingContext context, FirstPhaseResolvedScope scope)
@@ -59,28 +58,20 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
         {
             if (item.ItemReference != null)
             {
-                var typePathReference = item.ItemReference;
+                var typeReference = item.ItemReference;
 
-                var fullSubItemTypeName = context.NamespacePath.Append(typePathReference.TypeName);
+                var fullSubItemTypeName = TypeReferencePathBuilder.PrependNamespace(typeReference.TypePath, context.NamespacePath);
 
-                var itemId = typePathReference.ItemId;
-
-                var contentUnitId = context.ContentUnitId;
-
-                var indexedType = new IndexedTypeItemReference(fullSubItemTypeName, contentUnitId, itemId);
+                var indexedType = new TypePathItemReference(fullSubItemTypeName, typeReference.ItemReference);
 
                 context.IndexedTypes.Add(indexedType);
             }
 
-            foreach (var typePathReference in item.SubItemReferences)
+            foreach (var typeReference in item.SubItemReferences)
             {
-                var fullSubItemTypeName = context.NamespacePath.Append(typePathReference.TypeName);
+                var fullSubItemTypeName = TypeReferencePathBuilder.PrependNamespace(typeReference.TypePath, context.NamespacePath);
 
-                var itemId = typePathReference.ItemId;
-
-                var contentUnitId = context.ContentUnitId;
-
-                var indexedType = new IndexedTypeSubItemReference(fullSubItemTypeName, contentUnitId, itemId, typePathReference.SubItemId);
+                var indexedType = new TypePathSubItemReference(fullSubItemTypeName, typeReference.SubItemReference);
 
                 context.IndexedTypes.Add(indexedType);
             }

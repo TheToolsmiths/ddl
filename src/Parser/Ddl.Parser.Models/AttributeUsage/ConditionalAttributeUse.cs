@@ -1,5 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 {
@@ -15,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 
         public ConditionalExpression ConditionalExpression { get; }
 
-        public override AttributeUseType UseType => AttributeUseType.Conditional;
+        public override AttributeUseKind UseKind => AttributeUseKind.Conditional;
         
         public override bool IsKeyed => false;
 

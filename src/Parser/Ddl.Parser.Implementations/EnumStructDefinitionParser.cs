@@ -10,6 +10,7 @@ using TheToolsmiths.Ddl.Parser.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {

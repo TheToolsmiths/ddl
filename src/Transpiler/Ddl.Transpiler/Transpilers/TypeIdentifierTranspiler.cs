@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using TheToolsmiths.Ddl.Parser.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
@@ -29,7 +30,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
                     WriteConstantTypeIdentifierProperties(writer, constantTypeIdentifier);
                     break;
 
-                case IQualifiedTypeIdentifier qualifiedTypeIdentifier:
+                case QualifiedTypeIdentifier qualifiedTypeIdentifier:
                     WriteQualifiedTypeIdentifierProperties(writer, qualifiedTypeIdentifier);
                     break;
 
@@ -53,42 +54,44 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             writer.WriteEndObject();
         }
 
-        private static void WriteQualifiedTypeIdentifierProperties(Utf8JsonWriter writer, IQualifiedTypeIdentifier identifier)
+        private static void WriteQualifiedTypeIdentifierProperties(Utf8JsonWriter writer, QualifiedTypeIdentifier identifier)
         {
             writer.WriteString("type", "qualifiedType");
 
-            string qualifiedType = identifier.QualifiedKind switch
-            {
-                QualifiedTypeIdentifierKind.SimpleType => "simpleType",
-                QualifiedTypeIdentifierKind.GenericType => "genericType",
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            throw new NotImplementedException();
 
-            writer.WriteString("qualifiedType", qualifiedType);
+            //string qualifiedType = identifier.QualifiedKind switch
+            //{
+            //    QualifiedTypeIdentifierKind.SimpleType => "simpleType",
+            //    QualifiedTypeIdentifierKind.GenericType => "genericType",
+            //    _ => throw new ArgumentOutOfRangeException()
+            //};
 
-            var namespacePath = identifier.NamespacePath;
+            //writer.WriteString("qualifiedType", qualifiedType);
 
-            if (namespacePath.IsEmpty == false)
-            {
-                string namespaceValue = namespacePath.ToString();
-                writer.WriteString("namespace", namespaceValue);
-            }
+            //var namespacePath = identifier.NamespacePath;
 
-            writer.WriteBoolean("isGeneric", identifier.IsGeneric);
+            //if (namespacePath.IsEmpty == false)
+            //{
+            //    string namespaceValue = namespacePath.ToString();
+            //    writer.WriteString("namespace", namespaceValue);
+            //}
 
-            writer.WriteString("name", identifier.Name.ToString());
+            //writer.WriteBoolean("isGeneric", identifier.IsGeneric);
 
-            if (identifier is GenericTypeIdentifier genericTypeIdentifier)
-            {
-                writer.WriteStartArray("typeArgs");
+            //writer.WriteString("name", identifier.Name.ToString());
 
-                foreach (var typeIdentifier in genericTypeIdentifier.GenericParameters)
-                {
-                    WriteTypeIdentifier(writer, typeIdentifier);
-                }
+            //if (identifier is GenericTypeIdentifier genericTypeIdentifier)
+            //{
+            //    writer.WriteStartArray("typeArgs");
 
-                writer.WriteEndArray();
-            }
+            //    foreach (var typeIdentifier in genericTypeIdentifier.GenericParameters)
+            //    {
+            //        WriteTypeIdentifier(writer, typeIdentifier);
+            //    }
+
+            //    writer.WriteEndArray();
+            //}
         }
 
         private static void WriteArrayTypeIdentifierProperties(Utf8JsonWriter writer, ArrayTypeIdentifier identifier)

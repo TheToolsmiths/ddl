@@ -4,13 +4,14 @@ using System.Linq;
 using Ddl.Resolve.Models.FirstPhase.ImportPaths;
 using Ddl.Resolve.Models.FirstPhase.Items;
 using Ddl.Resolve.Models.FirstPhase.Scopes;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
+using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class ContentUnitScopeResolveContext
     {
-        private ContentUnitScopeResolveContext(FirstPhaseNamespacePath scopeNamespace, IReadOnlyList<FirstPhaseResolvedScopeProperty> properties)
+        private ContentUnitScopeResolveContext(NamespacePath scopeNamespace, IReadOnlyList<FirstPhaseResolvedScopeProperty> properties)
         {
             this.ScopeNamespace = scopeNamespace;
             this.Properties = properties;
@@ -20,7 +21,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
             this.ResolvedItems = new List<FirstPhaseResolvedItem>();
         }
 
-        public FirstPhaseNamespacePath ScopeNamespace { get; }
+        public NamespacePath ScopeNamespace { get; }
 
         public List<FirstPhaseResolvedItem> ResolvedItems { get; }
 
@@ -35,7 +36,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
             return new FirstPhaseResolvedScope(this.ResolvedItems, this.ResolvedScopes, this.ResolvedImportPaths, this.Properties);
         }
 
-        public static ContentUnitScopeResolveContext CreateRootContext(FirstPhaseNamespacePath rootNamespace)
+        public static ContentUnitScopeResolveContext CreateRootContext(NamespacePath rootNamespace)
         {
             return new ContentUnitScopeResolveContext(rootNamespace, Array.Empty<FirstPhaseResolvedScopeProperty>());
         }

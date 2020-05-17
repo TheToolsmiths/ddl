@@ -1,5 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
@@ -17,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
         {
         }
 
-        public override AttributeUseType UseType => AttributeUseType.KeyedTyped;
+        public override AttributeUseKind UseKind => AttributeUseKind.KeyedTyped;
 
         public override bool IsKeyed => true;
 

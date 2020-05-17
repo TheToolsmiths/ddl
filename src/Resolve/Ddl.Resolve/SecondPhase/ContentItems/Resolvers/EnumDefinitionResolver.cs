@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
     public class EnumDefinitionResolver : IRootContentItemResolver<EnumDefinitionResolvedContent>
     {
         public Result CatalogItem(
-            ScopeItemResolveContext unitContext,
+            ScopeItemResolveContext scopeContext,
             EnumDefinitionResolvedContent definition)
         {
             var context = new ItemResolveContext();

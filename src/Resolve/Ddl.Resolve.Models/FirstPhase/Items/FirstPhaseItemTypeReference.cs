@@ -1,14 +1,18 @@
-﻿using Ddl.Common.Models;
+﻿using Ddl.Resolve.Models.ItemReferences;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace Ddl.Resolve.Models.FirstPhase.Items
 {
-    public class FirstPhaseItemTypeReference : FirstPhaseTypeReference
+    public class FirstPhaseItemTypeReference
     {
-        public FirstPhaseItemTypeReference(ContentUnitItemId itemId)
+        public FirstPhaseItemTypeReference(TypeReferencePath typePath, ItemReference itemReference)
         {
-            this.ItemId = itemId;
+            this.TypePath = typePath;
+            this.ItemReference = itemReference;
         }
 
-        public ContentUnitItemId ItemId { get; }
+        public TypeReferencePath TypePath { get; }
+
+        public ItemReference ItemReference { get; }
     }
 }

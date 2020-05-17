@@ -7,7 +7,8 @@ using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Arrays;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -15,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
     {
         public async Task<Result<ITypeIdentifier>> Parse(IParserContext context)
         {
-            var identifiersList = new List<LexerToken>();
+            var identifiersList = new List<TypeIdentifierPathPart>();
 
             Stack<ModifierTypeKind> modifiers;
             {
@@ -78,16 +79,38 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             while (true)
             {
-                var result = await context.Lexer.TryGetIdentifierToken();
-
-                if (result.IsError)
+                LexerToken nameToken;
                 {
-                    throw new NotImplementedException();
+                    var result = await context.Lexer.TryGetIdentifierToken();
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    nameToken = result.Token;
                 }
 
-                var identifierToken = result.Token;
+                Identifier name = new Identifier(nameToken.Memory.ToString());
 
-                identifiersList.Add(identifierToken);
+                TypeIdentifierPathPart pathPart;
+                if (await context.Lexer.IsNextOpenGenericsToken())
+                {
+                    var result = await this.ParseGenericPathPart(context, name);
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    pathPart = result.Value;
+                }
+                else
+                {
+                    pathPart = new SimpleIdentifierPathPart(name);
+                }
+
+                identifiersList.Add(pathPart);
 
                 if (await context.Lexer.TryConsumeNamespaceSeparatorToken() == false)
                 {
@@ -95,26 +118,11 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
             }
 
-            IQualifiedTypeIdentifier genericIdentifier;
+            QualifiedTypeIdentifier genericIdentifier;
             {
-                var result = await context.Lexer.TryPeekOpenGenericsToken();
-
-                Result<IQualifiedTypeIdentifier> parseResult;
-                if (result.HasToken)
-                {
-                    parseResult = await this.ParseGenericType(context, identifiersList, isRootedType);
-                }
-                else
-                {
-                    parseResult = this.CreateQualifiedType(identifiersList, isRootedType);
-                }
-
-                if (parseResult.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                genericIdentifier = parseResult.Value;
+                genericIdentifier = isRootedType
+                    ? QualifiedTypeIdentifierBuilder.BuildRootedFromParts(identifiersList)
+                    : QualifiedTypeIdentifierBuilder.BuildFromParts(identifiersList);
             }
 
             ITypeIdentifier arrayTypeIdentifier;
@@ -155,7 +163,6 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
         private async Task<Result<Stack<ModifierTypeKind>>> ParseTypeModifiers(IParserContext context)
         {
-
             var modifiers = new Stack<ModifierTypeKind>();
 
             while (true)
@@ -184,10 +191,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return Result.FromValue(modifiers);
         }
 
-        private async Task<Result<IQualifiedTypeIdentifier>> ParseGenericType(
-            IParserContext context,
-            IReadOnlyList<LexerToken> identifiersList,
-            bool isRootedType)
+        private async Task<Result<GenericIdentifierPathPart>> ParseGenericPathPart(IParserContext context, Identifier name)
         {
             if (await context.Lexer.TryConsumeOpenGenericsToken() == false)
             {
@@ -196,65 +200,56 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var parameters = new List<ITypeIdentifier>();
 
-            await ParseGenericParametersList();
-
-            async Task ParseGenericParametersList()
+            bool isParameterListCompleted = false;
+            while (isParameterListCompleted == false)
             {
-                while (true)
+                var parseResult = await context.Parsers.ParseTypeIdentifier().ConfigureAwait(false);
+
+                if (parseResult.IsError)
                 {
-                    var parseResult = await context.Parsers.ParseTypeIdentifier();
+                    throw new NotImplementedException();
+                }
 
-                    if (parseResult.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
+                parameters.Add(parseResult.Value);
 
-                    parameters.Add(parseResult.Value);
+                var result = await context.Lexer.TryPeekToken();
 
-                    var result = await context.Lexer.TryPeekToken();
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-                    if (result.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
+                var token = result.Token;
 
-                    var token = result.Token;
+                switch (token.Kind)
+                {
+                    case LexerTokenKind.ListSeparator:
+                        context.Lexer.PopToken();
+                        continue;
 
-                    switch (token.Kind)
-                    {
-                        case LexerTokenKind.ListSeparator:
-                            context.Lexer.PopToken();
-                            continue;
-                        case LexerTokenKind.CloseGenerics:
-                            return;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                    case LexerTokenKind.CloseGenerics:
+                        context.Lexer.PopToken();
+                        isParameterListCompleted = true;
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
-            if (await context.Lexer.TryConsumeCloseGenericsToken() == false)
+            if (parameters.Count == 0)
             {
                 throw new NotImplementedException();
             }
 
-            if (identifiersList.Count == 0)
-            {
-                throw new NotImplementedException();
-            }
+            var pathPart = new GenericIdentifierPathPart(name, parameters);
 
-            var identifiers = identifiersList.Select(i =>
-                new Identifier(i.Memory.ToString())
-            ).ToList();
-
-            var genericTypeIdentifier = isRootedType
-                ? GenericTypeIdentifier.BuildRootedFromIdentifierList(identifiers, parameters)
-                : GenericTypeIdentifier.BuildFromIdentifierList(identifiers, parameters);
-
-            return Result.FromValue<IQualifiedTypeIdentifier>(genericTypeIdentifier);
+            return Result.FromValue(pathPart);
         }
 
-        private async Task<Result<ITypeIdentifier>> ParseArrayType(IParserContext context, IQualifiedTypeIdentifier typeIdentifier)
+        private async Task<Result<ITypeIdentifier>> ParseArrayType(
+            IParserContext context,
+            QualifiedTypeIdentifier typeIdentifier)
         {
             var sizes = new List<ArraySize>();
 
@@ -298,9 +293,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var dimensions = literals.Select(lt => lt.Memory.ToString()).ToList();
 
-                var size = dimensions.Count == 0
-                    ? (ArraySize)new DynamicArraySize()
-                    : new FixedArraySize(dimensions);
+                var size = dimensions.Count == 0 ? (ArraySize)new DynamicArraySize() : new FixedArraySize(dimensions);
                 sizes.Add(size);
             }
 
@@ -309,26 +302,9 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return Result.FromValue<ITypeIdentifier>(arrayTypeIdentifier);
         }
 
-        private Result<IQualifiedTypeIdentifier> CreateQualifiedType(List<LexerToken> identifiersList,
-            bool isRootedType)
-        {
-            if (identifiersList.Count == 0)
-            {
-                throw new NotImplementedException();
-            }
-
-            var identifiers = identifiersList.Select(i =>
-                    new Identifier(i.Memory.ToString())
-                ).ToList();
-
-            var typeIdentifier = isRootedType
-                ? SimpleTypeIdentifier.BuildRootedFromIdentifierList(identifiers)
-                : SimpleTypeIdentifier.BuildFromIdentifierList(identifiers);
-
-            return Result.FromValue<IQualifiedTypeIdentifier>(typeIdentifier);
-        }
-
-        Result<ITypeIdentifier> CreateReferenceType(ITypeIdentifier typeIdentifier, ReferenceTypeKind? referenceKind)
+        private Result<ITypeIdentifier> CreateReferenceType(
+            ITypeIdentifier typeIdentifier,
+            ReferenceTypeKind? referenceKind)
         {
             if (referenceKind != null)
             {

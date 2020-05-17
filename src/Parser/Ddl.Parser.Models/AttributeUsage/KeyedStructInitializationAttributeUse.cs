@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
             this.Key = key;
         }
 
-        public override AttributeUseType UseType => AttributeUseType.KeyedStructInitialization;
+        public override AttributeUseKind UseKind => AttributeUseKind.KeyedStructInitialization;
 
         public override bool IsKeyed => true;
 

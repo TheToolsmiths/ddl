@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
             this.Literal = literal;
         }
 
-        public override AttributeUseType UseType => AttributeUseType.KeyedLiteral;
+        public override AttributeUseKind UseKind => AttributeUseKind.KeyedLiteral;
 
         public override bool IsKeyed => true;
 

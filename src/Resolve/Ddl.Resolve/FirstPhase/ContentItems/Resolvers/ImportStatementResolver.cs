@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Ddl.Common;
 using Ddl.Resolve.Models.FirstPhase.ImportPaths;
+using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
@@ -53,8 +54,9 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
                 var resolvedRoot = isRoot
                     ? ResolvedImportRoot.CreateRooted(path)
                     : ResolvedImportRoot.CreateNonRooted(path);
-
-                var resolvedItem = new FirstPhaseResolvedImportPath(resolvedRoot);
+                
+                Identifier aliasIdentifier = ResolvedImportRootHelper.GetAliasIdentifier(resolvedRoot);
+                var resolvedItem = new FirstPhaseResolvedImportPath(resolvedRoot, aliasIdentifier);
 
                 importPaths.Add(resolvedItem);
             }

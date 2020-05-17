@@ -1,25 +1,22 @@
 ﻿using Ddl.Common.Models;
-using Ddl.Resolve.Models.FirstPhase.TypePaths;
+using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace Ddl.Resolve.Models.FirstPhase.Indexing
 {
-    public abstract class IndexedTypeReference
-    {
-        protected IndexedTypeReference(
-            FirstPhaseTypeName fullDeclaredTypeName,
-            ContentUnitId contentUnitId)
-        {
-            this.FullDeclaredTypeName = fullDeclaredTypeName;
-            this.ContentUnitId = contentUnitId;
-        }
+    //public abstract class IndexedTypeReference
+    //{
+    //    protected IndexedTypeReference(
+    //        TypeReferencePath typeNameReference,
+    //        ContentUnitId contentUnitId)
+    //    {
+    //        this.TypeNameReference = typeNameReference;
+    //        this.ContentUnitId = contentUnitId;
+    //    }
 
-        public FirstPhaseTypeName FullDeclaredTypeName { get; }
+    //    public TypeReferencePath TypeNameReference { get; }
 
-        public ContentUnitId ContentUnitId { get; }
+    //    public ContentUnitId ContentUnitId { get; }
 
-        public override string ToString()
-        {
-            return $"{this.ContentUnitId}::{this.FullDeclaredTypeName}";
-        }
-    }
+    //    public abstract override string ToString();
+    //}
 }

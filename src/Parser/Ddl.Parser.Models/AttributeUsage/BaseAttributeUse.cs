@@ -2,7 +2,7 @@
 {
     public abstract class BaseAttributeUse : IAttributeUse
     {
-        public abstract AttributeUseType UseType { get; }
+        public abstract AttributeUseKind UseKind { get; }
 
         public abstract bool IsKeyed { get; }
 
