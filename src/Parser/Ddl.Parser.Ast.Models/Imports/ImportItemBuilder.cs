@@ -5,7 +5,7 @@ using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Imports
 {
-    public class ImportItemBuilder
+    public static class ImportItemBuilder
     {
         public static ImportItem CreateFromIdentifierListWithGroup(IReadOnlyList<Identifier> identifiers, ImportGroup importGroup)
         {

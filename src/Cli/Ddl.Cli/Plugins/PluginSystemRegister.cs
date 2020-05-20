@@ -16,9 +16,12 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
 
             var assembliesConfiguration = configuration.GetSection("extensions").Get<PluginManagerConfiguration>();
 
+            // We can disable this warning since the registry is disposed automatically
+            // by the IServiceCollection at program shutdown
+#pragma warning disable CA2000 // Dispose objects before losing scope
             var pluginAssemblies = new PluginAssembliesRegistry(assembliesConfiguration);
-
             services.AddSingleton(pluginAssemblies);
+#pragma warning restore CA2000 // Dispose objects before losing scope
 
             pluginAssemblies.Initialize();
 

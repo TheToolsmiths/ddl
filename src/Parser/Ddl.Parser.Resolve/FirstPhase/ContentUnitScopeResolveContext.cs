@@ -4,7 +4,6 @@ using System.Linq;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Models.Types;
 using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
@@ -47,7 +46,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
         }
 
         public ContentUnitScopeResolveContext CreateScopeWithAdditionalProperties(
-            IReadOnlyList<FirstPhaseResolvedScopeProperty> additionalProperties)
+            IEnumerable<FirstPhaseResolvedScopeProperty> additionalProperties)
         {
             var properties = this.Properties.ToList();
 

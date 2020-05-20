@@ -122,7 +122,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 
         }
 
-        private static void WriteArrayDimensions(Utf8JsonWriter writer, IReadOnlyList<ArraySize> sizes)
+        private static void WriteArrayDimensions(Utf8JsonWriter writer, IEnumerable<ArraySize> sizes)
         {
             writer.WriteStartArray("sizes");
 

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+﻿using System.Text.Json;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers

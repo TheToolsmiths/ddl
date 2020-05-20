@@ -1,29 +1,31 @@
-﻿namespace Ddl.Parser.Resolve.Models.Common.ItemReferences
+﻿using Ddl.Common.Models;
+
+namespace Ddl.Parser.Resolve.Models.Common.ItemReferences
 {
-    //public class ContentUnitSubItemReference : ContentUnitEntityReference
-    //{
-    //    public ContentUnitSubItemReference(
-    //        ContentUnitId contentUnitId,
-    //        ContentUnitItemId itemId,
-    //        ContentUnitSubItemId subItemId)
-    //        : base(contentUnitId)
-    //    {
-    //        this.ItemId = itemId;
-    //        this.SubItemId = subItemId;
-    //    }
+    public class ContentUnitSubItemReference : ContentUnitEntityReference
+    {
+        public ContentUnitSubItemReference(
+            ContentUnitId contentUnitId,
+            ContentUnitItemId itemId,
+            ContentUnitSubItemId subItemId)
+            : base(contentUnitId)
+        {
+            this.ItemId = itemId;
+            this.SubItemId = subItemId;
+        }
 
-    //    public ContentUnitItemId ItemId { get; }
+        public ContentUnitItemId ItemId { get; }
 
-    //    public ContentUnitSubItemId SubItemId { get; }
+        public ContentUnitSubItemId SubItemId { get; }
 
-    //    public static ContentUnitSubItemReference Create(in ContentUnitId contentUnitId, SubItemReference subItemReference)
-    //    {
-    //        return new ContentUnitSubItemReference(contentUnitId, subItemReference.ItemId, subItemReference.SubItemId);
-    //    }
+        public static ContentUnitSubItemReference Create(in ContentUnitId contentUnitId, SubItemReference subItemReference)
+        {
+            return new ContentUnitSubItemReference(contentUnitId, subItemReference.ItemId, subItemReference.SubItemId);
+        }
 
-    //    public override string ToString()
-    //    {
-    //        return $"[{this.ContentUnitId}] ({this.ItemId}:{this.SubItemId})";
-    //    }
-    //}
+        public override string ToString()
+        {
+            return $"[{this.ContentUnitId}] ({this.ItemId}:{this.SubItemId})";
+        }
+    }
 }

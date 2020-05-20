@@ -88,10 +88,8 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
         {
             char next;
 
-            if (readState.TryGetFirstCharScratchMemory(out char first) == false)
+            if (readState.TryGetFirstCharScratchMemory(out char _) == false)
             {
-                first = readState.CurrentChar;
-
                 // If there is no next char available
                 // Save current char and return
                 if (readState.TryPeek(out next) == false)
@@ -279,7 +277,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
         private class OneOrTwoCharsTokenizeOptions : IEnumerable
         {
-            private Dictionary<char, CharTokenOptions> map;
+            private readonly Dictionary<char, CharTokenOptions> map;
 
             public OneOrTwoCharsTokenizeOptions(
                 char firstChar,

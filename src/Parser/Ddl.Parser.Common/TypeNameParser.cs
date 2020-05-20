@@ -5,7 +5,6 @@ using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types;
 using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Common

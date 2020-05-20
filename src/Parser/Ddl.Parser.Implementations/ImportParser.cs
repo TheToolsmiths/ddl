@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Imports;
@@ -26,14 +25,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                     throw new NotImplementedException();
                 }
 
-                if (result.Value is ImportItem rootItem)
-                {
-                    importItem = rootItem;
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                importItem = result.Value;
             }
 
             if (await context.Lexer.TryConsumeEndStatementToken() == false)
@@ -88,7 +80,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 var scope = result.Value;
                 var value = ImportItemBuilder.CreateFromIdentifierListWithGroup(identifiers, scope);
 
-                return Result.FromValue<ImportItem>(value);
+                return Result.FromValue(value);
             }
 
             // If import path does not end with *
@@ -111,16 +103,15 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
                     var value = ImportItemBuilder.CreateAliasFromIdentifierList(identifiers, aliasIdentifier);
 
-                    return Result.FromValue<ImportItem>(value);
+                    return Result.FromValue(value);
                 }
 
                 {
                     var value = ImportItemBuilder.CreateFromIdentifierList(identifiers);
 
-                    return Result.FromValue<ImportItem>(value);
+                    return Result.FromValue(value);
                 }
             }
-
         }
 
         private async Task<bool> TryConsumeAsIdentifier(IRootItemParserContext context)

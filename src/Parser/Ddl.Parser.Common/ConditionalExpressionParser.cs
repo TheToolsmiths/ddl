@@ -27,7 +27,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var value = ConditionalExpression.Create(expression);
 
-            return Result.FromValue<ConditionalExpression>(value);
+            return Result.FromValue(value);
         }
 
         private async Task<Result<IConditionalExpressionElement>> ParseParenthesisExpression(IParserContext context)
@@ -171,7 +171,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
             }
 
-            return Result.FromValue<IConditionalExpressionElement>(expression);
+            return Result.FromValue(expression);
         }
 
         private async Task<Result<IConditionalExpressionElement>> ParseExpression(IParserContext context)

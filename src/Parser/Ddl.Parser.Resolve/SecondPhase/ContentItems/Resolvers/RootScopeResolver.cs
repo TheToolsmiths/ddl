@@ -41,7 +41,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             return Result.Success;
         }
 
-        private Result CatalogScopeItems(ScopeItemResolveContext scopeContext, IReadOnlyList<FirstPhaseResolvedItem> items)
+        private Result CatalogScopeItems(ScopeItemResolveContext scopeContext, IEnumerable<FirstPhaseResolvedItem> items)
         {
             foreach (var contentItem in items)
             {

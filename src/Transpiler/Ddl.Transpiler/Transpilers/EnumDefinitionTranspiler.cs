@@ -39,7 +39,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 
         private static void WriteEnumStructDefinitionContentArray(
             Utf8JsonWriter writer,
-            IReadOnlyList<IEnumDefinitionItem> contentItems)
+            IEnumerable<IEnumDefinitionItem> contentItems)
         {
             writer.WriteStartArray();
 

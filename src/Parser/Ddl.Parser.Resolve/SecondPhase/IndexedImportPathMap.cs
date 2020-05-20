@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeResolve;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;

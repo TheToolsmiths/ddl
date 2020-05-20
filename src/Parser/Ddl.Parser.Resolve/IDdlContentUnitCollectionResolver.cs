@@ -6,6 +6,6 @@ namespace TheToolsmiths.Ddl.Resolve
 {
     public interface IDdlContentUnitCollectionResolver
     {
-        Result ResolveContentUnits(IReadOnlyList<ContentUnit> contentUnits);
+        Result ResolveContentUnits(IEnumerable<ContentUnit> contentUnits);
     }
 }

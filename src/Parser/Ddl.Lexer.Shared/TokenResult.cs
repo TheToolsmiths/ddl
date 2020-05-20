@@ -2,7 +2,7 @@
 
 namespace TheToolsmiths.Ddl.Lexer
 {
-    public struct TokenResult
+    public readonly struct TokenResult
     {
         private readonly LexerToken? token;
 

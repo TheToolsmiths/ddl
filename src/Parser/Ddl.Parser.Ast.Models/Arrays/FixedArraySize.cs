@@ -4,7 +4,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Arrays
 {
     public class FixedArraySize : ArraySize
     {
-        public FixedArraySize(List<string> dimensions)
+        public FixedArraySize(IReadOnlyList<string> dimensions)
         {
             this.Dimensions = dimensions;
         }

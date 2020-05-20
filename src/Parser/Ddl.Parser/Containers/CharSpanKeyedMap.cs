@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Containers
 
         public bool Contains(in ReadOnlySpan<char> key)
         {
-            foreach ((string entryKey, var _) in this.entries)
+            foreach ((string entryKey, _) in this.entries)
             {
                 if (entryKey == key)
                 {

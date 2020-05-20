@@ -8,7 +8,6 @@ using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Types;
 using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Models.Values;

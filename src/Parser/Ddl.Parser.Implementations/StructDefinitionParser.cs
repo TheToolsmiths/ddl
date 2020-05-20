@@ -4,7 +4,6 @@ using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Types;
 using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations

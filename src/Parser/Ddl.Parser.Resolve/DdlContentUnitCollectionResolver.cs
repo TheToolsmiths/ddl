@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Resolve
             this.contentUnitResolver = contentUnitResolver;
         }
 
-        public Result ResolveContentUnits(IReadOnlyList<ContentUnit> contentUnits)
+        public Result ResolveContentUnits(IEnumerable<ContentUnit> contentUnits)
         {
             foreach (var contentUnit in contentUnits)
             {

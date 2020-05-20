@@ -1,5 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
+﻿using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 {

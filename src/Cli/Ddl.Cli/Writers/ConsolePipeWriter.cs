@@ -62,7 +62,7 @@ namespace TheToolsmiths.Ddl.Cli.Writers
             }
 
             // Mark the PipeReader as complete
-            pipeReader.Complete();
+            await pipeReader.CompleteAsync();
         }
     }
 }

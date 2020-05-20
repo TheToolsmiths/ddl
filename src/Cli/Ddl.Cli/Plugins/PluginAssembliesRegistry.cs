@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
 
         public PluginAssembliesRegistry(PluginManagerConfiguration configuration)
         {
-            this.context = new AssemblyLoadContext(nameof(PluginManager), true);
+            this.context = new AssemblyLoadContext("PluginManager", true);
             this.configuration = configuration;
         }
 
@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
             this.context.Unload();
         }
 
-        private void CreatePluginContext(IReadOnlyList<FileInfo> assemblyPaths)
+        private void CreatePluginContext(IEnumerable<FileInfo> assemblyPaths)
         {
             foreach (var assemblyPath in assemblyPaths)
             {

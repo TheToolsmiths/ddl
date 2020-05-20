@@ -63,7 +63,6 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
                 }
 
                 await this.WriteOutputToFile(output, pipeReader);
-                return;
             }
             catch (Exception e)
             {

@@ -22,7 +22,7 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
                 throw new ArgumentNullException(nameof(outputWriter));
             }
 
-            string lineFeed = "\n";
+            const string lineFeed = "\n";
 
             using var lineFeedMemoryOwner = MemoryPool<byte>.Shared.Rent(lineFeed.AsSpan().Length);
 
