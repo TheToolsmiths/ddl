@@ -9,7 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\Ddl.Lexer.Shared\Ddl.Lexer.Shared.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.Models\Ddl.Parser.Models.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
   </ItemGroup>
 
 </Project>

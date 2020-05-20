@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>TheToolsmiths.Ddl.Parser.Common</AssemblyName>
-    <RootNamespace>TheToolsmiths.Ddl.Parser.Common</RootNamespace>
+    <AssemblyName>TheToolsmiths.Ddl.Resolve</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Resolve</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Resolve.Models\Ddl.Parser.Resolve.Models.csproj" />
   </ItemGroup>
 
 </Project>

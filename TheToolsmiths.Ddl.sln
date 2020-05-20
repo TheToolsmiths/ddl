@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Transpiler", "src\Transpiler\Ddl.Transpiler\Ddl.Transpiler.csproj", "{936C96C5-E5BB-4447-A356-8CBE082F5B00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Models", "src\Parser\Ddl.Parser.Models\Ddl.Parser.Models.csproj", "{BE7C7987-B622-442D-B594-BE69767579FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Ast.Models", "src\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj", "{BE7C7987-B622-442D-B594-BE69767579FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser", "src\Parser\Ddl.Parser\Ddl.Parser.csproj", "{3FE7C8E4-2B81-4A41-8D53-955297437852}"
 EndProject
@@ -39,9 +39,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lexers", "Lexers", "{ABDA72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F79822E3-0D3A-4304-9B2E-AD3A4FF67E8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Resolve", "src\Resolve\Ddl.Resolve\Ddl.Resolve.csproj", "{D67DBDB4-0CBF-4EED-8800-DE1C2DD30075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Resolve", "src\Parser\Ddl.Parser.Resolve\Ddl.Parser.Resolve.csproj", "{D67DBDB4-0CBF-4EED-8800-DE1C2DD30075}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Resolve.Models", "src\Resolve\Ddl.Resolve.Models\Ddl.Resolve.Models.csproj", "{2B13057E-DA00-4390-8C76-3538D8F5D87C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ddl.Parser.Resolve.Models", "src\Parser\Ddl.Parser.Resolve.Models\Ddl.Parser.Resolve.Models.csproj", "{2B13057E-DA00-4390-8C76-3538D8F5D87C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E3406975-3776-4F69-99B8-0FE205CF2FAB}"
 EndProject
