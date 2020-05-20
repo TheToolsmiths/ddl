@@ -67,6 +67,18 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return false;
         }
 
+        public ResolvedType ResolveType(ITypeIdentifier typeIdentifier)
+        {
+            var qualifiedTypeIdentifier = TypeIdentifierHelpers.GetQualifiedType(typeIdentifier);
+
+            if (this.TryResolveType(qualifiedTypeIdentifier.TypePath, out var resolvedType))
+            {
+                return resolvedType;
+            }
+
+            return new UnresolvedType(qualifiedTypeIdentifier.TypePath);
+        }
+
         public bool TryResolveType(TypeReferencePath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
         {
             if (this.IndexedTypes.TryResolveType(typePath, out resolvedType))
@@ -84,13 +96,6 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
             resolvedType = default;
             return false;
-        }
-
-        public bool TryResolveType(ITypeIdentifier typeIdentifier, [MaybeNullWhen(false)] out ResolvedType resolvedType)
-        {
-            var qualifiedTypeIdentifier = TypeIdentifierHelpers.GetQualifiedType(typeIdentifier);
-
-            return this.TryResolveType(qualifiedTypeIdentifier.TypePath, out resolvedType);
         }
     }
 }

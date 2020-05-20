@@ -54,10 +54,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             ScopeItemResolveContext scopeContext,
             FieldDefinition fieldDefinition)
         {
-            if (scopeContext.TypeResolver.TryResolveType(fieldDefinition.FieldType, out var resolvedType))
-            {
-                throw new NotImplementedException();
-            }
+            var resolvedType = scopeContext.TypeResolver.ResolveType(fieldDefinition.FieldType);
 
             throw new NotImplementedException();
         }

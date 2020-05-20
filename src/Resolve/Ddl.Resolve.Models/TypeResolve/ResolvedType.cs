@@ -14,16 +14,16 @@ namespace Ddl.Resolve.Models.TypeResolve
         public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.ResolvedItem;
     }
 
-    public class ResolvedTypePath : ResolvedType
+    public class ResolvedImportPath : ResolvedType
     {
-        public ResolvedTypePath(ResolvedImportRoot importRoot, TypeReferencePath lookupPath, NamespacePath scopeNamespace)
+        public ResolvedImportPath(ResolvedImportRoot importRoot, TypeReferencePath lookupPath, NamespacePath scopeNamespace)
         {
             this.ImportRoot = importRoot;
             this.LookupPath = lookupPath;
             this.ScopeNamespace = scopeNamespace;
         }
 
-        public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.ResolvedTypePath;
+        public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.ResolvedImportPath;
 
         public ResolvedImportRoot ImportRoot { get; }
 
@@ -34,13 +34,20 @@ namespace Ddl.Resolve.Models.TypeResolve
 
     public class UnresolvedType : ResolvedType
     {
+        public UnresolvedType(TypeIdentifierPath typePath)
+        {
+            this.TypePath = typePath;
+        }
+
         public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.Unresolved;
+
+        public TypeIdentifierPath TypePath { get; }
     }
 
     public enum ResolvedTypeKind
     {
         ResolvedItem,
-        ResolvedTypePath,
+        ResolvedImportPath,
         Unresolved
     }
 }

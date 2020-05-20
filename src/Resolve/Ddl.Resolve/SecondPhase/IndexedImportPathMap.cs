@@ -48,7 +48,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             {
                 if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
                 {
-                    resolvedType = new ResolvedTypePath(importPath.ImportRoot, lookupPath, this.scopeNamespace);
+                    resolvedType = new ResolvedImportPath(importPath.ImportRoot, lookupPath, this.scopeNamespace);
                     return true;
                 }
             }
