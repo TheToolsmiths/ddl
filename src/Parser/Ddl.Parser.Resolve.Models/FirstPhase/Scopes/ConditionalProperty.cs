@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.Scopes
 {

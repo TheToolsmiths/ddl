@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

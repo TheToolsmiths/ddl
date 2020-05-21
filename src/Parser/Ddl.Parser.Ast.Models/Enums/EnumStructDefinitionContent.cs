@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Enums
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
 {
     public class EnumStructDefinitionContent
     {

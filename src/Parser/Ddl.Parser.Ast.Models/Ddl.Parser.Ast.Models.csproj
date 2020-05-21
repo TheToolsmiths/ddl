@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>TheToolsmiths.Ddl.Parser.Models</AssemblyName>
-    <RootNamespace>TheToolsmiths.Ddl.Parser.Models</RootNamespace>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Ast.Models</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Ast.Models</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

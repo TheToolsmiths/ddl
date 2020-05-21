@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Types.Paths
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths
 {
     public static class TypeReferencePathComparer
     {

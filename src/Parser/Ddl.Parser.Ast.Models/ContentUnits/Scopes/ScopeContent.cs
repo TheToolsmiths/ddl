@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
     public class ScopeContent
     {

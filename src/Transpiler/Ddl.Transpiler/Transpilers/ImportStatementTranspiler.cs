@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.Imports;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Imports;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

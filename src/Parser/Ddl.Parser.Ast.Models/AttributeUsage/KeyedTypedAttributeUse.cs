@@ -1,8 +1,8 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Values;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 
-namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage
 {
     public class KeyedTypedAttributeUse : BaseTypedAttributeUse, IKeyedTypedAttributeUse
     {

@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Structs
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public enum StructDefinitionItemType
     {

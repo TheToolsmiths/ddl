@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
     public enum ContentUnitScopeType
     {

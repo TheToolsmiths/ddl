@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Entries
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries
 {
     public interface IRootEntry
     {

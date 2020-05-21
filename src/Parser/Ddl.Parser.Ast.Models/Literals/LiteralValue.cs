@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Literals
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Literals
 {
     public class LiteralValue
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Models.Operators;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.Arrays;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Types.Identifiers
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
     public class ArrayTypeIdentifier : ITypeIdentifier
     {

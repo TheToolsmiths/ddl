@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {

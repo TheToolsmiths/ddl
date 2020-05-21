@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Imports;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Imports;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {

@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
     public class ConditionalRootScope : RootScope
     {

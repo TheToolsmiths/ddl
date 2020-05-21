@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TheToolsmiths.Ddl.Parser.Models
+namespace TheToolsmiths.Ddl.Parser.Ast.Models
 {
     public static class ListExtensions
     {

@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Types.Identifiers
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
     public class QualifiedTypeIdentifier : ITypeIdentifier
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Ddl.Common;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Resolve;
 
 namespace TheToolsmiths.Ddl.Cli.Resolvers

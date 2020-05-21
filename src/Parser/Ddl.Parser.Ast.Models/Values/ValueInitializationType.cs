@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Values
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {
     public enum ValueInitializationType
     {

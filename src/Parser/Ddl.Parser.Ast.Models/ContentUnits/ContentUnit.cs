@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Ddl.Common.Models;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits
 {
     [DebuggerDisplay("{" + nameof(Info) + "}")]
     public class ContentUnit

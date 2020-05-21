@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {

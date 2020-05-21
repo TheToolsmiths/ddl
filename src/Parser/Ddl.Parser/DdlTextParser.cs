@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
 {

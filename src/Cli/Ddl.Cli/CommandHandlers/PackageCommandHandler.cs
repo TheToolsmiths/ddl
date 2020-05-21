@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Resolvers;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 {

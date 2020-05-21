@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -217,7 +217,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             IParserContext context,
             IReadOnlyList<IAttributeUse> attributesList)
         {
-            FieldName fieldName;
+            Identifier fieldName;
             {
                 var result = await context.Lexer.TryGetIdentifierToken();
 
@@ -228,8 +228,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var nameIdentifierToken = result.Token;
 
-                var name = new Identifier(nameIdentifierToken.Memory.ToString());
-                fieldName = new FieldName(name);
+                fieldName = new Identifier(nameIdentifierToken.Memory.ToString());
             }
 
             // Skip value assigment token

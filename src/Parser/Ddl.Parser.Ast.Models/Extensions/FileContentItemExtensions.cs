@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
-namespace TheToolsmiths.Ddl.Parser.Models
+namespace TheToolsmiths.Ddl.Parser.Ast.Models
 {
     public static class FileContentItemExtensions
     {

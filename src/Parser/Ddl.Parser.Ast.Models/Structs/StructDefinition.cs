@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Structs
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public class StructDefinition : TypedAttributableRootItem
     {

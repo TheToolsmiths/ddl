@@ -1,7 +1,7 @@
 ﻿using Ddl.Common.Models;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
     public abstract class TypedRootItem : ITypedRootItem
     {

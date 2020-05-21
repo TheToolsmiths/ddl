@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Literals;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Values
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {
     public abstract class ValueInitialization
     {

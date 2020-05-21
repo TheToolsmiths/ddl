@@ -1,6 +1,6 @@
 ﻿using Ddl.Common.Models;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
     public interface ITypedContentSubItem
     {

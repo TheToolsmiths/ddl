@@ -1,7 +1,7 @@
 ﻿using System;
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase

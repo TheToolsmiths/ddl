@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Values
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {
     public class TypedStructValueInitialization
     {

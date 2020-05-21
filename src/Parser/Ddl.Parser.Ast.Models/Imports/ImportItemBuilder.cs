@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Imports
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Imports
 {
     public static class ImportItemBuilder
     {

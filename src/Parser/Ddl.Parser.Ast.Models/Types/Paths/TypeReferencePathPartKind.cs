@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Types.Paths
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths
 {
     public enum TypeReferencePathPartKind
     {

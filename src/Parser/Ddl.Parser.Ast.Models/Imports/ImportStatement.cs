@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Imports
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Imports
 {
     public class ImportStatement : RootItem
     {

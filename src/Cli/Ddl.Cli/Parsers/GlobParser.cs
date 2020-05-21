@@ -5,7 +5,7 @@ using Ddl.Common;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Cli.Utils;
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Cli.Parsers
 {

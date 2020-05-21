@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions
 {
     public interface IConditionalSymbolExpression
     {

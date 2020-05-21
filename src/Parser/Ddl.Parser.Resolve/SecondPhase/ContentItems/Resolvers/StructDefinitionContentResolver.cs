@@ -1,6 +1,6 @@
 ﻿using System;
 using Ddl.Common;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
 {

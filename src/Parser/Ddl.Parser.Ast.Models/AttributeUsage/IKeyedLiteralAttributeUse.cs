@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Literals;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 
-namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage
 {
     public interface IKeyedLiteralAttributeUse : IKeyedAttributeUse
     {

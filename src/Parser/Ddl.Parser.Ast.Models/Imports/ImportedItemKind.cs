@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Imports
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Imports
 {
     public enum ImportedItemKind
     {

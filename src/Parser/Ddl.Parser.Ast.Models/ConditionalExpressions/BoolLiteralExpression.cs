@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
     public class BoolLiteralExpression : IConditionalExpressionElement
     {

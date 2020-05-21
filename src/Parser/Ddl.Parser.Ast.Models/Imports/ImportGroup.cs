@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Imports
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Imports
 {
     public class ImportGroup : ImportItem
     {

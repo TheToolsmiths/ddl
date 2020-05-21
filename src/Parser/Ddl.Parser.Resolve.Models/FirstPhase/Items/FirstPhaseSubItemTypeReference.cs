@@ -1,5 +1,5 @@
 ﻿using Ddl.Parser.Resolve.Models.Common.ItemReferences;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.Items
 {

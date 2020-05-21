@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Values;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Structs
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public class FieldDefinition : IStructDefinitionItem
     {
         public FieldDefinition(
-            FieldName name,
+            Identifier name,
             ITypeIdentifier fieldType,
             ValueInitialization initialization,
             IReadOnlyList<IAttributeUse> attributes)
@@ -19,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
             this.Name = name;
         }
 
-        public FieldName Name { get; }
+        public Identifier Name { get; }
 
         public ITypeIdentifier FieldType { get; }
 

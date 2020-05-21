@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {

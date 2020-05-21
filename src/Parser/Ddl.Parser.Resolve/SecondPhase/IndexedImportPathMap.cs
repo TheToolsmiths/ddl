@@ -2,8 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeResolve;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {

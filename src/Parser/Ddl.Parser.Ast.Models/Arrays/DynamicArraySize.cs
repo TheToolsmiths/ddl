@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Arrays
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Arrays
 {
     public class DynamicArraySize : ArraySize
     {

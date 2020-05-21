@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Entries;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
 
 namespace TheToolsmiths.Ddl.Parser
 {

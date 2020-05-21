@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Structs
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public class StructDefinitionContent
     {

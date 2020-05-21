@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Ddl.Common;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser
 {

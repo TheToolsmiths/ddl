@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
     public class SymbolExpression : IConditionalExpressionElement
     {

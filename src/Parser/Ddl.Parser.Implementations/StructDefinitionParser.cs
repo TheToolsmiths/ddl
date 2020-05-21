@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {

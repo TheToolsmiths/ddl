@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Transpiler
 {

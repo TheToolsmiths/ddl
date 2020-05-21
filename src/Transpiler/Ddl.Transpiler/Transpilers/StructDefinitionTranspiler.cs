@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Values;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

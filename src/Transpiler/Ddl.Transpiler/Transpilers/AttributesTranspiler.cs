@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

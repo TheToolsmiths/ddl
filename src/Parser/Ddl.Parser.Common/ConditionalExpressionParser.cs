@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions;
-using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Operators;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {

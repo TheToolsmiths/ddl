@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -129,7 +129,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             while (true)
             {
-                FieldName name;
+                Identifier name;
                 {
                     var result = await context.Lexer.TryPeekToken();
 
@@ -153,9 +153,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                     context.Lexer.PopToken();
 
-                    var identifier = new Identifier(token.Memory.ToString());
-
-                    name = new FieldName(identifier);
+                    name = new Identifier(token.Memory.ToString());
                 }
 
                 {

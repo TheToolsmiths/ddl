@@ -1,8 +1,8 @@
 ﻿using Ddl.Common.Models;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Enums
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
 {
     public class EnumStructVariantDefinition : IEnumStructDefinitionItem
     {

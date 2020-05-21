@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Models.Enums;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

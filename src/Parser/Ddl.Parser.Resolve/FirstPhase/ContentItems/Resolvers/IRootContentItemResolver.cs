@@ -1,5 +1,5 @@
 ﻿using Ddl.Common;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {

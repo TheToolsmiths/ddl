@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths
 {

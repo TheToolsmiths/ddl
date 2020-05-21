@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {

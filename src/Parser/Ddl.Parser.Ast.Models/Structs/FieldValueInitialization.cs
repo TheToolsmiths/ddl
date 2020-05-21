@@ -1,18 +1,19 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Values;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Structs
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public class FieldValueInitialization
     {
         public FieldValueInitialization(
-            FieldName name,
+            Identifier name,
             ValueInitialization initialization)
         {
             this.Name = name;
             this.Initialization = initialization;
         }
 
-        public FieldName Name { get; }
+        public Identifier Name { get; }
 
         public ValueInitialization Initialization { get; }
     }

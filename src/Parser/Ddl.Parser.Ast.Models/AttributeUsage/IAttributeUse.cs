@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage
 {
     public interface IAttributeUse
     {

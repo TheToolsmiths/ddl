@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Types
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types
 {
     public static class TypeConstants
     {

@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Values
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {
     public class EmptyValueInitialization : ValueInitialization
     {

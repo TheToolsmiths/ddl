@@ -3,8 +3,8 @@ using Ddl.Common;
 using Ddl.Parser.Resolve.Models.Common.ItemReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items.Content;
-using TheToolsmiths.Ddl.Parser.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Types.Paths
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths
 {
     public class TypeReferencePath
     {

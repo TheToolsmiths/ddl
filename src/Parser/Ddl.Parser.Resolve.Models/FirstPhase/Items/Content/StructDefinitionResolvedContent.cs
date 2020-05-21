@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Structs;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.Items.Content
 {

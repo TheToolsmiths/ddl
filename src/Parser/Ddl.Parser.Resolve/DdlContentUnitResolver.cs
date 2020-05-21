@@ -1,7 +1,7 @@
 ﻿using System;
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Resolve.FirstPhase;
 using TheToolsmiths.Ddl.Resolve.SecondPhase;
 

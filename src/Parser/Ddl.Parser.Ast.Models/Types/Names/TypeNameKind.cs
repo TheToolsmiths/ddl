@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Types.Names
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names
 {
     public enum TypeNameKind
     {

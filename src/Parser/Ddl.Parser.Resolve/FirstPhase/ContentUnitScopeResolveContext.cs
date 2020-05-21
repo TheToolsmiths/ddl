@@ -4,7 +4,7 @@ using System.Linq;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {

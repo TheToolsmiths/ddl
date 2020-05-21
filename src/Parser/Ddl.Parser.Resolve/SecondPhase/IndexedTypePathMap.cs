@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.Common.TypeResolve;
-using TheToolsmiths.Ddl.Parser.Models.Types.Namespaces;
-using TheToolsmiths.Ddl.Parser.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {

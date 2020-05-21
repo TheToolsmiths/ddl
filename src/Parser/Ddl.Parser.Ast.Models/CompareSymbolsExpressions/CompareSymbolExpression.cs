@@ -1,7 +1,7 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Operators;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
 
-namespace TheToolsmiths.Ddl.Parser.Models.CompareSymbolsExpressions
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions
 {
     public class CompareSymbolExpression : IConditionalSymbolExpression
     {

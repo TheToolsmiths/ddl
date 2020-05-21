@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Values
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {
     public class StructValueInitialization : ValueInitialization
     {

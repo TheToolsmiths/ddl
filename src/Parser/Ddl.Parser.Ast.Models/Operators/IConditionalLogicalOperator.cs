@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.Operators
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Operators
 {
     public interface IConditionalLogicalOperator : IOperator
     {

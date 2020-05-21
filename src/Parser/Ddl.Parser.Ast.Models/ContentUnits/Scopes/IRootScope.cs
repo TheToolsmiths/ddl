@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Entries;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
 
-namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
     public interface IRootScope : IRootEntry
     {

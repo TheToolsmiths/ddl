@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Contexts;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser
 {

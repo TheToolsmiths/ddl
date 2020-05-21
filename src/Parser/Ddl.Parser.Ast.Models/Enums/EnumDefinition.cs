@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Ddl.Common.Models;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Enums
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
 {
     public class EnumDefinition : TypedAttributableRootItem
     {

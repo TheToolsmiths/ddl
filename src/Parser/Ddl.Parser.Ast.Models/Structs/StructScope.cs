@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Structs
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 {
     public class StructScope : IStructDefinitionItem
     {
