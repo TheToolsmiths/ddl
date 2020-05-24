@@ -2,7 +2,7 @@
 using Ddl.Common.Models;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase
 {

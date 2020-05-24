@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {

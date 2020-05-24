@@ -4,8 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Models</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Models</RootNamespace>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Folder Include="Structs\" />
+    <ProjectReference Include="..\..\Common\Ddl.Common.Models\Ddl.Common.Models.csproj" />
   </ItemGroup>
 
 </Project>

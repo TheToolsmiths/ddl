@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces
 {

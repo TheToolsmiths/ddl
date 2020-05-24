@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {

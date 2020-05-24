@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
-using Ddl.Parser.Resolve.Models.Common.TypeResolve;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
+using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Resolve.SecondPhase.TypePathHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {
@@ -48,7 +51,20 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return new ScopeTypeResolver(IndexedTypePathMap.FromIndexedTypes(scopeNamespace, indexedTypes));
         }
 
-        public bool TryResolveType(TypeIdentifierPath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        public ResolvedType ResolveType(ITypeIdentifier typeIdentifier)
+        {
+            var qualifiedTypeIdentifier = TypeIdentifierHelpers.GetQualifiedType(typeIdentifier);
+
+            if (this.TryResolveType(qualifiedTypeIdentifier.TypePath, out var resolvedType))
+            {
+                return resolvedType;
+            }
+
+            ResolvedTypeIdentifierPath typePath = TypePathConverter.ConvertToResolvedPath(qualifiedTypeIdentifier.TypePath);
+            return new UnresolvedType(typePath);
+        }
+
+        private bool TryResolveType(TypeIdentifierPath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
         {
             if (this.IndexedTypes.TryResolveType(typePath, out resolvedType))
             {
@@ -65,18 +81,6 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
             resolvedType = default;
             return false;
-        }
-
-        public ResolvedType ResolveType(ITypeIdentifier typeIdentifier)
-        {
-            var qualifiedTypeIdentifier = TypeIdentifierHelpers.GetQualifiedType(typeIdentifier);
-
-            if (this.TryResolveType(qualifiedTypeIdentifier.TypePath, out var resolvedType))
-            {
-                return resolvedType;
-            }
-
-            return new UnresolvedType(qualifiedTypeIdentifier.TypePath);
         }
 
         public bool TryResolveType(TypeReferencePath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)

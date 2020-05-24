@@ -5,10 +5,10 @@ using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {

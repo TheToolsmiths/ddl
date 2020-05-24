@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
-using Ddl.Parser.Resolve.Models.Common.TypeResolve;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Namespaces;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
+using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {
@@ -28,7 +30,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
         public bool TryResolveType(TypeIdentifierPath lookupPath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
         {
-            var referenceLookupPath = TypeReferencePath.CreateFromIdentifierPath(lookupPath);
+            var referenceLookupPath = TypeReferencePathBuilder.CreateFromIdentifierPath(lookupPath);
 
             return this.TryResolveType(referenceLookupPath, out resolvedType);
         }

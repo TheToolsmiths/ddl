@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Paths;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {

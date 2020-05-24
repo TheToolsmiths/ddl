@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
