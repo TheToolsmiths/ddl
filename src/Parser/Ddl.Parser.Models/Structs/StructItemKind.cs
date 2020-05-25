@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Models.Structs
 {
-    public enum StructDefinitionItemType
+    public enum StructItemKind
     {
         Scope,
         FieldDefinition

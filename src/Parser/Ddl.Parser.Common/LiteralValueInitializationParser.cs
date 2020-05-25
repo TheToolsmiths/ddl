@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -24,8 +24,8 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Default))
                 {
-                    var value = LiteralValue.CreateDefault();
-                    return Result.FromValue(value);
+                    var value = new DefaultLiteral();
+                    return Result.FromValue<LiteralValue>(value);
                 }
             }
 
@@ -40,19 +40,15 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 LexerToken token;
                 token = result.Token;
 
-                var type = token.Kind switch
+                LiteralValue literalValue = token.Kind switch
                 {
-                    LexerTokenKind.String => LiteralValueType.StringLiteral,
-                    LexerTokenKind.Number => LiteralValueType.NumberLiteral,
-                    LexerTokenKind.Boolean => LiteralValueType.BooleanLiteral,
+                    LexerTokenKind.String => new StringLiteral(token.Memory.ToString()),
+                    LexerTokenKind.Number => new NumberLiteral(token.Memory.ToString()),
+                    LexerTokenKind.Boolean => new BoolLiteral(token.Memory.ToString()),
                     _ => throw new ArgumentOutOfRangeException()
                 };
 
-                string text = token.Memory.ToString();
-
-                var value = new LiteralValue(type, text);
-
-                return Result.FromValue(value);
+                return Result.FromValue(literalValue);
             }
         }
     }

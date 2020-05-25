@@ -7,15 +7,13 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers
 {
     public class GenericIdentifierPathPart : TypeIdentifierPathPart
     {
-        public GenericIdentifierPathPart(Identifier name, IReadOnlyList<ITypeIdentifier> genericParameters)
+        public GenericIdentifierPathPart(Identifier name, IReadOnlyList<IGenericParameterTypeIdentifier> genericParameters)
             : base(name)
         {
             this.GenericParameters = genericParameters;
         }
 
-        public override TypeIdentifierPathPartKind PartKind => TypeIdentifierPathPartKind.Generic;
-
-        public IReadOnlyList<ITypeIdentifier> GenericParameters { get; }
+        public IReadOnlyList<IGenericParameterTypeIdentifier> GenericParameters { get; }
 
         public override string ToString()
         {

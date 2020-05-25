@@ -16,10 +16,9 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
 
         public Result ResolveContentItem(ScopeItemResolveContext context, FirstPhaseResolvedItem contentItem)
         {
+            var content = contentItem.Content;
 
-            var foo = contentItem.Content;
-
-            var result = foo switch
+            var result = content switch
             {
                 EnumDefinitionResolvedContent enumDefinition => this.resolverProvider.CreateEnumDefinitionResolver()
                     .CatalogItem(context, enumDefinition),

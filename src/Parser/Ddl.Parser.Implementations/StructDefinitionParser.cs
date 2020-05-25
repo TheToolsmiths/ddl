@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
     {
         public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
         {
-            ITypeName typeName;
+            TypeName typeName;
             {
                 var result = await context.Parsers.ParseTypeName().ConfigureAwait(false);
 

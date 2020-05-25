@@ -1,7 +1,7 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Models.Types
 {
-    public class ResolvedItemType : ResolvedType
+    public class ResolvedItemType : ResolvedTypePart
     {
-        public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.ResolvedItem;
+        public override ResolvedTypePartKind ResolvedKind => ResolvedTypePartKind.ResolvedItem;
     }
 }

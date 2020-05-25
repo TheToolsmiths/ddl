@@ -2,14 +2,14 @@
 
 namespace TheToolsmiths.Ddl.Parser.Models.Types
 {
-    public class UnresolvedType : ResolvedType
+    public class UnresolvedType : ResolvedTypePart
     {
         public UnresolvedType(ResolvedTypeIdentifierPath typePath)
         {
             this.TypePath = typePath;
         }
 
-        public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.Unresolved;
+        public override ResolvedTypePartKind ResolvedKind => ResolvedTypePartKind.Unresolved;
 
         public ResolvedTypeIdentifierPath TypePath { get; }
     }

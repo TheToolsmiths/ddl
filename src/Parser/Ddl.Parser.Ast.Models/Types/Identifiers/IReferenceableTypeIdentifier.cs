@@ -1,7 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
-    public enum ModifierTypeKind
+    public interface IReferenceableTypeIdentifier : ITypeIdentifier
     {
-        Constant
     }
 }

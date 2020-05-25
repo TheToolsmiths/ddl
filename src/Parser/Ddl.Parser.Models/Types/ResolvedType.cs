@@ -2,6 +2,13 @@
 {
     public abstract class ResolvedType
     {
-        public abstract ResolvedTypeKind ResolvedKind { get; }
+        public abstract ResolvedTypePartKind ResolvedKind { get; }
+    }
+
+    public enum ResolvedTypeKind
+    {
+        Resolved,
+        Incomplete,
+        Unresolved
     }
 }

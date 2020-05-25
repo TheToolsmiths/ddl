@@ -2,7 +2,10 @@
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
-    public class QualifiedTypeIdentifier : ITypeIdentifier
+    public class QualifiedTypeIdentifier : ITypeIdentifier,
+        IReferenceableTypeIdentifier,
+        IGenericParameterTypeIdentifier,
+        IModifiableTypeIdentifier
     {
         public QualifiedTypeIdentifier(TypeIdentifierPath typePath)
         {
@@ -10,8 +13,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
         }
 
         public TypeIdentifierPath TypePath { get; }
-
-        public TypeIdentifierKind Kind => TypeIdentifierKind.QualifiedType;
 
         public override string ToString()
         {

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -81,7 +80,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             {
                 context.Lexer.PopToken();
 
-                var literal = new LiteralValue(LiteralValueType.StringLiteral, token.Memory.ToString());
+                var literal = new StringLiteral(token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
                 return Result.FromValue<ValueInitialization>(value);
@@ -91,7 +90,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             {
                 context.Lexer.PopToken();
 
-                var literal = new LiteralValue(LiteralValueType.NumberLiteral, token.Memory.ToString());
+                var literal = new NumberLiteral(token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
                 return Result.FromValue<ValueInitialization>(value);
@@ -101,7 +100,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             {
                 context.Lexer.PopToken();
 
-                var literal = new LiteralValue(LiteralValueType.BooleanLiteral, token.Memory.ToString());
+                var literal = new BoolLiteral(token.Memory.ToString());
 
                 var value = new LiteralValueInitialization(literal);
                 return Result.FromValue<ValueInitialization>(value);

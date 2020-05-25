@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+
 using TheToolsmiths.Ddl.Resolve.FirstPhase;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 using TheToolsmiths.Ddl.Resolve.SecondPhase;
+using TheToolsmiths.Ddl.Resolve.SecondPhase.Common.Resolvers;
 
 namespace TheToolsmiths.Ddl.Resolve.Services
 {
@@ -59,7 +61,9 @@ namespace TheToolsmiths.Ddl.Resolve.Services
             services.AddScoped<SecondPhase.ContentItems.Resolvers.StructDefinitionResolver>();
             services.AddScoped<SecondPhase.ContentItems.Resolvers.StructDefinitionContentResolver>();
 
-            services.AddScoped<NamespacePathResolver>();
+            // Common Resolvers
+            services.AddScoped<ValueInitializationResolver>();
+            services.AddScoped<AttributeUseResolver>();
 
             return services;
         }

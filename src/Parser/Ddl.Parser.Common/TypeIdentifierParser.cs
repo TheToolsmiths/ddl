@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Ddl.Common;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -16,48 +19,78 @@ namespace TheToolsmiths.Ddl.Parser.Common
     {
         public async Task<Result<ITypeIdentifier>> Parse(IParserContext context)
         {
+            if (await context.Lexer.IsNextNamespaceSeparatorToken())
+            {
+                return (await this.ParseArrayOrQualifiedTypeIdentifier(context)).As<ITypeIdentifier>();
+            }
+
+            var result = await context.Lexer.TryPeekIdentifierToken();
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            var token = result.Token;
+
+            if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Constant))
+            {
+                return (await this.ParseConstantTypeIdentifier(context)).As<ITypeIdentifier>();
+            }
+
+            return (await this.ParseModifiableTypeIdentifier(context)).As<ITypeIdentifier>();
+        }
+
+        public async Task<Result<IGenericParameterTypeIdentifier>> ParseGenericParameterTypeIdentifier(
+            IParserContext context)
+        {
+            return (await this.ParseArrayOrQualifiedTypeIdentifier(context)).As<IGenericParameterTypeIdentifier>();
+        }
+
+        private async Task<Result<IModifiableTypeIdentifier>> ParseModifiableTypeIdentifier(IParserContext context)
+        {
+            var result = await context.Lexer.TryPeekIdentifierToken();
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            var token = result.Token;
+
+            if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Reference) ||
+                token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Handle) ||
+                token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Owns))
+            {
+                return (await this.ParseReferenceTypeIdentifier(context)).As<IModifiableTypeIdentifier>();
+            }
+
+            return (await this.ParseArrayOrQualifiedTypeIdentifier(context)).As<IModifiableTypeIdentifier>();
+        }
+
+        private async Task<Result<IReferenceableTypeIdentifier>> ParseArrayOrQualifiedTypeIdentifier(
+            IParserContext context)
+        {
+            var result = await this.ParseQualifiedTypeIdentifier(context);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            var qualifiedType = result.Value;
+
+            if (await context.Lexer.IsNextOpenAttributeToken())
+            {
+                return (await this.ParseArrayType(context, qualifiedType)).As<IReferenceableTypeIdentifier>();
+            }
+
+            return Result.FromValue<IReferenceableTypeIdentifier>(qualifiedType);
+        }
+
+        private async Task<Result<QualifiedTypeIdentifier>> ParseQualifiedTypeIdentifier(IParserContext context)
+        {
             var identifiersList = new List<TypeIdentifierPathPart>();
-
-            Stack<ModifierTypeKind> modifiers;
-            {
-                var parseResult = await this.ParseTypeModifiers(context);
-
-                if (parseResult.IsError)
-                {
-                    throw new NotImplementedException();
-                }
-
-                modifiers = parseResult.Value;
-            }
-
-            ReferenceTypeKind? referenceKind = null;
-            {
-                var result = await context.Lexer.TryPeekIdentifierToken();
-
-                if (result.HasToken)
-                {
-                    var token = result.Token;
-
-                    if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Reference))
-                    {
-                        context.Lexer.PopToken();
-
-                        referenceKind = ReferenceTypeKind.Reference;
-                    }
-                    else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Handle))
-                    {
-                        context.Lexer.PopToken();
-
-                        referenceKind = ReferenceTypeKind.Handle;
-                    }
-                    else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Owns))
-                    {
-                        context.Lexer.PopToken();
-
-                        referenceKind = ReferenceTypeKind.Owns;
-                    }
-                }
-            }
 
             bool isRootedType = false;
             {
@@ -118,92 +151,110 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 }
             }
 
-            QualifiedTypeIdentifier genericIdentifier;
+            var genericIdentifier = isRootedType
+                ? QualifiedTypeIdentifierBuilder.BuildRootedFromParts(identifiersList)
+                : QualifiedTypeIdentifierBuilder.BuildFromParts(identifiersList);
+
+            return Result.FromValue(genericIdentifier);
+        }
+
+        private async Task<Result<ReferenceTypeIdentifier>> ParseReferenceTypeIdentifier(IParserContext context)
+        {
+            ReferenceKind referenceKind;
             {
-                genericIdentifier = isRootedType
-                    ? QualifiedTypeIdentifierBuilder.BuildRootedFromParts(identifiersList)
-                    : QualifiedTypeIdentifierBuilder.BuildFromParts(identifiersList);
-            }
+                var result = await context.Lexer.TryGetIdentifierToken();
 
-            ITypeIdentifier arrayTypeIdentifier;
-            {
-                var result = await context.Lexer.TryPeekOpenAttributeToken();
-
-                if (result.HasToken)
-                {
-                    var parseResult = await this.ParseArrayType(context, genericIdentifier);
-
-                    if (parseResult.IsError)
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    arrayTypeIdentifier = parseResult.Value;
-                }
-                else
-                {
-                    arrayTypeIdentifier = genericIdentifier;
-                }
-            }
-
-            ITypeIdentifier referenceIdentifier;
-            {
-                var parseResult = this.CreateReferenceType(arrayTypeIdentifier, referenceKind);
-
-                if (parseResult.IsError)
+                if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
 
-                referenceIdentifier = parseResult.Value;
-            }
-
-            return this.CreateModifiersType(referenceIdentifier, modifiers);
-        }
-
-        private async Task<Result<Stack<ModifierTypeKind>>> ParseTypeModifiers(IParserContext context)
-        {
-            var modifiers = new Stack<ModifierTypeKind>();
-
-            while (true)
-            {
-                var result = await context.Lexer.TryPeekIdentifierToken();
-
-                if (result.IsError)
-                {
-                    break;
-                }
-
                 var token = result.Token;
 
-                if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Constant))
+                if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Reference))
                 {
-                    context.Lexer.PopToken();
-
-                    modifiers.Push(ModifierTypeKind.Constant);
+                    referenceKind = ReferenceKind.Reference;
+                }
+                else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Handle))
+                {
+                    referenceKind = ReferenceKind.Handle;
+                }
+                else if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Owns))
+                {
+                    referenceKind = ReferenceKind.Owns;
                 }
                 else
                 {
-                    break;
+                    throw new NotImplementedException();
                 }
             }
 
-            return Result.FromValue(modifiers);
+            IReferenceableTypeIdentifier typeIdentifier;
+            {
+                var result = await this.ParseArrayOrQualifiedTypeIdentifier(context);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                typeIdentifier = result.Value;
+            }
+
+            var referenceType = new ReferenceTypeIdentifier(typeIdentifier, referenceKind);
+
+            return Result.FromValue(referenceType);
         }
 
-        private async Task<Result<GenericIdentifierPathPart>> ParseGenericPathPart(IParserContext context, Identifier name)
+        private async Task<Result<ITypeIdentifier>> ParseConstantTypeIdentifier(IParserContext context)
+        {
+            LexerToken token;
+            {
+                var result = await context.Lexer.TryGetIdentifierToken();
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                token = result.Token;
+            }
+
+            if (token.Memory.Span.SequenceEqual(ParserIdentifierConstants.Constant))
+            {
+                IModifiableTypeIdentifier typeIdentifier;
+                {
+                    var result = await this.ParseModifiableTypeIdentifier(context);
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    typeIdentifier = result.Value;
+                }
+
+                return Result.FromValue<ITypeIdentifier>(new ConstantTypeIdentifier(typeIdentifier));
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private async Task<Result<GenericIdentifierPathPart>> ParseGenericPathPart(
+            IParserContext context,
+            Identifier name)
         {
             if (await context.Lexer.TryConsumeOpenGenericsToken() == false)
             {
                 throw new NotImplementedException();
             }
 
-            var parameters = new List<ITypeIdentifier>();
+            var parameters = new List<IGenericParameterTypeIdentifier>();
 
             bool isParameterListCompleted = false;
             while (isParameterListCompleted == false)
             {
-                var parseResult = await context.Parsers.ParseTypeIdentifier().ConfigureAwait(false);
+                var parseResult = await context.Parsers.ParseGenericParameterTypeIdentifier().ConfigureAwait(false);
 
                 if (parseResult.IsError)
                 {
@@ -247,7 +298,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return Result.FromValue(pathPart);
         }
 
-        private async Task<Result<ITypeIdentifier>> ParseArrayType(
+        private async Task<Result<ArrayTypeIdentifier>> ParseArrayType(
             IParserContext context,
             QualifiedTypeIdentifier typeIdentifier)
         {
@@ -255,10 +306,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             while (await context.Lexer.IsNextOpenAttributeToken())
             {
-                await ParseGenericParametersList();
+                await ParseArraySizeList();
             }
 
-            async Task ParseGenericParametersList()
+            async Task ParseArraySizeList()
             {
                 if (await context.Lexer.TryConsumeOpenAttributeToken() == false)
                 {
@@ -291,7 +342,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                     throw new NotImplementedException();
                 }
 
-                var dimensions = literals.Select(lt => lt.Memory.ToString()).ToList();
+                var dimensions = literals.Select(lt => new NumberLiteral(lt.Memory.ToString())).ToList();
 
                 var size = dimensions.Count == 0 ? (ArraySize)new DynamicArraySize() : new FixedArraySize(dimensions);
                 sizes.Add(size);
@@ -299,35 +350,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var arrayTypeIdentifier = new ArrayTypeIdentifier(typeIdentifier, sizes);
 
-            return Result.FromValue<ITypeIdentifier>(arrayTypeIdentifier);
-        }
-
-        private Result<ITypeIdentifier> CreateReferenceType(
-            ITypeIdentifier typeIdentifier,
-            ReferenceTypeKind? referenceKind)
-        {
-            if (referenceKind != null)
-            {
-                typeIdentifier = new ReferenceTypeIdentifier(typeIdentifier, referenceKind.Value);
-            }
-
-            return Result.FromValue(typeIdentifier);
-        }
-
-        private Result<ITypeIdentifier> CreateModifiersType(
-            ITypeIdentifier typeIdentifier,
-            Stack<ModifierTypeKind> modifiers)
-        {
-            while (modifiers.TryPop(out var modifierKind))
-            {
-                typeIdentifier = modifierKind switch
-                {
-                    ModifierTypeKind.Constant => new ConstantTypeIdentifier(typeIdentifier),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-            }
-
-            return Result.FromValue(typeIdentifier);
+            return Result.FromValue(arrayTypeIdentifier);
         }
     }
 }

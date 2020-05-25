@@ -1,18 +1,16 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
-    public class ReferenceTypeIdentifier : ITypeIdentifier
+    public class ReferenceTypeIdentifier : ITypeIdentifier, IModifiableTypeIdentifier
     {
-        public ReferenceTypeIdentifier(ITypeIdentifier typeIdentifier, ReferenceTypeKind referenceKind)
+        public ReferenceTypeIdentifier(IReferenceableTypeIdentifier typeIdentifier, ReferenceKind referenceKind)
         {
             this.TypeIdentifier = typeIdentifier;
             this.ReferenceKind = referenceKind;
         }
 
-        public TypeIdentifierKind Kind => TypeIdentifierKind.ReferenceType;
+        public IReferenceableTypeIdentifier TypeIdentifier { get; }
 
-        public ITypeIdentifier TypeIdentifier { get; }
-
-        public ReferenceTypeKind ReferenceKind { get; }
+        public ReferenceKind ReferenceKind { get; }
 
         public override string ToString()
         {

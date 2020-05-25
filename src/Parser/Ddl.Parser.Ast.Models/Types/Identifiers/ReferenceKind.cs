@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
-    public enum ReferenceTypeKind
+    public enum ReferenceKind
     {
         Owns,
         Handle,

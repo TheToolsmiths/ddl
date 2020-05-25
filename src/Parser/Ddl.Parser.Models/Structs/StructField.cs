@@ -6,9 +6,9 @@ using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Structs
 {
-    public class FieldDefinition : IStructDefinitionItem
+    public class StructField : IStructItem
     {
-        public FieldDefinition(
+        public StructField(
             Identifier name,
             ResolvedType fieldType,
             ValueInitialization initialization,
@@ -28,6 +28,6 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
 
         public ValueInitialization Initialization { get; }
 
-        public StructDefinitionItemType ItemType => StructDefinitionItemType.FieldDefinition;
+        public StructItemKind ItemKind => StructItemKind.FieldDefinition;
     }
 }

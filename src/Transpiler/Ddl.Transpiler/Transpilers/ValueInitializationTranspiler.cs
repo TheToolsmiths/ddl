@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text.Json;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
@@ -48,24 +49,24 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             writer.WriteEndObject();
         }
 
-        private static void WriteLiteralValueInitialization(Utf8JsonWriter writer, LiteralValueInitialization literalValue)
+        private static void WriteLiteralValueInitialization(Utf8JsonWriter writer, LiteralValueInitialization initialization)
         {
             writer.WriteStartObject();
 
             writer.WriteString("type", "literal");
 
-            var literal = literalValue.Literal;
-
-            string typeText = literal.ValueType switch
+            string typeText = initialization.Literal switch
             {
-                LiteralValueType.StringLiteral => "string",
-                LiteralValueType.NumberLiteral => "number",
-                LiteralValueType.BooleanLiteral => "bool",
-                _ => "string"
+                BoolLiteral _ => "bool",
+                DefaultLiteral _ => throw new NotImplementedException(),
+                EmptyLiteral _ => throw new NotImplementedException(),
+                NumberLiteral _ => "number",
+                StringLiteral _ => "string",
+                _ => throw new ArgumentOutOfRangeException(nameof(initialization.Literal))
             };
 
             writer.WriteString("literalType", typeText);
-            writer.WriteString("literalText", literal.Text);
+            writer.WriteString("literalText", initialization.Literal.Text);
 
             writer.WriteEndObject();
         }

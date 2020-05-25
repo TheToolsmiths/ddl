@@ -5,12 +5,12 @@ using Ddl.Common;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
@@ -35,7 +35,12 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return this.provider.GetRequiredService<TypeIdentifierParser>().Parse(this.context);
         }
 
-        public Task<Result<ITypeName>> ParseTypeName()
+        public Task<Result<IGenericParameterTypeIdentifier>> ParseGenericParameterTypeIdentifier()
+        {
+            return this.provider.GetRequiredService<TypeIdentifierParser>().ParseGenericParameterTypeIdentifier(this.context);
+        }
+
+        public Task<Result<TypeName>> ParseTypeName()
         {
             return this.provider.GetRequiredService<TypeNameParser>().ParseTypeName(this.context);
         }

@@ -9,8 +9,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers
         {
         }
 
-        public override TypeIdentifierPathPartKind PartKind => TypeIdentifierPathPartKind.Simple;
-
         public override string ToString()
         {
             return this.Name.ToString();

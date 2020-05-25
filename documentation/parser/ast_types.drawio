@@ -1,0 +1,49 @@
+<mxfile host="" modified="2020-05-24T22:13:09.554Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.45.1 Chrome/78.0.3904.130 Electron/7.2.4 Safari/537.36" etag="R832jsHegc33swrDnuAc" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="1096" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5" value="" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="3" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="150" y="255" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="230" y="280"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Type Name" style="html=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="210" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="6" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;startArrow=diamond;startFill=1;" edge="1" parent="1" source="6" target="16">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="380" y="45"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="Generic&lt;br&gt;Type Name" style="html=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="130" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" parent="1" source="4" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Simple&lt;br&gt;Type Name" style="html=1;direction=west;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="290" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Type Name&lt;br&gt;Identifier" style="html=1;direction=west;rounded=1;glass=0;comic=0;shadow=0;dashed=1;dashPattern=1 1;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="210" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Generic Parameter&lt;br&gt;Identifiers" style="html=1;direction=west;rounded=1;glass=0;comic=0;shadow=0;dashed=1;dashPattern=1 1;" vertex="1" parent="1">
+                    <mxGeometry x="580" y="20" width="140" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

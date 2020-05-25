@@ -7,11 +7,11 @@ using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
 
-namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths
+namespace TheToolsmiths.Ddl.Parser.Common
 {
     public static class TypeReferencePathBuilder
     {
-        public static TypeReferencePath FromTypeName(ITypeName typeName)
+        public static TypeReferencePath FromTypeName(TypeName typeName)
         {
             var pathParts = new List<TypeReferencePathPart>();
 
@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths
             {
                 GenericTypeName genericType => new GenericReferencePathPart(
                     genericType.Name,
-                    genericType.TypeArgumentList.Count),
+                    genericType.TypeParameters.Count),
                 SimpleTypeName simpleType => new SimpleReferencePathPart(simpleType.Name),
                 _ => throw new ArgumentOutOfRangeException(nameof(typeName))
             };

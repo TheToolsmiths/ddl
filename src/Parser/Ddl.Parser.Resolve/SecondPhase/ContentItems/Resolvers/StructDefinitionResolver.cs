@@ -13,16 +13,13 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             this.contentResolver = contentResolver;
         }
 
-        public Result CatalogItem(
-            ScopeItemResolveContext scopeContext,
-            StructDefinitionResolvedContent definition)
+        public Result CatalogItem(ScopeItemResolveContext scopeContext, StructDefinitionResolvedContent definition)
         {
             var context = new ItemResolveContext();
 
             var content = definition.Content;
 
             var result = this.contentResolver.ResolveStructDefinitionContent(scopeContext, content);
-
 
             throw new NotImplementedException();
 

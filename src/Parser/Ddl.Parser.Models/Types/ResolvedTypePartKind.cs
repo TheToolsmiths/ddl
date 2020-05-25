@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Models.Types
 {
-    public enum ResolvedTypeKind
+    public enum ResolvedTypePartKind
     {
         ResolvedItem,
         ResolvedImportPath,

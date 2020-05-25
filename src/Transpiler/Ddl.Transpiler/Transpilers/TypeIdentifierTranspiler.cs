@@ -43,7 +43,9 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             }
         }
 
-        private static void WriteReferenceTypeIdentifierProperties(Utf8JsonWriter writer, ReferenceTypeIdentifier identifier)
+        private static void WriteReferenceTypeIdentifierProperties(
+            Utf8JsonWriter writer,
+            ReferenceTypeIdentifier identifier)
         {
             writer.WriteString("type", "referenceType");
 
@@ -54,7 +56,9 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             writer.WriteEndObject();
         }
 
-        private static void WriteQualifiedTypeIdentifierProperties(Utf8JsonWriter writer, QualifiedTypeIdentifier identifier)
+        private static void WriteQualifiedTypeIdentifierProperties(
+            Utf8JsonWriter writer,
+            QualifiedTypeIdentifier identifier)
         {
             writer.WriteString("type", "qualifiedType");
 
@@ -105,10 +109,11 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             WriteQualifiedTypeIdentifierProperties(writer, identifier.TypeIdentifier);
 
             writer.WriteEndObject();
-
         }
 
-        private static void WriteConstantTypeIdentifierProperties(Utf8JsonWriter writer, ConstantTypeIdentifier identifier)
+        private static void WriteConstantTypeIdentifierProperties(
+            Utf8JsonWriter writer,
+            ConstantTypeIdentifier identifier)
         {
             writer.WriteString("type", "modifierType");
 
@@ -119,7 +124,6 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             WriteTypeIdentifierProperties(writer, identifier.TypeIdentifier);
 
             writer.WriteEndObject();
-
         }
 
         private static void WriteArrayDimensions(Utf8JsonWriter writer, IEnumerable<ArraySize> sizes)
@@ -140,9 +144,9 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
                         writer.WriteString("type", "fixed");
 
                         writer.WriteStartArray("dimensions");
-                        foreach (string dimension in fixedSize.Dimensions)
+                        foreach (var dimension in fixedSize.Dimensions)
                         {
-                            writer.WriteStringValue(dimension);
+                            writer.WriteStringValue(dimension.Text);
                         }
 
                         writer.WriteEndArray();
@@ -152,26 +156,23 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
                         throw new ArgumentOutOfRangeException(nameof(size));
                 }
 
-
                 writer.WriteEndObject();
             }
 
             writer.WriteEndArray();
         }
 
-        public static void WriteTypeName(Utf8JsonWriter writer, ITypeName typeName)
+        public static void WriteTypeName(Utf8JsonWriter writer, TypeName typeName)
         {
             writer.WriteStartObject();
-
-            writer.WriteBoolean("isGeneric", typeName.IsGeneric);
 
             writer.WriteString("name", typeName.Name.ToString());
 
             if (typeName is GenericTypeName genericTypeName)
             {
-                writer.WriteStartArray("typeArgs");
+                writer.WriteStartArray("typeParams");
 
-                foreach (var identifier in genericTypeName.TypeArgumentList)
+                foreach (var identifier in genericTypeName.TypeParameters)
                 {
                     writer.WriteStringValue(identifier.Text);
                 }

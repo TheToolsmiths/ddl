@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class TypeNameParser
     {
-        public async Task<Result<ITypeName>> ParseTypeName(IParserContext context)
+        public async Task<Result<TypeName>> ParseTypeName(IParserContext context)
         {
             Identifier identifier;
             {
@@ -39,21 +39,21 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
         }
 
-        private Result<ITypeName> CreateSimpleType(Identifier identifier)
+        private Result<TypeName> CreateSimpleType(Identifier identifier)
         {
-            ITypeName value = new SimpleTypeName(identifier);
+            TypeName value = new SimpleTypeName(identifier);
 
             return Result.FromValue(value);
         }
 
-        private async Task<Result<ITypeName>> ParseGenericType(IParserContext context, Identifier identifier)
+        private async Task<Result<TypeName>> ParseGenericType(IParserContext context, Identifier identifier)
         {
             if (await context.Lexer.TryConsumeOpenGenericsToken() == false)
             {
                 throw new NotImplementedException();
             }
 
-            var argumentList = new List<Identifier>();
+            var parameters = new List<Identifier>();
 
             while (true)
             {
@@ -66,7 +66,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
                 var argIdentifier = Identifier.FromString(result.Token.Memory.ToString());
 
-                argumentList.Add(argIdentifier);
+                parameters.Add(argIdentifier);
 
                 if (await context.Lexer.TryConsumeListSeparatorToken() == false)
                 {
@@ -79,9 +79,9 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 throw new NotImplementedException();
             }
 
-            var typeName = new GenericTypeName(identifier, argumentList);
+            var typeName = new GenericTypeName(identifier, parameters);
 
-            return Result.FromValue<ITypeName>(typeName);
+            return Result.FromValue<TypeName>(typeName);
         }
     }
 }

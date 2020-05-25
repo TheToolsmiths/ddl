@@ -9,8 +9,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers
             this.Name = name;
         }
 
-        public abstract TypeIdentifierPathPartKind PartKind { get; }
-
         public Identifier Name { get; }
     }
 }

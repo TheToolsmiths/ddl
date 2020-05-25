@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
 {
-    public class ArrayTypeIdentifier : ITypeIdentifier
+    public class ArrayTypeIdentifier : ITypeIdentifier, IReferenceableTypeIdentifier, IGenericParameterTypeIdentifier, IModifiableTypeIdentifier
     {
         public ArrayTypeIdentifier(QualifiedTypeIdentifier typeIdentifier, IReadOnlyList<ArraySize> sizes)
         {
@@ -14,8 +15,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers
         public IReadOnlyList<ArraySize> Sizes { get; }
 
         public QualifiedTypeIdentifier TypeIdentifier { get; }
-
-        public TypeIdentifierKind Kind => TypeIdentifierKind.ArrayType;
 
         public override string ToString()
         {

@@ -5,7 +5,6 @@ using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
 using TheToolsmiths.Ddl.Parser.Models.Types;
@@ -60,8 +59,11 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
                 return resolvedType;
             }
 
-            ResolvedTypeIdentifierPath typePath = TypePathConverter.ConvertToResolvedPath(qualifiedTypeIdentifier.TypePath);
-            return new UnresolvedType(typePath);
+            var typePath = TypePathConverter.ConvertToResolvedPath(qualifiedTypeIdentifier.TypePath);
+
+            throw new NotImplementedException();
+
+            //return new UnresolvedType(typePath);
         }
 
         private bool TryResolveType(TypeIdentifierPath typePath, [MaybeNullWhen(false)] out ResolvedType resolvedType)

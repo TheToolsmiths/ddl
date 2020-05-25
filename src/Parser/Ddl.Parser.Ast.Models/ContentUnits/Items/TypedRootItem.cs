@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
     public abstract class TypedRootItem : ITypedRootItem
     {
-        protected TypedRootItem(ITypeName typeName)
+        protected TypedRootItem(TypeName typeName)
         {
             this.ItemId = ContentUnitItemId.CreateNew();
             this.TypeName = typeName;
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 
         public abstract ContentUnitItemType ItemType { get; }
 
-        public ITypeName TypeName { get; }
+        public TypeName TypeName { get; }
 
         public ContentUnitItemId ItemId { get; }
     }

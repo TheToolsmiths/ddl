@@ -26,6 +26,7 @@ import module_name13::{ sub1 as name5 };
 def struct StructWithArrayField
 {
     field1: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
+    field2: const ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
     
     // Errors
     // field1: ref std::experimental::<Foo>[][20][20, 45, 0x02],

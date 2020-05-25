@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Parser.Common;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
 using TheToolsmiths.Ddl.Parser.Models.Types;
@@ -47,11 +51,13 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
             foreach (var importPath in this.importPaths)
             {
-                if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
-                {
-                    resolvedType = new ResolvedImportPath(importPath.ImportRoot, lookupPath, this.scopeNamespace);
-                    return true;
-                }
+                throw new NotImplementedException();
+
+                //if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
+                //{
+                //    resolvedType = new ResolvedImportPath(importPath.ImportRoot, lookupPath, this.scopeNamespace);
+                //    return true;
+                //}
             }
 
             resolvedType = default;

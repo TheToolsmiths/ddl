@@ -36,5 +36,21 @@ namespace Ddl.Common
 
             return Result.FromErrorMessage(this.ErrorMessage);
         }
+
+        public Result<TResult> As<TResult>()
+            where TResult : class
+        {
+            if (this.IsSuccess)
+            {
+                if ((this.Value is TResult) == false)
+                {
+                    throw new ArgumentException();
+                }
+
+                return Result.FromValue((this.Value as TResult)!);
+            }
+
+            return Result.FromErrorMessage<TResult>(this.ErrorMessage);
+        }
     }
 }

@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Ddl.Common;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
 {
@@ -25,7 +31,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             throw new NotImplementedException();
         }
 
-        private Result CatalogContentItem(
+        private Result<IStructItem> CatalogContentItem(
             ItemResolveContext context,
             ScopeItemResolveContext scopeContext,
             IStructDefinitionItem contentItem)
@@ -41,7 +47,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             }
         }
 
-        private Result CatalogStructScope(
+        private Result<IStructItem> CatalogStructScope(
             ItemResolveContext context,
             ScopeItemResolveContext scopeContext,
             StructScope structScope)
@@ -49,14 +55,40 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             throw new NotImplementedException();
         }
 
-        private Result CatalogFieldDefinition(
+        private Result<IStructItem> CatalogFieldDefinition(
             ItemResolveContext context,
             ScopeItemResolveContext scopeContext,
-            FieldDefinition fieldDefinition)
+            FieldDefinition astField)
         {
-            var resolvedType = scopeContext.TypeResolver.ResolveType(fieldDefinition.FieldType);
+            var resolvedType = scopeContext.TypeResolver.ResolveType(astField.FieldType);
 
-            throw new NotImplementedException();
+            ValueInitialization initialization;
+            {
+                var result = scopeContext.CommonResolvers.ResolveValueInitialization(astField.Initialization);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                initialization = result.Value;
+            }
+
+            IReadOnlyList<IAttributeUse> attributes;
+            {
+                var result = scopeContext.CommonResolvers.ResolveAttributes(astField.Attributes);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var fieldDefinition = new StructField(astField.Name, resolvedType, initialization, attributes);
+
+            return Result.FromValue<Parser.Models.Structs.IStructItem>(fieldDefinition);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
     public class StructDefinition : TypedAttributableRootItem
     {
         public StructDefinition(
-            ITypeName typeName,
+            TypeName typeName,
             StructDefinitionContent content,
             IReadOnlyList<IAttributeUse> attributes) 
             : base(typeName, attributes)

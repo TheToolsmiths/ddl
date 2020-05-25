@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Types
 {
-    public class ResolvedImportPath : ResolvedType
+    public class ResolvedImportPath : ResolvedTypePart
     {
         public ResolvedImportPath(ResolvedImportRoot importRoot, TypeReferencePath lookupPath, NamespacePath scopeNamespace)
         {
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Types
             this.ScopeNamespace = scopeNamespace;
         }
 
-        public override ResolvedTypeKind ResolvedKind => ResolvedTypeKind.ResolvedImportPath;
+        public override ResolvedTypePartKind ResolvedKind => ResolvedTypePartKind.ResolvedImportPath;
 
         public ResolvedImportRoot ImportRoot { get; }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items.Content;
 
@@ -11,7 +12,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             EnumStructDefinitionResolvedContent definition)
         {
             var context = new ItemResolveContext();
-            
+
             throw new NotImplementedException();
 
             return Result.Success;

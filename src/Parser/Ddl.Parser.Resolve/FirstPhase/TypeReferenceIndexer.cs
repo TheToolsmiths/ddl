@@ -5,6 +5,7 @@ using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
+using TheToolsmiths.Ddl.Parser.Common;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase

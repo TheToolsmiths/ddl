@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
     public class EnumStructDefinition : TypedAttributableRootItem
     {
         public EnumStructDefinition(
-            ITypeName typeName,
+            TypeName typeName,
             EnumStructDefinitionContent content,
             IReadOnlyList<IAttributeUse> attributes)
         : base(typeName, attributes)

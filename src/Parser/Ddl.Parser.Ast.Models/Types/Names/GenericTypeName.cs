@@ -5,29 +5,27 @@ using TheToolsmiths.Ddl.Parser.Models.Types;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names
 {
-    public class GenericTypeName : ITypeName
+    public class GenericTypeName : TypeName
     {
-        public GenericTypeName(Identifier name, IReadOnlyList<Identifier> typeArgumentList)
+        public GenericTypeName(Identifier name, IReadOnlyList<Identifier> typeParameters)
+            : base(name)
         {
-            this.Name = name;
-            this.TypeArgumentList = typeArgumentList;
+            this.TypeParameters = typeParameters;
         }
 
-        public Identifier Name { get; }
-
-        public IReadOnlyList<Identifier> TypeArgumentList { get; }
-
-        public bool IsGeneric => false;
-
-        public TypeNameKind Kind => TypeNameKind.SimpleType;
+        public IReadOnlyList<Identifier> TypeParameters { get; }
 
         public override string ToString()
         {
             string parameterList = string.Join(
                 TypeConstants.TypeParameterSpacedSeparator,
-                this.TypeArgumentList.Select(i => i.ToString()));
+                this.TypeParameters.Select(i => i.ToString()));
 
-            return string.Concat(this.Name.ToString(), TypeConstants.TypeParameterListBegin, parameterList, TypeConstants.TypeParameterListEnd);
+            return string.Concat(
+                this.Name.ToString(),
+                TypeConstants.TypeParameterListBegin,
+                parameterList,
+                TypeConstants.TypeParameterListEnd);
         }
     }
 }

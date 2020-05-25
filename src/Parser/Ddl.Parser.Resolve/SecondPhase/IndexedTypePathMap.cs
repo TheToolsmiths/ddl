@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Parser.Common;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
 using TheToolsmiths.Ddl.Parser.Models.Types;

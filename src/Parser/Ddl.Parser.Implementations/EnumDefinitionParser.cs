@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Ddl.Common;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
+using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations
 {
@@ -16,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
     {
         public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
         {
-            ITypeName typeName;
+            TypeName typeName;
             {
                 var result = await context.Parsers.ParseTypeName();
 
@@ -115,7 +117,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 }
                 else
                 {
-                    literalValue = LiteralValue.CreateEmpty();
+                    literalValue = new DefaultLiteral();
                 }
 
                 var item = new EnumDefinitionConstantDefinition(identifier, literalValue);
