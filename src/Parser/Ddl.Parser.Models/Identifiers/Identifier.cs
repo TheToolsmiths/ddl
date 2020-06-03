@@ -57,7 +57,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Identifiers
             return string.Equals(a.Text, b.Text, StringComparison.InvariantCulture);
         }
 
-        public bool Equals(Identifier other)
+        public bool Equals(Identifier? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -72,7 +72,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Identifiers
             return string.Equals(this.Text, other.Text, StringComparison.InvariantCulture);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj))
             {

@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.Common.Resolvers
 
             foreach (var astAttribute in astAttributes)
             {
-                var result = Resolve(context, astAttribute);
+                var result = this.Resolve(context, astAttribute);
 
                 if (result.IsError)
                 {

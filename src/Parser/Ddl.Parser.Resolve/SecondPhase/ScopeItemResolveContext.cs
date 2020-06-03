@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
-
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Resolve.SecondPhase.Common.Resolvers;
-using TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {

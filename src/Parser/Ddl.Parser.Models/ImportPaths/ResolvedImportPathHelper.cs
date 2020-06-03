@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 {

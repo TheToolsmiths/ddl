@@ -1,12 +1,12 @@
 ﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.References;
 using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 {
     public class KeyedTypedAttributeUse : BaseTypedAttributeUse, IKeyedTypedAttributeUse
     {
-        public KeyedTypedAttributeUse(Identifier key, ResolvedType type, StructValueInitialization initialization)
+        public KeyedTypedAttributeUse(Identifier key, TypeReference type, StructValueInitialization initialization)
             : base(type, initialization)
         {
             this.Key = key;

@@ -44,12 +44,12 @@
 
         public const char Not = '!';
 
-        public const char Equals = '=';
-
         public const char DecimalSeparator = '.';
 
         public const char HexNumberPrefix = 'x';
 
         public const char BinaryNumberPrefix = 'b';
+
+        public const string HexChars = "ABCDEF";
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
@@ -17,6 +17,6 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
         public FirstPhaseItemTypeReference RootTypeReference { get; set; }
 
-        public TypeReferencePath RootType { get; set; }
+        public ItemTypeName RootType { get; set; }
     }
 }

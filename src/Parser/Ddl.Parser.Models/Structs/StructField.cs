@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.References;
 using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Structs
@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
     {
         public StructField(
             Identifier name,
-            ResolvedType fieldType,
+            TypeReference fieldType,
             ValueInitialization initialization,
             IReadOnlyList<IAttributeUse> attributes)
         {
@@ -22,7 +22,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
 
         public Identifier Name { get; }
 
-        public ResolvedType FieldType { get; }
+        public TypeReference FieldType { get; }
 
         public IReadOnlyList<IAttributeUse> Attributes { get; }
 

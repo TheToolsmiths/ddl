@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.Values;
-using TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase.Common.Resolvers
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Values
 {

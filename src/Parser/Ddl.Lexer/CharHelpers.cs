@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Lexer
+﻿using System;
+
+namespace TheToolsmiths.Ddl.Lexer
 {
     internal static class CharHelpers
     {
@@ -42,6 +44,7 @@
         public static bool IsValidNumberChar(in char c)
         {
             return char.IsDigit(c)
+                   || CharConstants.HexChars.Contains(c, StringComparison.Ordinal)
                    || c == CharConstants.DecimalSeparator
                    || c == CharConstants.HexNumberPrefix
                    || c == CharConstants.BinaryNumberPrefix;

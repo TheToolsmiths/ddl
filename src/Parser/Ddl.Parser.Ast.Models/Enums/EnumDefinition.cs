@@ -14,14 +14,11 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
             IReadOnlyList<IAttributeUse> attributes)
             : base(typeName, attributes)
         {
-            this.ItemId = ContentUnitItemId.CreateNew();
             this.Content = content;
         }
 
         public override ContentUnitItemType ItemType => ContentUnitItemType.EnumDeclaration;
 
         public EnumDefinitionContent Content { get; }
-        
-        public ContentUnitItemId ItemId { get; }
     }
 }

@@ -84,15 +84,12 @@ namespace TheToolsmiths.Ddl.Lexer
 
             void UpdateScopeLevel(in LexerToken token)
             {
-                switch (token.Kind)
+                this.LexerScopeLevel = token.Kind switch
                 {
-                    case LexerTokenKind.OpenScope:
-                        this.LexerScopeLevel = this.LexerScopeLevel.Increase();
-                        break;
-                    case LexerTokenKind.CloseScope:
-                        this.LexerScopeLevel = this.LexerScopeLevel.Decrease();
-                        break;
-                }
+                    LexerTokenKind.OpenScope => this.LexerScopeLevel.Increase(),
+                    LexerTokenKind.CloseScope => this.LexerScopeLevel.Decrease(),
+                    _ => this.LexerScopeLevel
+                };
             }
         }
 

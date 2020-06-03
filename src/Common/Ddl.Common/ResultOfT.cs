@@ -42,7 +42,7 @@ namespace Ddl.Common
         {
             if (this.IsSuccess)
             {
-                if ((this.Value is TResult) == false)
+                if (this.Value is TResult == false)
                 {
                     throw new ArgumentException();
                 }

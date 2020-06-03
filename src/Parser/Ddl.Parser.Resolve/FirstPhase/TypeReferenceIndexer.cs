@@ -4,9 +4,7 @@ using Ddl.Common;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
-using TheToolsmiths.Ddl.Parser.Common;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
@@ -60,19 +58,15 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
             if (item.ItemReference != null)
             {
                 var typeReference = item.ItemReference;
-
-                var fullSubItemTypeName = TypeReferencePathBuilder.PrependNamespace(typeReference.TypePath, context.NamespacePath);
-
-                var indexedType = new TypePathItemReference(fullSubItemTypeName, typeReference.ItemReference);
+                
+                var indexedType = new TypePathItemReference(typeReference.TypeName, context.NamespacePath, typeReference.ItemReference);
 
                 context.IndexedTypes.Add(indexedType);
             }
 
             foreach (var typeReference in item.SubItemReferences)
             {
-                var fullSubItemTypeName = TypeReferencePathBuilder.PrependNamespace(typeReference.TypePath, context.NamespacePath);
-
-                var indexedType = new TypePathSubItemReference(fullSubItemTypeName, typeReference.SubItemReference);
+                var indexedType = new TypePathSubItemReference(typeReference.TypeName, context.NamespacePath, typeReference.SubItemReference);
 
                 context.IndexedTypes.Add(indexedType);
             }

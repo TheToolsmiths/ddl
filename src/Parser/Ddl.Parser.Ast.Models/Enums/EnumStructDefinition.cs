@@ -20,7 +20,5 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
         public override ContentUnitItemType ItemType => ContentUnitItemType.EnumStructDeclaration;
 
         public EnumStructDefinitionContent Content { get; }
-        
-        public ContentUnitItemId ItemId { get; }
     }
 }

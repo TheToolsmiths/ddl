@@ -1,17 +1,17 @@
 ﻿using Ddl.Parser.Resolve.Models.Common.ItemReferences;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.Items
 {
     public class FirstPhaseSubItemTypeReference
     {
-        public FirstPhaseSubItemTypeReference(TypeReferencePath typePath, SubItemReference subItemReference)
+        public FirstPhaseSubItemTypeReference(SubItemTypeName typeName, SubItemReference subItemReference)
         {
             this.SubItemReference = subItemReference;
-            this.TypePath = typePath;
+            this.TypeName = typeName;
         }
 
-        public TypeReferencePath TypePath { get; }
+        public SubItemTypeName TypeName { get; }
 
         public SubItemReference SubItemReference { get; }
     }

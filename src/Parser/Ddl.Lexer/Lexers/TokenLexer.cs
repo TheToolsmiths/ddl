@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheToolsmiths.Ddl.Lexer.Lexers
 {
@@ -190,7 +191,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
         {
             var options = new OneOrTwoCharsTokenizeOptions(CharConstants.Not, LexerToken.CreateLogicalNotToken)
             {
-                { CharConstants.Equals, LexerToken.CreateInequalityToken }
+                { CharConstants.Equal, LexerToken.CreateInequalityToken }
             };
 
             HandleOneOrTwoCharsToken(ref readState, options);
@@ -198,9 +199,9 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
         private static void HandleEqualToken(ref LexerSequenceReadState readState)
         {
-            var options = new OneOrTwoCharsTokenizeOptions(CharConstants.Equals, LexerToken.CreateFieldInitializationToken)
+            var options = new OneOrTwoCharsTokenizeOptions(CharConstants.Equal, LexerToken.CreateFieldInitializationToken)
             {
-                { CharConstants.Equals, LexerToken.CreateEqualityToken }
+                { CharConstants.Equal, LexerToken.CreateEqualityToken }
             };
 
             HandleOneOrTwoCharsToken(ref readState, options);
@@ -289,7 +290,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
             public CharTokenOptions FirstChar { get; }
 
-            public bool TryGetTokenOptionsFor(in char secondChar, out CharTokenOptions tokenOptions)
+            public bool TryGetTokenOptionsFor(in char secondChar, [MaybeNullWhen(false)] out CharTokenOptions tokenOptions)
             {
                 return this.map.TryGetValue(secondChar, out tokenOptions);
             }

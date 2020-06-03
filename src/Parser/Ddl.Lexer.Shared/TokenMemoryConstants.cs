@@ -24,9 +24,9 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public static readonly ReadOnlyMemory<char> CloseArrayDimension = new[] { CharConstants.CloseAttribute };
 
-        public static readonly ReadOnlyMemory<char> Equality = new[] { CharConstants.Equals, CharConstants.Equals };
+        public static readonly ReadOnlyMemory<char> Equality = new[] { CharConstants.Equal, CharConstants.Equal };
 
-        public static readonly ReadOnlyMemory<char> Inequality = new[] { CharConstants.Not, CharConstants.Equals };
+        public static readonly ReadOnlyMemory<char> Inequality = new[] { CharConstants.Not, CharConstants.Equal };
 
         public static readonly ReadOnlyMemory<char> BinaryAnd = new[] { CharConstants.And };
 
@@ -48,7 +48,7 @@ namespace TheToolsmiths.Ddl.Lexer
 
         public static readonly ReadOnlyMemory<char> LogicalNot = new[] { CharConstants.Not };
 
-        public static readonly ReadOnlyMemory<char> FieldInitialization = new[] { CharConstants.Equals };
+        public static readonly ReadOnlyMemory<char> FieldInitialization = new[] { CharConstants.Equal };
 
         public static readonly ReadOnlyMemory<char> Asterisk = new[] { CharConstants.Asterisk };
 

@@ -6,7 +6,9 @@ using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Models.Structs;
+using TheToolsmiths.Ddl.Parser.Models.Types.References;
 using TheToolsmiths.Ddl.Parser.Models.Values;
+using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
 {
@@ -36,15 +38,12 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             ScopeItemResolveContext scopeContext,
             IStructDefinitionItem contentItem)
         {
-            switch (contentItem)
+            return contentItem switch
             {
-                case FieldDefinition fieldDefinition:
-                    return this.CatalogFieldDefinition(context, scopeContext, fieldDefinition);
-                case StructScope structScope:
-                    return this.CatalogStructScope(context, scopeContext, structScope);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(contentItem));
-            }
+                FieldDefinition fieldDefinition => this.CatalogFieldDefinition(context, scopeContext, fieldDefinition),
+                StructScope structScope => this.CatalogStructScope(context, scopeContext, structScope),
+                _ => throw new ArgumentOutOfRangeException(nameof(contentItem))
+            };
         }
 
         private Result<IStructItem> CatalogStructScope(
@@ -60,7 +59,9 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             ScopeItemResolveContext scopeContext,
             FieldDefinition astField)
         {
-            var resolvedType = scopeContext.TypeResolver.ResolveType(astField.FieldType);
+            TypeReference resolvedType = TypeReferenceCreator.CreateFromTypeIdentifier(astField.FieldType);
+
+            resolvedType = scopeContext.TypeResolver.ResolveType(resolvedType.TypePath);
 
             ValueInitialization initialization;
             {
@@ -88,7 +89,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
 
             var fieldDefinition = new StructField(astField.Name, resolvedType, initialization, attributes);
 
-            return Result.FromValue<Parser.Models.Structs.IStructItem>(fieldDefinition);
+            return Result.FromValue<IStructItem>(fieldDefinition);
         }
     }
 }

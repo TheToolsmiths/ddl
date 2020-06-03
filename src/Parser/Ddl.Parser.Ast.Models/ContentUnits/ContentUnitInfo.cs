@@ -21,8 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits
         public string RelativePath { get; }
 
         public FileInfo? File { get; }
-
-
+        
         public override string ToString()
         {
             return this.Name;

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Arrays
@@ -11,5 +13,10 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Arrays
         }
 
         public IReadOnlyList<NumberLiteral> Dimensions { get; }
+
+        public override string ToString()
+        {
+            return $"[{string.Join(", ", this.Dimensions.Select(nl => nl.Text))}]";
+        }
     }
 }

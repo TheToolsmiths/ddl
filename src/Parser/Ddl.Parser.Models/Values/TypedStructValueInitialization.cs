@@ -1,16 +1,16 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types;
+﻿using TheToolsmiths.Ddl.Parser.Models.Types.References;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Values
 {
     public class TypedStructValueInitialization
     {
-        public TypedStructValueInitialization(ResolvedType type, StructValueInitialization initialization)
+        public TypedStructValueInitialization(TypeReference type, StructValueInitialization initialization)
         {
             this.Type = type;
             this.Initialization = initialization;
         }
 
-        public ResolvedType Type { get; }
+        public TypeReference Type { get; }
 
         public StructValueInitialization Initialization { get; }
     }

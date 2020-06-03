@@ -1,11 +1,12 @@
 ﻿using System;
+
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.Common.ItemReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items.Content;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
-using TheToolsmiths.Ddl.Parser.Common;
+using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
@@ -40,13 +41,13 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
         private static void CatalogEnumStructType(ItemResolveContext context, EnumStructDefinition definition)
         {
-            var typePath = TypeReferencePathBuilder.FromTypeName(definition.TypeName);
+            var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
             var itemReference = new ItemReference(definition.ItemId);
 
-            var rootType = new FirstPhaseItemTypeReference(typePath, itemReference);
+            var rootType = new FirstPhaseItemTypeReference(itemTypeName, itemReference);
 
-            context.RootType = typePath;
+            context.RootType = itemTypeName;
             context.RootTypeReference = rootType;
         }
 
@@ -75,11 +76,11 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
             EnumStructDefinition definition,
             EnumStructVariantDefinition variant)
         {
-            var enumVariantTypePath = TypeReferencePathBuilder.AppendIdentifier(context.RootType, variant.Name);
+            var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(context.RootType, variant.Name);
 
             var subItemReference = new SubItemReference(definition.ItemId, variant.ItemId);
 
-            var entry = new FirstPhaseSubItemTypeReference(enumVariantTypePath, subItemReference);
+            var entry = new FirstPhaseSubItemTypeReference(subItemTypeName, subItemReference);
 
             context.SubItemTypesReferences.Add(entry);
         }

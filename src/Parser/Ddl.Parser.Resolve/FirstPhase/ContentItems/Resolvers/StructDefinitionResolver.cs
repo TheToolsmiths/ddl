@@ -2,10 +2,10 @@
 using Ddl.Parser.Resolve.Models.Common.ItemReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items.Content;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths;
-using TheToolsmiths.Ddl.Parser.Common;
+using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 {
@@ -39,13 +39,13 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
         private static void CatalogStructType(ItemResolveContext context, ITypedRootItem definition)
         {
-            var typePath = TypeReferencePathBuilder.FromTypeName(definition.TypeName);
+            var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
             var itemReference = new ItemReference(definition.ItemId);
 
-            var rootType = new FirstPhaseItemTypeReference(typePath, itemReference);
+            var rootType = new FirstPhaseItemTypeReference(itemTypeName, itemReference);
 
-            context.RootType = typePath;
+            context.RootType = itemTypeName;
             context.RootTypeReference = rootType;
         }
     }

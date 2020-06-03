@@ -4,7 +4,7 @@ using System.Linq;
 using Ddl.Common;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces
 {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Parser.Common;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Parser.Models.TypePaths.References;
-using TheToolsmiths.Ddl.Parser.Models.Types;
+using TheToolsmiths.Ddl.Parser.Models.Types.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {
@@ -28,21 +28,23 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return new IndexedTypePathMap(scopeNamespace, indexedTypes);
         }
 
-        public bool TryResolveType(TypeIdentifierPath lookupPath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        public bool TryResolveType(TypeIdentifierPath lookupPath, [MaybeNullWhen(false)] out TypeReference resolvedType)
         {
             var referenceLookupPath = TypeReferencePathBuilder.CreateFromIdentifierPath(lookupPath);
 
             return this.TryResolveType(referenceLookupPath, out resolvedType);
         }
 
-        public bool TryResolveType(TypeReferencePath lookupPath, [MaybeNullWhen(false)] out ResolvedType resolvedType)
+        public bool TryResolveType(TypeReferencePath lookupPath, [MaybeNullWhen(false)] out TypeReference resolvedType)
         {
             foreach (var entityReference in this.indexedTypes)
             {
-                if (this.TryMatch(lookupPath, entityReference.TypeNameReference))
-                {
-                    throw new NotImplementedException();
-                }
+                throw new NotImplementedException();
+
+                //if (this.TryMatch(lookupPath, entityReference.TypeNameReference))
+                //{
+                //    throw new NotImplementedException();
+                //}
             }
 
             resolvedType = default;

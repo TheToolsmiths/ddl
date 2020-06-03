@@ -46,12 +46,12 @@ namespace Ddl.Common
         public static Result<T> FromErrorMessage<T>(string errorMessage)
             where T : class
         {
-            return new Result<T>(errorMessage: errorMessage);
+            return new Result<T>(errorMessage);
         }
 
         public static Result FromErrorMessage(string errorMessage)
         {
-            return new Result(errorMessage: errorMessage);
+            return new Result(errorMessage);
         }
     }
 }
