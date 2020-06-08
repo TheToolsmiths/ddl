@@ -1,11 +1,10 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Values;
+﻿using TheToolsmiths.Ddl.Parser.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 {
     public class KeyedStructInitializationAttributeUse : BaseStructInitializationAttributeUse, IKeyedStructInitializationAttributeUse
     {
-        public KeyedStructInitializationAttributeUse(Identifier key, StructValueInitialization initialization)
+        public KeyedStructInitializationAttributeUse(string key, StructValueInitialization initialization)
             : base(initialization)
         {
             this.Key = key;
@@ -17,6 +16,6 @@ namespace TheToolsmiths.Ddl.Parser.Models.AttributeUsage
 
         public override bool IsTyped => false;
 
-        public Identifier Key { get; }
+        public string Key { get; }
     }
 }

@@ -1,13 +1,18 @@
-﻿using Ddl.Parser.Resolve.Models.Common.ItemReferences;
-
+﻿using TheToolsmiths.Ddl.Parser.Models.References.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.Names;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 
-namespace Ddl.Parser.Resolve.Models.Common.TypeReferences
+namespace TheToolsmiths.Ddl.Parser.Models.References.TypeReferences
 {
-    public class TypePathItemReference : TypePathEntityReference
+    public class ItemTypePathReference : EntityTypeReference
     {
-        public TypePathItemReference(ItemTypeName itemTypeName, NamespacePath namespacePath, ItemReference itemReference)
+        public ItemTypePathReference(
+            ItemTypeName itemTypeName,
+            NamespacePath namespacePath,
+            ItemReference itemReference,
+            TypeIdentifierPath typeIdentifier)
+            : base(typeIdentifier)
         {
             this.ItemTypeName = itemTypeName;
             this.NamespacePath = namespacePath;
@@ -19,6 +24,8 @@ namespace Ddl.Parser.Resolve.Models.Common.TypeReferences
         public NamespacePath NamespacePath { get; }
 
         public ItemReference ItemReference { get; }
+
+        public override EntityReference EntityReference => this.ItemReference;
 
         public override string ToString()
         {

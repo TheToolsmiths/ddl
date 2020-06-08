@@ -1,10 +1,8 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-
-namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
+﻿namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 {
     public class ResolvedImportPathItem : ResolvedImportItem
     {
-        public ResolvedImportPathItem(ResolvedImportItem childItem, Identifier pathIdentifier)
+        public ResolvedImportPathItem(ResolvedImportItem childItem, string pathIdentifier)
         {
             this.ChildItem = childItem;
             this.PathIdentifier = pathIdentifier;
@@ -12,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 
         public ResolvedImportItem ChildItem { get; }
 
-        public Identifier PathIdentifier { get; }
+        public string PathIdentifier { get; }
 
         public override ResolvedImportedItemKind ItemKind => ResolvedImportedItemKind.PathItem;
 

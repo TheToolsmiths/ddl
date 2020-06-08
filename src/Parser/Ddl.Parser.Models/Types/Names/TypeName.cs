@@ -8,5 +8,7 @@
         }
 
         public TypeNameIdentifier ItemNameIdentifier { get; }
+
+        public abstract override string ToString();
     }
 }

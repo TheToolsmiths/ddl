@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Imports;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.ImportPaths;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
@@ -55,8 +56,8 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
                 var resolvedRoot = isRoot
                     ? ResolvedImportRoot.CreateRooted(path)
                     : ResolvedImportRoot.CreateNonRooted(path);
-                
-                Identifier aliasIdentifier = ResolvedImportRootHelper.GetAliasIdentifier(resolvedRoot);
+
+                string aliasIdentifier = ResolvedImportRootHelper.GetAliasIdentifier(resolvedRoot);
                 var resolvedItem = new FirstPhaseResolvedImportPath(resolvedRoot, aliasIdentifier);
 
                 importPaths.Add(resolvedItem);
@@ -98,7 +99,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
 
             foreach (var path in childPaths)
             {
-                var resolvedItem = new ResolvedImportPathItem(path, importItem.PathIdentifier);
+                var resolvedItem = new ResolvedImportPathItem(path, importItem.PathIdentifier.Text);
 
                 importPaths.Add(resolvedItem);
             }
@@ -110,7 +111,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
         {
             var importPaths = new List<ResolvedImportItem>();
 
-            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier, importItem.AliasIdentifier);
+            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier.Text, importItem.AliasIdentifier.Text);
 
             importPaths.Add(resolvedItem);
 
@@ -121,7 +122,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase.ContentItems.Resolvers
         {
             var importPaths = new List<ResolvedImportItem>();
 
-            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier, importItem.Identifier);
+            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier.Text, importItem.Identifier.Text);
 
             importPaths.Add(resolvedItem);
 

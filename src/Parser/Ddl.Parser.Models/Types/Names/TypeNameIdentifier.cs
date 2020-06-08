@@ -10,5 +10,7 @@
         public abstract TypeNameIdentifierKind IdentifierKind { get; }
 
         public string Name { get; }
+
+        public abstract override string ToString();
     }
 }

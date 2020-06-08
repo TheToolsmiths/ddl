@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
+using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Resolve.SecondPhase.Common.Resolvers;
 
@@ -30,7 +29,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
         public static ScopeItemResolveContext CreateForRoot(
             NamespacePath scopeNamespace,
-            IReadOnlyList<TypePathEntityReference> indexedTypes,
+            IReadOnlyList<EntityTypeReference> indexedTypes,
             IServiceProvider serviceProvider)
         {
             var typeResolver = ScopeTypeResolver.CreateFromIndexedTypes(scopeNamespace, indexedTypes);

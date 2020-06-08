@@ -9,5 +9,10 @@
         }
 
         public TypeNameIdentifier SubItemNameIdentifier { get; }
+
+        public override string ToString()
+        {
+            return $"{this.ItemNameIdentifier}::{this.SubItemNameIdentifier}";
+        }
     }
 }

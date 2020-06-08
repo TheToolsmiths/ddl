@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheToolsmiths.Ddl.Parser.Models.Identifiers
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers
 {
     public class Identifier : IEquatable<Identifier>
     {

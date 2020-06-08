@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Types.References;
 using TheToolsmiths.Ddl.Parser.Models.Values;
 
@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
     public class StructField : IStructItem
     {
         public StructField(
-            Identifier name,
+            string name,
             TypeReference fieldType,
             ValueInitialization initialization,
             IReadOnlyList<IAttributeUse> attributes)
@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Structs
             this.Name = name;
         }
 
-        public Identifier Name { get; }
+        public string Name { get; }
 
         public TypeReference FieldType { get; }
 

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Ddl.Common;
-using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase.Items;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
+using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
 {
     public class TypeReferenceIndexer
     {
-        public Result<IReadOnlyList<TypePathEntityReference>> IndexResolvedScopeTypes(
+        public Result<IReadOnlyList<EntityTypeReference>> IndexResolvedScopeTypes(
             NamespacePath namespacePath,
             FirstPhaseResolvedScope rootScope)
         {
@@ -25,7 +28,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 }
             }
 
-            return Result.FromValue<IReadOnlyList<TypePathEntityReference>>(context.IndexedTypes);
+            return Result.FromValue<IReadOnlyList<EntityTypeReference>>(context.IndexedTypes);
         }
 
         private Result IndexScopeTypes(ContentUnitTypeIndexingContext context, FirstPhaseResolvedScope scope)
@@ -57,16 +60,28 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
         {
             if (item.ItemReference != null)
             {
-                var typeReference = item.ItemReference;
-                
-                var indexedType = new TypePathItemReference(typeReference.TypeName, context.NamespacePath, typeReference.ItemReference);
+                var itemReference = item.ItemReference;
+
+                var typeIdentifier = ResolveTypeIdentifierPathBuilder.Create(context.NamespacePath, itemReference.TypeName);
+
+                var indexedType = new ItemTypePathReference(
+                    itemReference.TypeName,
+                    context.NamespacePath,
+                    itemReference.ItemReference,
+                    typeIdentifier);
 
                 context.IndexedTypes.Add(indexedType);
             }
 
-            foreach (var typeReference in item.SubItemReferences)
+            foreach (var subItemReference in item.SubItemReferences)
             {
-                var indexedType = new TypePathSubItemReference(typeReference.TypeName, context.NamespacePath, typeReference.SubItemReference);
+                var typeIdentifier = ResolveTypeIdentifierPathBuilder.Create(context.NamespacePath, subItemReference.TypeName);
+
+                var indexedType = new SubItemTypePathReference(
+                    subItemReference.TypeName,
+                    context.NamespacePath,
+                    subItemReference.SubItemReference,
+                    typeIdentifier);
 
                 context.IndexedTypes.Add(indexedType);
             }

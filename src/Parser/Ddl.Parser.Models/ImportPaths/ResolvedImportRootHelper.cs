@@ -1,15 +1,14 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 {
     public static class ResolvedImportRootHelper
     {
-        public static Identifier GetAliasIdentifier(ResolvedImportRoot resolvedRoot)
+        public static string GetAliasIdentifier(ResolvedImportRoot resolvedRoot)
         {
             return GetItemAlias(resolvedRoot.ChildItem);
 
-            static Identifier GetItemAlias(ResolvedImportItem importItem)
+            static string GetItemAlias(ResolvedImportItem importItem)
             {
                 return importItem switch
                 {

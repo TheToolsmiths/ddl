@@ -1,4 +1,4 @@
-﻿using Ddl.Parser.Resolve.Models.Common.ItemReferences;
+﻿using TheToolsmiths.Ddl.Parser.Models.References.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 
 namespace Ddl.Parser.Resolve.Models.FirstPhase.Items

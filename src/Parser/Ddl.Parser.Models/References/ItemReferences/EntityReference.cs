@@ -1,4 +1,4 @@
-﻿namespace Ddl.Parser.Resolve.Models.Common.ItemReferences
+﻿namespace TheToolsmiths.Ddl.Parser.Models.References.ItemReferences
 {
     public abstract class EntityReference
     {

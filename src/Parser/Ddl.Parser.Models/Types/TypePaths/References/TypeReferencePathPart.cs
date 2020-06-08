@@ -1,16 +1,14 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-
-namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References
+﻿namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References
 {
     public abstract class TypeReferencePathPart
     {
-        protected TypeReferencePathPart(Identifier name)
+        protected TypeReferencePathPart(string name)
         {
             this.Name = name;
         }
 
         public abstract TypeReferencePathPartKind PartKind { get; }
 
-        public Identifier Name { get; }
+        public string Name { get; }
     }
 }

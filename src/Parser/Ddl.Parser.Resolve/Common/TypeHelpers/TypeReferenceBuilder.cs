@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Parser.Models.Types.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.Resolved;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
@@ -11,28 +12,35 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
         public TypeReferenceBuilder()
         {
             this.ResolvedKind = ResolvedTypeKind.Unresolved;
-            this.Locality = LocalityInformation.Local;
+            this.Locality = TypeLocalityInformation.Local;
+            this.Storage = new SingleItemTypeStorage();
+
+            this.GenericParameterTypes = new List<TypeReference>();
         }
 
-        public ResolveState? ResolveState { get; set; }
+        public List<TypeReference> GenericParameterTypes { get; }
 
         public ResolvedTypeKind ResolvedKind { get; set; }
 
-        public LocalityInformation Locality { get; set; }
+        public TypeLocalityInformation Locality { get; set; }
 
-        public TypeStorage? Storage { get; set; }
+        public TypeStorage Storage { get; set; }
 
         public TypeReferencePath? TypePath { get; set; }
 
         public bool IsConstantModifier { get; set; }
+
+        public IReadOnlyList<TypeReference>? BuiltReferences { get; set; }
 
         public TypeReference Build()
         {
             var typePath = this.TypePath ?? throw new ArgumentException();
             var storage = this.Storage ?? throw new ArgumentException();
             var locality = this.Locality ?? throw new ArgumentException();
-            var modifiers = new TypeModifiers();
-            var resolveState = this.ResolveState ?? throw new ArgumentException();
+            var builtReferences = this.BuiltReferences ?? throw new ArgumentException();
+            var modifiers = this.BuildTypeModifiers();
+            
+            var resolveState = new ResolveState(builtReferences);
 
             return new TypeReference(
                 typePath,
@@ -40,22 +48,33 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
                 locality,
                 modifiers,
                 this.ResolvedKind,
-                resolveState);
+                resolveState,
+                TypeResolution.Unresolved);
+        }
+
+        private TypeModifiers BuildTypeModifiers()
+        {
+            if (this.IsConstantModifier)
+            {
+                return new TypeModifiers(isConstant: true);
+            }
+
+            return TypeModifiers.None;
         }
 
         public void SetOwnsReference()
         {
-            this.Locality = LocalityInformation.OwnsReference;
+            this.Locality = TypeLocalityInformation.OwnsReference;
         }
 
         public void SetHandleReference()
         {
-            this.Locality = LocalityInformation.HandleReference;
+            this.Locality = TypeLocalityInformation.HandleReference;
         }
 
         public void SetRefReference()
         {
-            this.Locality = LocalityInformation.RefReference;
+            this.Locality = TypeLocalityInformation.RefReference;
         }
 
         public void SetArrayStorage(IReadOnlyList<ArraySize> sizes)

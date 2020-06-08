@@ -1,5 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 {
+    // TODO: Remove Resolved prefix
     public class ResolvedImportRoot
     {
         private ResolvedImportRoot(ResolvedImportItem childItem, bool isRooted)

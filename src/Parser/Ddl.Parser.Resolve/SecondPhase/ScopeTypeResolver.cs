@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
-using Ddl.Parser.Resolve.Models.Common.TypeReferences;
+using Ddl.Common;
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
 
+using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.References;
+using TheToolsmiths.Ddl.Parser.Models.Types.Resolved;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
@@ -28,6 +31,13 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 
         public IReadOnlyList<IndexedImportPathMap> ImportLayers { get; }
 
+        internal static ScopeTypeResolver CreateFromIndexedTypes(
+            NamespacePath scopeNamespace,
+            IReadOnlyList<EntityTypeReference> indexedTypes)
+        {
+            return new ScopeTypeResolver(IndexedTypePathMap.FromIndexedTypes(scopeNamespace, indexedTypes));
+        }
+
         internal ScopeTypeResolver CreateScopeWithImportPathLayer(
             NamespacePath scopeNamespace,
             IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
@@ -42,45 +52,60 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return new ScopeTypeResolver(this.IndexedTypes, layers);
         }
 
-        public static ScopeTypeResolver CreateFromIndexedTypes(
-            NamespacePath scopeNamespace,
-            IReadOnlyList<TypePathEntityReference> indexedTypes)
+        public Result<TypeReference> ResolveTypeReference(TypeReference typeReference)
         {
-            return new ScopeTypeResolver(IndexedTypePathMap.FromIndexedTypes(scopeNamespace, indexedTypes));
-        }
+            var builtReferences = typeReference.ResolveState.BuiltReferences.ToArray();
 
-        public TypeReference ResolveType(TypeReferencePath typePath)
-        {
-            if (this.TryResolveFromIndexedTypes(typePath, out var typeReference))
+            for (int i = 0; i < builtReferences.Length; i++)
             {
-                return typeReference;
+                TypeReference builtReference = builtReferences[i];
+
+                TypeResolution typeResolution = this.ResolveType(builtReference.TypePath);
+
+                var updatedReference = builtReference.WithTypeResolution(typeResolution);
+
+                builtReferences[i] = updatedReference;
             }
 
-            if (this.TryResolveFromImportTypes(typePath, out typeReference))
-            {
-                return typeReference;
-            }
+            var resolvedKind = ResolvedTypeKindHelper.GetResolvedKind(builtReferences);
 
-            throw new NotImplementedException();
+            var resolvedReference = builtReferences.First().WithResolvedKind(resolvedKind);
+
+            return Result.FromValue(resolvedReference);
         }
 
-        private bool TryResolveFromImportTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out TypeReference typeReference)
+        private TypeResolution ResolveType(TypeReferencePath typePath)
+        {
+            if (this.TryResolveFromIndexedTypes(typePath, out var typeResolution))
+            {
+                return typeResolution;
+            }
+
+            if (this.TryResolveFromImportTypes(typePath, out typeResolution))
+            {
+                return typeResolution;
+            }
+
+            return TypeResolution.Unresolved;
+        }
+
+        private bool TryResolveFromImportTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out TypeResolution typeResolution)
         {
             foreach (var importTypeMap in this.ImportLayers)
             {
-                if (importTypeMap.TryResolveType(typePath, out typeReference))
+                if (importTypeMap.TryResolveType(typePath, out typeResolution))
                 {
                     return true;
                 }
             }
 
-            typeReference = default;
+            typeResolution = default;
             return false;
         }
 
-        private bool TryResolveFromIndexedTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out TypeReference typeReference)
+        private bool TryResolveFromIndexedTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out TypeResolution typeResolution)
         {
-            return this.IndexedTypes.TryResolveType(typePath, out typeReference);
+            return this.IndexedTypes.TryResolveType(typePath, out typeResolution);
         }
     }
 }

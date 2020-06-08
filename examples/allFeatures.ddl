@@ -25,9 +25,11 @@ import module_name13::{ sub1 as name5 };
 
 def struct StructWithArrayField
 {
-    field2: const ref std::experimental::TestFieldType<std::Foo[]>[][20][20, 45, 0b101],
+    field4: alias1,
+    field4: foo::foo_type<int>,
+    field3: GenericStructWithSimpleTypeParameter<string>,
+    field2: const ref std::experimental::TestFieldType<Result<int[], std::Error<string>>,std::Foo[]>[][20][20, 45, 0b101],
     field1: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
-    
     // Errors
     // field1: ref std::experimental::<Foo>[][20][20, 45, 0x02],
     // field2: ::std::experimental::[][20][20, 45, 0x02],
@@ -170,6 +172,7 @@ def struct StructWithMultipleFields
 **********************/
 def struct GenericStructWithSimpleTypeParameter<TString>
 {
+    field1: TString
 }
 
 def struct GenericStructWithMultipleTypeParameter<TString, TFoo, TBar>

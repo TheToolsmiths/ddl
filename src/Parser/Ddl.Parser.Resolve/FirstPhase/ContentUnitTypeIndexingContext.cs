@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Ddl.Parser.Resolve.Models.Common.TypeReferences;
+using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.Resolve.FirstPhase
@@ -10,11 +10,11 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
         {
             this.NamespacePath = namespacePath;
 
-            this.IndexedTypes = new List<TypePathEntityReference>();
+            this.IndexedTypes = new List<EntityTypeReference>();
         }
 
         public NamespacePath NamespacePath { get; }
 
-        public List<TypePathEntityReference> IndexedTypes { get; }
+        public List<EntityTypeReference> IndexedTypes { get; }
     }
 }

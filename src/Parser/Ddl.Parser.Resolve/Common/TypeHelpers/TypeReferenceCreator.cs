@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Ddl.Common;
 
@@ -14,35 +15,8 @@ using FixedArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.FixedArraySize
 
 namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
 {
-    public static class TypeReferenceCreator
+    public static partial class TypeReferenceCreator
     {
-        private class TypeIdentifierBuildContext
-        {
-            private readonly List<TypeIdentifierBuildContext> typesToResolve;
-
-            public TypeIdentifierBuildContext(
-                List<TypeIdentifierBuildContext> typesToResolve,
-                ITypeIdentifier typeIdentifier)
-            {
-                this.TypeIdentifier = typeIdentifier;
-                this.Builder = new TypeReferenceBuilder();
-                this.typesToResolve = typesToResolve;
-            }
-
-            public ITypeIdentifier TypeIdentifier { get; }
-
-            public TypeReferenceBuilder Builder { get; }
-
-            public int EnqueueTypeIdentifier(IGenericParameterTypeIdentifier typeIdentifier)
-            {
-                var context = new TypeIdentifierBuildContext(this.typesToResolve, typeIdentifier);
-
-                this.typesToResolve.Add(context);
-
-                return this.typesToResolve.Count - 1;
-            }
-        }
-
         public static TypeReference CreateFromTypeIdentifier(ITypeIdentifier typeIdentifier)
         {
             var typesToResolve = new List<TypeIdentifierBuildContext>();
@@ -56,11 +30,30 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
                 var type = context.TypeIdentifier;
 
                 BuildTypeIdentifier(context, type);
-
-                var foo = context.Builder.Build();
             }
 
-            throw new NotImplementedException();
+            var builtReferences = new TypeReference[typesToResolve.Count];
+
+            for (int i = typesToResolve.Count - 1; i >= 0; i--)
+            {
+                var context = typesToResolve[i];
+
+                context.Builder.BuiltReferences = builtReferences;
+
+                foreach (int typesIndex in context.UsedTypesIndices)
+                {
+                    if (typesIndex <= i)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
+                    context.Builder.GenericParameterTypes.Add(builtReferences[i]);
+                }
+
+                builtReferences[i] = typesToResolve[i].Builder.Build();
+            }
+
+            return builtReferences.First();
         }
 
         private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, ITypeIdentifier typeIdentifier)
@@ -84,7 +77,9 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
             }
         }
 
-        private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, ReferenceTypeIdentifier typeIdentifier)
+        private static void BuildTypeIdentifier(
+            TypeIdentifierBuildContext context,
+            ReferenceTypeIdentifier typeIdentifier)
         {
             switch (typeIdentifier.ReferenceKind)
             {
@@ -104,7 +99,9 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
             BuildTypeIdentifier(context, typeIdentifier.TypeIdentifier);
         }
 
-        private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, QualifiedTypeIdentifier typeIdentifier)
+        private static void BuildTypeIdentifier(
+            TypeIdentifierBuildContext context,
+            QualifiedTypeIdentifier typeIdentifier)
         {
             var referencePath = BuildTypeIdentifierPath(typeIdentifier.TypePath);
 
@@ -139,12 +136,14 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
                         typesIndices.Add(typeIndex);
                     }
 
-                    return new GenericReferencePathPart(pathPart.Name, pathPart.GenericParameters.Count, typesIndices);
+                    context.SetUsedTypeIndices(typesIndices);
+
+                    return new GenericReferencePathPart(pathPart.Name.Text, pathPart.GenericParameters.Count, typesIndices);
                 }
 
                 TypeReferencePathPart CreateSimplePathPart(SimpleIdentifierPathPart pathPart)
                 {
-                    return new SimpleReferencePathPart(pathPart.Name);
+                    return new SimpleReferencePathPart(pathPart.Name.Text);
                 }
             }
         }
@@ -196,7 +195,9 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
             }
         }
 
-        private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, ConstantTypeIdentifier typeIdentifier)
+        private static void BuildTypeIdentifier(
+            TypeIdentifierBuildContext context,
+            ConstantTypeIdentifier typeIdentifier)
         {
             context.Builder.SetConstantModifier();
 

@@ -59,9 +59,16 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
             ScopeItemResolveContext scopeContext,
             FieldDefinition astField)
         {
-            TypeReference resolvedType = TypeReferenceCreator.CreateFromTypeIdentifier(astField.FieldType);
+            TypeReference typeReference = TypeReferenceCreator.CreateFromTypeIdentifier(astField.FieldType);
 
-            resolvedType = scopeContext.TypeResolver.ResolveType(resolvedType.TypePath);
+            {
+                var result = scopeContext.TypeResolver.ResolveTypeReference(typeReference);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+            }
 
             ValueInitialization initialization;
             {
@@ -87,7 +94,7 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase.ContentItems.Resolvers
                 attributes = result.Value;
             }
 
-            var fieldDefinition = new StructField(astField.Name, resolvedType, initialization, attributes);
+            var fieldDefinition = new StructField(astField.Name.Text, typeReference, initialization, attributes);
 
             return Result.FromValue<IStructItem>(fieldDefinition);
         }

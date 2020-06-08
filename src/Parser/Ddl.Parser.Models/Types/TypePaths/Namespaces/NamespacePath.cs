@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces
 {
     public class NamespacePath
     {
-        private NamespacePath(IEnumerable<Identifier> identifiers, bool isRooted)
+        private NamespacePath(IEnumerable<string> identifiers, bool isRooted)
         {
             this.IsRooted = isRooted;
             this.Identifiers = identifiers.ToList();
@@ -16,32 +15,34 @@ namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces
         private NamespacePath(bool isRooted)
         {
             this.IsRooted = isRooted;
-            this.Identifiers = Array.Empty<Identifier>();
+            this.Identifiers = Array.Empty<string>();
         }
 
         public bool IsRooted { get; }
 
-        public IReadOnlyList<Identifier> Identifiers { get; }
+        public IReadOnlyList<string> Identifiers { get; }
 
         public bool IsEmpty => this.Identifiers.Count == 0;
 
-        public static NamespacePath Empty { get; } = new NamespacePath(false);
+        public static NamespacePath Empty { get; } = new NamespacePath(isRooted: false);
 
-        public static NamespacePath EmptyRoot { get; } = new NamespacePath(true);
+        public static NamespacePath EmptyRoot { get; } = new NamespacePath(isRooted: true);
 
         public override string ToString()
         {
-            return string.Join(TypeConstants.TypeSeparator, this.Identifiers.Select(i => i.ToString()));
+            return $"{(this.IsRooted ? TypeConstants.TypeSeparator : string.Empty)}" + string.Join(
+                TypeConstants.TypeSeparator,
+                this.Identifiers.Select(i => i.ToString()));
         }
 
-        public static NamespacePath CreateFromIdentifiers(IEnumerable<Identifier> identifiers)
+        public static NamespacePath CreateFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new NamespacePath(identifiers, false);
+            return new NamespacePath(identifiers, isRooted: false);
         }
 
-        public static NamespacePath CreateRootedFromIdentifiers(IEnumerable<Identifier> identifiers)
+        public static NamespacePath CreateRootedFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new NamespacePath(identifiers, true);
+            return new NamespacePath(identifiers, isRooted: true);
         }
 
         public static NamespacePath Prepend(NamespacePath namespacePath, NamespacePath prefix)
@@ -56,7 +57,7 @@ namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces
                 return namespacePath;
             }
 
-            var identifiers = new List<Identifier>();
+            var identifiers = new List<string>();
 
             identifiers.AddRange(prefix.Identifiers);
             identifiers.AddRange(namespacePath.Identifiers);

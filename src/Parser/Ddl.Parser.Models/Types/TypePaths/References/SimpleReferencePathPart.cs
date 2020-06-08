@@ -1,10 +1,8 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-
-namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References
+﻿namespace TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References
 {
     public class SimpleReferencePathPart : TypeReferencePathPart
     {
-        public SimpleReferencePathPart(Identifier name)
+        public SimpleReferencePathPart(string name)
             : base(name)
         {
         }

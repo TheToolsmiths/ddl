@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
 {
-    public static class TypeReferencePathBuilder
+    public static class ResolveTypeReferencePathBuilder
     {
         // TODO: Delete
         //public static TypeReferencePath FromTypeName(TypeName typeName)
@@ -49,7 +49,7 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
 
         public static TypeReferencePath AppendIdentifier(
             TypeReferencePath referencePath,
-            Identifier identifier)
+            string identifier)
         {
             var pathParts = referencePath.PathParts.ToList();
 
@@ -60,23 +60,23 @@ namespace TheToolsmiths.Ddl.Resolve.Common.TypeHelpers
                 : TypeReferencePath.CreateFromParts(pathParts);
         }
 
-        public static TypeReferencePath CreateFromIdentifierPath(TypeIdentifierPath lookupPath)
-        {
-            var pathParts = lookupPath.PathParts.Select(CreateFromIdentifierPart).ToList();
+        //public static TypeReferencePath CreateFromIdentifierPath(TypeIdentifierPath lookupPath)
+        //{
+        //    var pathParts = lookupPath.PathParts.Select(CreateFromIdentifierPart).ToList();
 
-            return new TypeReferencePath(lookupPath.IsRooted, pathParts);
+        //    return new TypeReferencePath(lookupPath.IsRooted, pathParts);
 
-            static TypeReferencePathPart CreateFromIdentifierPart(TypeIdentifierPathPart identifierPart)
-            {
-                return identifierPart switch
-                {
-                    GenericIdentifierPathPart genericPart => throw new NotImplementedException() /*new GenericReferencePathPart(
-                        genericPart.Name,
-                        genericPart.GenericParameters.Count)*/,
-                    SimpleIdentifierPathPart simplePart => new SimpleReferencePathPart(simplePart.Name),
-                    _ => throw new ArgumentOutOfRangeException(nameof(identifierPart))
-                };
-            }
-        }
+        //    static TypeReferencePathPart CreateFromIdentifierPart(TypeIdentifierPathPart identifierPart)
+        //    {
+        //        return identifierPart switch
+        //        {
+        //            GenericIdentifierPathPart genericPart => throw new NotImplementedException() /*new GenericReferencePathPart(
+        //                genericPart.Name,
+        //                genericPart.GenericParameters.Count)*/,
+        //            SimpleIdentifierPathPart simplePart => new SimpleReferencePathPart(simplePart.Name.Text),
+        //            _ => throw new ArgumentOutOfRangeException(nameof(identifierPart))
+        //        };
+        //    }
+        //}
     }
 }

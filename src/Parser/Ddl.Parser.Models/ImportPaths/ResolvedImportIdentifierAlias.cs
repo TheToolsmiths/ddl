@@ -1,18 +1,16 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Identifiers;
-
-namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
+﻿namespace TheToolsmiths.Ddl.Parser.Models.ImportPaths
 {
     public class ResolvedImportIdentifierAlias : ResolvedImportItem
     {
-        public ResolvedImportIdentifierAlias(Identifier identifier, Identifier aliasIdentifier)
+        public ResolvedImportIdentifierAlias(string identifier, string aliasIdentifier)
         {
             this.Identifier = identifier;
             this.AliasIdentifier = aliasIdentifier;
         }
 
-        public Identifier Identifier { get; }
+        public string Identifier { get; }
 
-        public Identifier AliasIdentifier { get; }
+        public string AliasIdentifier { get; }
 
         public override ResolvedImportedItemKind ItemKind => ResolvedImportedItemKind.IdentifierAlias;
 

@@ -1,6 +1,6 @@
 ﻿using Ddl.Common.Models;
 
-namespace Ddl.Parser.Resolve.Models.Common.ItemReferences
+namespace TheToolsmiths.Ddl.Parser.Models.References.ItemReferences
 {
     public class ContentUnitItemReference : ContentUnitEntityReference
     {

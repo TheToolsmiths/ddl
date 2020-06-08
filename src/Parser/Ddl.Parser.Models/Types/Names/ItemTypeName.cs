@@ -6,5 +6,10 @@
             : base(itemNameIdentifier)
         {
         }
+
+        public override string ToString()
+        {
+            return this.ItemNameIdentifier.ToString();
+        }
     }
 }

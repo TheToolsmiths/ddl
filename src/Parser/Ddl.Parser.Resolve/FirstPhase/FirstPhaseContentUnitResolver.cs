@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ddl.Common;
-using Ddl.Parser.Resolve.Models.Common.TypeReferences;
 using Ddl.Parser.Resolve.Models.FirstPhase;
 using Ddl.Parser.Resolve.Models.FirstPhase.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Resolve.FirstPhase.Namespaces;
 
@@ -55,7 +55,7 @@ namespace TheToolsmiths.Ddl.Resolve.FirstPhase
                 rootScope = result.Value;
             }
 
-            IReadOnlyList<TypePathEntityReference> indexedTypes;
+            IReadOnlyList<EntityTypeReference> indexedTypes;
             {
                 var result = this.typeReferenceIndexer.IndexResolvedScopeTypes(namespacePath, rootScope);
 

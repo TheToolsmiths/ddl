@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 using Ddl.Parser.Resolve.Models.FirstPhase.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.References;
+
+using TheToolsmiths.Ddl.Parser.Models.Types.Resolved;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
-using TheToolsmiths.Ddl.Resolve.Common.TypeHelpers;
 
 namespace TheToolsmiths.Ddl.Resolve.SecondPhase
 {
@@ -31,34 +29,25 @@ namespace TheToolsmiths.Ddl.Resolve.SecondPhase
             return new IndexedImportPathMap(scopeNamespace, importPaths);
         }
 
-        public bool TryResolveType(TypeIdentifierPath lookupPath, [MaybeNullWhen(false)] out TypeReference resolvedType)
-        {
-            var referenceLookupPath = TypeReferencePathBuilder.CreateFromIdentifierPath(lookupPath);
-
-            return this.TryResolveType(referenceLookupPath, out resolvedType);
-        }
-
-        public bool TryResolveType(TypeReferencePath lookupPath, [MaybeNullWhen(false)] out TypeReference resolvedType)
+        public bool TryResolveType(TypeReferencePath lookupPath, [MaybeNullWhen(false)] out TypeResolution typeResolution)
         {
             // If lookup path is rooted, ignore any import paths
             if (lookupPath.IsRooted)
             {
-                resolvedType = default;
+                typeResolution = TypeResolution.Unresolved;
                 return false;
             }
 
             foreach (var importPath in this.importPaths)
             {
-                throw new NotImplementedException();
-
-                //if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
-                //{
-                //    resolvedType = new ResolvedImportPath(importPath.ImportRoot, lookupPath, this.scopeNamespace);
-                //    return true;
-                //}
+                if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
+                {
+                    typeResolution = new MatchImportResolution(importPath.ImportRoot, lookupPath, this.scopeNamespace);
+                    return true;
+                }
             }
 
-            resolvedType = default;
+            typeResolution = TypeResolution.Unresolved;
             return false;
         }
     }

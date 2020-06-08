@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+﻿using TheToolsmiths.Ddl.Parser.Models.Types.Resolved;
+using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Types.References
 {
@@ -7,10 +8,11 @@ namespace TheToolsmiths.Ddl.Parser.Models.Types.References
         public TypeReference(
             TypeReferencePath typePath,
             TypeStorage storage,
-            LocalityInformation locality,
+            TypeLocalityInformation locality,
             TypeModifiers modifiers,
             ResolvedTypeKind resolvedKind,
-            ResolveState resolveState)
+            ResolveState resolveState,
+            TypeResolution typeResolution)
         {
             this.TypePath = typePath;
             this.Storage = storage;
@@ -18,18 +20,45 @@ namespace TheToolsmiths.Ddl.Parser.Models.Types.References
             this.Modifiers = modifiers;
             this.ResolvedKind = resolvedKind;
             this.ResolveState = resolveState;
+            this.TypeResolution = typeResolution;
         }
 
         public TypeReferencePath TypePath { get; }
 
         public TypeStorage Storage { get; }
 
-        public LocalityInformation Locality { get; }
+        public TypeLocalityInformation Locality { get; }
 
         public TypeModifiers Modifiers { get; }
 
         public ResolvedTypeKind ResolvedKind { get; }
 
         public ResolveState ResolveState { get; }
+
+        public TypeResolution TypeResolution { get; }
+
+        public TypeReference WithTypeResolution(TypeResolution typeResolution)
+        {
+            return new TypeReference(
+                this.TypePath,
+                this.Storage,
+                this.Locality,
+                this.Modifiers,
+                this.ResolvedKind,
+                this.ResolveState,
+                typeResolution);
+        }
+
+        public TypeReference WithResolvedKind(ResolvedTypeKind resolvedKind)
+        {
+            return new TypeReference(
+                this.TypePath,
+                this.Storage,
+                this.Locality,
+                this.Modifiers,
+                resolvedKind,
+                this.ResolveState,
+                this.TypeResolution);
+        }
     }
 }
