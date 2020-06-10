@@ -6,6 +6,6 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public interface IRootScopeParserContextFactory
     {
-        IRootScopeParserContext CreateContext(IParserContext parserContext, IReadOnlyList<IAttributeUse> attributeList);
+        IRootScopeParserContext CreateContext(IParserContext parserContext, IReadOnlyList<IAstAttributeUse> attributeList);
     }
 }

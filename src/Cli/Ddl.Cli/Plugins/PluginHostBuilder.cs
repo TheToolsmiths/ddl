@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
 using TheToolsmiths.Ddl.Parser;
+using TheToolsmiths.Ddl.Parser.Build;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Cli.Plugins
 {
@@ -33,6 +37,20 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
             where T : class, IRootScopeParser
         {
             this.services.AddTransient<T>();
+        }
+
+        public void RegisterRootItemBuilder<T, TItem>()
+            where T : class, IRootItemBuilder<TItem>
+            where TItem : class, IRootItem
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RegisterRootScopeBuilder<T, TScope>()
+            where T : class, IRootScopeBuilder<TScope>
+            where TScope : class, IRootScope
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

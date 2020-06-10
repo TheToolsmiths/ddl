@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
@@ -26,7 +25,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             this.parserResolver = parserResolver;
         }
 
-        public async Task<Result<ScopeContent>> ParseRootScopeContent(IParserContext context)
+        public async Task<Result<AstScopeContent>> ParseRootScopeContent(IParserContext context)
         {
             var scopeContext = new ScopeContentParseContext();
 
@@ -61,7 +60,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             var scopeLevel = context.Lexer.LexerScopeLevel;
 
             // Parse possible attributes
-            IReadOnlyList<IAttributeUse> attributes;
+            IReadOnlyList<IAstAttributeUse> attributes;
             {
                 var result = await context.Parsers.ParseAttributeUseList();
 
@@ -88,7 +87,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         private async Task<RootParseResult> TryHandleInitialToken(
             IParserContext context,
             ScopeContentParseContext scopeContext,
-            IReadOnlyList<IAttributeUse> attributeList)
+            IReadOnlyList<IAstAttributeUse> attributeList)
         {
             LexerToken token;
             {
@@ -135,7 +134,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             }
 
             string[] identifiers = { token.Memory.Span.ToString() };
-            return RootParseResult.CreateParserHandlerNotFound<IRootEntry>(identifiers);
+            return RootParseResult.CreateParserHandlerNotFound<IAstRootEntry>(identifiers);
         }
 
         private async Task SkipNonParseableStruct(IParserContext context, LexerScopeLevel scopeLevel)

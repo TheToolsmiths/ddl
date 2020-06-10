@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.Resolved;
+﻿using TheToolsmiths.Ddl.Parser.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Parser.Models.Types.References

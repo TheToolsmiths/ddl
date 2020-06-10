@@ -5,9 +5,9 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
-    public abstract class AttributableRootItem : IAttributableRootItem
+    public abstract class AttributableRootItem : IAstAttributableRootItem
     {
-        protected AttributableRootItem(TypeName typeName, IReadOnlyList<IAttributeUse> attributes)
+        protected AttributableRootItem(TypeName typeName, IReadOnlyList<IAstAttributeUse> attributes)
         {
             this.TypeName = typeName;
             this.Attributes = attributes;
@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 
         public abstract ContentUnitItemType ItemType { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public IReadOnlyList<IAstAttributeUse> Attributes { get; }
 
         public TypeName TypeName { get; }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ddl.Common
+namespace TheToolsmiths.Ddl
 {
     public class Result
     {

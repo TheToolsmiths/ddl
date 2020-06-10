@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>TheToolsmiths.Ddl.Common.Models</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Models</RootNamespace>
   </PropertyGroup>
 
 </Project>

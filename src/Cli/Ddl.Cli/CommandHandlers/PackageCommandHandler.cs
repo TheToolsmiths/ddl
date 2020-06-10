@@ -4,8 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TheToolsmiths.Ddl.Cli.Builders;
 using TheToolsmiths.Ddl.Cli.Parsers;
-using TheToolsmiths.Ddl.Cli.Resolvers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
         {
             var serviceProvider = host.Services;
 
-            IReadOnlyList<ContentUnit> contentUnits;
+            IReadOnlyList<AstContentUnit> contentUnits;
             {
                 using var scope = serviceProvider.CreateScope();
 
@@ -39,9 +39,9 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             {
                 using var scope = serviceProvider.CreateScope();
 
-                var resolver = scope.ServiceProvider.GetRequiredService<ContentUnitsResolver>();
+                var resolver = scope.ServiceProvider.GetRequiredService<ContentUnitsBuilder>();
 
-                var result = resolver.ResolveContentUnits(contentUnits);
+                var result = resolver.BuildContentUnits(contentUnits);
 
                 if (result.IsError)
                 {

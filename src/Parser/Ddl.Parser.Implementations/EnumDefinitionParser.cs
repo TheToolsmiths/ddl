@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Ddl.Common;
-
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
@@ -16,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class EnumDefinitionParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IAstRootItem>> ParseRootContent(IRootItemParserContext context)
         {
             TypeName typeName;
             {
@@ -52,9 +49,9 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 throw new NotImplementedException();
             }
 
-            var value = new EnumDefinition(typeName, content, context.AttributeList);
+            var value = new EnumAstDefinition(typeName, content, context.AttributeList);
 
-            return RootParseResult.FromResult<IRootItem>(value);
+            return RootParseResult.FromResult<IAstRootItem>(value);
         }
 
         private async Task<Result<EnumDefinitionContent>> ParseBlockContent(IRootItemParserContext context)

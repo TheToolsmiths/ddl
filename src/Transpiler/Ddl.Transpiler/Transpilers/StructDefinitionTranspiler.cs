@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class StructDefinitionTranspiler
     {
-        public static void WriteStructDefinition(Utf8JsonWriter writer, StructDefinition structDefinition)
+        public static void WriteStructDefinition(Utf8JsonWriter writer, StructAstDefinition structDefinition)
         {
             writer.WriteStartObject();
 

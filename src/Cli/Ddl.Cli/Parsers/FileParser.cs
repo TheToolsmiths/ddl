@@ -40,9 +40,9 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
             var result = await this.textParser.ParseFromFile(input);
 
             if (result.IsSuccess
-                && result.Content != null)
+                && result.AstContent != null)
             {
-                await DdlTranspiler.TranspileToString(result.Content, pipeWriter);
+                await DdlTranspiler.TranspileToString(result.AstContent, pipeWriter);
             }
             else
             {

@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class AttributesTranspiler
     {
-        public static void WriteAttributeUseArray(Utf8JsonWriter writer, IEnumerable<IAttributeUse> attributes)
+        public static void WriteAttributeUseArray(Utf8JsonWriter writer, IEnumerable<IAstAttributeUse> attributes)
         {
             writer.WriteStartArray();
 
@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             writer.WriteEndArray();
         }
 
-        private static void WriteAttributeUse(Utf8JsonWriter writer, IAttributeUse attributeUse)
+        private static void WriteAttributeUse(Utf8JsonWriter writer, IAstAttributeUse attributeUse)
         {
             writer.WriteStartObject();
 
@@ -37,19 +37,19 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 
             switch (attributeUse)
             {
-                case KeyedLiteralAttributeUse keyedLiteralAttributeUse:
+                case KeyedLiteralAstAttributeUse keyedLiteralAttributeUse:
                     WriteKeyedLiteralAttributeUse(writer, keyedLiteralAttributeUse);
                     break;
-                case KeyedTypedAttributeUse keyedTypedAttributeUse:
+                case KeyedTypedAstAttributeUse keyedTypedAttributeUse:
                     WriteKeyedTypedAttributeUse(writer, keyedTypedAttributeUse);
                     break;
-                case TypedStructInitializationUse typedAttributeUse:
+                case AstTypedStructInitializationUse typedAttributeUse:
                     WriteTypedAttributeUse(writer, typedAttributeUse);
                     break;
-                case ConditionalAttributeUse conditionalAttributeUse:
+                case ConditionalAstAttributeUse conditionalAttributeUse:
                     WriteConditionalAttributeUse(writer, conditionalAttributeUse);
                     break;
-                case KeyedStructInitializationAttributeUse keyedStructInitializationAttributeUse:
+                case KeyedStructInitializationAstAttributeUse keyedStructInitializationAttributeUse:
                     WriteKeyedStructInitializationAttributeUse(writer, keyedStructInitializationAttributeUse);
                     break;
                 default:
@@ -59,14 +59,14 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             writer.WriteEndObject();
         }
 
-        private static void WriteKeyedLiteralAttributeUse(Utf8JsonWriter writer, KeyedLiteralAttributeUse keyedLiteral)
+        private static void WriteKeyedLiteralAttributeUse(Utf8JsonWriter writer, KeyedLiteralAstAttributeUse keyedLiteral)
         {
             writer.WriteString("key", keyedLiteral.Key.ToString());
 
             writer.WriteString("value", keyedLiteral.Literal.ToString());
         }
 
-        private static void WriteKeyedTypedAttributeUse(Utf8JsonWriter writer, KeyedTypedAttributeUse keyedTyped)
+        private static void WriteKeyedTypedAttributeUse(Utf8JsonWriter writer, KeyedTypedAstAttributeUse keyedTyped)
         {
             writer.WriteString("key", keyedTyped.Key.ToString());
 
@@ -77,7 +77,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, keyedTyped.Initialization);
         }
 
-        private static void WriteKeyedStructInitializationAttributeUse(Utf8JsonWriter writer, KeyedStructInitializationAttributeUse typed)
+        private static void WriteKeyedStructInitializationAttributeUse(Utf8JsonWriter writer, KeyedStructInitializationAstAttributeUse typed)
         {
             writer.WriteString("key", typed.Key.ToString());
             
@@ -86,7 +86,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, typed.Initialization);
         }
 
-        private static void WriteTypedAttributeUse(Utf8JsonWriter writer, TypedStructInitializationUse typed)
+        private static void WriteTypedAttributeUse(Utf8JsonWriter writer, AstTypedStructInitializationUse typed)
         {
             writer.WriteString("attrType", typed.Type.ToString());
 
@@ -95,7 +95,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
             ValueInitializationTranspiler.WriteStructValueInitialization(writer, typed.Initialization);
         }
 
-        private static void WriteConditionalAttributeUse(Utf8JsonWriter writer, ConditionalAttributeUse conditional)
+        private static void WriteConditionalAttributeUse(Utf8JsonWriter writer, ConditionalAstAttributeUse conditional)
         {
             writer.WriteString("attrType", conditional.Type.ToString());
 

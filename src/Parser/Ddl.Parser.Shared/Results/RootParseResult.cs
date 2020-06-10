@@ -49,19 +49,19 @@ namespace TheToolsmiths.Ddl.Parser
         }
 
         public static RootParseResult<T> CreateParserHandlerNotFound<T>(IEnumerable<string> parserLookupIdentifiers)
-            where T : class, IRootEntry
+            where T : class, IAstRootEntry
         {
             return new RootParseResult<T>(default!, parserLookupIdentifiers, RootParseResultKind.ParserHandlerNotFound);
         }
 
         public static RootParseResult<T> FromResult<T>(T value)
-            where T : class, IRootEntry
+            where T : class, IAstRootEntry
         {
             return new RootParseResult<T>(value, RootParseResultKind.Success);
         }
 
         public static RootParseResult<T> FromError<T>(string errorMessage)
-            where T : class, IRootEntry
+            where T : class, IAstRootEntry
         {
             return new RootParseResult<T>(errorMessage, RootParseResultKind.Error);
         }

@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             this.scopeContentParser = scopeContentParser;
         }
 
-        public async ValueTask<RootParseResult<IRootScope>> ParseRootScope(IRootScopeParserContext context)
+        public async ValueTask<RootParseResult<IAstRootScope>> ParseRootScope(IRootScopeParserContext context)
         {
             LexerToken token;
             {
@@ -80,9 +80,9 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                     throw new NotImplementedException();
                 }
 
-                var value = new ConditionalRootScope(expression, rootContent);
+                var value = new ConditionalAstRootScope(expression, rootContent);
 
-                return RootParseResult.FromResult<IRootScope>(value);
+                return RootParseResult.FromResult<IAstRootScope>(value);
             }
         }
     }

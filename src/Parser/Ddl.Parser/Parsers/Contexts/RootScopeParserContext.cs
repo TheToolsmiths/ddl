@@ -7,13 +7,13 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.Contexts
 {
     public class RootScopeParserContext : IRootScopeParserContext
     {
-        public RootScopeParserContext(IParserContext parserContext, IReadOnlyList<IAttributeUse> attributeList)
+        public RootScopeParserContext(IParserContext parserContext, IReadOnlyList<IAstAttributeUse> attributeList)
         {
             this.AttributeList = attributeList;
             this.ParserContext = parserContext;
         }
 
-        public IReadOnlyList<IAttributeUse> AttributeList { get; }
+        public IReadOnlyList<IAstAttributeUse> AttributeList { get; }
 
         public ILexer Lexer => this.ParserContext.Lexer;
 

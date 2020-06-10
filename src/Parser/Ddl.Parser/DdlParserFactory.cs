@@ -26,7 +26,7 @@ namespace TheToolsmiths.Ddl.Parser
 
             var parserContext = new ParserContext(this.provider, lexer);
 
-            return new DdlParser(log, lexer, parserContext, rootContentParser);
+            return new DdlParser(log, parserContext, rootContentParser);
         }
     }
 }

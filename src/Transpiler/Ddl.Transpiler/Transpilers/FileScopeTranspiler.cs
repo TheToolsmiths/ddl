@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class FileScopeTranspiler
     {
-        public static void WriteFileScope(Utf8JsonWriter writer, ConditionalRootScope conditionalScope)
+        public static void WriteFileScope(Utf8JsonWriter writer, ConditionalAstRootScope conditionalScope)
         {
             writer.WriteStartObject();
 

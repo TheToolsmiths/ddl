@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ddl.Common.Models
+namespace TheToolsmiths.Ddl.Models
 {
     public readonly struct ContentUnitId : IEquatable<ContentUnitId>
     {

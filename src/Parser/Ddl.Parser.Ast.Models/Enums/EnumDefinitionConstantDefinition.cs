@@ -1,4 +1,4 @@
-﻿using Ddl.Common.Models;
+﻿using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Models.Literals;
 

@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class RootScopeParserContextFactory : IRootScopeParserContextFactory
     {
-        public IRootScopeParserContext CreateContext(IParserContext parserContext, IReadOnlyList<IAttributeUse> attributeList)
+        public IRootScopeParserContext CreateContext(IParserContext parserContext, IReadOnlyList<IAstAttributeUse> attributeList)
         {
             return new RootScopeParserContext(parserContext, attributeList);
         }

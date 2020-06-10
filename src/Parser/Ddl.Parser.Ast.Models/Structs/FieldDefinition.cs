@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
             Identifier name,
             ITypeIdentifier fieldType,
             ValueInitialization initialization,
-            IReadOnlyList<IAttributeUse> attributes)
+            IReadOnlyList<IAstAttributeUse> attributes)
         {
             this.Attributes = attributes;
             this.Initialization = initialization;
@@ -24,7 +24,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 
         public ITypeIdentifier FieldType { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public IReadOnlyList<IAstAttributeUse> Attributes { get; }
 
         public ValueInitialization Initialization { get; }
 

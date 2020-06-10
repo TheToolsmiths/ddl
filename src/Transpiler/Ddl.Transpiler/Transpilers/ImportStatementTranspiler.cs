@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class ImportStatementTranspiler
     {
-        public static void WriteImportStatement(Utf8JsonWriter writer, ImportStatement importStatement)
+        public static void WriteImportStatement(Utf8JsonWriter writer, ImportAstStatement importStatement)
         {
             throw new NotImplementedException();
 

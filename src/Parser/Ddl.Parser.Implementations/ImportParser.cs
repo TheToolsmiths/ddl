@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
@@ -12,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class ImportParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IAstRootItem>> ParseRootContent(IRootItemParserContext context)
         {
             bool isRootedType = await context.Lexer.TryConsumeNamespaceSeparatorToken();
 
@@ -35,8 +34,8 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
             var importRoot = isRootedType ? ImportRoot.CreateWithChildItem(importItem) : importItem;
 
-            var importStatement = new ImportStatement(importRoot);
-            return RootParseResult.FromResult<IRootItem>(importStatement);
+            var importStatement = new ImportAstStatement(importRoot);
+            return RootParseResult.FromResult<IAstRootItem>(importStatement);
         }
 
         private async Task<Result<ImportItem>> ParseImportPath(IRootItemParserContext context)

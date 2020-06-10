@@ -13,11 +13,11 @@ namespace TheToolsmiths.Ddl.Transpiler
             "Reliability",
             "CA2000:Dispose objects before losing scope",
             Justification = "Roslyn analysers don't understand await using yet")]
-        public static async Task TranspileToString(ContentUnit contentUnit, IBufferWriter<byte> outputWriter)
+        public static async Task TranspileToString(AstContentUnit astContentUnit, IBufferWriter<byte> outputWriter)
         {
-            if (contentUnit == null)
+            if (astContentUnit == null)
             {
-                throw new ArgumentNullException(nameof(contentUnit));
+                throw new ArgumentNullException(nameof(astContentUnit));
             }
 
             if (outputWriter == null)

@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
 namespace TheToolsmiths.Ddl.Parser
 {
     public class RootParseResult<T> : RootParseResult
-        where T : class, IRootEntry
+        where T : class, IAstRootEntry
     {
         internal RootParseResult(T value, RootParseResultKind resultKind)
             : base(resultKind)

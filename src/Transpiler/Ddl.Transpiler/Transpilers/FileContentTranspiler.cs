@@ -10,27 +10,27 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class FileContentTranspiler
     {
-        public static void WriteFileContentItem(Utf8JsonWriter writer, IRootItem item)
+        public static void WriteFileContentItem(Utf8JsonWriter writer, IAstRootItem item)
         {
             switch (item)
             {
-                case ConditionalRootScope fileScope:
+                case ConditionalAstRootScope fileScope:
                     FileScopeTranspiler.WriteFileScope(writer, fileScope);
                     break;
 
-                case StructDefinition structDefinition:
+                case StructAstDefinition structDefinition:
                     StructDefinitionTranspiler.WriteStructDefinition(writer, structDefinition);
                     break;
 
-                case EnumStructDefinition enumStructDefinition:
+                case EnumStructAstDefinition enumStructDefinition:
                     EnumStructDefinitionTranspiler.WriteEnumStructDefinition(writer, enumStructDefinition);
                     break;
 
-                case EnumDefinition enumDefinition:
+                case EnumAstDefinition enumDefinition:
                     EnumDefinitionTranspiler.WriteEnumDefinition(writer, enumDefinition);
                     break;
 
-                case ImportStatement importStatement:
+                case ImportAstStatement importStatement:
                     ImportStatementTranspiler.WriteImportStatement(writer, importStatement);
                     break;
 

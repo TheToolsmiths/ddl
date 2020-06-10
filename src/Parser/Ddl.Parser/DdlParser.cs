@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Ddl.Common;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
@@ -12,19 +11,16 @@ namespace TheToolsmiths.Ddl.Parser
 {
     public class DdlParser
     {
-        private readonly IDdlLexer lexer;
         private readonly ILogger<DdlParser> log;
         private readonly IScopeContentParser parser;
         private readonly IParserContext parserContext;
 
         public DdlParser(
             ILogger<DdlParser> log,
-            IDdlLexer lexer,
             IParserContext parserContext,
             IScopeContentParser parser)
         {
             this.log = log;
-            this.lexer = lexer;
             this.parserContext = parserContext;
             this.parser = parser;
         }
@@ -40,38 +36,12 @@ namespace TheToolsmiths.Ddl.Parser
 
             var rootScope = result.Value;
 
-            var fileContent = new ContentUnit(info, rootScope);
+            var fileContent = new AstContentUnit(info, rootScope);
 
             return ContentUnitParseResult.FromValue(fileContent);
         }
 
-        // TODO: Refactor into IFileRootScopeContentParser and Delete
-        //private async Task<Result<IFileRootScope>> ParseRootScope(ContentUnitInfo info)
-        //{
-
-        //    while (this.lexer.HasNextToken)
-        //    {
-        //        if (await this.lexer.TryParseTokens() == false)
-        //        {
-        //            break;
-        //        }
-
-        //        var result = await this.ParseFileScopeContent();
-
-        //        if (result.IsError)
-        //        {
-        //            throw new NotImplementedException();
-        //        }
-
-        //        items.Add(result.Value);
-        //    }
-
-        //    var value = new FileRootScope();
-
-        //    return Result.FromValue<IFileRootScope>(value);
-        //}
-
-        private async Task<Result<IFileRootScope>> ParseFileScopeContent(ContentUnitInfo info)
+        private async Task<Result<IAstFileRootScope>> ParseFileScopeContent(ContentUnitInfo info)
         {
             try
             {
@@ -82,9 +52,9 @@ namespace TheToolsmiths.Ddl.Parser
                     throw new NotImplementedException();
                 }
 
-                var value = new FileRootScope(result.Value);
+                var value = new AstFileRootScope(result.Value);
 
-                return Result.FromValue<IFileRootScope>(value);
+                return Result.FromValue<IAstFileRootScope>(value);
             }
             catch (Exception e)
             {
@@ -93,7 +63,7 @@ namespace TheToolsmiths.Ddl.Parser
                     Debugger.Break();
                 }
 
-                return Result.FromErrorMessage<IFileRootScope>(e.ToString());
+                return Result.FromErrorMessage<IAstFileRootScope>(e.ToString());
             }
         }
     }

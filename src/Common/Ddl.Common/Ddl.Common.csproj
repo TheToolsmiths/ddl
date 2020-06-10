@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>TheToolsmiths.Ddl.Common</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl</RootNamespace>
   </PropertyGroup>
 
 </Project>

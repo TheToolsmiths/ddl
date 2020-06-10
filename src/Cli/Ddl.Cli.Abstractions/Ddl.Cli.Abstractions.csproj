@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Build.Shared\Ddl.Parser.Build.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class StructDefinitionParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IRootItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootParseResult<IAstRootItem>> ParseRootContent(IRootItemParserContext context)
         {
             TypeName typeName;
             {
@@ -46,9 +46,9 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 throw new NotImplementedException();
             }
 
-            var value = new StructDefinition(typeName, content, context.AttributeList);
+            var value = new StructAstDefinition(typeName, content, context.AttributeList);
 
-            return RootParseResult.FromResult<IRootItem>(value);
+            return RootParseResult.FromResult<IAstRootItem>(value);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 
-namespace TheToolsmiths.Ddl.Parser.Ast.Models
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.Extensions
 {
     public static class StructDefinitionItemExtensions
     {

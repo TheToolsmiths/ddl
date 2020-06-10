@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Contexts
 {
     public interface IRootItemParserContext
     {
-        IReadOnlyList<IAttributeUse> AttributeList { get; }
+        IReadOnlyList<IAstAttributeUse> AttributeList { get; }
 
         ILexer Lexer { get; }
 

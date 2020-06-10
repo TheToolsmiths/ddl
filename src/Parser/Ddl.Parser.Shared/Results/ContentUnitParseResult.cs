@@ -5,16 +5,16 @@ namespace TheToolsmiths.Ddl.Parser
 {
     public class ContentUnitParseResult
     {
-        private ContentUnitParseResult(ContentUnit content)
+        private ContentUnitParseResult(AstContentUnit astContent)
         {
-            this.Content = content;
+            this.AstContent = astContent;
             this.IsSuccess = true;
             this.ErrorMessage = string.Empty;
         }
 
         private ContentUnitParseResult(string errorMessage)
         {
-            this.Content = default!;
+            this.AstContent = default!;
             this.ErrorMessage = errorMessage;
             this.IsSuccess = false;
         }
@@ -25,11 +25,11 @@ namespace TheToolsmiths.Ddl.Parser
 
         public bool IsError => this.IsSuccess == false;
 
-        public ContentUnit Content { get; }
+        public AstContentUnit AstContent { get; }
 
-        public static ContentUnitParseResult FromValue(ContentUnit contentUnit)
+        public static ContentUnitParseResult FromValue(AstContentUnit astContentUnit)
         {
-            return new ContentUnitParseResult(contentUnit);
+            return new ContentUnitParseResult(astContentUnit);
         }
 
         public static ContentUnitParseResult FromException(Exception exception)

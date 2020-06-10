@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {
     public static class EnumStructDefinitionTranspiler
     {
-        public static void WriteEnumStructDefinition(Utf8JsonWriter writer, EnumStructDefinition definition)
+        public static void WriteEnumStructDefinition(Utf8JsonWriter writer, EnumStructAstDefinition definition)
         {
             writer.WriteStartObject();
 

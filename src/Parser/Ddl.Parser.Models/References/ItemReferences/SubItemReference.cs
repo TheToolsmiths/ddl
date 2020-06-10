@@ -1,4 +1,4 @@
-﻿using Ddl.Common.Models;
+﻿using TheToolsmiths.Ddl.Models;
 
 namespace TheToolsmiths.Ddl.Parser.Models.References.ItemReferences
 {

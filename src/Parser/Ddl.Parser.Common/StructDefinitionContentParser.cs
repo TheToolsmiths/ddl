@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ddl.Common;
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
@@ -28,7 +27,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             while (true)
             {
-                IReadOnlyList<IAttributeUse> attributesList;
+                IReadOnlyList<IAstAttributeUse> attributesList;
                 {
                     var result = await context.Parsers.ParseAttributeUseList();
 
@@ -79,7 +78,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
         private async Task<Result<IStructDefinitionItem>> ParseStructDefinitionItem(
             IParserContext context,
-            IReadOnlyList<IAttributeUse> attributesList)
+            IReadOnlyList<IAstAttributeUse> attributesList)
         {
             {
                 var result = await context.Lexer.TryPeekIdentifierToken();
@@ -215,7 +214,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
         private async Task<Result<IStructDefinitionItem>> ParseStructFieldDefinition(
             IParserContext context,
-            IReadOnlyList<IAttributeUse> attributesList)
+            IReadOnlyList<IAstAttributeUse> attributesList)
         {
             Identifier fieldName;
             {

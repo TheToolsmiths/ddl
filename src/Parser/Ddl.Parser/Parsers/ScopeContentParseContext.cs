@@ -6,13 +6,13 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class ScopeContentParseContext
     {
-        public List<IRootItem> Items { get; } = new List<IRootItem>();
+        public List<IAstRootItem> Items { get; } = new List<IAstRootItem>();
 
-        public List<IRootScope> Scopes { get; } = new List<IRootScope>();
+        public List<IAstRootScope> Scopes { get; } = new List<IAstRootScope>();
 
-        public ScopeContent CreateScopeContent()
+        public AstScopeContent CreateScopeContent()
         {
-            return new ScopeContent(this.Items, this.Scopes);
+            return new AstScopeContent(this.Items, this.Scopes);
         }
     }
 }

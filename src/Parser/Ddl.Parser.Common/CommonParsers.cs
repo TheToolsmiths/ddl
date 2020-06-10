@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ddl.Common;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
@@ -45,7 +44,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return this.provider.GetRequiredService<TypeNameParser>().ParseTypeName(this.context);
         }
 
-        public Task<Result<IReadOnlyList<IAttributeUse>>> ParseAttributeUseList()
+        public Task<Result<IReadOnlyList<IAstAttributeUse>>> ParseAttributeUseList()
         {
             return this.provider.GetRequiredService<AttributeUsageParser>().ParseAttributeUseList(this.context);
         }

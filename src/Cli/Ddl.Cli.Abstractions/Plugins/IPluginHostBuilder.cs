@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+
 using TheToolsmiths.Ddl.Parser;
+using TheToolsmiths.Ddl.Parser.Build;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
 {
@@ -15,5 +19,13 @@ namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
 
         void RegisterScopeParserType<T>()
             where T : class, IRootScopeParser;
+
+        void RegisterRootItemBuilder<T, TItem>()
+            where T : class, IRootItemBuilder<TItem>
+            where TItem : class, IRootItem;
+
+        void RegisterRootScopeBuilder<T, TScope>()
+            where T : class, IRootScopeBuilder<TScope>
+            where TScope : class, IRootScope;
     }
 }

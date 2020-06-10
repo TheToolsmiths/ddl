@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Ddl.Common;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Cli.Utils;
 using TheToolsmiths.Ddl.Parser;
@@ -29,7 +28,7 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
             this.log.BeginScope($"Parsing glob '{glob}' of dir '{rootDirectory}'");
 
 
-            var contents = new List<ContentUnit>();
+            var contents = new List<AstContentUnit>();
             var errors = new List<ResultError>();
 
             foreach (var inputFile in FileGlobResolver.ResolveAbsoluteFiles(glob, rootDirectory))
@@ -38,7 +37,7 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
 
                 if (result.IsSuccess)
                 {
-                    contents.Add(result.Content);
+                    contents.Add(result.AstContent);
                 }
                 else
                 {
