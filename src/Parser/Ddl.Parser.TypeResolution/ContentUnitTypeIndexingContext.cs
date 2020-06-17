@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {

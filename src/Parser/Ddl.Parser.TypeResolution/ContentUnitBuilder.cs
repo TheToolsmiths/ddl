@@ -2,7 +2,7 @@
 {
     public class ContentUnitTypeResolverBuilder
     {
-        //public Result<FirstPhaseResolvedContentUnit> ResolveContentUnit(AstContentUnit astContentUnit)
+        //public Result<ContentUnit> ResolveContentUnit(AstContentUnit astContentUnit)
         //{
             // TODO: Move to TypeResolution
             //NamespacePath namespacePath;

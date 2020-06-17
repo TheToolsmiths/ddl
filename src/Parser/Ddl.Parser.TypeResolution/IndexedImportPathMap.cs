@@ -1,15 +1,15 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {
     public class IndexedImportPathMap
     {
-        //private readonly IReadOnlyList<FirstPhaseResolvedImportPath> importPaths;
+        //private readonly IReadOnlyList<ImportStatement> importPaths;
         private readonly NamespacePath scopeNamespace;
 
         //private IndexedImportPathMap(
         //    NamespacePath scopeNamespace,
-        //    IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
+        //    IReadOnlyList<ImportStatement> importPaths)
         //{
         //    this.importPaths = importPaths;
         //    this.scopeNamespace = scopeNamespace;
@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
 
         //public static IndexedImportPathMap FromImportPaths(
         //    NamespacePath scopeNamespace,
-        //    IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
+        //    IReadOnlyList<ImportStatement> importPaths)
         //{
         //    return new IndexedImportPathMap(scopeNamespace, importPaths);
         //}
@@ -35,7 +35,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
         //    {
         //        if (TypeReferencePathComparer.StartsWithName(lookupPath, importPath.Alias))
         //        {
-        //            typeResolution = new MatchImportResolution(importPath.ImportRoot, lookupPath, this.scopeNamespace);
+        //            typeResolution = new MatchImportResolution(importPath.ImportPath, lookupPath, this.scopeNamespace);
         //            return true;
         //        }
         //    }

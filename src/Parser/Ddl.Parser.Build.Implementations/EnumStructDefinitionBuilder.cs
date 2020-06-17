@@ -1,61 +1,55 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.References.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
-using TheToolsmiths.Ddl.Parser.Build.Models.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Build.Results;
-using TheToolsmiths.Ddl.Parser.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Models.References.ItemReferences;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
-    public class EnumStructDefinitionBuilder : IRootItemBuilder<EnumStructDefinition>
+    public class EnumStructDefinitionBuilder : IRootItemBuilder<EnumStructAstDefinition>
     {
-        public RootItemBuildResult<EnumStructDefinition> BuildItem(IRootItemBuildContext unitContext, IAstRootItem item)
+        public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, EnumStructAstDefinition item)
         {
+            var builder = new RootItemBuilder();
+
+            CatalogEnumStructType(builder, item);
+
+            CatalogVariants(builder, item);
+
+            CreateResolvedItem(builder);
+
             throw new NotImplementedException();
+
+            //return builder.CreateSuccessResult();
         }
 
-        public Result BuildItem(IRootItemBuildContext unitContext, EnumStructAstDefinition item)
+        private static void CreateResolvedItem(RootItemBuilder builder)
         {
-            var context = new ItemResolveContext();
+            var itemReference = builder.RootTypeReference;
+            var subItemReferences = builder.SubItemTypesReferences;
 
-            CatalogEnumStructType(context, item);
+            //var item = new RootItemBase(itemReference, subItemReferences);
+            
+            throw new NotImplementedException();
 
-            CatalogVariants(context, item);
-
-            CreateResolvedItem(unitContext, context);
-
-            return Result.Success;
+            //builder.ResolvedItems.Add(item);
         }
 
-        private static void CreateResolvedItem(
-            IRootItemBuildContext unitContext,
-            ItemResolveContext context)
-        {
-            var itemReference = context.RootTypeReference;
-            var subItemReferences = context.SubItemTypesReferences;
-
-            var item = new FirstPhaseResolvedItem(itemReference, subItemReferences);
-
-            unitContext.ResolvedItems.Add(item);
-        }
-
-        private static void CatalogEnumStructType(ItemResolveContext context, EnumStructAstDefinition definition)
+        private static void CatalogEnumStructType(RootItemBuilder builder, EnumStructAstDefinition definition)
         {
             var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
             var itemReference = new ItemReference(definition.ItemId);
 
-            var rootType = new FirstPhaseItemTypeReference(itemTypeName, itemReference);
+            var rootType = new TypedItemReference(itemTypeName, itemReference);
 
-            context.RootType = itemTypeName;
-            context.RootTypeReference = rootType;
+            builder.RootType = itemTypeName;
+            builder.RootTypeReference = rootType;
         }
 
-        private static void CatalogVariants(ItemResolveContext context, EnumStructAstDefinition definition)
+        private static void CatalogVariants(RootItemBuilder builder, EnumStructAstDefinition definition)
         {
             if (definition.Content.IsEmpty)
             {
@@ -67,7 +61,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 switch (definitionItem)
                 {
                     case EnumStructVariantDefinition variant:
-                        CatalogVariant(context, definition, variant);
+                        CatalogVariant(builder, definition, variant);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(definitionItem));
@@ -76,17 +70,17 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         }
 
         private static void CatalogVariant(
-            ItemResolveContext context,
+            RootItemBuilder builder,
             EnumStructAstDefinition definition,
             EnumStructVariantDefinition variant)
         {
-            var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(context.RootType, variant.Name);
+            var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(builder.RootType, variant.Name);
 
             var subItemReference = new SubItemReference(definition.ItemId, variant.ItemId);
 
-            var entry = new FirstPhaseSubItemTypeReference(subItemTypeName, subItemReference);
+            var entry = new TypedSubItemReference(subItemTypeName, subItemReference);
 
-            context.SubItemTypesReferences.Add(entry);
+            builder.SubItemTypesReferences.Add(entry);
         }
     }
 }

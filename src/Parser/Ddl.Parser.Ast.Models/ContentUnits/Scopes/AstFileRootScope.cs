@@ -1,12 +1,12 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
-    public class AstFileRootScope : IAstFileRootScope
+    public class AstFileRootScope : AstRootScope, IAstFileRootScope
     {
         public AstFileRootScope(AstScopeContent content)
+            : base(content)
         {
-            this.Content = content;
         }
 
-        public AstScopeContent Content { get; }
+        public override AstContentUnitScopeType ScopeType => AstContentUnitScopeType.FileScope;
     }
 }

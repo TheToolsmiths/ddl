@@ -2,6 +2,7 @@
 {
     public enum AstContentUnitScopeType
     {
-        RootScope
+        RootScope,
+        FileScope
     }
 }

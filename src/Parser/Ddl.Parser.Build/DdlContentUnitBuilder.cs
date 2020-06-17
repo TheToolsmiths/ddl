@@ -1,25 +1,27 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.Build.BuildPhase;
-using TheToolsmiths.Ddl.Parser.Build.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Build.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Build
 {
     internal class DdlContentUnitBuilder
     {
         private readonly ScopeContentBuilder rootScopeBuilder;
+        private readonly ICommonBuilders commonBuilders;
 
-        public DdlContentUnitBuilder(ScopeContentBuilder rootScopeBuilder)
+        public DdlContentUnitBuilder(ScopeContentBuilder rootScopeBuilder, ICommonBuilders commonBuilders)
         {
             this.rootScopeBuilder = rootScopeBuilder;
+            this.commonBuilders = commonBuilders;
         }
 
         public Result Build(AstContentUnit astContentUnit)
         {
-            var scopeContext = ContentUnitScopeBuildContext.CreateRootContext();
+            var scopeContext = ContentUnitScopeBuildContext.CreateRootContext(this.commonBuilders);
 
             var result = this.rootScopeBuilder
-                .BuildScopeContent(scopeContext, astContentUnit.FileRootScope.Content);
+                .BuildScopeContent(scopeContext, astContentUnit.FileRootScope);
 
             if (result.IsError)
             {
@@ -28,7 +30,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
 
             var rootScope = result.Value;
 
-            var resolvedContentUnit = new FirstPhaseResolvedContentUnit(astContentUnit.Id, rootScope);
+            //var resolvedContentUnit = new ContentUnit(astContentUnit.Id, rootScope);
 
             throw new NotImplementedException();
         }

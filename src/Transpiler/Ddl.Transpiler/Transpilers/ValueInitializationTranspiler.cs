@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Text.Json;
-
+using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
-using TheToolsmiths.Ddl.Parser.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Transpiler.Transpilers
 {

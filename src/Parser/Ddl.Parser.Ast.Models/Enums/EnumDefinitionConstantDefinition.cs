@@ -1,6 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Models;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Literals;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
 {

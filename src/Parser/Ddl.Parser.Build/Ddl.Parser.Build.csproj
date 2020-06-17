@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -14,9 +14,7 @@
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.Models\Ddl.Parser.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Build.Common\Ddl.Parser.Build.Common.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.Build.Models\Ddl.Parser.Build.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Build.Shared\Ddl.Parser.Build.Shared.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,0 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes
-{
-    public interface IFileRootScope
-    {
-        ScopeContent Content { get; }
-    }
-}

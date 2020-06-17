@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.TypeResolution.Context
 {
@@ -33,7 +33,7 @@ namespace TheToolsmiths.Ddl.TypeResolution.Context
             return new ScopeItemBuildContext(scopeNamespace, typeResolver, serviceProvider);
         }
 
-        //public ScopeItemBuildContext CreateChildScope(IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
+        //public ScopeItemBuildContext CreateChildScope(IReadOnlyList<ImportStatement> importPaths)
         //{
         //    var typeResolver = this.typeResolver.CreateScopeWithImportPathLayer(this.scopeNamespace, importPaths);
 

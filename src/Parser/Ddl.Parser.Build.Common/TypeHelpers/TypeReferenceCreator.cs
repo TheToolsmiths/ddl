@@ -1,72 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
+using TheToolsmiths.Ddl.Models.Types.References;
+using TheToolsmiths.Ddl.Models.Types.References.Builders;
+using TheToolsmiths.Ddl.Models.Types.References.Storage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Common;
-using TheToolsmiths.Ddl.Parser.Models.Types.References;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+
 using DynamicArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.DynamicArraySize;
 using FixedArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.FixedArraySize;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
 {
-    public static partial class TypeReferenceCreator
+    public static class TypeReferenceCreator
     {
         public static TypeReference CreateFromTypeIdentifier(ITypeIdentifier typeIdentifier)
         {
-            var typesToResolve = new List<TypeIdentifierBuildContext>();
+            var builder = TypeReferenceBuilder.Start();
 
-            typesToResolve.Add(new TypeIdentifierBuildContext(typesToResolve, typeIdentifier));
+            BuildTypeIdentifier(builder, typeIdentifier);
 
-            for (int i = 0; i < typesToResolve.Count; i++)
-            {
-                var context = typesToResolve[i];
-
-                var type = context.TypeIdentifier;
-
-                BuildTypeIdentifier(context, type);
-            }
-
-            var builtReferences = new TypeReference[typesToResolve.Count];
-
-            for (int i = typesToResolve.Count - 1; i >= 0; i--)
-            {
-                var context = typesToResolve[i];
-
-                context.Builder.BuiltReferences = builtReferences;
-
-                foreach (int typesIndex in context.UsedTypesIndices)
-                {
-                    if (typesIndex <= i)
-                    {
-                        throw new IndexOutOfRangeException();
-                    }
-
-                    context.Builder.GenericParameterTypes.Add(builtReferences[i]);
-                }
-
-                builtReferences[i] = typesToResolve[i].Builder.Build();
-            }
-
-            return builtReferences.First();
+            return builder.Build();
         }
 
-        private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, ITypeIdentifier typeIdentifier)
+        private static void BuildTypeIdentifier(TypeReferenceBuilder builder, ITypeIdentifier typeIdentifier)
         {
             switch (typeIdentifier)
             {
                 case ConstantTypeIdentifier identifier:
-                    BuildTypeIdentifier(context, identifier);
+                    BuildTypeIdentifier(builder, identifier);
                     break;
                 case ArrayTypeIdentifier identifier:
-                    BuildTypeIdentifier(context, identifier);
+                    BuildTypeIdentifier(builder, identifier);
                     break;
                 case QualifiedTypeIdentifier identifier:
-                    BuildTypeIdentifier(context, identifier);
+                    BuildTypeIdentifier(builder, identifier);
                     break;
                 case ReferenceTypeIdentifier identifier:
-                    BuildTypeIdentifier(context, identifier);
+                    BuildTypeIdentifier(builder, identifier);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(typeIdentifier));
@@ -74,77 +46,65 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
         }
 
         private static void BuildTypeIdentifier(
-            TypeIdentifierBuildContext context,
+            TypeReferenceBuilder builder,
             ReferenceTypeIdentifier typeIdentifier)
         {
             switch (typeIdentifier.ReferenceKind)
             {
                 case ReferenceKind.Owns:
-                    context.Builder.SetOwnsReference();
+                    builder.SetOwnsReference();
                     break;
                 case ReferenceKind.Handle:
-                    context.Builder.SetHandleReference();
+                    builder.SetHandleReference();
                     break;
                 case ReferenceKind.Reference:
-                    context.Builder.SetRefReference();
+                    builder.SetRefReference();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            BuildTypeIdentifier(context, typeIdentifier.TypeIdentifier);
+            BuildTypeIdentifier(builder, typeIdentifier.TypeIdentifier);
         }
 
         private static void BuildTypeIdentifier(
-            TypeIdentifierBuildContext context,
+            TypeReferenceBuilder builder,
             QualifiedTypeIdentifier typeIdentifier)
         {
-            var referencePath = BuildTypeIdentifierPath(typeIdentifier.TypePath);
-
-            context.Builder.SetTypePath(referencePath);
-
-            TypeReferencePath BuildTypeIdentifierPath(TypeIdentifierPath typePath)
+            foreach (var identifierPathPart in typeIdentifier.TypePath.PathParts)
             {
-                var pathParts = new List<TypeReferencePathPart>();
-
-                foreach (var identifierPathPart in typePath.PathParts)
+                switch (identifierPathPart)
                 {
-                    TypeReferencePathPart pathPart = identifierPathPart switch
-                    {
-                        GenericIdentifierPathPart part => CreateGenericPathPart(part),
-                        SimpleIdentifierPathPart part => CreateSimplePathPart(part),
-                        _ => throw new ArgumentOutOfRangeException(nameof(identifierPathPart))
-                    };
-
-                    pathParts.Add(pathPart);
+                    case GenericIdentifierPathPart genericPart:
+                        CreateGenericPathPart(genericPart);
+                        break;
+                    case SimpleIdentifierPathPart simplePart:
+                        CreateSimplePathPart(simplePart);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(identifierPathPart));
                 }
+            }
 
-                return new TypeReferencePath(typePath.IsRooted, pathParts);
+            void CreateGenericPathPart(GenericIdentifierPathPart pathPart)
+            {
+                var genericPartBuilder = builder.AddGenericPart(pathPart.Name.Text);
 
-                TypeReferencePathPart CreateGenericPathPart(GenericIdentifierPathPart pathPart)
+                foreach (var parameterTypeIdentifier in pathPart.GenericParameters)
                 {
-                    var typesIndices = new List<int>();
+                    var parameterBuilder = genericPartBuilder.AddGenericParameter();
 
-                    foreach (var parameterTypeIdentifier in pathPart.GenericParameters)
-                    {
-                        int typeIndex = context.EnqueueTypeIdentifier(parameterTypeIdentifier);
-
-                        typesIndices.Add(typeIndex);
-                    }
-
-                    context.SetUsedTypeIndices(typesIndices);
-
-                    return new GenericReferencePathPart(pathPart.Name.Text, pathPart.GenericParameters.Count, typesIndices);
+                    BuildTypeIdentifier(parameterBuilder, parameterTypeIdentifier);
                 }
+            }
 
-                TypeReferencePathPart CreateSimplePathPart(SimpleIdentifierPathPart pathPart)
-                {
-                    return new SimpleReferencePathPart(pathPart.Name.Text);
-                }
+            void CreateSimplePathPart(SimpleIdentifierPathPart pathPart)
+            {
+                builder.AddSimplePath(pathPart.Name.Text);
             }
         }
 
-        private static void BuildTypeIdentifier(TypeIdentifierBuildContext context, ArrayTypeIdentifier typeIdentifier)
+        private static void BuildTypeIdentifier(TypeReferenceBuilder builder, ArrayTypeIdentifier typeIdentifier)
         {
             List<ArraySize> sizes = new List<ArraySize>();
 
@@ -160,9 +120,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
                 sizes.Add(result.Value);
             }
 
-            context.Builder.SetArrayStorage(sizes);
+            builder.SetArrayStorage(sizes);
 
-            BuildTypeIdentifier(context, typeIdentifier.TypeIdentifier);
+            BuildTypeIdentifier(builder, typeIdentifier.TypeIdentifier);
 
             Result<ArraySize> CreateFixedSize(FixedArraySize fixedArraySize)
             {
@@ -178,26 +138,26 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
                     dimensions.Add(integer);
                 }
 
-                ArraySize value = new Parser.Models.Types.References.FixedArraySize(dimensions);
+                ArraySize value = new Models.Types.References.Storage.FixedArraySize(dimensions);
 
                 return Result.FromValue(value);
             }
 
             Result<ArraySize> CreateDynamicSize(DynamicArraySize _)
             {
-                ArraySize value = new Parser.Models.Types.References.DynamicArraySize();
+                ArraySize value = new Models.Types.References.Storage.DynamicArraySize();
 
                 return Result.FromValue(value);
             }
         }
 
         private static void BuildTypeIdentifier(
-            TypeIdentifierBuildContext context,
+            TypeReferenceBuilder builder,
             ConstantTypeIdentifier typeIdentifier)
         {
-            context.Builder.SetConstantModifier();
+            builder.SetConstantModifier();
 
-            BuildTypeIdentifier(context, typeIdentifier.TypeIdentifier);
+            BuildTypeIdentifier(builder, typeIdentifier.TypeIdentifier);
         }
     }
 }

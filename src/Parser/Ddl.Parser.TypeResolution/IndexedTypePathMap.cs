@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Parser.Models.Types.Resolution;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Models.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Types.Resolution;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {
@@ -31,7 +31,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
 
         public bool TryResolveType(
             TypeReferencePath lookupPath,
-            [MaybeNullWhen(returnValue: false)] out Parser.Models.Types.Resolution.TypeResolution typeResolution)
+            [MaybeNullWhen(returnValue: false)] out Models.Types.Resolution.TypeResolution typeResolution)
         {
             foreach (var entityReference in this.entityReferences)
             {
@@ -62,7 +62,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
             }
 
             // If type reference is rooted,
-            // root the lookupPath with the scope rooted namespace and compare both
+            // path the lookupPath with the scope rooted namespace and compare both
             if (typeIdentifier.IsRooted)
             {
                 if (TypeReferencePathComparer.CompareFullPartsWithIgnoreNamespaceRoot(lookupPath, typeIdentifier))

@@ -2,8 +2,6 @@
 
 using TheToolsmiths.Ddl.Parser;
 using TheToolsmiths.Ddl.Parser.Build;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
 {
@@ -14,18 +12,19 @@ namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
         void RegisterParserProvider<T>()
             where T : class, IRootParserRegister;
 
+        void RegisterBuilderProvider<T>()
+            where T : class, IRootBuilderRegister;
+
         void RegisterItemParserType<T>()
             where T : class, IRootItemParser;
 
         void RegisterScopeParserType<T>()
             where T : class, IRootScopeParser;
 
-        void RegisterRootItemBuilder<T, TItem>()
-            where T : class, IRootItemBuilder<TItem>
-            where TItem : class, IRootItem;
+        void RegisterRootItemBuilder<T>()
+            where T : class, IRootItemBuilder;
 
-        void RegisterRootScopeBuilder<T, TScope>()
-            where T : class, IRootScopeBuilder<TScope>
-            where TScope : class, IRootScope;
+        void RegisterRootScopeBuilder<T>()
+            where T : class, IRootScopeBuilder;
     }
 }

@@ -45,16 +45,16 @@
         //    return Result.Success;
         //}
 
-        //private Result IndexScopeItem(ContentUnitTypeIndexingContext context, FirstPhaseResolvedItem item)
+        //private Result IndexScopeItem(ContentUnitTypeIndexingContext context, RootItemBase item)
         //{
         //    if (item.ItemReference != null)
         //    {
         //        var itemReference = item.ItemReference;
 
-        //        var typeIdentifier = TypeIdentifierPathBuilder.Create(context.NamespacePath, itemReference.TypeName);
+        //        var typeIdentifier = TypeIdentifierPathBuilder.Create(context.NamespacePath, itemReference.Name);
 
         //        var indexedType = new ItemTypePathReference(
-        //            itemReference.TypeName,
+        //            itemReference.Name,
         //            context.NamespacePath,
         //            itemReference.ItemReference,
         //            typeIdentifier);
@@ -64,10 +64,10 @@
 
         //    foreach (var subItemReference in item.SubItemReferences)
         //    {
-        //        var typeIdentifier = TypeIdentifierPathBuilder.Create(context.NamespacePath, subItemReference.TypeName);
+        //        var typeIdentifier = TypeIdentifierPathBuilder.Create(context.NamespacePath, subItemReference.Name);
 
         //        var indexedType = new SubItemTypePathReference(
-        //            subItemReference.TypeName,
+        //            subItemReference.Name,
         //            context.NamespacePath,
         //            subItemReference.SubItemReference,
         //            typeIdentifier);

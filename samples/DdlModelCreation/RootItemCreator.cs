@@ -1,0 +1,184 @@
+﻿using System.Collections.Generic;
+
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Structs;
+using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
+using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.References.Builders;
+using TheToolsmiths.Ddl.Models.Types.References.Storage;
+
+namespace DdlModelCreation
+{
+    public static class RootItemCreator
+    {
+        public static IReadOnlyList<IRootItem> CreateRootScopeItems()
+        {
+            var items = new List<IRootItem> { CreateStructWithFieldTestTypes(), CreateStructWithScopes() };
+
+            return items;
+        }
+
+        private static IRootItem CreateStructWithScopes()
+        {
+            //[TestAttributeType { value1: false, value2: 0b10 }]
+            //def struct StructWithScopes
+            //{
+            var itemNameIdentifier = new SimpleTypeNameIdentifier("StructWithScopes");
+            var typeName = new TypedItemName(itemNameIdentifier);
+
+            var contentBuilder = new StructDefinitionContentBuilder();
+            //    // Scope
+            //    scope
+            contentBuilder.AddScope()
+                //    {        
+                //        field1: TestGenericType<Foo>
+                .AddField("field1")
+                .WithType()
+                .StartsWithGenericPath("TestGenericType", "Foo");
+            //    }
+
+            //    // Scope With Conditional Expression
+            //    scope(DEFINE_1 != "Something" || (false && true) || false || DEFINE_2 || !DEFINE_3)
+            ConditionalExpression condition = ConditionalExpression.CreateOr(
+                // DEFINE_1 != "Something"
+                DefineCompareExpression.CreateNotEquals("DEFINE_1", "Something"),
+
+                // (false && true)
+                LogicalExpression.CreateAnd(BoolLiteralExpression.False, BoolLiteralExpression.True),
+
+                // false
+                BoolLiteralExpression.False,
+
+                // DEFINE_2
+                DefineCheckExpression.CreateDefined("DEFINE_2"),
+
+                // !DEFINE_3
+                DefineCheckExpression.CreateNotDefined("DEFINE_3"));
+
+            var scopeBuilder = contentBuilder.AddConditionalScope(condition);
+            //    {        
+            {
+                //        [TestAttributeType { struct1: {value1: false, value2: 10 } }]
+                //        field1: ref test::Map<string<foo>, test::Bar>,
+                var fieldBuilder = scopeBuilder.AddField("field1");
+
+                fieldBuilder.AddTypedAttribute("TestAttributeType")
+                    .WithStructuredInitialization()
+                    .WithStructuredField("struct1")
+                    .WithField("value1", value: false)
+                    .WithField("value2", value: 10);
+
+                var genericPart = fieldBuilder.WithType()
+                    .SetRefReference()
+                    .StartsWithSimplePath("test")
+                    .AddGenericPart("Map");
+
+                genericPart.AddGenericParameter().StartsWithGenericPath("string", "foo");
+
+                genericPart.AddGenericParameter().StartsWithSimplePath("test", "Bar");
+            }
+
+            {
+                //        [IgnoreWhen(DEFINE_1 || (false || true))]
+                //        field2: bool,
+                var fieldBuilder = scopeBuilder.AddField("field2");
+
+                fieldBuilder.WithType().StartsWithSimplePath("bool");
+
+                ConditionalExpression expression = ConditionalExpression.CreateOr(
+                    DefineCheckExpression.CreateDefined("DEFINE_1"),
+                    LogicalExpression.CreateOr(BoolLiteralExpression.False, BoolLiteralExpression.True));
+                fieldBuilder.AddConditionalAttribute("IgnoreWhen", expression);
+            }
+
+            {
+                //        field3: i32,
+
+                var fieldBuilder = scopeBuilder.AddField("field3");
+
+                fieldBuilder.WithType().StartsWithSimplePath("i32");
+            }
+
+            //    }   
+
+            var structContent = contentBuilder.Build();
+
+            var structWithFieldTestTypes = new StructDefinition(typeName, structContent);
+            //}
+
+            return structWithFieldTestTypes;
+        }
+
+        private static IRootItem CreateStructWithFieldTestTypes()
+        {
+            //def struct StructWithFieldTestTypes
+            //{
+            var itemNameIdentifier = new SimpleTypeNameIdentifier("StructWithFieldTestTypes");
+            var typeName = new TypedItemName(itemNameIdentifier);
+
+            var contentBuilder = new StructDefinitionContentBuilder();
+
+            //    field1: alias1,
+            contentBuilder.AddField("field1").WithType().StartsWithSimplePath("alias1");
+
+            //    field2: ::alias1,
+            contentBuilder.AddField("field2").WithType().StartsRootedWithSimplePath("alias1");
+
+            //    field3: foo::foo_type<int>,
+            contentBuilder.AddField("field3").WithType().StartsWithSimplePath("foo").AddGenericPart("foo_type", "int");
+
+            //    field4: ::GenericStructWithSimpleTypeParameter<string>,
+            contentBuilder.AddField("field4")
+                .WithType()
+                .StartsRootedWithGenericPath("GenericStructWithSimpleTypeParameter", "string");
+
+            //    field5: const ref std::experimental::TestFieldType<Result<int[], ::std::Error<string>>, std::Foo[]>[][20][20, 45, 0b101],
+            {
+                TypeReferenceBuilder field5Type = contentBuilder.AddField("field5")
+                    .WithType()
+                    .MakeArraySized(
+                        ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(size: 20).AddFixedSizes(20, 45, 10))
+                    .SetRefReference()
+                    .MakeConst()
+                    .StartsWithSimplePath("std", "experimental");
+
+                var genericPartBuilder = field5Type.AddGenericPart("TestFieldType");
+
+                // Result<int[], ::std::Error<string>>
+                {
+                    var resultGenericBuilder = genericPartBuilder.AddGenericParameter().StartsWithGenericPart("Result");
+
+                    // int[]
+                    resultGenericBuilder.AddGenericParameter().StartsWithSimplePath("int").MakeArrayDynamicSized();
+
+                    // ::std::Error<string>
+                    resultGenericBuilder.AddGenericParameter()
+                        .StartsRootedWithSimplePath("std")
+                        .AddGenericPart("Error", "string");
+                }
+
+                // std::Foo[]
+                {
+                    genericPartBuilder.AddGenericParameter().StartsWithSimplePath("std", "Foo").MakeArrayDynamicSized();
+                }
+            }
+
+            // field6: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02]
+            contentBuilder.AddField("field6")
+                .WithType()
+                .SetRefReference()
+                .MakeArraySized(
+                    ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(size: 20).AddFixedSizes(20, 45, 2))
+                .StartsWithSimplePath("std", "experimental")
+                .AddGenericPart("TestFieldType", "Foo");
+
+            var structContent = contentBuilder.Build();
+
+            var structWithFieldTestTypes = new StructDefinition(typeName, structContent);
+            //}
+
+            return structWithFieldTestTypes;
+        }
+    }
+}

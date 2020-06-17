@@ -1,12 +1,12 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
-    public class ConditionalRootScopeBuilder : IRootScopeBuilder<ConditionalRootScope>
+    public class ConditionalRootScopeBuilder : IRootScopeBuilder<ConditionalAstRootScope>
     {
         //private readonly ScopeContentResolver scopeResolver;
 
@@ -15,16 +15,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         //    this.scopeResolver = scopeResolver;
         //}
 
-        public RootScopeBuildResult<ConditionalRootScope> CatalogScope(IRootItemBuildContext unitContext, IAstRootScope scope)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Result CatalogScope(IRootItemBuildContext unitContext, ConditionalRootScope scope)
+        public RootScopeBuildResult BuildScope(IRootItemBuildContext unitContext, ConditionalAstRootScope scope)
         {
             throw new NotImplementedException();
 
-            //var additionalProperties = new List<FirstPhaseResolvedScopeProperty>();
+            //var additionalProperties = new List<ScopeProperty>();
 
             //if (scope.ConditionalExpression.IsEmpty == false)
             //{

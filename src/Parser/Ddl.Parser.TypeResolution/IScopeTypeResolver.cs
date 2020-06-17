@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Models.Types.References;
+﻿using TheToolsmiths.Ddl.Models.Types.References;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {

@@ -16,20 +16,21 @@ import { module_name7 };
 import module_name8::{ export1 as alias1 };
 import module_name9::{ export1, export2 };
 import module_name10::path::to::specific::unexported::file::{ foo , bar };
-import module_name11::{ export1 , export2 as alias2 };
+import ::module_name11::{ export1 , export2 as alias2 };
 import module_name12::{ sub1 };
 import module_name13::{ sub1 as name5 };
 
 ;;
 
 
-def struct StructWithArrayField
+def struct StructWithFieldTestTypes
 {
-    field4: alias1,
-    field4: foo::foo_type<int>,
-    field3: GenericStructWithSimpleTypeParameter<string>,
-    field2: const ref std::experimental::TestFieldType<Result<int[], std::Error<string>>,std::Foo[]>[][20][20, 45, 0b101],
-    field1: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
+    field1: alias1,
+    field2: ::alias1,
+    field3: foo::foo_type<int>,
+    field4: ::GenericStructWithSimpleTypeParameter<string>,
+    field5: const ref std::experimental::TestFieldType<Result<int[], ::std::Error<string>>,std::Foo[]>[][20][20, 45, 0b101],
+    field6: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
     // Errors
     // field1: ref std::experimental::<Foo>[][20][20, 45, 0x02],
     // field2: ::std::experimental::[][20][20, 45, 0x02],

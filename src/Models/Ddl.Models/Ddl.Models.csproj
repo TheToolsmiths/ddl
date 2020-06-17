@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Models</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Models</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Common.Models\Ddl.Common.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ConditionalExpressions\Builders\" />
+  </ItemGroup>
+
+</Project>

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TheToolsmiths.Ddl.Parser.Build.BuildPhase;
+
+using TheToolsmiths.Ddl.Parser.Build.Builders;
+using TheToolsmiths.Ddl.Parser.Build.Builders.BuilderMaps;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Services
 {
@@ -10,6 +12,10 @@ namespace TheToolsmiths.Ddl.Parser.Build.Services
             services.AddScoped<DdlContentUnitBuilder>();
 
             services.AddScoped<IDdlContentUnitCollectionBuilder, DdlContentUnitCollectionBuilder>();
+
+            services.AddScoped<RootBuilderResolver>();
+
+            services.AddSingleton(BuilderMapRegistryFactory.CreateMap);
 
             services.AddScoped<ScopeContentBuilder>();
 

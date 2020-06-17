@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
 using TheToolsmiths.Ddl.Parser;
 using TheToolsmiths.Ddl.Parser.Build;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Cli.Plugins
 {
@@ -27,6 +25,12 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
             this.services.AddTransient<IRootParserRegister, T>();
         }
 
+        public void RegisterBuilderProvider<T>()
+            where T : class, IRootBuilderRegister
+        {
+            this.services.AddTransient<IRootBuilderRegister, T>();
+        }
+
         public void RegisterItemParserType<T>()
             where T : class, IRootItemParser
         {
@@ -39,18 +43,16 @@ namespace TheToolsmiths.Ddl.Cli.Plugins
             this.services.AddTransient<T>();
         }
 
-        public void RegisterRootItemBuilder<T, TItem>()
-            where T : class, IRootItemBuilder<TItem>
-            where TItem : class, IRootItem
+        public void RegisterRootItemBuilder<T>()
+            where T : class, IRootItemBuilder
         {
-            throw new System.NotImplementedException();
+            this.services.AddTransient<T>();
         }
 
-        public void RegisterRootScopeBuilder<T, TScope>()
-            where T : class, IRootScopeBuilder<TScope>
-            where TScope : class, IRootScope
+        public void RegisterRootScopeBuilder<T>()
+            where T : class, IRootScopeBuilder
         {
-            throw new System.NotImplementedException();
+            this.services.AddTransient<T>();
         }
     }
 }

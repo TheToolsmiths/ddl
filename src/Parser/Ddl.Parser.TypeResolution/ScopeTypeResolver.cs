@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using TheToolsmiths.Ddl.Parser.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Parser.Models.Types.References;
-using TheToolsmiths.Ddl.Parser.Models.Types.Resolution;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Models.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Types.References;
+using TheToolsmiths.Ddl.Models.Types.Resolution;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {
@@ -36,7 +36,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
 
         //internal ScopeTypeResolver CreateScopeWithImportPathLayer(
         //    NamespacePath scopeNamespace,
-        //    IReadOnlyList<FirstPhaseResolvedImportPath> importPaths)
+        //    IReadOnlyList<ImportStatement> importPaths)
         //{
         //    var layers = new List<IndexedImportPathMap>
         //    {
@@ -56,7 +56,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
             {
                 TypeReference builtReference = builtReferences[i];
 
-                Parser.Models.Types.Resolution.TypeResolution typeResolution = this.ResolveType(builtReference.TypePath);
+                Models.Types.Resolution.TypeResolution typeResolution = this.ResolveType(builtReference.TypePath);
 
                 var updatedReference = builtReference.WithTypeResolution(typeResolution);
 
@@ -70,7 +70,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
             return Result.FromValue(resolvedReference);
         }
 
-        private Parser.Models.Types.Resolution.TypeResolution ResolveType(TypeReferencePath typePath)
+        private Models.Types.Resolution.TypeResolution ResolveType(TypeReferencePath typePath)
         {
             if (this.TryResolveFromIndexedTypes(typePath, out var typeResolution))
             {
@@ -84,7 +84,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
             //    return typeResolution;
             //}
 
-            return Parser.Models.Types.Resolution.TypeResolution.Unresolved;
+            return Models.Types.Resolution.TypeResolution.Unresolved;
         }
 
         //private bool TryResolveFromImportTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out TypeResolution typeResolution)
@@ -101,7 +101,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
         //    return false;
         //}
 
-        private bool TryResolveFromIndexedTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out Parser.Models.Types.Resolution.TypeResolution typeResolution)
+        private bool TryResolveFromIndexedTypes(TypeReferencePath typePath, [MaybeNullWhen(false)] out Models.Types.Resolution.TypeResolution typeResolution)
         {
             return this.IndexedTypes.TryResolveType(typePath, out typeResolution);
         }

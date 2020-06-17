@@ -1,57 +1,51 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+﻿using System;
+using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.References.ItemReferences;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
-using TheToolsmiths.Ddl.Parser.Build.Models.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Build.Results;
-using TheToolsmiths.Ddl.Parser.Models.References.ItemReferences;
-using TheToolsmiths.Ddl.Parser.Models.Structs;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
-    public class StructDefinitionBuilder : IRootItemBuilder<StructDefinition>
+    public class StructDefinitionBuilder : IRootItemBuilder<StructAstDefinition>
     {
-        public RootItemBuildResult<StructDefinition> BuildItem(IRootItemBuildContext unitContext, IAstRootItem item)
+        public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, StructAstDefinition item)
         {
-            throw new System.NotImplementedException();
+            var builder = new RootItemBuilder();
+
+            CatalogStructType(builder, item);
+
+            CreateResolvedItem(builder, item);
+
+            throw new NotImplementedException();
+
+            //return builder.CreateSuccessResult();
         }
 
-        public Result BuildItem(IRootItemBuildContext unitContext, StructAstDefinition item)
+        private static void CreateResolvedItem(RootItemBuilder builder, StructAstDefinition structDefinition)
         {
-            var context = new ItemResolveContext();
+            var itemReference = builder.RootTypeReference;
+            var subItemReferences = builder.SubItemTypesReferences;
 
-            CatalogStructType(context, item);
+            //var item = new RootItemBase(itemReference, subItemReferences);
 
-            CreateResolvedItem(unitContext, context, item);
+            throw new NotImplementedException();
 
-            return Result.Success;
+            //builder.ResolvedItems.Add(item);
         }
 
-        private static void CreateResolvedItem(
-            IRootItemBuildContext unitContext,
-            ItemResolveContext context,
-            StructAstDefinition structDefinition)
-        {
-            //var content = new StructDefinitionResolvedContent(structDefinition.Content);
-
-            var itemReference = context.RootTypeReference;
-            var subItemReferences = context.SubItemTypesReferences;
-
-            var item = new FirstPhaseResolvedItem(itemReference, subItemReferences);
-
-            unitContext.ResolvedItems.Add(item);
-        }
-
-        private static void CatalogStructType(ItemResolveContext context, IAstTypedRootItem definition)
+        private static void CatalogStructType(RootItemBuilder builder, IAstTypedRootItem definition)
         {
             var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
             var itemReference = new ItemReference(definition.ItemId);
 
-            var rootType = new FirstPhaseItemTypeReference(itemTypeName, itemReference);
+            var rootType = new TypedItemReference(itemTypeName, itemReference);
 
-            context.RootType = itemTypeName;
-            context.RootTypeReference = rootType;
+            builder.RootType = itemTypeName;
+            builder.RootTypeReference = rootType;
         }
     }
 }

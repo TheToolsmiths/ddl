@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
-using TheToolsmiths.Ddl.Parser.Models.Types.Names;
 using TypeName = TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names.TypeName;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
 {
     public static class TypeNameBuilder
     {
-        public static ItemTypeName CreateItemTypeName(TypeName typeName)
+        public static TypedItemName CreateItemTypeName(TypeName typeName)
         {
             TypeNameIdentifier itemNameIdentifier = typeName switch
             {
@@ -18,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
                 _ => throw new ArgumentOutOfRangeException(nameof(typeName))
             };
 
-            return new ItemTypeName(itemNameIdentifier);
+            return new TypedItemName(itemNameIdentifier);
 
             TypeNameIdentifier CreateGenericTypeName(GenericTypeName genericType)
             {
@@ -35,11 +35,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
             }
         }
 
-        public static SubItemTypeName CreateSubItemTypeName(ItemTypeName itemTypeName, Identifier subItemIdentifier)
+        public static TypedSubItemName CreateSubItemTypeName(TypedItemName typedItemName, Identifier subItemIdentifier)
         {
             var subItemTypeName = new SimpleTypeNameIdentifier(subItemIdentifier.Text);
 
-            return new SubItemTypeName(itemTypeName.ItemNameIdentifier, subItemTypeName);
+            return new TypedSubItemName(typedItemName.ItemNameIdentifier, subItemTypeName);
         }
     }
 }

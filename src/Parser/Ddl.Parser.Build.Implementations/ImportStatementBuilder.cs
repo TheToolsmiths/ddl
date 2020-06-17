@@ -1,43 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Imports;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
-using TheToolsmiths.Ddl.Parser.Build.Models.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Build.Results;
-using TheToolsmiths.Ddl.Parser.Models.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Models.Imports;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
-    public class ImportStatementBuilder : IRootItemBuilder<ImportStatement>
+    public class ImportStatementBuilder : IRootItemBuilder<ImportAstStatement>
     {
-        public RootItemBuildResult<ImportStatement> BuildItem(IRootItemBuildContext unitContext, IAstRootItem item)
+        public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, ImportAstStatement item)
         {
-            throw new NotImplementedException();
-        }
+            var context = new RootItemBuilder();
 
-        public Result BuildItem(
-            IRootItemBuildContext unitContext,
-            ImportAstStatement item)
-        {
-            var result = this.CreateImportList(item.RootItem);
+            var result = this.CreateImportList(context, item.RootItem);
 
             if (result.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            unitContext.ResolvedImportPaths.AddRange(result.Value);
+            throw new NotImplementedException();
 
-            return Result.Success;
+            //return context.CreateSuccessResult();
         }
 
-        private Result<IReadOnlyList<FirstPhaseResolvedImportPath>> CreateImportList(ImportItem rootItem)
+        private Result CreateImportList(
+            RootItemBuilder context,
+            Ast.Models.Imports.ImportItem rootItem)
         {
-            Result<IReadOnlyList<ResolvedImportItem>> result;
+            Result<IReadOnlyList<ImportItem>> result;
             bool isRoot;
-            if (rootItem is ImportRoot importRootItem)
+            if (rootItem is Ast.Models.Imports.ImportRoot importRootItem)
             {
                 isRoot = true;
                 result = this.ProcessImportPath(importRootItem.ChildItem);
@@ -55,24 +49,30 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 
             var childrenPaths = result.Value;
 
-            var importPaths = new List<FirstPhaseResolvedImportPath>();
+            var importPaths = new List<ImportStatement>();
 
             foreach (var path in childrenPaths)
             {
-                var resolvedRoot = isRoot
-                    ? ResolvedImportRoot.CreateRooted(path)
-                    : ResolvedImportRoot.CreateNonRooted(path);
+                throw new NotImplementedException();
 
-                string aliasIdentifier = ResolvedImportRootHelper.GetAliasIdentifier(resolvedRoot);
-                var resolvedItem = new FirstPhaseResolvedImportPath(resolvedRoot, aliasIdentifier);
+                //var resolvedRoot = isRoot
+                //    ? ImportPath.CreateRooted(path)
+                //    : ImportPath.CreateNonRooted(path);
 
-                importPaths.Add(resolvedItem);
+                //string aliasIdentifier = ImportRootHelper.GetAliasIdentifier(resolvedRoot);
+                //var resolvedItem = new ImportStatement(resolvedRoot, aliasIdentifier);
+
+                //importPaths.Add(resolvedItem);
             }
 
-            return Result.FromValue<IReadOnlyList<FirstPhaseResolvedImportPath>>(importPaths);
+            throw new NotImplementedException();
+
+            //context.ResolvedImportPaths.AddRange(importPaths);
+
+            return Result.Success;
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportPath(ImportItem importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportPath(Ast.Models.Imports.ImportItem importItem)
         {
             return importItem switch
             {
@@ -80,17 +80,17 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 ImportIdentifier import => this.ProcessImportIdentifier(import),
                 ImportIdentifierAlias import => this.ProcessImportIdentifierAlias(import),
                 ImportPathItem import => this.ProcessImportPathItem(import),
-                ImportRoot import => this.ProcessImportRoot(import),
+                Ast.Models.Imports.ImportRoot import => this.ProcessImportRoot(import),
                 _ => throw new ArgumentOutOfRangeException(nameof(importItem))
             };
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportRoot(ImportRoot importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportRoot(Ast.Models.Imports.ImportRoot importItem)
         {
             throw new NotImplementedException();
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportPathItem(ImportPathItem importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportPathItem(ImportPathItem importItem)
         {
             var result = this.ProcessImportPath(importItem.ChildItem);
 
@@ -99,45 +99,51 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 throw new NotImplementedException();
             }
 
-            var importPaths = new List<ResolvedImportItem>();
+            var importPaths = new List<ImportItem>();
 
             var childPaths = result.Value;
 
-            foreach (var path in childPaths)
-            {
-                var resolvedItem = new ResolvedImportPathItem(path, importItem.PathIdentifier.Text);
+            throw new NotImplementedException();
 
-                importPaths.Add(resolvedItem);
-            }
+            //foreach (var path in childPaths)
+            //{
+            //    var resolvedItem = new PathItem(path, importItem.PathIdentifier.Text);
 
-            return Result.FromValue<IReadOnlyList<ResolvedImportItem>>(importPaths);
+            //    importPaths.Add(resolvedItem);
+            //}
+
+            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportIdentifierAlias(ImportIdentifierAlias importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportIdentifierAlias(ImportIdentifierAlias importItem)
         {
-            var importPaths = new List<ResolvedImportItem>();
+            var importPaths = new List<ImportItem>();
 
-            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier.Text, importItem.AliasIdentifier.Text);
+            throw new NotImplementedException();
 
-            importPaths.Add(resolvedItem);
+            //var resolvedItem = new IdentifierAlias(importItem.Identifier.Text, importItem.AliasIdentifier.Text);
 
-            return Result.FromValue<IReadOnlyList<ResolvedImportItem>>(importPaths);
+            //importPaths.Add(resolvedItem);
+
+            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportIdentifier(ImportIdentifier importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportIdentifier(ImportIdentifier importItem)
         {
-            var importPaths = new List<ResolvedImportItem>();
+            throw new NotImplementedException();
 
-            var resolvedItem = new ResolvedImportIdentifierAlias(importItem.Identifier.Text, importItem.Identifier.Text);
+            //var importPaths = new List<ImportItem>();
 
-            importPaths.Add(resolvedItem);
+            //var resolvedItem = new IdentifierAlias(importItem.Identifier.Text, importItem.Identifier.Text);
 
-            return Result.FromValue<IReadOnlyList<ResolvedImportItem>>(importPaths);
+            //importPaths.Add(resolvedItem);
+
+            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
         }
 
-        private Result<IReadOnlyList<ResolvedImportItem>> ProcessImportGroup(ImportGroup importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportGroup(ImportGroup importItem)
         {
-            var importPaths = new List<ResolvedImportItem>();
+            var importPaths = new List<ImportItem>();
 
             foreach (var childItem in importItem.ChildItems)
             {
@@ -151,7 +157,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 importPaths.AddRange(result.Value);
             }
 
-            return Result.FromValue<IReadOnlyList<ResolvedImportItem>>(importPaths);
+            return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
         }
     }
 }

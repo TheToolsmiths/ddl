@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Parser.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
 namespace TheToolsmiths.Ddl.TypeResolution.Namespaces
 {

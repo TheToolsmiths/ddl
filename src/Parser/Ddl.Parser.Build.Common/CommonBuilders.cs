@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Models.Values;
+using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
