@@ -19,5 +19,12 @@ namespace TheToolsmiths.Ddl.Models.Types.Names
         {
             return $"{this.Name}<{string.Join(',', this.GenericParameters.Select(gp => gp.ToString()))}>";
         }
+
+        public static TypeNameIdentifier Create(string typeName, params string[] genericParameters)
+        {
+            var parameters = genericParameters.Select(p => new GenericTypeNameParameter(p)).ToList();
+
+            return new GenericTypeNameIdentifier(typeName, parameters);
+        }
     }
 }

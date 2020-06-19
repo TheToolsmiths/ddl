@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Models.Values.Builders
         {
             this.InitializationType = initializationType;
             this.Fields = new List<FieldInitializationBuilder>();
-            this.LiteralValue = new EmptyLiteral();
+            this.LiteralValue = new DefaultLiteral();
         }
 
         public ValueInitializationType InitializationType { get; set; }

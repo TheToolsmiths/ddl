@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Enums.Builders;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
 using TheToolsmiths.Ddl.Models.Types.Names;
@@ -14,9 +16,156 @@ namespace DdlModelCreation
     {
         public static IReadOnlyList<IRootItem> CreateRootScopeItems()
         {
-            var items = new List<IRootItem> { CreateStructWithFieldTestTypes(), CreateStructWithScopes() };
+            var items = new List<IRootItem>
+            {
+                CreateStructWithFieldTestTypes(),
+                CreateStructWithScopes(),
+                CreateGenericStructWithSimpleTypeParameter(),
+                CreateGenericStructWithMultipleTypeParameter(),
+                CreateEnumStructConstantValue(),
+                CreateEnumTextureType(),
+            };
 
             return items;
+        }
+
+        private static IRootItem CreateEnumTextureType()
+        {
+            //def enum struct ConstantValue
+            //{
+            var enumStructBuilder = new EnumDefinitionBuilder()
+            .WithSimpleTypeName("TextureType");
+
+            //Unit,
+            enumStructBuilder.WithConstant("Unit");
+
+            //Texture2D,
+            enumStructBuilder.WithConstant("Texture2D");
+
+            //Texture3D,
+            enumStructBuilder.WithConstant("Texture3D");
+
+            //TextureCube,
+            enumStructBuilder.WithConstant("TextureCube");
+
+            // }
+
+            return enumStructBuilder.Build();
+        }
+
+        private static IRootItem CreateEnumStructConstantValue()
+        {
+            //def enum struct ConstantValue
+            //{
+            var enumStructBuilder = new EnumStructDefinitionBuilder()
+            .WithSimpleTypeName("ConstantValue");
+
+            {
+                //Unit,
+                enumStructBuilder.WithVariant("Unit");
+            }
+
+            {
+                // Bool {
+                var contentBuilder = enumStructBuilder.WithVariant("Bool").Content;
+
+                //     value: scalar::bool,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("scalar", "bool");
+
+                // }
+            }
+
+            {
+                //Int {
+                var contentBuilder = enumStructBuilder.WithVariant("Int").Content;
+
+                //     value: u32,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("u32");
+
+                // }
+            }
+
+            {
+                //Float {
+                var contentBuilder = enumStructBuilder.WithVariant("Float").Content;
+
+                //     value: f32,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("f32");
+
+                // }
+            }
+
+            {
+                //Vector2 {
+                var contentBuilder = enumStructBuilder.WithVariant("Vector2").Content;
+
+                //     value: vec2::f32,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("vec2", "f32");
+
+                // }
+            }
+
+            {
+                //Vector3 {
+                var contentBuilder = enumStructBuilder.WithVariant("Vector3").Content;
+
+                //     value: vec3::f32,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("vec3", "f32");
+
+                // }
+            }
+
+            {
+                //Vector4 {
+                var contentBuilder = enumStructBuilder.WithVariant("Vector4").Content;
+
+                //     value: vec4::f32,
+                contentBuilder.AddField("value").WithType().StartsWithSimplePath("vec4", "f32");
+
+                // }
+            }
+
+            // }
+
+            return enumStructBuilder.Build();
+        }
+
+        private static IRootItem CreateGenericStructWithMultipleTypeParameter()
+        {
+            //def struct GenericStructWithMultipleTypeParameter<TString, TFoo, TBar>
+            //{
+            var itemNameIdentifier = GenericTypeNameIdentifier.Create("GenericStructWithSimpleTypeParameter", "TString", "TFoo", "TBar");
+            var typeName = new TypedItemName(itemNameIdentifier);
+
+            var contentBuilder = new StructDefinitionContentBuilder();
+
+            var structContent = contentBuilder.Build();
+
+            var structDefinition = new StructDefinition(typeName, structContent);
+            //}
+
+            return structDefinition;
+        }
+
+        private static IRootItem CreateGenericStructWithSimpleTypeParameter()
+        {
+            const string genericParam = "TString";
+
+            //def struct GenericStructWithSimpleTypeParameter<TString>
+            //{
+            var itemNameIdentifier = GenericTypeNameIdentifier.Create("GenericStructWithSimpleTypeParameter", genericParam);
+            var typeName = new TypedItemName(itemNameIdentifier);
+
+            var contentBuilder = new StructDefinitionContentBuilder();
+
+            contentBuilder.AddField("field1").WithType().StartsWithSimplePath(genericParam);
+
+            var structContent = contentBuilder.Build();
+
+            var structDefinition = new StructDefinition(typeName, structContent);
+            //}
+
+            return structDefinition;
         }
 
         private static IRootItem CreateStructWithScopes()
@@ -104,10 +253,10 @@ namespace DdlModelCreation
 
             var structContent = contentBuilder.Build();
 
-            var structWithFieldTestTypes = new StructDefinition(typeName, structContent);
+            var structDefinition = new StructDefinition(typeName, structContent);
             //}
 
-            return structWithFieldTestTypes;
+            return structDefinition;
         }
 
         private static IRootItem CreateStructWithFieldTestTypes()
@@ -175,10 +324,10 @@ namespace DdlModelCreation
 
             var structContent = contentBuilder.Build();
 
-            var structWithFieldTestTypes = new StructDefinition(typeName, structContent);
+            var structDefinition = new StructDefinition(typeName, structContent);
             //}
 
-            return structWithFieldTestTypes;
+            return structDefinition;
         }
     }
 }
