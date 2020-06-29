@@ -28,23 +28,25 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
                     return;
                 }
 
-                if (readState.CurrentChar == CharConstants.LineFeed)
+                switch (readState.CurrentChar)
                 {
-                    readState.NextLine();
-                }
-                else if (readState.CurrentChar == CharConstants.CarriageReturn)
-                {
-                    if (readState.TryGetFirstCharScratchMemory(out char firstScratchChar))
+                    case CharConstants.LineFeed:
+                        readState.NextLine();
+                        break;
+                    case CharConstants.CarriageReturn:
                     {
-                        if (firstScratchChar == CharConstants.CarriageReturn)
+                        if (readState.TryGetFirstCharScratchMemory(out char firstScratchChar))
                         {
-                            readState.NextLine();
+                            if (firstScratchChar == CharConstants.CarriageReturn)
+                            {
+                                readState.NextLine();
+                            }
                         }
+
+                        break;
                     }
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
                 readState.ClearAndSetCharOnStageScratchMemory(readState.CurrentChar);

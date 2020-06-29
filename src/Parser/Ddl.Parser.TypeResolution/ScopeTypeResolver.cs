@@ -7,6 +7,7 @@ using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.TypeResolution
 {

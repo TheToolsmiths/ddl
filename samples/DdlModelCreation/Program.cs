@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.IO.Pipelines;
+using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.ImportPaths;
+using TheToolsmiths.Ddl.Writer;
+using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace DdlModelCreation
 {
@@ -12,15 +15,38 @@ namespace DdlModelCreation
     {
         public static void Main()
         {
+            var pipe = new Pipe();
+
+            Task.WaitAll(
+                Task.Run(() => WriteModel(pipe.Writer)),
+                Task.Run(() => WriteOutput(pipe.Reader)));
+
+            Console.WriteLine("Model created");
+        }
+
+        private static async Task WriteModel(PipeWriter pipeWriter)
+        {
             var scopeContent = CreateFileScopeContent();
 
             var rootScope = new RootScope(scopeContent);
 
             var contentUnit = new ContentUnit(rootScope);
 
-            throw new NotImplementedException();
+            await DdlWriter.Write(contentUnit, pipeWriter).ConfigureAwait(false);
 
-            // TODO: Implement transpilation from model to text
+            await pipeWriter.CompleteAsync().ConfigureAwait(false);
+        }
+
+        private static async Task WriteOutput(PipeReader pipeReader)
+        {
+            var result = await OutputWriter.WriteToStdOut(pipeReader).ConfigureAwait(false);
+
+            if (result.IsError)
+            {
+                Console.WriteLine($"Error writing to console: {result.ErrorMessage}");
+            }
+
+            await pipeReader.CompleteAsync().ConfigureAwait(false);
         }
 
         private static ScopeContent CreateFileScopeContent()
@@ -90,6 +116,7 @@ namespace DdlModelCreation
         {
             List<IRootScope> scopes = new List<IRootScope>();
 
+            // Empty Scope With Conditional Expression
             {
                 ////scope((DEFINE_1 && ((DEFINE_2 != "Something") && DEFINE_3 == "Something else")) || false)
                 ////{

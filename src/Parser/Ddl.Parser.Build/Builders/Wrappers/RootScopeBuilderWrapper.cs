@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Parser.Build.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
 {
-    internal class RootScopeBuilderWrapper<TBuilder, TAstScope> : IRootScopeBuilderWrapper
+    internal class RootScopeBuilderWrapper<TBuilder, TAstScope> : RootScopeBuilderWrapper
         where TBuilder : IRootScopeBuilder<TAstScope>
         where TAstScope : class, IAstRootScope
     {
@@ -15,9 +15,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
             this.builder = builder;
         }
 
-        public RootScopeBuildResult BuildScope(IRootItemBuildContext context, IAstRootScope scope)
+        public override RootScopeBuildResult BuildScope(IRootItemBuildContext context, IAstRootScope scope)
         {
             return this.builder.BuildScope(context, (TAstScope)scope);
         }
+    }
+
+    internal abstract class RootScopeBuilderWrapper
+    {
+        public abstract RootScopeBuildResult BuildScope(IRootItemBuildContext context, IAstRootScope scope);
     }
 }

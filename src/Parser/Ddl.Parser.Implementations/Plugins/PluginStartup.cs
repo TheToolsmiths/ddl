@@ -1,5 +1,7 @@
 ﻿using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
+using TheToolsmiths.Ddl.Parser.Configurations;
 using TheToolsmiths.Ddl.Parser.Implementations.Plugins;
+using TheToolsmiths.Ddl.Services;
 
 [assembly: PluginStartup(typeof(PluginStartup))]
 
@@ -7,17 +9,11 @@ namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
 {
     public class PluginStartup : IPluginStartup
     {
-        public void Configure(IPluginHostBuilder builder)
+        public void Configure(DdlServicesConfigurationBuilder builder)
         {
-            builder.RegisterParserProvider<ImplementationsRootParserRegister>();
+            builder.ProviderCollectionBuilder.AddProvider<ParserConfigurationProvider>();
 
-            builder.RegisterItemParserType<StructDefinitionParser>();
-            builder.RegisterItemParserType<EnumDefinitionDisambiguationParser>();
-            builder.RegisterItemParserType<EnumStructDefinitionParser>();
-            builder.RegisterItemParserType<EnumDefinitionParser>();
-            builder.RegisterItemParserType<ImportParser>();
-
-            builder.RegisterScopeParserType<RootScopeParser>();
+            builder.ParserConfigurators.AddConfigurator<ParserConfigurator>();
         }
     }
 }

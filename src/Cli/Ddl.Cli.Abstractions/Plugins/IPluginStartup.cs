@@ -1,7 +1,9 @@
-﻿namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
+﻿using TheToolsmiths.Ddl.Services;
+
+namespace TheToolsmiths.Ddl.Cli.Abstractions.Plugins
 {
     public interface IPluginStartup
     {
-        void Configure(IPluginHostBuilder builder);
+        void Configure(DdlServicesConfigurationBuilder builder);
     }
 }

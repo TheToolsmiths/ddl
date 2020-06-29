@@ -2,8 +2,9 @@
 using System.IO.Pipelines;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Cli.Writers;
 using TheToolsmiths.Ddl.Lexer;
+using TheToolsmiths.Ddl.Lexer.Writer;
+using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace TheToolsmiths.Ddl.Cli.Lexers
 {
@@ -32,7 +33,7 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
 
             var read = Task.Run(async () => await this.LexerFile(input.FullName, pipe.Writer));
 
-            var write = Task.Run(async () => await ConsolePipeWriter.WriteOutputToConsole(pipe.Reader));
+            var write = Task.Run(async () => await ConsoleOutputWriter.WriteOutputToConsole(pipe.Reader));
 
             Task.WaitAll(read, write);
 

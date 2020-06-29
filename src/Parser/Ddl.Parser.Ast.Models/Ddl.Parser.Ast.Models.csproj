@@ -9,8 +9,4 @@
     <RootNamespace>TheToolsmiths.Ddl.Parser.Ast.Models</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Ddl.Common.Models\Ddl.Common.Models.csproj" />
-  </ItemGroup>
-
 </Project>

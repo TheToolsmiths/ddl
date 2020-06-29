@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.Extensions.Logging;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Build;
+using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Cli.Builders
 {
@@ -22,8 +25,6 @@ namespace TheToolsmiths.Ddl.Cli.Builders
         public Result BuildContentUnits(IReadOnlyList<AstContentUnit> contentUnits)
         {
             using var _ = this.log.BeginScope("Build Content Units");
-
-            this.log.BeginScope("Building Content Units");
 
             {
                 var result = this.builder.BuildCollection(contentUnits);

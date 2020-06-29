@@ -1,6 +1,4 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.References.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -41,12 +39,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         {
             var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
-            var itemReference = new ItemReference(definition.ItemId);
+            throw new NotImplementedException();
 
-            var rootType = new TypedItemReference(itemTypeName, itemReference);
+            //var itemReference = new ItemReference(definition.ItemId);
 
-            builder.RootType = itemTypeName;
-            builder.RootTypeReference = rootType;
+            //var rootType = new TypedItemReference(itemTypeName, itemReference);
+
+            //builder.RootType = itemTypeName;
+            //builder.RootTypeReference = rootType;
         }
 
         private static void CatalogVariants(RootItemBuilder builder, EnumStructAstDefinition definition)
@@ -74,13 +74,15 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             EnumStructAstDefinition definition,
             EnumStructVariantDefinition variant)
         {
-            var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(builder.RootType, variant.Name);
+            throw new NotImplementedException();
 
-            var subItemReference = new SubItemReference(definition.ItemId, variant.ItemId);
+            //var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(builder.RootType, variant.Name);
 
-            var entry = new TypedSubItemReference(subItemTypeName, subItemReference);
+            //var subItemReference = new SubItemReference(definition.ItemId, variant.ItemId);
 
-            builder.SubItemTypesReferences.Add(entry);
+            //var entry = new TypedSubItemReference(subItemTypeName, subItemReference);
+
+            //builder.SubItemTypesReferences.Add(entry);
         }
     }
 }

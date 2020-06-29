@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Build.Common\Ddl.Parser.Build.Common.csproj" />

@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Parsers
+﻿using TheToolsmiths.Ddl.Parser.ParserMaps;
+
+namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public interface ICategoryParserFactory
     {

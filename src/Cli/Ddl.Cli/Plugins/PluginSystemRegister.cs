@@ -1,53 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
+using TheToolsmiths.Ddl.Services;
 
 namespace TheToolsmiths.Ddl.Cli.Plugins
 {
     internal static class PluginSystemRegister
     {
-        public static void RegisterPlugins(this IServiceCollection services, HostBuilderContext context)
+        public static void Register(
+            DdlServicesConfigurationBuilder configurationBuilder,
+            HostBuilderContext context,
+            IServiceCollection services)
         {
-            var configuration = context.Configuration;
+            var pluginManagerConfiguration = context.Configuration.GetSection("extensions").Get<PluginManagerConfiguration>();
 
-            var assembliesConfiguration = configuration.GetSection("extensions").Get<PluginManagerConfiguration>();
+            // Skip dispose because the registry is disposed by the Service Collection
+#pragma warning disable CA2000
+            var assembliesRegistry = PluginAssembliesRegistry.Build(pluginManagerConfiguration);
+#pragma warning restore CA2000
 
-            // We can disable this warning since the registry is disposed automatically
-            // by the IServiceCollection at program shutdown
-#pragma warning disable CA2000 // Dispose objects before losing scope
-            var pluginAssemblies = new PluginAssembliesRegistry(assembliesConfiguration);
-            services.AddSingleton(pluginAssemblies);
-#pragma warning restore CA2000 // Dispose objects before losing scope
-
-            pluginAssemblies.Initialize();
+            services.AddSingleton(assembliesRegistry);
 
             var exceptions = new List<Exception>();
 
-            var builder = new PluginHostBuilder(context.Configuration, services);
-
             // Execute the hosting startup assemblies
-            foreach (var assembly in pluginAssemblies.Assemblies)
+            foreach (var assembly in assembliesRegistry.Assemblies)
             {
-                try
+                foreach (var attribute in assembly.GetCustomAttributes<PluginStartupAttribute>())
                 {
-                    foreach (var attribute in assembly.GetCustomAttributes<PluginStartupAttribute>())
+                    try
                     {
-                        var hostingStartup = (IPluginStartup)Activator.CreateInstance(attribute.HostingStartupType)!;
+                        var pluginStartup = (IPluginStartup)Activator.CreateInstance(attribute.HostingStartupType)!;
 
-                        hostingStartup.Configure(builder);
+                        pluginStartup.Configure(configurationBuilder);
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Capture any errors that happen during startup
-                    var exception = new InvalidOperationException(
-                        $"Startup assembly '{assembly.FullName}' failed to execute. See the inner exception for more details.",
-                        ex);
-                    exceptions.Add(exception);
+                    catch (Exception ex)
+                    {
+                        // Capture any errors that happen during startup
+                        var exception = new InvalidOperationException(
+                            $"Startup assembly '{assembly.FullName}' failed to execute. See the inner exception for more details.",
+                            ex);
+                        exceptions.Add(exception);
+                    }
                 }
             }
 

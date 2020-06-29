@@ -3,9 +3,10 @@ using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Cli.Writers;
+
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Transpiler;
+using TheToolsmiths.Ddl.Parser.Ast.Writer;
+using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace TheToolsmiths.Ddl.Cli.Parsers
 {
@@ -24,8 +25,6 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
         {
             using var _ = this.log.BeginScope($"Parsing file '{input}'");
 
-            this.log.BeginScope($"Parsing file '{input}'");
-
             var pipe = new Pipe();
 
             Task.WaitAll(
@@ -37,12 +36,16 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
 
         private async Task ParseFile(FileInfo input, PipeWriter pipeWriter)
         {
+            // TODO: Migrate to new Ddl.Writer project
+            // TODO: Add AST output option to CLI
+            throw new NotImplementedException();
+
             var result = await this.textParser.ParseFromFile(input);
 
             if (result.IsSuccess
                 && result.AstContent != null)
             {
-                await DdlTranspiler.TranspileToString(result.AstContent, pipeWriter);
+                await DdlWriter.Write(result.AstContent, pipeWriter);
             }
             else
             {
@@ -52,35 +55,13 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
             await pipeWriter.CompleteAsync();
         }
 
-        private async Task WriteOutput(FileInfo? output, PipeReader pipeReader)
+        private async Task WriteOutput(FileInfo? outputFile, PipeReader pipeReader)
         {
-            try
-            {
-                if (output == null)
-                {
-                    await ConsolePipeWriter.WriteOutputToConsole(pipeReader);
-                    return;
-                }
+            var result = outputFile != null
+                ? await OutputWriter.WriteToFile(outputFile, pipeReader)
+                : await OutputWriter.WriteToStdOut(pipeReader);
 
-                await this.WriteOutputToFile(output, pipeReader);
-            }
-            catch (Exception e)
-            {
-                this.log.LogError("Error writing output. Message: '{message}'", e);
-
-                await pipeReader.CompleteAsync();
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Reliability",
-            "CA2000:Dispose objects before losing scope",
-            Justification = "Roslyn analysers don't understand await using yet")]
-        private async Task WriteOutputToFile(FileInfo output, PipeReader pipeReader)
-        {
-            await using var fileStream = File.OpenWrite(output.FullName);
-
-            await pipeReader.CopyToAsync(fileStream);
+            throw new NotImplementedException();
         }
     }
 }

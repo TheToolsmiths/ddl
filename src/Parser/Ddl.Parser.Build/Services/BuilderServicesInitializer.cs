@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Parser.Build.Builders;
-using TheToolsmiths.Ddl.Parser.Build.Builders.BuilderMaps;
+using TheToolsmiths.Ddl.Parser.Build.Common;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Services
 {
     public static class BuilderServicesInitializer
     {
-        public static IServiceCollection RegisterBuilderServices(this IServiceCollection services)
+        public static IServiceCollection RegisterBuilderServices(IServiceCollection services)
         {
             services.AddScoped<DdlContentUnitBuilder>();
 
@@ -15,13 +15,13 @@ namespace TheToolsmiths.Ddl.Parser.Build.Services
 
             services.AddScoped<RootBuilderResolver>();
 
-            services.AddSingleton(BuilderMapRegistryFactory.CreateMap);
-
             services.AddScoped<ScopeContentBuilder>();
 
             // Root Item Resolvers
             services.AddScoped<RootItemBuilder>();
             services.AddScoped<RootScopeBuilder>();
+
+            services.AddScoped<ICommonBuilders, CommonBuilders>();
 
             return services;
         }

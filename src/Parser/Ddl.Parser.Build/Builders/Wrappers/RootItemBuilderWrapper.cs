@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Parser.Build.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
 {
-    internal class RootItemBuilderWrapper<TBuilder, TAstItem> : IRootItemBuilderWrapper
+    internal class RootItemBuilderWrapper<TBuilder, TAstItem> : RootItemBuilderWrapper
         where TBuilder : IRootItemBuilder<TAstItem>
         where TAstItem : class, IAstRootItem
     {
@@ -15,9 +15,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
             this.builder = builder;
         }
 
-        public RootItemBuildResult BuildItem(IRootItemBuildContext context, IAstRootItem item)
+        public override RootItemBuildResult BuildItem(IRootItemBuildContext context, IAstRootItem item)
         {
             return this.builder.BuildItem(context, (TAstItem)item);
         }
+    }
+
+    internal abstract class RootItemBuilderWrapper
+    {
+        public abstract RootItemBuildResult BuildItem(IRootItemBuildContext context, IAstRootItem item);
     }
 }

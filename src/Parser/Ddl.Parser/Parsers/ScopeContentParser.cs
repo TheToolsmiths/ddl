@@ -6,6 +6,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
 {

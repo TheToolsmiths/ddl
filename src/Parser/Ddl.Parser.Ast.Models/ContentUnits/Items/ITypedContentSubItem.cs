@@ -1,9 +1,6 @@
-﻿using TheToolsmiths.Ddl.Models;
-
-namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
+﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
     public interface ITypedContentSubItem
     {
-        ContentUnitSubItemId ItemId { get; }
     }
 }

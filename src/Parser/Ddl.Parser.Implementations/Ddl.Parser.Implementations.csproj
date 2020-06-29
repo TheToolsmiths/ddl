@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Cli\Ddl.Cli.Abstractions\Ddl.Cli.Abstractions.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Lexer.Shared\Ddl.Lexer.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser\Ddl.Parser.csproj" />

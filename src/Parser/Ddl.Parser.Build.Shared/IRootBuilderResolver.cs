@@ -5,12 +5,12 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Build
 {
-    // TODO: Delete
-    //public interface IRootBuilderResolver
-    //{
+    public interface IRootBuilderResolver
+    {
+        // TODO: Change so that the lookup is made with a RootItem Type key and not the AST item
 
-    //    bool TryResolveItemBuilder(IAstRootItem astItem, [MaybeNullWhen(false)] out IRootItemBuilder itemBuilder);
+        bool TryResolveItemBuilder(IAstRootItem astItem, [MaybeNullWhen(false)] out IRootItemBuilder itemBuilder);
 
-    //    bool TryResolveScopeBuilder(IAstRootScope astScope, [MaybeNullWhen(false)] out IRootScopeBuilder scopeBuilder);
-    //}
+        bool TryResolveScopeBuilder(IAstRootScope astScope, [MaybeNullWhen(false)] out IRootScopeBuilder scopeBuilder);
+    }
 }

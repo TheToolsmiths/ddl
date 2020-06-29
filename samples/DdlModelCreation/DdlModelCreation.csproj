@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Models\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\..\src\Common\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Writers\Ddl.Writer\Ddl.Writer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" Version="4.7.2" />
   </ItemGroup>
 
 </Project>

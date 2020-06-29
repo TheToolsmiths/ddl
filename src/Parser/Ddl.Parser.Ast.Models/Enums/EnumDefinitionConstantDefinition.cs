@@ -1,5 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
@@ -10,10 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
         {
             this.Name = name;
             this.LiteralValue = literalValue;
-            this.ItemId = ContentUnitSubItemId.CreateNew();
         }
-
-        public ContentUnitSubItemId ItemId { get; }
 
         public Identifier Name { get; }
 

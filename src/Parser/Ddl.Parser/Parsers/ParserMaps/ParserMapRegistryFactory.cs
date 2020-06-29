@@ -1,25 +1,17 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Linq;
+
 using TheToolsmiths.Ddl.Parser.Containers;
+using TheToolsmiths.Ddl.Parser.ParserMaps;
+using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 {
     public static class ParserMapRegistryFactory
     {
-        public static IParserMapRegistry CreateMap(IServiceProvider provider)
+        public static IParserMapRegistry CreateMap(ParserMapRegistryBuilder builder)
         {
-            var builder = new ParserMapRegistryBuilder();
-
-            using (var _ = provider.CreateScope())
-            {
-                var parserProviders = provider.GetServices<IRootParserRegister>();
-
-                foreach (var parserProvider in parserProviders)
-                {
-                    parserProvider.RegisterParsers(builder);
-                }
-            }
-
             var rootCategory = CreateCategory(builder.RootCategoryBuilder);
 
             return new ParserMapRegistry(rootCategory);
@@ -52,7 +44,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
                 {
                     throw new NotImplementedException();
                 }
-                
+
                 if (itemParsersMap.Contains(key))
                 {
                     throw new NotImplementedException();
@@ -61,7 +53,55 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
                 scopeParsersMap.Add(key, parserType);
             }
 
-            return new ParserCategoryRegistry(builder.DefaultParser, itemParsersMap, scopeParsersMap, categoriesMap);
+            return new ParserCategoryRegistry(builder.DefaultItemParser, itemParsersMap, scopeParsersMap, categoriesMap);
+        }
+
+        public static IReadOnlyList<Type> GetItemParserTypeList(ParserMapRegistryBuilder registryBuilder)
+        {
+            var types = new List<Type>();
+
+            if (registryBuilder.DefaultItemParser != null)
+            {
+                types.Add(registryBuilder.DefaultItemParser);
+            }
+
+            AddCategoryTypes(registryBuilder.RootCategoryBuilder);
+
+            return types.Distinct().ToList();
+
+            void AddCategoryTypes(ParserMapCategoryBuilder categoryBuilder)
+            {
+                if (categoryBuilder.DefaultItemParser != null)
+                {
+                    types.Add(categoryBuilder.DefaultItemParser);
+                }
+
+                types.AddRange(categoryBuilder.ItemParsers.Values.ToList());
+
+                foreach (var category in categoryBuilder.Categories.Values)
+                {
+                    AddCategoryTypes(category);
+                }
+            }
+        }
+
+        public static IReadOnlyList<Type> GetScopeParserTypeList(ParserMapRegistryBuilder registryBuilder)
+        {
+            var types = new List<Type>();
+
+            AddCategoryTypes(registryBuilder.RootCategoryBuilder);
+
+            return types.Distinct().ToList();
+
+            void AddCategoryTypes(ParserMapCategoryBuilder categoryBuilder)
+            {
+                types.AddRange(categoryBuilder.ScopeParsers.Values.ToList());
+
+                foreach (var category in categoryBuilder.Categories.Values)
+                {
+                    AddCategoryTypes(category);
+                }
+            }
         }
     }
 }

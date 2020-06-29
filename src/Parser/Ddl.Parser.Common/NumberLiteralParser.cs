@@ -65,16 +65,15 @@ namespace TheToolsmiths.Ddl.Parser.Common
                         return true;
                     }
 
-                    if (literalText[i] == '0')
+                    switch (literalText[i])
                     {
-                    }
-                    else if (literalText[i] == '1')
-                    {
-                        memory[b] = (byte)(memory[b] | 1 << l);
-                    }
-                    else
-                    {
-                        return false;
+                        case '0':
+                            break;
+                        case '1':
+                            memory[b] = (byte)(memory[b] | 1 << l);
+                            break;
+                        default:
+                            return false;
                     }
                 }
             }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Imports;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
+using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
@@ -27,11 +28,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 
         private Result CreateImportList(
             RootItemBuilder context,
-            Ast.Models.Imports.ImportItem rootItem)
+            ImportItem rootItem)
         {
             Result<IReadOnlyList<ImportItem>> result;
             bool isRoot;
-            if (rootItem is Ast.Models.Imports.ImportRoot importRootItem)
+            if (rootItem is ImportRoot importRootItem)
             {
                 isRoot = true;
                 result = this.ProcessImportPath(importRootItem.ChildItem);
@@ -72,7 +73,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             return Result.Success;
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportPath(Ast.Models.Imports.ImportItem importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportPath(ImportItem importItem)
         {
             return importItem switch
             {
@@ -80,12 +81,12 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 ImportIdentifier import => this.ProcessImportIdentifier(import),
                 ImportIdentifierAlias import => this.ProcessImportIdentifierAlias(import),
                 ImportPathItem import => this.ProcessImportPathItem(import),
-                Ast.Models.Imports.ImportRoot import => this.ProcessImportRoot(import),
+                ImportRoot import => this.ProcessImportRoot(import),
                 _ => throw new ArgumentOutOfRangeException(nameof(importItem))
             };
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportRoot(Ast.Models.Imports.ImportRoot importItem)
+        private Result<IReadOnlyList<ImportItem>> ProcessImportRoot(ImportRoot importItem)
         {
             throw new NotImplementedException();
         }

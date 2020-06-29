@@ -1,9 +1,6 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.References.ItemReferences;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 
@@ -38,14 +35,16 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 
         private static void CatalogStructType(RootItemBuilder builder, IAstTypedRootItem definition)
         {
-            var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
+            throw new NotImplementedException();
 
-            var itemReference = new ItemReference(definition.ItemId);
+            //var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
 
-            var rootType = new TypedItemReference(itemTypeName, itemReference);
+            //var itemReference = new ItemReference(definition.ItemId);
 
-            builder.RootType = itemTypeName;
-            builder.RootTypeReference = rootType;
+            //var rootType = new TypedItemReference(itemTypeName, itemReference);
+
+            //builder.RootType = itemTypeName;
+            //builder.RootTypeReference = rootType;
         }
     }
 }

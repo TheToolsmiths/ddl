@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.Cli
                 .EnableDirectives()
                 .UseVersionOption()
                 .UseHelp()
-                .UseTranspilerHost()
+                .UseDdlHost()
                 .Build();
 
             return parser.InvokeAsync(args);

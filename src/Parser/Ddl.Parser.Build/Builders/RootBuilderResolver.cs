@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
-using Microsoft.Extensions.DependencyInjection;
-
+using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers;
@@ -12,9 +10,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
     internal class RootBuilderResolver
     {
         private readonly IServiceProvider provider;
-        private readonly IBuilderMapRegistry registry;
+        private readonly IConfigurationRegistry registry;
 
-        public RootBuilderResolver(IServiceProvider provider, IBuilderMapRegistry registry)
+        public RootBuilderResolver(IServiceProvider provider, IConfigurationRegistry registry)
         {
             this.provider = provider;
             this.registry = registry;
@@ -22,43 +20,47 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
 
         public bool TryResolveItemBuilder(
             IAstRootItem astItem,
-            [MaybeNullWhen(returnValue: false)] out IRootItemBuilderWrapper itemBuilder)
+            [MaybeNullWhen(returnValue: false)] out RootItemBuilderWrapper itemBuilder)
         {
-            var itemType = astItem.GetType();
-            if (this.registry.TryGetItemBuilderType(itemType, out var builderType))
-            {
-                var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
+            throw new NotImplementedException();
 
-                Type wrapperType = wrapperOpenType.MakeGenericType(builderType, itemType);
+            //var itemType = astItem.GetType();
+            //if (this.registry.TryGetItemBuilderType(itemType, out var builderType))
+            //{
+            //    var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
 
-                itemBuilder = (IRootItemBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+            //    Type wrapperType = wrapperOpenType.MakeGenericType(builderType, itemType);
 
-                return itemBuilder != null;
-            }
+            //    itemBuilder = (RootItemBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
 
-            itemBuilder = default;
-            return false;
+            //    return itemBuilder != null;
+            //}
+
+            //itemBuilder = default;
+            //return false;
         }
 
         public bool TryResolveScopeBuilder(
             IAstRootScope astScope,
-            [MaybeNullWhen(returnValue: false)] out IRootScopeBuilderWrapper scopeBuilder)
+            [MaybeNullWhen(returnValue: false)] out RootScopeBuilderWrapper scopeBuilder)
         {
-            var scopeType = astScope.GetType();
+            throw new NotImplementedException();
 
-            if (this.registry.TryGetScopeBuilderType(scopeType, out var builderType))
-            {
-                var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
+            //var scopeType = astScope.GetType();
 
-                Type wrapperType = wrapperOpenType.MakeGenericType(builderType, scopeType);
+            //if (this.registry.TryGetScopeBuilderType(scopeType, out var builderType))
+            //{
+            //    var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
 
-                scopeBuilder = (IRootScopeBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+            //    Type wrapperType = wrapperOpenType.MakeGenericType(builderType, scopeType);
 
-                return scopeBuilder != null;
-            }
+            //    scopeBuilder = (RootScopeBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
 
-            scopeBuilder = default;
-            return false;
+            //    return scopeBuilder != null;
+            //}
+
+            //scopeBuilder = default;
+            //return false;
         }
     }
 }

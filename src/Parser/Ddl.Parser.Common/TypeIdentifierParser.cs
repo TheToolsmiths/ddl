@@ -9,6 +9,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Contexts;
+using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {
