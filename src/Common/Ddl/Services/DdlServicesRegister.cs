@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+
 using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Lexer.Services;
 using TheToolsmiths.Ddl.Parser.Build.Services;
@@ -17,11 +18,12 @@ namespace TheToolsmiths.Ddl.Services
 
         public void RegisterServices(
             ParserConfiguratorCollection configurators,
+            ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
         {
             this.RegisterCoreServices();
 
-            this.RegisterPluginServices(configurators, providerCollection);
+            this.RegisterPluginServices(configurators, builderCollection, providerCollection);
         }
 
         private void RegisterCoreServices()
@@ -37,13 +39,21 @@ namespace TheToolsmiths.Ddl.Services
 
         private void RegisterPluginServices(
             ParserConfiguratorCollection parserConfigurators,
+            ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
         {
             foreach (var provider in parserConfigurators.Providers)
             {
-                var context = new ParserConfiguratorContext(providerCollection);
+                var context = new ParserConfiguratorContext(builderCollection);
 
                 provider.Configure(context);
+            }
+
+            foreach (var builder in builderCollection.ConfigurationBuilders)
+            {
+                var context = new ConfigurationBuilderContext(this.services, providerCollection);
+
+                builder.Configure(context);
             }
 
             foreach (var configurationProvider in providerCollection.ConfigurationProviders)

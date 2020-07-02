@@ -5,32 +5,22 @@ namespace TheToolsmiths.Ddl.Configurations
 {
     public class ConfigurationRegistryBuilder
     {
-        private readonly Dictionary<Type, Type> providers;
+        private readonly Dictionary<Type, IConfigurationProvider> providers;
 
         public ConfigurationRegistryBuilder()
         {
-            this.providers = new Dictionary<Type, Type>();
+            this.providers = new Dictionary<Type, IConfigurationProvider>();
         }
 
         public ConfigurationProviderCollection Build()
         {
-            var map = new Dictionary<Type, IConfigurationProvider>();
-
-            foreach (var (providerType, instanceType) in this.providers)
-            {
-                var instance = (IConfigurationProvider)Activator.CreateInstance(instanceType)!;
-
-                map.Add(providerType, instance);
-            }
-
-            return new ConfigurationProviderCollection(map);
+            return new ConfigurationProviderCollection(this.providers);
         }
 
-        public ConfigurationRegistryBuilder AddProvider<TProvider, TInstance>()
+        public ConfigurationRegistryBuilder AddConfigurationProvider<TProvider>(TProvider instance)
         where TProvider : IConfigurationProvider
-        where TInstance : class, IConfigurationProvider, TProvider, new()
         {
-            this.providers.Add(typeof(TProvider), typeof(TInstance));
+            this.providers.Add(typeof(TProvider), instance);
 
             return this;
         }

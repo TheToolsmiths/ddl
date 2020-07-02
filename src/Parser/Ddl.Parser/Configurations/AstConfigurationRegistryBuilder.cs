@@ -33,6 +33,23 @@ namespace TheToolsmiths.Ddl.Parser.Configurations
             return sectionBuilder != null;
         }
 
+        public bool TryGetCategoryBuilder(string sectionKey, out IAstConfigurationSectionBuilder sectionBuilder)
+        {
+            if (this.sectionBuilders.TryGetValue(sectionKey, out var builder) == false)
+            {
+                var typedBuilder = new AstConfigurationSectionBuilder();
+
+                this.sectionBuilders.Add(sectionKey, typedBuilder);
+
+                sectionBuilder = typedBuilder;
+                return true;
+            }
+
+            sectionBuilder = builder as IAstConfigurationSectionBuilder;
+
+            return sectionBuilder != null;
+        }
+
         public IAstConfigurationRegistry Build()
         {
             var sections = new Dictionary<string, AstConfigurationSection>(StringComparer.OrdinalIgnoreCase);

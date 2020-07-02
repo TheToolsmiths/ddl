@@ -4,17 +4,17 @@ namespace TheToolsmiths.Ddl.Configurations
 {
     public class ParserConfiguratorContext : IParserConfigurationContext
     {
-        private readonly ConfigurationProviderCollection providerCollection;
+        private readonly ConfigurationBuilderCollection builderCollection;
 
-        public ParserConfiguratorContext(ConfigurationProviderCollection providerCollection)
+        public ParserConfiguratorContext(ConfigurationBuilderCollection builderCollection)
         {
-            this.providerCollection = providerCollection;
+            this.builderCollection = builderCollection;
         }
 
-        public bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
-            where T : class, IConfigurationProvider
+        public bool TryGetConfigurationBuilder<T>([MaybeNullWhen(false)] out T builder)
+            where T : class, IConfigurationBuilder
         {
-            return this.providerCollection.TryGetConfigurationProvider(out provider);
+            return this.builderCollection.TryGetConfigurationBuilder(out builder);
         }
     }
 }

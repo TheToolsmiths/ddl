@@ -1,12 +1,17 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+﻿using System;
+
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations
 {
     public interface IAstConfigurationSectionBuilder
     {
+        void RegisterTypeValue(AstItemType itemType, Type value);
+
+        void RegisterTypeValue(AstScopeType scopeType, Type value);
     }
 
-    public interface IAstConfigurationSectionBuilder<in T> : IAstConfigurationSectionBuilder
+    public interface IAstConfigurationSectionBuilder<in T>
     {
         void RegisterTypeValue<TValue>(AstItemType itemType)
             where TValue : T;

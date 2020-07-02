@@ -7,5 +7,9 @@ namespace TheToolsmiths.Ddl.Parser.Configurations
         bool TryGetCategoryBuilder<TValue>(
             string sectionKey,
             [MaybeNullWhen(false)] out IAstConfigurationSectionBuilder<TValue> sectionBuilder);
+
+        bool TryGetCategoryBuilder(
+            string sectionKey,
+            [MaybeNullWhen(false)] out IAstConfigurationSectionBuilder sectionBuilder);
     }
 }

@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Extensions
     {
         public static bool TryGetParserMapRegistryBuilder(this IParserConfigurationContext context, [MaybeNullWhen(false)] out IParserMapRegistryBuilder builder)
         {
-            if (context.TryGetConfigurationProvider<IParserConfigurationProvider>(out var provider))
+            if (context.TryGetConfigurationBuilder<IParserConfigurationBuilder>(out var provider))
             {
                 builder = provider.RegistryBuilder;
                 return true;

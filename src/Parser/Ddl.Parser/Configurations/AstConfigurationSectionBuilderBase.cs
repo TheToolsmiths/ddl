@@ -5,7 +5,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations
 {
-    internal abstract class AstConfigurationSectionBuilderBase : IAstConfigurationSectionBuilder
+    internal abstract class AstConfigurationSectionBuilderBase
     {
         private readonly Dictionary<AstItemType, Type> itemBuilders;
         private readonly Dictionary<AstScopeType, Type> scopeBuilders;

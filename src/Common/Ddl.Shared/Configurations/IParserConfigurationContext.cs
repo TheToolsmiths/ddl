@@ -4,7 +4,7 @@ namespace TheToolsmiths.Ddl.Configurations
 {
     public interface IParserConfigurationContext
     {
-        bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
-            where T : class, IConfigurationProvider;
+        bool TryGetConfigurationBuilder<T>([MaybeNullWhen(false)] out T builder)
+            where T : class, IConfigurationBuilder;
     }
 }

@@ -10,12 +10,10 @@ namespace TheToolsmiths.Ddl.Parser.Configurations
     {
         private readonly ParserMapRegistryBuilder registryBuilder;
 
-        public ParserConfigurationProvider()
+        public ParserConfigurationProvider(ParserMapRegistryBuilder registryBuilder)
         {
-            this.registryBuilder = new ParserMapRegistryBuilder();
+            this.registryBuilder = registryBuilder;
         }
-
-        public IParserMapRegistryBuilder RegistryBuilder => this.registryBuilder;
 
         public void Configure(ConfigurationProviderContext context)
         {

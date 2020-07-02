@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Parser;
+using TheToolsmiths.Ddl.Parser.Build.Configurations;
 using TheToolsmiths.Ddl.Parser.Configurations;
+using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 
 namespace TheToolsmiths.Ddl.Services
 {
@@ -27,9 +29,15 @@ namespace TheToolsmiths.Ddl.Services
 
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
+            ParserMapRegistryBuilder parserRegistryBuilder = new ParserMapRegistryBuilder();
+
+            configurationBuilder.ConfigurationBuilders
+                .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
+                .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder));
+
             configurationBuilder.ConfigurationRegistryBuilder
-                .AddProvider<IParserConfigurationProvider, ParserConfigurationProvider>()
-                .AddProvider<IAstConfigurationProvider, AstConfigurationProvider>();
+                .AddConfigurationProvider<IParserConfigurationProvider>(new ParserConfigurationProvider(parserRegistryBuilder))
+                .AddConfigurationProvider<IAstConfigurationProvider>(new AstConfigurationProvider());
 
             configurationBuilder.ParserConfigurators
                 .AddConfigurator<Parser.Build.Implementations.Plugins.ParserConfigurator>()
@@ -39,10 +47,11 @@ namespace TheToolsmiths.Ddl.Services
 
             RegisterApplicationServices(services);
 
-            var providers = configurationBuilder.ParserConfigurators.Build();
+            var configurationProvider = configurationBuilder.ParserConfigurators.Build();
             var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
+            var builderCollection = configurationBuilder.ConfigurationBuilders.Build();
 
-            servicesRegister.RegisterServices(providers, providerCollection);
+            servicesRegister.RegisterServices(configurationProvider, builderCollection, providerCollection);
 
             var serviceProvider = services.BuildServiceProvider();
 

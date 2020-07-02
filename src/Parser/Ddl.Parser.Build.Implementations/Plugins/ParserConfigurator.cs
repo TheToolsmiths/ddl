@@ -1,4 +1,6 @@
-﻿using TheToolsmiths.Ddl.Configurations;
+﻿using System;
+
+using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Build.Configurations;
 
@@ -8,18 +10,28 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations.Plugins
     {
         public void Configure(IParserConfigurationContext context)
         {
-            if (context.TryGetItemConfigurationBuilder(out var itemBuilder))
+            if (context.TryGetBuilderConfigurationBuilder(out var builder) == false)
             {
-                itemBuilder.RegisterTypeValue<EnumDefinitionBuilder>(CommonItemTypes.EnumDeclaration);
-                itemBuilder.RegisterTypeValue<EnumStructDefinitionBuilder>(CommonItemTypes.EnumStructDeclaration);
-                itemBuilder.RegisterTypeValue<StructDefinitionBuilder>(CommonItemTypes.StructDeclaration);
-                itemBuilder.RegisterTypeValue<ImportStatementBuilder>(CommonItemTypes.ImportStatement);
+                throw new NotImplementedException();
             }
 
-            if (context.TryGetScopeConfigurationBuilder(out var scopeBuilder))
+            this.RegisterBuilders(builder);
+        }
+
+        private void RegisterBuilders(IBuilderConfigurationBuilder builder)
+        {
+            // Register Item Builders
             {
-                scopeBuilder.RegisterTypeValue<RootScopeBuilder>(CommonScopeTypes.RootScope);
-                scopeBuilder.RegisterTypeValue<ConditionalRootScopeBuilder>(CommonScopeTypes.ConditionalScope);
+                builder.RegisterItemBuilder<EnumDefinitionBuilder>(CommonItemTypes.EnumDeclaration);
+                builder.RegisterItemBuilder<EnumStructDefinitionBuilder>(CommonItemTypes.EnumStructDeclaration);
+                builder.RegisterItemBuilder<StructDefinitionBuilder>(CommonItemTypes.StructDeclaration);
+                builder.RegisterItemBuilder<ImportStatementBuilder>(CommonItemTypes.ImportStatement);
+            }
+
+            // Register Scope Builders
+            {
+                builder.RegisterScopeBuilder<RootScopeBuilder>(CommonScopeTypes.RootScope);
+                builder.RegisterScopeBuilder<ConditionalRootScopeBuilder>(CommonScopeTypes.ConditionalScope);
             }
         }
     }
