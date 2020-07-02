@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
@@ -16,7 +17,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Enums
             this.Content = content;
         }
 
-        public override ContentUnitItemType ItemType => ContentUnitItemType.EnumStructDeclaration;
+        public override AstItemType ItemType => CommonItemTypes.EnumStructDeclaration;
 
         public EnumStructAstDefinitionContent Content { get; }
     }

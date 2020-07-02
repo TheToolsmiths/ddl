@@ -17,12 +17,12 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
 
         public static ImportPath CreateRooted(IReadOnlyList<string> pathIdentifiers)
         {
-            return new ImportPath(pathIdentifiers, isRooted: true);
+            return new ImportPath(pathIdentifiers, true);
         }
 
         public static ImportPath CreateNonRooted(IReadOnlyList<string> pathIdentifiers)
         {
-            return new ImportPath(pathIdentifiers, isRooted: false);
+            return new ImportPath(pathIdentifiers, false);
         }
 
         public static ImportPath CreateRooted(params string[] pathIdentifiers)
@@ -32,7 +32,7 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
                 throw new ArgumentException(nameof(pathIdentifiers));
             }
 
-            return new ImportPath(pathIdentifiers, isRooted: true);
+            return new ImportPath(pathIdentifiers, true);
         }
 
         public static ImportPath CreateNonRooted(params string[] pathIdentifiers)
@@ -42,7 +42,7 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
                 throw new ArgumentException(nameof(pathIdentifiers));
             }
 
-            return new ImportPath(pathIdentifiers, isRooted: false);
+            return new ImportPath(pathIdentifiers, false);
         }
 
         public override string ToString()

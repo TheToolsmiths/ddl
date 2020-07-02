@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Parser.Build.Configurations;
 using TheToolsmiths.Ddl.Parser.Configurations;
 
 namespace TheToolsmiths.Ddl.Services
@@ -25,13 +25,13 @@ namespace TheToolsmiths.Ddl.Services
         {
             var services = new ServiceCollection();
 
-            var servicesBuilder = new DdlServicesConfigurationBuilder();
+            var configurationBuilder = new DdlServicesConfigurationBuilder();
 
-            servicesBuilder.ProviderCollectionBuilder
-                .AddProvider<ParserConfigurationProvider>()
-                .AddProvider<BuilderConfigurationProvider>();
+            configurationBuilder.ConfigurationRegistryBuilder
+                .AddProvider<IParserConfigurationProvider, ParserConfigurationProvider>()
+                .AddProvider<IAstConfigurationProvider, AstConfigurationProvider>();
 
-            servicesBuilder.ParserConfigurators
+            configurationBuilder.ParserConfigurators
                 .AddConfigurator<Parser.Build.Implementations.Plugins.ParserConfigurator>()
                 .AddConfigurator<Parser.Implementations.Plugins.ParserConfigurator>();
 
@@ -39,8 +39,8 @@ namespace TheToolsmiths.Ddl.Services
 
             RegisterApplicationServices(services);
 
-            var providers = servicesBuilder.ParserConfigurators.Build();
-            var providerCollection = servicesBuilder.ProviderCollectionBuilder.Build();
+            var providers = configurationBuilder.ParserConfigurators.Build();
+            var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
 
             servicesRegister.RegisterServices(providers, providerCollection);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace TheToolsmiths.Ddl.Parser.Build.BuilderMaps
+namespace TheToolsmiths.Ddl.Parser.Configurations.BuilderMaps
 {
     public interface IBuilderMapRegistry
     {

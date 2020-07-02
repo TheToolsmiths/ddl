@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheToolsmiths.Ddl.Parser.Build.BuilderMaps
+namespace TheToolsmiths.Ddl.Parser.Configurations.BuilderMaps
 {
     public class BuilderMapRegistry : IBuilderMapRegistry
     {

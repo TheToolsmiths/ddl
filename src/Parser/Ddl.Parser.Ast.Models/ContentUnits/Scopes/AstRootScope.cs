@@ -1,16 +1,14 @@
-﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+
+namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
-    public abstract class AstRootScope : IAstRootScope
+    public class AstRootScope : AstRootScopeBase
     {
-        protected AstRootScope(AstScopeContent content)
+        public AstRootScope(AstScopeContent content)
+            : base(content)
         {
-            this.Content = content;
         }
 
-        public abstract AstContentUnitScopeType ScopeType { get; }
-        
-        public AstScopeContent Content { get; }
+        public override AstScopeType ScopeType => CommonScopeTypes.RootScope;
     }
-
-
 }

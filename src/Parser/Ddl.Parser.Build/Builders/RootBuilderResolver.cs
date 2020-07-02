@@ -1,66 +1,81 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using TheToolsmiths.Ddl.Configurations;
+
+using Microsoft.Extensions.DependencyInjection;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers;
+using TheToolsmiths.Ddl.Parser.Build.Configurations;
+using TheToolsmiths.Ddl.Parser.Configurations;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Builders
 {
     internal class RootBuilderResolver
     {
         private readonly IServiceProvider provider;
-        private readonly IConfigurationRegistry registry;
+        private readonly IAstConfigurationSection astConfiguration;
 
-        public RootBuilderResolver(IServiceProvider provider, IConfigurationRegistry registry)
+        public RootBuilderResolver(IServiceProvider provider, IAstConfigurationSection astConfiguration)
         {
             this.provider = provider;
-            this.registry = registry;
+            this.astConfiguration = astConfiguration;
         }
 
         public bool TryResolveItemBuilder(
             IAstRootItem astItem,
-            [MaybeNullWhen(returnValue: false)] out RootItemBuilderWrapper itemBuilder)
+            [MaybeNullWhen(false)] out RootItemBuilderWrapper itemBuilder)
         {
-            throw new NotImplementedException();
+            var instanceType = astItem.GetType();
+            var itemType = astItem.ItemType;
 
-            //var itemType = astItem.GetType();
-            //if (this.registry.TryGetItemBuilderType(itemType, out var builderType))
-            //{
-            //    var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
+            if (this.astConfiguration.TryGetTypeValue(itemType, out var builderType))
+            {
+                var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
 
-            //    Type wrapperType = wrapperOpenType.MakeGenericType(builderType, itemType);
+                Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
 
-            //    itemBuilder = (RootItemBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+                itemBuilder = (RootItemBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
 
-            //    return itemBuilder != null;
-            //}
+                return itemBuilder != null;
+            }
 
-            //itemBuilder = default;
-            //return false;
+            itemBuilder = default;
+            return false;
         }
 
         public bool TryResolveScopeBuilder(
             IAstRootScope astScope,
-            [MaybeNullWhen(returnValue: false)] out RootScopeBuilderWrapper scopeBuilder)
+            [MaybeNullWhen(false)] out RootScopeBuilderWrapper scopeBuilder)
         {
-            throw new NotImplementedException();
+            var instanceType = astScope.GetType();
+            var scopeType = astScope.ScopeType;
 
-            //var scopeType = astScope.GetType();
+            if (this.astConfiguration.TryGetTypeValue(scopeType, out var builderType))
+            {
+                var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
 
-            //if (this.registry.TryGetScopeBuilderType(scopeType, out var builderType))
-            //{
-            //    var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
+                Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
 
-            //    Type wrapperType = wrapperOpenType.MakeGenericType(builderType, scopeType);
+                scopeBuilder = (RootScopeBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
 
-            //    scopeBuilder = (RootScopeBuilderWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+                return scopeBuilder != null;
+            }
 
-            //    return scopeBuilder != null;
-            //}
+            scopeBuilder = default;
+            return false;
+        }
 
-            //scopeBuilder = default;
-            //return false;
+        public static RootBuilderResolver CreateResolver(IServiceProvider serviceProvider)
+        {
+            var astConfigurationRegistry = serviceProvider.GetRequiredService<IAstConfigurationRegistry>();
+
+            if (astConfigurationRegistry.TryGetSection(ConfigurationKeys.BuildConfigurationSection, out var configurationSection) == false)
+            {
+                throw new NotImplementedException();
+            }
+
+            return new RootBuilderResolver(serviceProvider, configurationSection);
         }
     }
 }

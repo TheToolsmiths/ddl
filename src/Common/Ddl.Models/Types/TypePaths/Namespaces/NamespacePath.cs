@@ -24,9 +24,9 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 
         public bool IsEmpty => this.Identifiers.Count == 0;
 
-        public static NamespacePath Empty { get; } = new NamespacePath(isRooted: false);
+        public static NamespacePath Empty { get; } = new NamespacePath(false);
 
-        public static NamespacePath EmptyRoot { get; } = new NamespacePath(isRooted: true);
+        public static NamespacePath EmptyRoot { get; } = new NamespacePath(true);
 
         public override string ToString()
         {
@@ -37,12 +37,12 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 
         public static NamespacePath CreateFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new NamespacePath(identifiers, isRooted: false);
+            return new NamespacePath(identifiers, false);
         }
 
         public static NamespacePath CreateRootedFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new NamespacePath(identifiers, isRooted: true);
+            return new NamespacePath(identifiers, true);
         }
 
         public static NamespacePath Prepend(NamespacePath namespacePath, NamespacePath prefix)

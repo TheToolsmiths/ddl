@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
@@ -13,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
             this.Attributes = attributes;
         }
 
-        public abstract ContentUnitItemType ItemType { get; }
+        public abstract AstItemType ItemType { get; }
 
         public IReadOnlyList<IAstAttributeUse> Attributes { get; }
 

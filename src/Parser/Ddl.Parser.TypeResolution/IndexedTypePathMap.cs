@@ -31,7 +31,7 @@ namespace TheToolsmiths.Ddl.TypeResolution
 
         public bool TryResolveType(
             TypeReferencePath lookupPath,
-            [MaybeNullWhen(returnValue: false)] out Models.Types.Resolution.TypeResolution typeResolution)
+            [MaybeNullWhen(false)] out Models.Types.Resolution.TypeResolution typeResolution)
         {
             foreach (var entityReference in this.entityReferences)
             {

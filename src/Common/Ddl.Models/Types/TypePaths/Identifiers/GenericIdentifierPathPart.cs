@@ -16,7 +16,7 @@
 
         public override string ToString()
         {
-            return $"{this.Name}<{new string(c: ',', this.GenericParametersCount - 1)}>";
+            return $"{this.Name}<{new string(',', this.GenericParametersCount - 1)}>";
         }
     }
 }

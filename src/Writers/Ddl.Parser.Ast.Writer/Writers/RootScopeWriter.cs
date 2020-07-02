@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
 {
     public static class RootScopeWriter
     {
-        public static void WriteScope(IStructuredWriter writer, IAstFileRootScope rootScope)
+        public static void WriteScope(IStructuredWriter writer, IAstRootScope rootScope)
         {
             //throw new NotImplementedException();
         }

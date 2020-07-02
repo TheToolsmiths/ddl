@@ -51,7 +51,7 @@ namespace TheToolsmiths.Ddl.Writer.StructuredWriters
 
         public async ValueTask FlushAsync()
         {
-            await this.jsonWriter.FlushAsync().ConfigureAwait(continueOnCapturedContext: true);
+            await this.jsonWriter.FlushAsync().ConfigureAwait(true);
         }
 
         public void WritePropertyName(string propertyName)

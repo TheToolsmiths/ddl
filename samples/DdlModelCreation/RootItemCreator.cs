@@ -214,8 +214,8 @@ namespace DdlModelCreation
                 fieldBuilder.AddTypedAttribute("TestAttributeType")
                     .WithStructuredInitialization()
                     .WithStructuredField("struct1")
-                    .WithField("value1", value: false)
-                    .WithField("value2", value: 10);
+                    .WithField("value1", false)
+                    .WithField("value2", 10);
 
                 var genericPart = fieldBuilder.WithType()
                     .SetRefReference()
@@ -286,7 +286,7 @@ namespace DdlModelCreation
                 TypeReferenceBuilder field5Type = contentBuilder.AddField("field5")
                     .WithType()
                     .MakeArraySized(
-                        ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(size: 20).AddFixedSizes(20, 45, 10))
+                        ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(20).AddFixedSizes(20, 45, 10))
                     .SetRefReference()
                     .MakeConst()
                     .StartsWithSimplePath("std", "experimental");
@@ -317,7 +317,7 @@ namespace DdlModelCreation
                 .WithType()
                 .SetRefReference()
                 .MakeArraySized(
-                    ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(size: 20).AddFixedSizes(20, 45, 2))
+                    ArrayTypeStorageBuilder.WithDynamicSize().AddFixedSize(20).AddFixedSizes(20, 45, 2))
                 .StartsWithSimplePath("std", "experimental")
                 .AddGenericPart("TestFieldType", "Foo");
 

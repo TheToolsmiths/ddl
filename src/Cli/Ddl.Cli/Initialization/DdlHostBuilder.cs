@@ -10,6 +10,7 @@ using TheToolsmiths.Ddl.Cli.Lexers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Plugins;
 using TheToolsmiths.Ddl.Lexer.Writer;
+using TheToolsmiths.Ddl.Parser.Configurations;
 using TheToolsmiths.Ddl.Services;
 
 namespace TheToolsmiths.Ddl.Cli.Initialization
@@ -37,12 +38,16 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
         {
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
+            configurationBuilder.ConfigurationRegistryBuilder
+                .AddProvider<IParserConfigurationProvider, ParserConfigurationProvider>()
+                .AddProvider<IAstConfigurationProvider, AstConfigurationProvider>();
+
             PluginSystemRegister.Register(configurationBuilder, context, services);
 
             var servicesRegister = new DdlServicesRegister(services);
 
             var configurationProvider = configurationBuilder.ParserConfigurators.Build();
-            var providerCollection = configurationBuilder.ProviderCollectionBuilder.Build();
+            var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
 
             servicesRegister.RegisterServices(configurationProvider, providerCollection);
 
@@ -58,10 +63,10 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
         {
             config.AddJsonFile("appsettings.json");
 
-            config.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
+            config.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true);
 
 #if DEBUG
-            config.AddJsonFile("appsettings.Debug.json", optional: true);
+            config.AddJsonFile("appsettings.Debug.json", true);
 #endif
         }
     }

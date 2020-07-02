@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Services
 
             services.AddScoped<IDdlContentUnitCollectionBuilder, DdlContentUnitCollectionBuilder>();
 
-            services.AddScoped<RootBuilderResolver>();
+            services.AddScoped<RootBuilderResolver>(RootBuilderResolver.CreateResolver);
 
             services.AddScoped<ScopeContentBuilder>();
 

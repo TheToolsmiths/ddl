@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Configurations
         }
 
         public bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
-            where T : IConfigurationProvider
+            where T : class, IConfigurationProvider
         {
             return this.providerCollection.TryGetConfigurationProvider(out provider);
         }

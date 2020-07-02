@@ -54,7 +54,7 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
             {
                 if (this.IsConstantModifier)
                 {
-                    return new TypeModifiers(isConstant: true);
+                    return new TypeModifiers(true);
                 }
 
                 return TypeModifiers.None;

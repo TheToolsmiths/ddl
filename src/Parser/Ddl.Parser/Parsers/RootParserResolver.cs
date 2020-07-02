@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using TheToolsmiths.Ddl.Parser.ParserMaps;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers
@@ -19,7 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         }
 
 
-        public bool TryResolveScopeParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootScopeParser scopeParser)
+        public bool TryResolveScopeParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IRootScopeParser scopeParser)
         {
             if (this.registry.TryGetScopeParserType(key, out var type))
             {
@@ -32,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return false;
         }
 
-        public bool TryResolveDefaultItemParser([MaybeNullWhen(false)]  out IRootItemParser itemParser)
+        public bool TryResolveDefaultItemParser([MaybeNullWhen(false)] out IRootItemParser itemParser)
         {
             if (this.registry.TryGetDefaultParserType(out var type))
             {
@@ -45,7 +47,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return false;
         }
 
-        public bool TryResolveItemParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)]  out IRootItemParser itemParser)
+        public bool TryResolveItemParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IRootItemParser itemParser)
         {
             if (this.registry.TryGetItemParserType(key, out var type))
             {

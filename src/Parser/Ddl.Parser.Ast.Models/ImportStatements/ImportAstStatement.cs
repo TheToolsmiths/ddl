@@ -1,4 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements
 {
@@ -11,6 +12,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements
 
         public ImportItem RootItem { get; }
 
-        public override ContentUnitItemType ItemType => ContentUnitItemType.ImportStatement;
+        public override AstItemType ItemType => CommonItemTypes.ImportStatement;
     }
 }

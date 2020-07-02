@@ -16,16 +16,17 @@ namespace TheToolsmiths.Ddl.Configurations
         public IEnumerable<IConfigurationProvider> ConfigurationProviders => this.configurationProviders.Values;
 
         public bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
-            where T : IConfigurationProvider
+            where T : class, IConfigurationProvider
         {
             if (this.configurationProviders.TryGetValue(typeof(T), out var cachedProvider))
             {
-                if (cachedProvider.GetType() != typeof(T))
+                provider = cachedProvider as T;
+
+                if (provider == null)
                 {
                     throw new NotImplementedException();
                 }
 
-                provider = (T)cachedProvider;
                 return true;
             }
 

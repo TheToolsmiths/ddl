@@ -1,5 +1,4 @@
 ﻿using TheToolsmiths.Ddl.Cli.Abstractions.Plugins;
-using TheToolsmiths.Ddl.Parser.Configurations;
 using TheToolsmiths.Ddl.Parser.Implementations.Plugins;
 using TheToolsmiths.Ddl.Services;
 
@@ -11,8 +10,6 @@ namespace TheToolsmiths.Ddl.Parser.Implementations.Plugins
     {
         public void Configure(DdlServicesConfigurationBuilder builder)
         {
-            builder.ProviderCollectionBuilder.AddProvider<ParserConfigurationProvider>();
-
             builder.ParserConfigurators.AddConfigurator<ParserConfigurator>();
         }
     }

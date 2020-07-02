@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
 {
@@ -9,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items
             this.TypeName = typeName;
         }
 
-        public abstract ContentUnitItemType ItemType { get; }
+        public abstract AstItemType ItemType { get; }
 
         public TypeName TypeName { get; }
     }

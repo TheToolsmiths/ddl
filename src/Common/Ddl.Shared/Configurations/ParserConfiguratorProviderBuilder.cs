@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Configurations
             this.configurators = new HashSet<Type>();
         }
 
-        public ParserConfiguratorProvider Build()
+        public ParserConfiguratorCollection Build()
         {
             var providers = new List<IParserConfigurator>();
 
@@ -24,7 +24,7 @@ namespace TheToolsmiths.Ddl.Configurations
                 providers.Add(instance);
             }
 
-            return new ParserConfiguratorProvider(providers);
+            return new ParserConfiguratorCollection(providers);
         }
 
         public ParserConfiguratorProviderBuilder AddConfigurator<T>()

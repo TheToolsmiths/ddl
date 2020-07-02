@@ -6,27 +6,29 @@ using TheToolsmiths.Ddl.Parser.Parsers.ParserMaps;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations
 {
-    public class ParserConfigurationProvider : IConfigurationProvider
+    public class ParserConfigurationProvider : IParserConfigurationProvider
     {
+        private readonly ParserMapRegistryBuilder registryBuilder;
+
         public ParserConfigurationProvider()
         {
-            this.RegistryBuilder = new ParserMapRegistryBuilder();
+            this.registryBuilder = new ParserMapRegistryBuilder();
         }
 
-        public ParserMapRegistryBuilder RegistryBuilder { get; }
+        public IParserMapRegistryBuilder RegistryBuilder => this.registryBuilder;
 
         public void Configure(ConfigurationProviderContext context)
         {
-            var registry = ParserMapRegistryFactory.CreateMap(this.RegistryBuilder);
+            var registry = ParserMapRegistryFactory.CreateMap(this.registryBuilder);
 
             context.Services.AddSingleton(registry);
 
-            foreach (var itemParserType in ParserMapRegistryFactory.GetItemParserTypeList(this.RegistryBuilder))
+            foreach (var itemParserType in ParserMapRegistryFactory.GetItemParserTypeList(this.registryBuilder))
             {
                 context.Services.AddTransient(itemParserType);
             }
 
-            foreach (var scopeParserType in ParserMapRegistryFactory.GetScopeParserTypeList(this.RegistryBuilder))
+            foreach (var scopeParserType in ParserMapRegistryFactory.GetScopeParserTypeList(this.registryBuilder))
             {
                 context.Services.AddTransient(scopeParserType);
             }

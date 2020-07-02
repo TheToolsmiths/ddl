@@ -1,8 +1,9 @@
 ﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
-    public class ConditionalAstRootScope : AstRootScope
+    public class ConditionalAstRootScope : AstRootScopeBase
     {
         public ConditionalAstRootScope(
             ConditionalExpression conditionalExpression,
@@ -12,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
             this.ConditionalExpression = conditionalExpression;
         }
 
-        public override AstContentUnitScopeType ScopeType => AstContentUnitScopeType.RootScope;
+        public override AstScopeType ScopeType => CommonScopeTypes.ConditionalScope;
 
         public ConditionalExpression ConditionalExpression { get; }
     }

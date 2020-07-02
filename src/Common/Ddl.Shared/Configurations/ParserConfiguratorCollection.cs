@@ -2,9 +2,9 @@
 
 namespace TheToolsmiths.Ddl.Configurations
 {
-    public class ParserConfiguratorProvider
+    public class ParserConfiguratorCollection
     {
-        public ParserConfiguratorProvider(IReadOnlyList<IParserConfigurator> providers)
+        public ParserConfiguratorCollection(IReadOnlyList<IParserConfigurator> providers)
         {
             this.Providers = providers;
         }

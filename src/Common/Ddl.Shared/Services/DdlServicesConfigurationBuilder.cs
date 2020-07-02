@@ -6,12 +6,12 @@ namespace TheToolsmiths.Ddl.Services
     {
         public DdlServicesConfigurationBuilder()
         {
-            this.ProviderCollectionBuilder = new ConfigurationProviderCollectionBuilder();
+            this.ConfigurationRegistryBuilder = new ConfigurationRegistryBuilder();
 
             this.ParserConfigurators = new ParserConfiguratorProviderBuilder();
         }
 
-        public ConfigurationProviderCollectionBuilder ProviderCollectionBuilder { get; }
+        public ConfigurationRegistryBuilder ConfigurationRegistryBuilder { get; }
 
         public ParserConfiguratorProviderBuilder ParserConfigurators { get; }
     }

@@ -5,6 +5,6 @@ namespace TheToolsmiths.Ddl.Configurations
     public interface IParserConfigurationContext
     {
         bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
-            where T : IConfigurationProvider;
+            where T : class, IConfigurationProvider;
     }
 }

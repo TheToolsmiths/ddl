@@ -207,7 +207,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
                 return false;
             }
 
-            return lookupPath.PathParts[index: 0].Name.Equals(identifier);
+            return lookupPath.PathParts[0].Name.Equals(identifier);
         }
 
         public static bool CompareFullPartsWithIgnoreNamespaceRoot(TypeReferencePath lookupPath, TypeIdentifierPath typeIdentifier)
