@@ -9,12 +9,12 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
     {
         public static void WriteConditionalExpression(
             IStructuredWriter writer,
-            ConditionalExpression conditionalExpression)
+            AstConditionalExpression conditionalExpression)
         {
             WriteConditionalExpression(writer, conditionalExpression.Root);
         }
 
-        private static void WriteConditionalExpression(IStructuredWriter writer, IConditionalExpressionElement expression)
+        private static void WriteConditionalExpression(IStructuredWriter writer, IAstConditionalExpressionElement expression)
         {
             switch (expression)
             {

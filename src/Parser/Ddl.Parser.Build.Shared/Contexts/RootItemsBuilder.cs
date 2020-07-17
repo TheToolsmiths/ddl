@@ -4,9 +4,9 @@ using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Contexts
 {
-    public class RootItemBuilder
+    public class RootItemsBuilder
     {
-        public RootItemBuilder()
+        public RootItemsBuilder()
         {
             this.SubItemTypesReferences = new List<TypedSubItemReference>();
         }

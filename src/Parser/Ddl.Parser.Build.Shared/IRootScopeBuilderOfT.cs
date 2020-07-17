@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
     public interface IRootScopeBuilder<TAstScope> : IRootScopeBuilder
         where TAstScope : class, IAstRootScope
     {
-        public RootScopeBuildResult BuildScope(IRootItemBuildContext unitContext, TAstScope scope);
+        public RootScopeBuildResult BuildScope(IRootScopeBuildContext scopeContext, TAstScope scope);
     }
 
     public interface IRootScopeBuilder

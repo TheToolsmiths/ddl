@@ -45,7 +45,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations
                 return true;
             }
 
-            sectionBuilder = builder as IAstConfigurationSectionBuilder;
+            sectionBuilder = builder as IAstConfigurationSectionBuilder ?? throw new InvalidOperationException();
 
             return sectionBuilder != null;
         }

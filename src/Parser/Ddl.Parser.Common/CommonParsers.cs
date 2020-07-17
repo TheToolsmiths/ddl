@@ -60,7 +60,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return this.provider.GetRequiredService<LiteralValueInitializationParser>().ParseLiteralValue(this.context);
         }
 
-        public Task<Result<ConditionalExpression>> ParseConditionalExpressionRoot()
+        public Task<Result<AstConditionalExpression>> ParseConditionalExpressionRoot()
         {
             return this.provider.GetRequiredService<ConditionalExpressionParser>().ParseConditionalExpressionRoot(this.context);
         }

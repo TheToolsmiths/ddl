@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
-    public class BoolLiteralExpression : IConditionalExpressionElement
+    public class BoolLiteralExpression : IAstConditionalExpressionElement
     {
         public BoolLiteralExpression(bool value)
         {
@@ -9,7 +9,7 @@
 
         public bool Value { get; }
 
-        public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.BooleanLiteral;
+        public AstConditionalExpressionElementType ElementType => AstConditionalExpressionElementType.BooleanLiteral;
 
         public static BoolLiteralExpression CreateTrue()
         {

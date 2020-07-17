@@ -1,8 +1,12 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
+
+using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
+using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
+
+using StructDefinitionContent = TheToolsmiths.Ddl.Models.Structs.Content.StructDefinitionContent;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
@@ -10,41 +14,27 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
     {
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, StructAstDefinition item)
         {
-            var builder = new RootItemBuilder();
+            var builder = new RootItemResultBuilder();
 
-            CatalogStructType(builder, item);
+            var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
 
-            CreateResolvedItem(builder, item);
+            StructDefinitionContent structContent;
+            {
+                var result = itemContext.CommonBuilders.BuildStructContent(item.Content);
 
-            throw new NotImplementedException();
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //return builder.CreateSuccessResult();
-        }
+                structContent = result.Value;
+            }
 
-        private static void CreateResolvedItem(RootItemBuilder builder, StructAstDefinition structDefinition)
-        {
-            var itemReference = builder.RootTypeReference;
-            var subItemReferences = builder.SubItemTypesReferences;
+            var structDefinition = new StructDefinition(typeName, structContent);
 
-            //var item = new RootItemBase(itemReference, subItemReferences);
+            builder.Items.Add(structDefinition);
 
-            throw new NotImplementedException();
-
-            //builder.ResolvedItems.Add(item);
-        }
-
-        private static void CatalogStructType(RootItemBuilder builder, IAstTypedRootItem definition)
-        {
-            throw new NotImplementedException();
-
-            //var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
-
-            //var itemReference = new ItemReference(definition.ItemId);
-
-            //var rootType = new TypedItemReference(itemTypeName, itemReference);
-
-            //builder.RootType = itemTypeName;
-            //builder.RootTypeReference = rootType;
+            return builder.CreateSuccessResult();
         }
     }
 }

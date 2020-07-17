@@ -5,7 +5,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage
 {
     public class ConditionalAstAttributeUse : BaseAstAttributeUse
     {
-        public ConditionalAstAttributeUse(ITypeIdentifier type, ConditionalExpression conditionalExpression)
+        public ConditionalAstAttributeUse(ITypeIdentifier type, AstConditionalExpression conditionalExpression)
         {
             this.Type = type;
             this.ConditionalExpression = conditionalExpression;
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage
 
         public ITypeIdentifier Type { get; }
 
-        public ConditionalExpression ConditionalExpression { get; }
+        public AstConditionalExpression ConditionalExpression { get; }
 
         public override AttributeUseKind UseKind => AttributeUseKind.Conditional;
         

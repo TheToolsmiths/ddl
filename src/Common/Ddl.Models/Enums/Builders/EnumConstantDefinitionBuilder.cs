@@ -1,5 +1,7 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Models.Literals;
+using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Models.Enums.Builders
 {
@@ -32,7 +34,9 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
             string name = this.Name ?? throw new NotImplementedException();
             LiteralValue value = this.Value ?? throw new NotImplementedException();
 
-            return new EnumConstantDefinition(name, value);
+            var typeName = new SimpleTypeNameIdentifier(name);
+
+            return new EnumConstantDefinition(typeName, value);
         }
     }
 }

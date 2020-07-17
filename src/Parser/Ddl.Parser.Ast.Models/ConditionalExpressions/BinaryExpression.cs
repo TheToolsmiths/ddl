@@ -2,24 +2,24 @@
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
-    public class BinaryExpression : IConditionalExpressionElement
+    public class BinaryExpression : IAstConditionalExpressionElement
     {
         public BinaryExpression(
             IConditionalLogicalOperator op,
-            IConditionalExpressionElement leftExpression,
-            IConditionalExpressionElement rightExpression)
+            IAstConditionalExpressionElement leftExpression,
+            IAstConditionalExpressionElement rightExpression)
         {
             this.Op = op;
             this.LeftExpression = leftExpression;
             this.RightExpression = rightExpression;
         }
 
-        public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Binary;
+        public AstConditionalExpressionElementType ElementType => AstConditionalExpressionElementType.Binary;
 
         public IConditionalLogicalOperator Op { get; }
 
-        public IConditionalExpressionElement LeftExpression { get; }
+        public IAstConditionalExpressionElement LeftExpression { get; }
 
-        public IConditionalExpressionElement RightExpression { get; }
+        public IAstConditionalExpressionElement RightExpression { get; }
     }
 }

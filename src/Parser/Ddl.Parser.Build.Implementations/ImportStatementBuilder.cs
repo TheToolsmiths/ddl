@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using TheToolsmiths.Ddl.Models.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -12,153 +14,116 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
     {
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, ImportAstStatement item)
         {
-            var context = new RootItemBuilder();
+            var builder = new RootItemResultBuilder();
 
-            var result = this.CreateImportList(context, item.RootItem);
+            ImportRoot rootItem = item.RootItem;
 
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
+            var context = new BuildContext(builder) { IsRoot = rootItem.IsRoot };
 
-            throw new NotImplementedException();
-
-            //return context.CreateSuccessResult();
-        }
-
-        private Result CreateImportList(
-            RootItemBuilder context,
-            ImportItem rootItem)
-        {
-            Result<IReadOnlyList<ImportItem>> result;
-            bool isRoot;
-            if (rootItem is ImportRoot importRootItem)
-            {
-                isRoot = true;
-                result = this.ProcessImportPath(importRootItem.ChildItem);
-            }
-            else
-            {
-                isRoot = false;
-                result = this.ProcessImportPath(rootItem);
-            }
+            var result = this.ProcessImportPath(context, rootItem.ChildItem);
 
             if (result.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            var childrenPaths = result.Value;
-
-            var importPaths = new List<ImportStatement>();
-
-            foreach (var path in childrenPaths)
-            {
-                throw new NotImplementedException();
-
-                //var resolvedRoot = isRoot
-                //    ? ImportPath.CreateRooted(path)
-                //    : ImportPath.CreateNonRooted(path);
-
-                //string aliasIdentifier = ImportRootHelper.GetAliasIdentifier(resolvedRoot);
-                //var resolvedItem = new ImportStatement(resolvedRoot, aliasIdentifier);
-
-                //importPaths.Add(resolvedItem);
-            }
-
-            throw new NotImplementedException();
-
-            //context.ResolvedImportPaths.AddRange(importPaths);
-
-            return Result.Success;
+            return builder.CreateSuccessResult();
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportPath(ImportItem importItem)
+        private Result ProcessImportPath(BuildContext context, ImportItem importItem)
         {
             return importItem switch
             {
-                ImportGroup import => this.ProcessImportGroup(import),
-                ImportIdentifier import => this.ProcessImportIdentifier(import),
-                ImportIdentifierAlias import => this.ProcessImportIdentifierAlias(import),
-                ImportPathItem import => this.ProcessImportPathItem(import),
-                ImportRoot import => this.ProcessImportRoot(import),
+                ImportGroup import => this.ProcessImportGroup(context, import),
+                ImportIdentifier import => this.ProcessImportIdentifier(context, import),
+                ImportIdentifierAlias import => this.ProcessImportIdentifierAlias(context, import),
+                ImportPathItem import => this.ProcessImportPathItem(context, import),
                 _ => throw new ArgumentOutOfRangeException(nameof(importItem))
             };
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportRoot(ImportRoot importItem)
+        private Result ProcessImportPathItem(BuildContext context, ImportPathItem importItem)
         {
-            throw new NotImplementedException();
+            context.IdentifierStack.Push(importItem.PathIdentifier.Text);
+
+            var result = this.ProcessImportPath(context, importItem.ChildItem);
+
+            context.IdentifierStack.Pop();
+
+            return result;
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportPathItem(ImportPathItem importItem)
+        private Result ProcessImportIdentifierAlias(BuildContext context, ImportIdentifierAlias importItem)
         {
-            var result = this.ProcessImportPath(importItem.ChildItem);
+            context.IdentifierStack.Push(importItem.Identifier.Text);
 
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
+            context.CreateAndAddImportPathWithAlias(importItem.AliasIdentifier.Text);
 
-            var importPaths = new List<ImportItem>();
+            context.IdentifierStack.Pop();
 
-            var childPaths = result.Value;
-
-            throw new NotImplementedException();
-
-            //foreach (var path in childPaths)
-            //{
-            //    var resolvedItem = new PathItem(path, importItem.PathIdentifier.Text);
-
-            //    importPaths.Add(resolvedItem);
-            //}
-
-            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
+            return Result.Success;
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportIdentifierAlias(ImportIdentifierAlias importItem)
+        private Result ProcessImportIdentifier(BuildContext context, ImportIdentifier importItem)
         {
-            var importPaths = new List<ImportItem>();
+            context.IdentifierStack.Push(importItem.Identifier.Text);
 
-            throw new NotImplementedException();
+            context.CreateAndAddImportPath();
 
-            //var resolvedItem = new IdentifierAlias(importItem.Identifier.Text, importItem.AliasIdentifier.Text);
+            context.IdentifierStack.Pop();
 
-            //importPaths.Add(resolvedItem);
-
-            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
+            return Result.Success;
         }
 
-        private Result<IReadOnlyList<ImportItem>> ProcessImportIdentifier(ImportIdentifier importItem)
+        private Result ProcessImportGroup(BuildContext context, ImportGroup importItem)
         {
-            throw new NotImplementedException();
-
-            //var importPaths = new List<ImportItem>();
-
-            //var resolvedItem = new IdentifierAlias(importItem.Identifier.Text, importItem.Identifier.Text);
-
-            //importPaths.Add(resolvedItem);
-
-            //return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
-        }
-
-        private Result<IReadOnlyList<ImportItem>> ProcessImportGroup(ImportGroup importItem)
-        {
-            var importPaths = new List<ImportItem>();
-
             foreach (var childItem in importItem.ChildItems)
             {
-                var result = this.ProcessImportPath(childItem);
+                var result = this.ProcessImportPath(context, childItem);
 
                 if (result.IsError)
                 {
                     throw new NotImplementedException();
                 }
-
-                importPaths.AddRange(result.Value);
             }
 
-            return Result.FromValue<IReadOnlyList<ImportItem>>(importPaths);
+            return Result.Success;
+        }
+
+        private class BuildContext
+        {
+            private readonly RootItemResultBuilder builder;
+
+            public BuildContext(RootItemResultBuilder builder)
+            {
+                this.builder = builder;
+            }
+
+            public bool IsRoot { get; set; }
+
+            public Stack<string> IdentifierStack { get; } = new Stack<string>();
+
+            public void CreateAndAddImportPath()
+            {
+                var path = this.IsRoot
+                    ? ImportPath.CreateRooted(this.IdentifierStack.ToList())
+                    : ImportPath.CreateNonRooted(this.IdentifierStack.ToList());
+
+                var statement = ImportStatement.Create(path);
+
+                this.builder.Items.Add(statement);
+            }
+
+            public void CreateAndAddImportPathWithAlias(string alias)
+            {
+                var path = this.IsRoot
+                    ? ImportPath.CreateRooted(this.IdentifierStack.ToList())
+                    : ImportPath.CreateNonRooted(this.IdentifierStack.ToList());
+
+                var statement = ImportStatement.CreateWithAlias(path, alias);
+
+                this.builder.Items.Add(statement);
+            }
         }
     }
 }

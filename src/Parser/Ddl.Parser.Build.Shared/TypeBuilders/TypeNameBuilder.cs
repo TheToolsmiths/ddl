@@ -5,7 +5,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
 using TypeName = TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names.TypeName;
 
-namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
+namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
 {
     public static class TypeNameBuilder
     {

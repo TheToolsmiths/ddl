@@ -1,14 +1,14 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
-    public class NegateExpression : IConditionalExpressionElement
+    public class NegateExpression : IAstConditionalExpressionElement
     {
-        public NegateExpression(IConditionalExpressionElement innerExpression)
+        public NegateExpression(IAstConditionalExpressionElement innerExpression)
         {
             this.InnerExpression = innerExpression;
         }
 
-        public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Negate;
+        public AstConditionalExpressionElementType ElementType => AstConditionalExpressionElementType.Negate;
 
-        public IConditionalExpressionElement InnerExpression { get; }
+        public IAstConditionalExpressionElement InnerExpression { get; }
     }
 }

@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
     public class ConditionalAstRootScope : AstRootScopeBase
     {
         public ConditionalAstRootScope(
-            ConditionalExpression conditionalExpression,
+            AstConditionalExpression conditionalExpression,
             AstScopeContent content)
             : base(content)
         {
@@ -15,6 +15,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 
         public override AstScopeType ScopeType => CommonScopeTypes.ConditionalScope;
 
-        public ConditionalExpression ConditionalExpression { get; }
+        public AstConditionalExpression ConditionalExpression { get; }
     }
 }

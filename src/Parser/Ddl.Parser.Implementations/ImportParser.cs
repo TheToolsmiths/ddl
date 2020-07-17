@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
@@ -33,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 throw new NotImplementedException();
             }
 
-            var importRoot = isRootedType ? ImportRoot.CreateWithChildItem(importItem) : importItem;
+            var importRoot = new ImportRoot(importItem, isRootedType);
 
             var importStatement = new ImportAstStatement(importRoot);
             return RootParseResult.FromResult<IAstRootItem>(importStatement);
@@ -150,12 +151,12 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
                 var importItem = result.Value;
 
+                items.Add(importItem);
+
                 if (await context.Lexer.TryConsumeListSeparatorToken() == false)
                 {
                     break;
                 }
-
-                items.Add(importItem);
             }
 
             if (await context.Lexer.TryConsumeCloseScopeToken() == false)

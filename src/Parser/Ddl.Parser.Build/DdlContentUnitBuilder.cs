@@ -1,37 +1,55 @@
 ﻿using System;
+using System.Linq;
 
+using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Build.Builders;
+using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build
 {
     internal class DdlContentUnitBuilder
     {
-        private readonly ScopeContentBuilder rootScopeBuilder;
-        private readonly ICommonBuilders commonBuilders;
+        private readonly IAstRootScopeBuilder scopeBuilder;
+        private readonly IServiceProvider serviceProvider;
 
-        public DdlContentUnitBuilder(ScopeContentBuilder rootScopeBuilder, ICommonBuilders commonBuilders)
+        public DdlContentUnitBuilder(IAstRootScopeBuilder scopeBuilder, IServiceProvider serviceProvider)
         {
-            this.rootScopeBuilder = rootScopeBuilder;
-            this.commonBuilders = commonBuilders;
+            this.scopeBuilder = scopeBuilder;
+            this.serviceProvider = serviceProvider;
         }
 
         public Result Build(AstContentUnit astContentUnit)
         {
-            var scopeContext = ContentUnitScopeBuildContext.CreateRootContext(this.commonBuilders);
+            var scopeContext = RootScopeBuildContext.CreateRootContext(serviceProvider);
 
-            var result = this.rootScopeBuilder
-                .BuildScopeContent(scopeContext, astContentUnit.FileRootScope);
+            var result = this.scopeBuilder.BuildScope(scopeContext, astContentUnit.FileRootScope);
 
-            if (result.IsError)
+
+            IRootScope rootScope;
+            if (result is RootScopeBuildSuccess success)
+            {
+                if (success.Scopes.Count != 1)
+                {
+                    throw new NotImplementedException();
+                }
+
+                rootScope = success.Scopes.First();
+            }
+            else if (result is RootScopeBuildError error)
+            {
+                throw new NotImplementedException();
+            }
+            else
             {
                 throw new NotImplementedException();
             }
 
-            var rootScope = result.Value;
+            var contentUnitId = ContentUnitId.CreateNew();
 
-            //var resolvedContentUnit = new ContentUnit(astContentUnit.Id, rootScope);
+            var resolvedContentUnit = new ContentUnit(contentUnitId, rootScope);
 
             throw new NotImplementedException();
         }

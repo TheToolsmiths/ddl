@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
         private readonly IServiceProvider provider;
         private readonly IAstConfigurationSection astConfiguration;
 
-        public RootBuilderResolver(IServiceProvider provider, IAstConfigurationSection astConfiguration)
+        private RootBuilderResolver(IServiceProvider provider, IAstConfigurationSection astConfiguration)
         {
             this.provider = provider;
             this.astConfiguration = astConfiguration;
@@ -53,7 +53,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
 
             if (this.astConfiguration.TryGetTypeValue(scopeType, out var builderType))
             {
-                var wrapperOpenType = typeof(RootItemBuilderWrapper<,>);
+                var wrapperOpenType = typeof(RootScopeBuilderWrapper<,>);
 
                 Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
 

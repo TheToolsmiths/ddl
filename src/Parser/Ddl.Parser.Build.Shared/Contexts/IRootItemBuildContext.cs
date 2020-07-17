@@ -1,7 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Build.Contexts
 {
-    public interface IRootItemBuildContext
+    public interface IRootItemBuildContext : IRootEntryBuildContext
     {
-        ICommonBuilders CommonBuilders { get; }
     }
 }

@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
-namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
+namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
 {
     public static class TypeIdentifierPathBuilder
     {

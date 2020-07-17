@@ -1,14 +1,14 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
-    public class ParenthesisExpression : IConditionalExpressionElement
+    public class ParenthesisExpression : IAstConditionalExpressionElement
     {
-        public ParenthesisExpression(IConditionalExpressionElement innerExpression)
+        public ParenthesisExpression(IAstConditionalExpressionElement innerExpression)
         {
             this.InnerExpression = innerExpression;
         }
 
-        public ConditionalExpressionElementType ElementType => ConditionalExpressionElementType.Parenthesis;
+        public AstConditionalExpressionElementType ElementType => AstConditionalExpressionElementType.Parenthesis;
 
-        public IConditionalExpressionElement InnerExpression { get; }
+        public IAstConditionalExpressionElement InnerExpression { get; }
     }
 }

@@ -1,8 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using TheToolsmiths.Ddl.Models.Enums;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
+using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
+using TheToolsmiths.Ddl.Results;
+
+using EnumStructVariantDefinition = TheToolsmiths.Ddl.Models.Enums.EnumStructVariantDefinition;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
@@ -10,79 +17,70 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
     {
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, EnumStructAstDefinition item)
         {
-            var builder = new RootItemBuilder();
+            var builder = new RootItemResultBuilder();
 
-            CatalogEnumStructType(builder, item);
+            var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
 
-            CatalogVariants(builder, item);
+            var result = this.BuildEnumStructContent(itemContext, item.Content);
 
-            CreateResolvedItem(builder);
-
-            throw new NotImplementedException();
-
-            //return builder.CreateSuccessResult();
-        }
-
-        private static void CreateResolvedItem(RootItemBuilder builder)
-        {
-            var itemReference = builder.RootTypeReference;
-            var subItemReferences = builder.SubItemTypesReferences;
-
-            //var item = new RootItemBase(itemReference, subItemReferences);
-            
-            throw new NotImplementedException();
-
-            //builder.ResolvedItems.Add(item);
-        }
-
-        private static void CatalogEnumStructType(RootItemBuilder builder, EnumStructAstDefinition definition)
-        {
-            var itemTypeName = TypeNameBuilder.CreateItemTypeName(definition.TypeName);
-
-            throw new NotImplementedException();
-
-            //var itemReference = new ItemReference(definition.ItemId);
-
-            //var rootType = new TypedItemReference(itemTypeName, itemReference);
-
-            //builder.RootType = itemTypeName;
-            //builder.RootTypeReference = rootType;
-        }
-
-        private static void CatalogVariants(RootItemBuilder builder, EnumStructAstDefinition definition)
-        {
-            if (definition.Content.IsEmpty)
+            if (result.IsError)
             {
-                return;
+                throw new NotImplementedException();
             }
 
-            foreach (var definitionItem in definition.Content.Items)
+            var variants = result.Value;
+
+            var structDefinition = new EnumStructDefinition(typeName, variants);
+
+            builder.Items.Add(structDefinition);
+
+            return builder.CreateSuccessResult();
+        }
+
+        private Result<IReadOnlyList<EnumStructVariantDefinition>> BuildEnumStructContent(
+            IRootItemBuildContext itemContext,
+            EnumStructAstDefinitionContent astContent)
+        {
+            var variants = new List<EnumStructVariantDefinition>();
+
+            foreach (var astDefinitionItem in astContent.Items)
             {
-                switch (definitionItem)
+                var result = astDefinitionItem switch
                 {
-                    case EnumStructVariantDefinition variant:
-                        CatalogVariant(builder, definition, variant);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(definitionItem));
+                    Ast.Models.Enums.EnumStructVariantDefinition astVariant => this.BuildEnumStructVariantDefinition(
+                        itemContext,
+                        astVariant),
+                    _ => throw new ArgumentOutOfRangeException(nameof(astDefinitionItem))
+                };
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
                 }
+
+                variants.Add(result.Value);
             }
+
+            return Result.FromValue<IReadOnlyList<EnumStructVariantDefinition>>(variants);
         }
 
-        private static void CatalogVariant(
-            RootItemBuilder builder,
-            EnumStructAstDefinition definition,
-            EnumStructVariantDefinition variant)
+        private Result<EnumStructVariantDefinition> BuildEnumStructVariantDefinition(
+            IRootItemBuildContext itemContext,
+            Ast.Models.Enums.EnumStructVariantDefinition astVariant)
         {
-            throw new NotImplementedException();
+            var result = itemContext.CommonBuilders.BuildStructContent(astVariant.Content);
 
-            //var subItemTypeName = TypeNameBuilder.CreateSubItemTypeName(builder.RootType, variant.Name);
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
 
-            //var subItemReference = new SubItemReference(definition.ItemId, variant.ItemId);
+            var structContent = result.Value;
 
-            //var entry = new TypedSubItemReference(subItemTypeName, subItemReference);
+            var variantName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
+            var variant = new EnumStructVariantDefinition(variantName, structContent);
 
-            //builder.SubItemTypesReferences.Add(entry);
+            return Result.FromValue(variant);
         }
     }
 }

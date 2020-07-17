@@ -15,13 +15,17 @@ namespace TheToolsmiths.Ddl.Parser.Build.Services
 
             services.AddScoped(RootBuilderResolver.CreateResolver);
 
+            // Register Common Builders
             services.AddScoped<ScopeContentBuilder>();
+            services.AddScoped<AttributeUseBuilder>();
+            services.AddScoped<StructDefinitionContentBuilder>();
+            services.AddScoped<ConditionalExpressionBuilder>();
+            services.AddScoped<ValueInitializationBuilder>();
+            services.AddScoped<LiteralValueBuilder>();
 
-            // Root Item Resolvers
-            services.AddScoped<RootItemBuilder>();
-            services.AddScoped<RootScopeBuilder>();
-
-            services.AddScoped<ICommonBuilders, CommonBuilders>();
+            // Root Builders
+            services.AddScoped<IAstRootItemBuilder, AstRootItemBuilder>();
+            services.AddScoped<IAstRootScopeBuilder, AstRootScopeBuilder>();
 
             return services;
         }

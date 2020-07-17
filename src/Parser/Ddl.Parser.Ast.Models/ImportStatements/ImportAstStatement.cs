@@ -5,12 +5,12 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements
 {
     public class ImportAstStatement : AstRootItem
     {
-        public ImportAstStatement(ImportItem rootItem)
+        public ImportAstStatement(ImportRoot rootItem)
         {
             this.RootItem = rootItem;
         }
 
-        public ImportItem RootItem { get; }
+        public ImportRoot RootItem { get; }
 
         public override AstItemType ItemType => CommonItemTypes.ImportStatement;
     }

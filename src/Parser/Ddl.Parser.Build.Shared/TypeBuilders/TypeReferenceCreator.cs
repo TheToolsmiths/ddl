@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.References.Builders;
 using TheToolsmiths.Ddl.Models.Types.References.Storage;
@@ -11,7 +10,7 @@ using TheToolsmiths.Ddl.Results;
 using DynamicArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.DynamicArraySize;
 using FixedArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.FixedArraySize;
 
-namespace TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers
+namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
 {
     public static class TypeReferenceCreator
     {

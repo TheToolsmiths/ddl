@@ -1,24 +1,5 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Build.Results
 {
-    public class RootScopeBuildSuccess : RootScopeBuildResult
-    {
-        public RootScopeBuildSuccess()
-            : base(RootScopeBuildResultKind.Success)
-        {
-        }
-    }
-
-    public class RootScopeBuildError : RootScopeBuildResult
-    {
-        public RootScopeBuildError(string errorMessage)
-            : base(RootScopeBuildResultKind.Error)
-        {
-            this.ErrorMessage = errorMessage;
-        }
-
-        public string ErrorMessage { get; }
-    }
-
     public class RootScopeBuildResult
     {
         protected RootScopeBuildResult(RootScopeBuildResultKind resultKind)
@@ -36,11 +17,5 @@
         {
             return new RootItemBuildError(errorMessage);
         }
-    }
-
-    public enum RootScopeBuildResultKind
-    {
-        Success,
-        Error
     }
 }

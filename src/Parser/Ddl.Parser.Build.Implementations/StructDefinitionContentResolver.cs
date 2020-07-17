@@ -4,8 +4,8 @@ using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Build.Common.TypeHelpers;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
+using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             IRootItemBuildContext itemContext,
             StructDefinitionContent content)
         {
-            var context = new RootItemBuilder();
+            var context = new RootItemsBuilder();
 
             foreach (var contentItem in content.Items)
             {
@@ -32,7 +32,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         }
 
         private Result<IStructItem> CatalogContentItem(
-            RootItemBuilder context,
+            RootItemsBuilder context,
             IRootItemBuildContext itemContext,
             IStructDefinitionItem contentItem)
         {
@@ -45,7 +45,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         }
 
         private Result<IStructItem> CatalogStructScope(
-            RootItemBuilder context,
+            RootItemsBuilder context,
             IRootItemBuildContext itemContext,
             StructScope structScope)
         {
@@ -53,7 +53,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         }
 
         private Result<IStructItem> CatalogFieldDefinition(
-            RootItemBuilder context,
+            RootItemsBuilder context,
             IRootItemBuildContext itemContext,
             FieldDefinition astField)
         {

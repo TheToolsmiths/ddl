@@ -1,19 +1,15 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements
 {
-    public class ImportRoot : ImportItem
+    public class ImportRoot
     {
-        public ImportRoot(ImportItem childItem)
+        public ImportRoot(ImportItem childItem, bool isRoot)
         {
             this.ChildItem = childItem;
+            this.IsRoot = isRoot;
         }
 
         public ImportItem ChildItem { get; }
 
-        public override ImportedItemKind ItemKind => ImportedItemKind.Root;
-
-        public static ImportRoot CreateWithChildItem(ImportItem childItem)
-        {
-            return new ImportRoot(childItem);
-        }
+        public bool IsRoot { get; }
     }
 }

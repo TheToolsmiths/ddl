@@ -158,7 +158,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 token = result.Token;
             }
 
-            ConditionalExpression expression;
+            AstConditionalExpression expression;
             if (token.IsOpenParentheses())
             {
                 var parseResult = await context.Parsers.ParseConditionalExpressionRoot();
@@ -183,7 +183,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
             else
             {
-                expression = ConditionalExpression.CreateEmpty();
+                expression = AstConditionalExpression.CreateEmpty();
             }
 
             if (token.IsOpenScope() == false)

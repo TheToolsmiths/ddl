@@ -142,7 +142,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 typeIdentifier = result.Value;
             }
 
-            ConditionalExpression conditionalExpression;
+            AstConditionalExpression conditionalExpression;
             {
                 var result = await context.Parsers.ParseConditionalExpressionRoot();
 

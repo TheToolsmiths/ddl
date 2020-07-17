@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+
+using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Models.ImportPaths
 {
-    public class ImportStatement
+    public class ImportStatement : IRootItem
     {
-        public ImportStatement(ImportPath importPath, string aliasIdentifier)
+        private ImportStatement(ImportPath importPath, string aliasIdentifier)
         {
             this.ImportPath = importPath;
             this.Alias = aliasIdentifier;
@@ -21,7 +23,12 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
 
         public static ImportStatement Create(ImportPath importPath)
         {
-            string alias = importPath.PathIdentifiers.Last();
+            string? alias = importPath.PathIdentifiers[^1];
+
+            if (alias == null)
+            {
+                throw new ArgumentException(nameof(importPath));
+            }
 
             return new ImportStatement(importPath, alias);
         }

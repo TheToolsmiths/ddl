@@ -1,5 +1,7 @@
 ﻿using System;
 
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
@@ -8,38 +10,39 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
     public class ConditionalRootScopeBuilder : IRootScopeBuilder<ConditionalAstRootScope>
     {
-        //private readonly ScopeContentResolver scopeResolver;
-
-        //public ConditionalRootScopeBuilder(ScopeContentResolver scopeResolver)
-        //{
-        //    this.scopeResolver = scopeResolver;
-        //}
-
-        public RootScopeBuildResult BuildScope(IRootItemBuildContext unitContext, ConditionalAstRootScope scope)
+        public RootScopeBuildResult BuildScope(IRootScopeBuildContext scopeContext, ConditionalAstRootScope scope)
         {
-            throw new NotImplementedException();
+            ConditionalExpression conditionalExpression;
+            {
+                var result = scopeContext.CommonBuilders.BuildConditionalExpression(scope.ConditionalExpression);
 
-            //var additionalProperties = new List<ScopeProperty>();
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //if (scope.ConditionalExpression.IsEmpty == false)
-            //{
-            //    additionalProperties.Add(new ConditionalProperty(scope.ConditionalExpression));
-            //}
+                conditionalExpression = result.Value;
+            }
 
-            //var scopeContext = unitContext.CreateScopeWithAdditionalProperties(additionalProperties);
+            ScopeContent scopeContent;
+            {
+                var result = scopeContext.CommonBuilders.BuildScopeContent(scope.Content);
 
-            //var result = this.scopeResolver.ResolveScopeContent(scopeContext, scope.Content);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
-            //if (result.IsError)
-            //{
-            //    throw new System.NotImplementedException();
-            //}
+                scopeContent = result.Value;
+            }
 
-            //var resolvedScope = result.Value;
+            var conditionalScope = new ConditionalRootScope(conditionalExpression, scopeContent);
 
-            //unitContext.ResolvedScopes.Add(resolvedScope);
+            var builder = new RootScopeResultBuilder();
 
-            //return Result.Success;
+            builder.Scopes.Add(conditionalScope);
+
+            return builder.CreateSuccessResult();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class ConditionalExpressionParser
     {
-        public async Task<Result<ConditionalExpression>> ParseConditionalExpressionRoot(IParserContext context)
+        public async Task<Result<AstConditionalExpression>> ParseConditionalExpressionRoot(IParserContext context)
         {
             var parseResult = await this.ParseParenthesisExpression(context);
 
@@ -26,12 +26,12 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var expression = parseResult.Value;
 
-            var value = ConditionalExpression.Create(expression);
+            var value = AstConditionalExpression.Create(expression);
 
             return Result.FromValue(value);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseParenthesisExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseParenthesisExpression(IParserContext context)
         {
             if (await context.Lexer.TryConsumeOpenParenthesesToken() == false)
             {
@@ -54,12 +54,12 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var parenthesisExpression = new ParenthesisExpression(expression);
 
-            return Result.FromValue<IConditionalExpressionElement>(parenthesisExpression);
+            return Result.FromValue<IAstConditionalExpressionElement>(parenthesisExpression);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseExpressionsList(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseExpressionsList(IParserContext context)
         {
-            var expressions = new List<IConditionalExpressionElement>();
+            var expressions = new List<IAstConditionalExpressionElement>();
 
             IConditionalLogicalOperator? op = null;
 
@@ -144,7 +144,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
                 break;
             }
 
-            IConditionalExpressionElement expression;
+            IAstConditionalExpressionElement expression;
             if (expressions.Count == 0)
             {
                 expression = new EmptyExpression();
@@ -175,7 +175,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             return Result.FromValue(expression);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseExpression(IParserContext context)
         {
             var result = await context.Lexer.TryPeekToken();
 
@@ -209,7 +209,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
             throw new NotImplementedException();
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseNegateExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseNegateExpression(IParserContext context)
         {
             if (await context.Lexer.TryConsumeLogicalNotToken() == false)
             {
@@ -242,10 +242,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var value = new NegateExpression(expression);
 
-            return Result.FromValue<IConditionalExpressionElement>(value);
+            return Result.FromValue<IAstConditionalExpressionElement>(value);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseIdentifierExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseIdentifierExpression(IParserContext context)
         {
             var result = await context.Lexer.TryGetIdentifierToken();
 
@@ -260,10 +260,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
             var expression = new IdentifierSymbolExpression(identifier);
             var value = new SymbolExpression(expression);
 
-            return Result.FromValue<IConditionalExpressionElement>(value);
+            return Result.FromValue<IAstConditionalExpressionElement>(value);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseSymbolExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseSymbolExpression(IParserContext context)
         {
             Identifier identifier;
             {
@@ -327,10 +327,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
             }
 
             var value = new SymbolExpression(expression);
-            return Result.FromValue<IConditionalExpressionElement>(value);
+            return Result.FromValue<IAstConditionalExpressionElement>(value);
         }
 
-        private async Task<Result<IConditionalExpressionElement>> ParseBooleanExpression(IParserContext context)
+        private async Task<Result<IAstConditionalExpressionElement>> ParseBooleanExpression(IParserContext context)
         {
             var result = await context.Lexer.TryGetLiteralToken();
 
@@ -341,7 +341,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             var token = result.Token;
 
-            IConditionalExpressionElement value;
+            IAstConditionalExpressionElement value;
             if (token.IsBooleanTrue())
             {
                 value = new BoolLiteralExpression(true);

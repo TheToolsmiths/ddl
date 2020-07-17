@@ -30,7 +30,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                 token = result.Token;
             }
 
-            ConditionalExpression expression;
+            AstConditionalExpression expression;
             if (token.IsOpenParentheses())
             {
                 var parseResult = await context.Parsers.ParseConditionalExpressionRoot();
@@ -55,7 +55,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             }
             else
             {
-                expression = ConditionalExpression.CreateEmpty();
+                expression = AstConditionalExpression.CreateEmpty();
             }
 
             if (token.IsOpenScope() == false)

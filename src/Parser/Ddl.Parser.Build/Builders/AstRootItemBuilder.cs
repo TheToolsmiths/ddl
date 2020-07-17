@@ -2,35 +2,27 @@
 
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
-using TheToolsmiths.Ddl.Results;
+using TheToolsmiths.Ddl.Parser.Build.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Builders
 {
-    internal class RootItemBuilder
+    internal class AstRootItemBuilder : IAstRootItemBuilder
     {
         private readonly RootBuilderResolver builderResolver;
 
-        public RootItemBuilder(RootBuilderResolver builderResolver)
+        public AstRootItemBuilder(RootBuilderResolver builderResolver)
         {
             this.builderResolver = builderResolver;
         }
 
-        public Result BuildItem(IRootItemBuildContext context, IAstRootItem item)
+        public RootItemBuildResult BuildItem(IRootItemBuildContext context, IAstRootItem item)
         {
             if (this.builderResolver.TryResolveItemBuilder(item, out var itemBuilder) == false)
             {
                 throw new NotImplementedException();
             }
 
-            var result = itemBuilder.BuildItem(context, item);
-
-            if (result.IsError)
-            {
-                throw new NotImplementedException();
-            }
-
-            throw new NotImplementedException();
-            return Result.Success;
+            return itemBuilder.BuildItem(context, item);
         }
     }
 }

@@ -162,9 +162,11 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
             return genericPart;
         }
 
-        public TypeReferenceBuilder AddSimplePath(params string[] simpleIdentifiers)
+        public void AddSimplePath(string name)
         {
-            throw new NotImplementedException();
+            var simplePart = new SimplePartBuilder(name);
+
+            this.PathParts.Add(simplePart);
         }
 
         public TypeReferenceBuilder AddGenericPart(string genericIdentifier, params string[] genericParameters)

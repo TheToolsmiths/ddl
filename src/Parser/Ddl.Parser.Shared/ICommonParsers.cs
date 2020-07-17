@@ -27,7 +27,7 @@ namespace TheToolsmiths.Ddl.Parser
 
         Task<Result<LiteralValue>> ParseLiteralValue();
 
-        Task<Result<ConditionalExpression>> ParseConditionalExpressionRoot();
+        Task<Result<AstConditionalExpression>> ParseConditionalExpressionRoot();
 
         Task<Result<ValueInitialization>> ParseFieldInitialization();
     }

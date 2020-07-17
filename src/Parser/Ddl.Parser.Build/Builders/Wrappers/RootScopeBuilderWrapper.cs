@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
             this.builder = builder;
         }
 
-        public override RootScopeBuildResult BuildScope(IRootItemBuildContext context, IAstRootScope scope)
+        public override RootScopeBuildResult BuildScope(IRootScopeBuildContext context, IAstRootScope scope)
         {
             return this.builder.BuildScope(context, (TAstScope)scope);
         }
@@ -23,6 +23,6 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers
 
     internal abstract class RootScopeBuilderWrapper
     {
-        public abstract RootScopeBuildResult BuildScope(IRootItemBuildContext context, IAstRootScope scope);
+        public abstract RootScopeBuildResult BuildScope(IRootScopeBuildContext context, IAstRootScope scope);
     }
 }

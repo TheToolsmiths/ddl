@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions
 {
-    public enum ConditionalExpressionElementType
+    public enum AstConditionalExpressionElementType
     {
         Parenthesis,
         Binary,

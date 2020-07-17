@@ -4,6 +4,7 @@ using System.Linq;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.References.Builders;
 using TheToolsmiths.Ddl.Models.Values;
 
@@ -21,12 +22,24 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
 
         public TypeReferenceBuilder TypeBuilder { get; }
 
-        public List<AttributeUseBuilder> Attributes { get; } = new List<AttributeUseBuilder>();
+        public TypeReference? TypeReference { get; set; }
+
+        public List<AttributeUseBuilder> AttributeBuilders { get; } = new List<AttributeUseBuilder>();
+
+        public List<IAttributeUse> Attributes { get; } = new List<IAttributeUse>();
 
         public TypeReferenceBuilder WithType()
         {
             return this.TypeBuilder;
         }
+
+        public StructDefinitionFieldBuilder WithType(TypeReference type)
+        {
+            this.TypeReference = type;
+
+            return this;
+        }
+
         public StructDefinitionFieldBuilder WithName(string name)
         {
             this.Name = name;
@@ -41,9 +54,10 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
                 throw new InvalidOperationException();
             }
 
-            var fieldType = this.TypeBuilder;
+            var fieldType = this.TypeReference ?? this.TypeBuilder;
 
-            var attributes = this.Attributes.Select(a => a.Build()).ToList();
+            var attributes = this.AttributeBuilders.Select(a => a.Build()).ToList();
+            attributes.AddRange(this.Attributes);
 
             var initialization = ValueInitialization.CreateEmpty();
 
@@ -54,7 +68,7 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
         {
             var builder = AttributeUseBuilder.CreateTyped(attributeType);
 
-            this.Attributes.Add(builder);
+            this.AttributeBuilders.Add(builder);
 
             return builder;
         }
@@ -63,7 +77,7 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
         {
             var builder = AttributeUseBuilder.CreateConditional(attributeType, expression);
 
-            this.Attributes.Add(builder);
+            this.AttributeBuilders.Add(builder);
 
             return builder;
         }
