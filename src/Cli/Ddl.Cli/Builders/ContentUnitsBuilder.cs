@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Microsoft.Extensions.Logging;
-
+using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Build;
 using TheToolsmiths.Ddl.Results;
@@ -22,22 +22,20 @@ namespace TheToolsmiths.Ddl.Cli.Builders
             this.builder = builder;
         }
 
-        public Result BuildContentUnits(IReadOnlyList<AstContentUnit> contentUnits)
+        public Result<IReadOnlyList<ContentUnit>> BuildContentUnits(IReadOnlyList<AstContentUnit> contentUnits)
         {
             using var _ = this.log.BeginScope("Build Content Units");
 
-            {
-                var result = this.builder.BuildCollection(contentUnits);
+            var result = this.builder.BuildCollection(contentUnits);
 
-                if (result.IsError)
-                {
-                    throw new NotImplementedException();
-                }
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
             }
 
             this.log.LogInformation("Content Units built");
 
-            return Result.Success;
+            return result;
         }
     }
 }

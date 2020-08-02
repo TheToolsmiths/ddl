@@ -4,13 +4,13 @@ namespace TheToolsmiths.Ddl.Models.References.ItemReferences
 {
     public class ContentUnitItemReference : ContentUnitEntityReference
     {
-        public ContentUnitItemReference(ContentUnitId contentUnitId, ContentUnitItemId itemId)
+        public ContentUnitItemReference(ContentUnitId contentUnitId, ItemId itemId)
             : base(contentUnitId)
         {
             this.ItemId = itemId;
         }
 
-        public ContentUnitItemId ItemId { get; }
+        public ItemId ItemId { get; }
 
         public static ContentUnitItemReference Create(in ContentUnitId contentUnitId, ItemReference itemReference)
         {

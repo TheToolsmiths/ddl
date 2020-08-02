@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Results;
 
@@ -14,9 +16,11 @@ namespace TheToolsmiths.Ddl.Parser.Build
             this.contentUnitBuilder = contentUnitBuilder;
         }
 
-        public Result BuildCollection(IEnumerable<AstContentUnit> contentUnits)
+        public Result<IReadOnlyList<ContentUnit>> BuildCollection(IEnumerable<AstContentUnit> astContentUnits)
         {
-            foreach (var contentUnit in contentUnits)
+            var contentUnits = new List<ContentUnit>();
+
+            foreach (var contentUnit in astContentUnits)
             {
                 var result = this.contentUnitBuilder.Build(contentUnit);
 
@@ -24,9 +28,11 @@ namespace TheToolsmiths.Ddl.Parser.Build
                 {
                     throw new NotImplementedException();
                 }
+
+                contentUnits.Add(result.Value);
             }
 
-            throw new NotImplementedException();
+            return Result.FromValue<IReadOnlyList<ContentUnit>>(contentUnits);
         }
     }
 }

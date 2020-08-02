@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
-using TheToolsmiths.Ddl.Parser.Configurations;
+using TheToolsmiths.Ddl.Parser.Configurations.Ast;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Configurations
 {

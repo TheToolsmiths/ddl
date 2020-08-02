@@ -4,12 +4,12 @@ namespace TheToolsmiths.Ddl.Models.References.ItemReferences
 {
     public class ItemReference : EntityReference
     {
-        public ItemReference(ContentUnitItemId itemId)
+        public ItemReference(ItemId itemId)
         {
             this.ItemId = itemId;
         }
 
-        public ContentUnitItemId ItemId { get; }
+        public ItemId ItemId { get; }
 
         public override string ToString()
         {

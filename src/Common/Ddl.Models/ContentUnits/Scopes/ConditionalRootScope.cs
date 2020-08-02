@@ -1,8 +1,9 @@
 ﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
 {
-    public class ConditionalRootScope : RootScope
+    public class ConditionalRootScope : RootScopeBase
     {
         public ConditionalRootScope(
             ConditionalExpression conditionalExpression,
@@ -13,5 +14,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
         }
 
         public ConditionalExpression ConditionalExpression { get; }
+
+        public override ScopeType ScopeType => CommonScopeTypes.ConditionalScope;
     }
 }

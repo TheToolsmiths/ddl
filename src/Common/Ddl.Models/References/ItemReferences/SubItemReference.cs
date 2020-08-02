@@ -5,16 +5,16 @@ namespace TheToolsmiths.Ddl.Models.References.ItemReferences
     public class SubItemReference : EntityReference
     {
         public SubItemReference(
-            ContentUnitItemId itemId,
-            ContentUnitSubItemId subItemId)
+            ItemId itemId,
+            SubItemId subItemId)
         {
             this.ItemId = itemId;
             this.SubItemId = subItemId;
         }
 
-        public ContentUnitItemId ItemId { get; }
+        public ItemId ItemId { get; }
 
-        public ContentUnitSubItemId SubItemId { get; }
+        public SubItemId SubItemId { get; }
 
         public override string ToString()
         {

@@ -30,7 +30,8 @@ namespace DdlModelCreation
 
             var rootScope = new RootScope(scopeContent);
 
-            var contentUnit = new ContentUnit(rootScope);
+            var info = ContentUnitInfo.CreateFromFilePath("test-model-creation.ddl");
+            var contentUnit = new ContentUnit(info, rootScope);
 
             await DdlWriter.Write(contentUnit, pipeWriter).ConfigureAwait(false);
 

@@ -7,7 +7,7 @@ using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers;
 using TheToolsmiths.Ddl.Parser.Build.Configurations;
-using TheToolsmiths.Ddl.Parser.Configurations;
+using TheToolsmiths.Ddl.Parser.Configurations.Ast;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Builders
 {

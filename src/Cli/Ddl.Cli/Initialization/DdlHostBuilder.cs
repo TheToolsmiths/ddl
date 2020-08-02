@@ -6,14 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using TheToolsmiths.Ddl.Cli.Builders;
+using TheToolsmiths.Ddl.Cli.Indexers;
 using TheToolsmiths.Ddl.Cli.Lexers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Plugins;
-using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Lexer.Writer;
-using TheToolsmiths.Ddl.Parser.Build.Configurations;
-using TheToolsmiths.Ddl.Parser.Configurations;
-using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 using TheToolsmiths.Ddl.Services;
 
 using IConfigurationBuilder = Microsoft.Extensions.Configuration.IConfigurationBuilder;
@@ -43,32 +40,24 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
         {
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
-            ParserMapRegistryBuilder parserRegistryBuilder = new ParserMapRegistryBuilder();
-
-            configurationBuilder.ConfigurationBuilders
-                .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
-                .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder));
-
-            configurationBuilder.ConfigurationRegistryBuilder
-                .AddConfigurationProvider<IParserConfigurationProvider>(new ParserConfigurationProvider(parserRegistryBuilder))
-                .AddConfigurationProvider<IAstConfigurationProvider>(new AstConfigurationProvider());
+            DdlCoreServices.RegisterCoreServices(configurationBuilder);
 
             PluginSystemRegister.Register(configurationBuilder, context, services);
 
-            var servicesRegister = new DdlServicesRegister(services);
+            RegisterCliApplicationServices(services);
 
-            var configurationProvider = configurationBuilder.ParserConfigurators.Build();
-            var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
-            var builderCollection = configurationBuilder.ConfigurationBuilders.Build();
+            DdlCoreServices.BuildAndRegisterConfiguration(configurationBuilder, services);
+        }
 
-            servicesRegister.RegisterServices(configurationProvider, builderCollection, providerCollection);
-
+        private static void RegisterCliApplicationServices(IServiceCollection services)
+        {
             services.AddTransient<FileParser>();
             services.AddTransient<GlobParser>();
             services.AddTransient<FileLexer>();
             services.AddScoped<DdlLexerTokenWriter>();
 
             services.AddTransient<ContentUnitsBuilder>();
+            services.AddTransient<ContentUnitsIndexer>();
         }
 
         private static void ConfigureAppConfiguration(HostBuilderContext context, IConfigurationBuilder config)

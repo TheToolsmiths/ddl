@@ -6,17 +6,17 @@ namespace TheToolsmiths.Ddl.Models.References.ItemReferences
     {
         public ContentUnitSubItemReference(
             ContentUnitId contentUnitId,
-            ContentUnitItemId itemId,
-            ContentUnitSubItemId subItemId)
+            ItemId itemId,
+            SubItemId subItemId)
             : base(contentUnitId)
         {
             this.ItemId = itemId;
             this.SubItemId = subItemId;
         }
 
-        public ContentUnitItemId ItemId { get; }
+        public ItemId ItemId { get; }
 
-        public ContentUnitSubItemId SubItemId { get; }
+        public SubItemId SubItemId { get; }
 
         public static ContentUnitSubItemReference Create(in ContentUnitId contentUnitId, SubItemReference subItemReference)
         {

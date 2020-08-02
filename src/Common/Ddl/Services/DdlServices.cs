@@ -5,9 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Parser.Build.Configurations;
-using TheToolsmiths.Ddl.Parser.Configurations;
-using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 
 namespace TheToolsmiths.Ddl.Services
 {
@@ -29,29 +26,11 @@ namespace TheToolsmiths.Ddl.Services
 
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
-            ParserMapRegistryBuilder parserRegistryBuilder = new ParserMapRegistryBuilder();
-
-            configurationBuilder.ConfigurationBuilders
-                .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
-                .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder));
-
-            configurationBuilder.ConfigurationRegistryBuilder
-                .AddConfigurationProvider<IParserConfigurationProvider>(new ParserConfigurationProvider(parserRegistryBuilder))
-                .AddConfigurationProvider<IAstConfigurationProvider>(new AstConfigurationProvider());
-
-            configurationBuilder.ParserConfigurators
-                .AddConfigurator<Parser.Build.Implementations.Plugins.ParserConfigurator>()
-                .AddConfigurator<Parser.Implementations.Plugins.ParserConfigurator>();
-
-            var servicesRegister = new DdlServicesRegister(services);
+            DdlCoreServices.RegisterCoreServices(configurationBuilder);
 
             RegisterApplicationServices(services);
 
-            var configurationProvider = configurationBuilder.ParserConfigurators.Build();
-            var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
-            var builderCollection = configurationBuilder.ConfigurationBuilders.Build();
-
-            servicesRegister.RegisterServices(configurationProvider, builderCollection, providerCollection);
+            DdlCoreServices.BuildAndRegisterConfiguration(configurationBuilder, services);
 
             var serviceProvider = services.BuildServiceProvider();
 

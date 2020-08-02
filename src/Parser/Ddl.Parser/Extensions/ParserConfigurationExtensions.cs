@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 using TheToolsmiths.Ddl.Configurations;
-using TheToolsmiths.Ddl.Parser.Configurations;
+using TheToolsmiths.Ddl.Parser.Configurations.Parser;
 using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Extensions

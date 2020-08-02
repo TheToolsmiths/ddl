@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
@@ -12,9 +14,7 @@ namespace TheToolsmiths.Ddl.Parser
         private readonly ILogger<DdlTextParser> log;
         private readonly IServiceProvider serviceProvider;
 
-        public DdlTextParser(
-            ILogger<DdlTextParser> log,
-            IServiceProvider serviceProvider)
+        public DdlTextParser(ILogger<DdlTextParser> log, IServiceProvider serviceProvider)
         {
             this.log = log;
             this.serviceProvider = serviceProvider;
@@ -29,25 +29,13 @@ namespace TheToolsmiths.Ddl.Parser
         {
             try
             {
-                string relativePath;
-
-                if (rootDirectory != null)
-                {
-                    relativePath = Path.GetRelativePath(rootDirectory.FullName, file.FullName);
-                }
-                else
-                {
-                    relativePath = file.Name;
-                }
+                var info = rootDirectory != null
+                    ? AstContentUnitInfo.CreateFromFileInfo(file, rootDirectory)
+                    : AstContentUnitInfo.CreateFromFileInfo(file);
 
                 using var scope = this.serviceProvider.CreateScope();
 
-                string id = $"file///:{file.FullName}";
-                string name = Path.GetFileNameWithoutExtension(file.Name);
-                var info = new ContentUnitInfo(id, name, relativePath, file);
-
-                var parser = await scope.ServiceProvider
-                    .GetRequiredService<DdlParserFactory>()
+                var parser = await scope.ServiceProvider.GetRequiredService<DdlParserFactory>()
                     .CreateForFile(file.FullName);
 
                 return await parser.ParseContentUnit(info);

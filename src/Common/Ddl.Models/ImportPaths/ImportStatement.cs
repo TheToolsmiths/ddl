@@ -1,6 +1,7 @@
 ﻿using System;
-
+using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Models.ImportPaths
 {
@@ -10,7 +11,12 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
         {
             this.ImportPath = importPath;
             this.Alias = aliasIdentifier;
+            this.ItemId = ItemId.CreateNew();
         }
+
+        public ItemType ItemType => CommonItemTypes.ImportStatement;
+
+        public ItemId ItemId { get; }
 
         public ImportPath ImportPath { get; }
 

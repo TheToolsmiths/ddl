@@ -7,14 +7,14 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits
     public class AstContentUnit
     {
         public AstContentUnit(
-            ContentUnitInfo info,
+            AstContentUnitInfo info,
             IAstRootScope fileRootScope)
         {
             this.Info = info;
             this.FileRootScope = fileRootScope;
         }
 
-        public ContentUnitInfo Info { get; }
+        public AstContentUnitInfo Info { get; }
 
         public IAstRootScope FileRootScope { get; }
     }

@@ -1,14 +1,13 @@
-﻿namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
+﻿using TheToolsmiths.Ddl.Models.EntryTypes;
+
+namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
 {
-    public class RootScope : IRootScope
+    public class RootScope : RootScopeBase
     {
-        public RootScope(ScopeContent content)
+        public RootScope(ScopeContent content) : base(content)
         {
-            this.Content = content;
         }
 
-        public ScopeContent Content { get; }
+        public override ScopeType ScopeType => CommonScopeTypes.RootScope;
     }
-
-
 }

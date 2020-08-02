@@ -6,6 +6,7 @@ using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Build.Builders;
 using TheToolsmiths.Ddl.Parser.Build.Results;
+using TheToolsmiths.Ddl.Parser.Helpers.ContentUnits;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Build
@@ -21,12 +22,11 @@ namespace TheToolsmiths.Ddl.Parser.Build
             this.serviceProvider = serviceProvider;
         }
 
-        public Result Build(AstContentUnit astContentUnit)
+        public Result<ContentUnit> Build(AstContentUnit astContentUnit)
         {
             var scopeContext = RootScopeBuildContext.CreateRootContext(serviceProvider);
 
             var result = this.scopeBuilder.BuildScope(scopeContext, astContentUnit.FileRootScope);
-
 
             IRootScope rootScope;
             if (result is RootScopeBuildSuccess success)
@@ -49,9 +49,10 @@ namespace TheToolsmiths.Ddl.Parser.Build
 
             var contentUnitId = ContentUnitId.CreateNew();
 
-            var resolvedContentUnit = new ContentUnit(contentUnitId, rootScope);
+            var info = AstContentUnitInfoHelper.ToContentUnitInfo(astContentUnit.Info);
+            var contentUnit = new ContentUnit(contentUnitId, info, rootScope);
 
-            throw new NotImplementedException();
+            return Result.FromValue(contentUnit);
         }
     }
 }

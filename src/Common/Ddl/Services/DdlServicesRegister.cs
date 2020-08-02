@@ -4,6 +4,7 @@ using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Lexer.Services;
 using TheToolsmiths.Ddl.Parser.Build.Services;
 using TheToolsmiths.Ddl.Parser.Services;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.Services;
 
 namespace TheToolsmiths.Ddl.Services
 {
@@ -31,6 +32,8 @@ namespace TheToolsmiths.Ddl.Services
             DdlServicesInitializer.RegisterDdlServices(this.services);
 
             BuilderServicesInitializer.RegisterBuilderServices(this.services);
+
+            IndexingServicesInitializer.RegisterIndexingServices(this.services);
 
             LexerServicesInitializer.RegisterLexerServices(this.services);
 

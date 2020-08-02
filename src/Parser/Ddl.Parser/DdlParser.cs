@@ -27,7 +27,7 @@ namespace TheToolsmiths.Ddl.Parser
             this.parser = parser;
         }
 
-        public async Task<ContentUnitParseResult> ParseContentUnit(ContentUnitInfo info)
+        public async Task<ContentUnitParseResult> ParseContentUnit(AstContentUnitInfo info)
         {
             var result = await this.ParseFileScopeContent(info);
 
@@ -43,7 +43,7 @@ namespace TheToolsmiths.Ddl.Parser
             return ContentUnitParseResult.FromValue(fileContent);
         }
 
-        private async Task<Result<IAstRootScope>> ParseFileScopeContent(ContentUnitInfo info)
+        private async Task<Result<IAstRootScope>> ParseFileScopeContent(AstContentUnitInfo info)
         {
             try
             {

@@ -29,7 +29,7 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
 
         public override string ToString()
         {
-            return $"{this.SubItemReference} > {this.NamespacePath}::{this.TypedSubItemName}";
+            return $"{this.SubItemReference} > {this.TypeIdentifier}";
         }
     }
 }

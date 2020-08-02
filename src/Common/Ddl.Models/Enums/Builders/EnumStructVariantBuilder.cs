@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
             this.Content = new StructDefinitionContentBuilder();
         }
 
-        public string VariantName { get; set; }
+        public string VariantName { get; }
 
         public StructDefinitionContentBuilder Content { get; }
 
