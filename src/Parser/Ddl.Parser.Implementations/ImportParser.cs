@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class ImportParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IAstRootItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootItemParseResult> ParseRootContent(IRootItemParserContext context)
         {
             bool isRootedType = await context.Lexer.TryConsumeNamespaceSeparatorToken();
 
@@ -37,7 +37,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             var importRoot = new ImportRoot(importItem, isRootedType);
 
             var importStatement = new ImportAstStatement(importRoot);
-            return RootParseResult.FromResult<IAstRootItem>(importStatement);
+            return RootItemParseResult.FromResult(importStatement);
         }
 
         private async Task<Result<ImportItem>> ParseImportPath(IRootItemParserContext context)

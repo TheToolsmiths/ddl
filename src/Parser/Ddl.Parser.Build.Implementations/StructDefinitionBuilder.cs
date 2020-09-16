@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -17,7 +19,6 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             var builder = new RootItemResultBuilder();
 
             var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
-
             StructDefinitionContent structContent;
             {
                 var result = itemContext.CommonBuilders.BuildStructContent(item.Content);
@@ -30,7 +31,19 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 structContent = result.Value;
             }
 
-            var structDefinition = new StructDefinition(typeName, structContent);
+            IReadOnlyList<IAttributeUse> attributes;
+            {
+                var result = itemContext.CommonBuilders.BuildAttributes(item.Attributes);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var structDefinition = new StructDefinition(typeName, structContent, attributes);
 
             builder.Items.Add(structDefinition);
 

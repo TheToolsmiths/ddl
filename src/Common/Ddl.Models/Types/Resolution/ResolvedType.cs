@@ -1,4 +1,6 @@
-﻿using TheToolsmiths.Ddl.Models.References.ItemReferences;
+﻿using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Packages;
+using TheToolsmiths.Ddl.Models.References.ItemReferences;
 
 namespace TheToolsmiths.Ddl.Models.Types.Resolution
 {
@@ -9,6 +11,10 @@ namespace TheToolsmiths.Ddl.Models.Types.Resolution
         {
             this.EntityReference = entityReference;
         }
+
+        public ContentUnitId ContentUnitId { get; }
+
+        public PackageId PackageId { get; }
 
         public EntityReference EntityReference { get; }
     }

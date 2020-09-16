@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ConditionalExpressions\Builders\" />
+    <ProjectReference Include="..\Ddl.Common\Ddl.Common.csproj" />
   </ItemGroup>
 
 </Project>

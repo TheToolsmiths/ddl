@@ -1,6 +1,7 @@
 ﻿using TheToolsmiths.Ddl.Models.Types.References.Locality;
+using TheToolsmiths.Ddl.Models.Types.References.Modifiers;
+using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 using TheToolsmiths.Ddl.Models.Types.References.Storage;
-using TheToolsmiths.Ddl.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Models.Types.References
@@ -12,17 +13,13 @@ namespace TheToolsmiths.Ddl.Models.Types.References
             TypeStorage storage,
             TypeLocalityInformation locality,
             TypeModifiers modifiers,
-            ResolvedTypeKind resolvedKind,
-            ResolveState resolveState,
-            TypeResolution typeResolution)
+            ResolveStateHandle typeResolve)
         {
             this.TypePath = typePath;
             this.Storage = storage;
             this.Locality = locality;
             this.Modifiers = modifiers;
-            this.ResolvedKind = resolvedKind;
-            this.ResolveState = resolveState;
-            this.TypeResolution = typeResolution;
+            this.TypeResolve = typeResolve;
         }
 
         public TypeReferencePath TypePath { get; }
@@ -33,34 +30,6 @@ namespace TheToolsmiths.Ddl.Models.Types.References
 
         public TypeModifiers Modifiers { get; }
 
-        public ResolvedTypeKind ResolvedKind { get; }
-
-        public ResolveState ResolveState { get; }
-
-        public TypeResolution TypeResolution { get; }
-
-        public TypeReference WithTypeResolution(TypeResolution typeResolution)
-        {
-            return new TypeReference(
-                this.TypePath,
-                this.Storage,
-                this.Locality,
-                this.Modifiers,
-                this.ResolvedKind,
-                this.ResolveState,
-                typeResolution);
-        }
-
-        public TypeReference WithResolvedKind(ResolvedTypeKind resolvedKind)
-        {
-            return new TypeReference(
-                this.TypePath,
-                this.Storage,
-                this.Locality,
-                this.Modifiers,
-                resolvedKind,
-                this.ResolveState,
-                this.TypeResolution);
-        }
+        public ResolveStateHandle TypeResolve { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-
+using TheToolsmiths.Ddl.Models.Types.References.Resolve;
+using TheToolsmiths.Ddl.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
 
 namespace TheToolsmiths.Ddl.Models.Types.References.Builders
@@ -18,11 +19,11 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
 
         public TypeReferenceBuilder AddGenericParameter()
         {
-            TypeReferenceBuilder foo = new TypeReferenceBuilder(this.context);
+            TypeReferenceBuilder builder = new TypeReferenceBuilder(this.context);
 
-            this.ParameterTypes.Add(foo);
+            this.ParameterTypes.Add(builder);
 
-            return foo;
+            return builder;
         }
 
         public override TypeReferencePathPart Build()
@@ -31,11 +32,13 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
 
             foreach (var parameterBuilder in this.ParameterTypes)
             {
-                var type = parameterBuilder.Build();
+                var typeReference = parameterBuilder.Build();
 
-                parameterTypesIndices.Add(this.context.BuiltReferences.Count);
+                parameterTypesIndices.Add(typeReference.TypeResolve.TypeIndex);
 
-                this.context.BuiltReferences.Add(type);
+                var typeResolveState = new ReferencedTypeResolveState(typeReference, TypeResolution.Unresolved);
+
+                this.context.BuiltReferences.Add(typeResolveState);
             }
 
             int parametersCount = this.ParameterTypes.Count;

@@ -7,7 +7,7 @@
         {
         }
 
-        public override TypeNameIdentifierKind IdentifierKind => TypeNameIdentifierKind.Simple;
+        public override TypeNameKind IdentifierKind => TypeNameKind.Simple;
 
         public override string ToString()
         {

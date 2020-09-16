@@ -21,11 +21,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations.Configurators
         private void RegisterIndexers(IIndexingConfigurationBuilder builder)
         {
             // Register Item Builders
-            {
-                builder.RegisterItemIndexer<EnumDefinitionIndexer>(CommonItemTypes.EnumDefinition);
-                builder.RegisterItemIndexer<EnumStructDefinitionIndexer>(CommonItemTypes.EnumStructDefinition);
-                builder.RegisterItemIndexer<StructDefinitionIndexer>(CommonItemTypes.StructDefinition);
-            }
+            builder.RegisterItemIndexer<EnumDefinitionIndexer>(CommonItemTypes.EnumDefinition);
+            builder.RegisterItemIndexer<EnumStructDefinitionIndexer>(CommonItemTypes.EnumStructDefinition);
+            builder.RegisterItemIndexer<StructDefinitionIndexer>(CommonItemTypes.StructDefinition);
         }
     }
 }

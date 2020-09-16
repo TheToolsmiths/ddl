@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.EntryTypes;
@@ -8,19 +9,34 @@ namespace TheToolsmiths.Ddl.Models.Enums
 {
     public class EnumDefinition : ITypedRootItem
     {
-        public EnumDefinition(TypedItemName typeName, IReadOnlyList<EnumConstantDefinition> constants)
+        public EnumDefinition(
+            ItemId itemId,
+            TypedItemName typeName,
+            IReadOnlyList<EnumConstantDefinition> constants,
+            IReadOnlyList<IAttributeUse> attributes)
         {
             this.TypeName = typeName;
             this.Constants = constants;
-            this.ItemId = ItemId.CreateNew();
+            this.Attributes = attributes;
+            this.ItemId = itemId;
         }
 
-        public ItemType ItemType => CommonItemTypes.EnumDefinition;
-
-        public ItemId ItemId { get; }
+        public EnumDefinition(
+            TypedItemName typeName,
+            IReadOnlyList<EnumConstantDefinition> constants,
+            IReadOnlyList<IAttributeUse> attributes)
+            : this(ItemId.CreateNew(), typeName, constants, attributes)
+        {
+        }
 
         public TypedItemName TypeName { get; }
 
         public IReadOnlyList<EnumConstantDefinition> Constants { get; }
+
+        public IReadOnlyList<IAttributeUse> Attributes { get; }
+
+        public ItemType ItemType => CommonItemTypes.EnumDefinition;
+
+        public ItemId ItemId { get; }
     }
 }

@@ -6,7 +6,7 @@ using TheToolsmiths.Ddl.Parser.Configurations.Model;
 using TheToolsmiths.Ddl.Parser.Configurations.Parser;
 using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations.Configurators;
+using TheToolsmiths.Ddl.Parser.TypeResolver.Configurations;
 
 namespace TheToolsmiths.Ddl.Services
 {
@@ -19,6 +19,7 @@ namespace TheToolsmiths.Ddl.Services
             configurationBuilder.ConfigurationBuilders
                 .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
                 .AddConfigurationBuilder<IIndexingConfigurationBuilder>(new IndexingConfigurationBuilder())
+                .AddConfigurationBuilder<ITypeResolveConfigurationBuilder>(new TypeResolveConfigurationBuilder())
                 .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder));
 
             configurationBuilder.ConfigurationRegistryBuilder
@@ -29,7 +30,8 @@ namespace TheToolsmiths.Ddl.Services
             configurationBuilder.ParserConfigurators
                 .AddConfigurator<Parser.Build.Implementations.Configurators.ParserConfigurator>()
                 .AddConfigurator<Parser.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<ParserConfigurator>();
+                .AddConfigurator<Parser.TypeIndexer.Implementations.Configurators.ParserConfigurator>()
+                .AddConfigurator<Parser.TypeResolver.Implementations.Configurators.ParserConfigurator>();
         }
 
         public static void BuildAndRegisterConfiguration(

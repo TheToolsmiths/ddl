@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Results;
@@ -8,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Namespaces
 {
     public class NamespacePathResolver
     {
-        public Result<NamespacePath> ResolveContentUnitNamespace(ContentUnitInfo info)
+        public Result<RootNamespacePath> ResolveContentUnitNamespace(ContentUnitInfo info)
         {
             var relativePath = info.RelativePath;
 

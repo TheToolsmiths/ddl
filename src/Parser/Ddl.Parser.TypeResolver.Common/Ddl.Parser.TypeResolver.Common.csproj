@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.TypeResolver.Common</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.TypeResolver.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

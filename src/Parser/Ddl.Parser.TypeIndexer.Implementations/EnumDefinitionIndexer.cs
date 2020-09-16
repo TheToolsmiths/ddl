@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations
 {
     internal class EnumDefinitionIndexer : IRootItemIndexer<EnumDefinition>
     {
-        public RootItemIndexResult BuildItem(IRootItemIndexContext itemContext, EnumDefinition item)
+        public RootItemIndexResult IndexItem(IRootItemIndexContext itemContext, EnumDefinition item)
         {
             var builder = new RootItemIndexResultBuilder();
 

@@ -2,6 +2,7 @@
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Namespaces;
 using TheToolsmiths.Ddl.Results;
 
@@ -9,20 +10,18 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 {
     internal class DdlContentUnitIndexer
     {
-        private readonly IServiceProvider serviceProvider;
         private readonly NamespacePathResolver namespacePathResolver;
         private readonly TypeReferenceIndexer typeReferenceIndexer;
 
-        public DdlContentUnitIndexer(IServiceProvider serviceProvider, NamespacePathResolver namespacePathResolver, TypeReferenceIndexer typeReferenceIndexer)
+        public DdlContentUnitIndexer(NamespacePathResolver namespacePathResolver, TypeReferenceIndexer typeReferenceIndexer)
         {
-            this.serviceProvider = serviceProvider;
             this.namespacePathResolver = namespacePathResolver;
             this.typeReferenceIndexer = typeReferenceIndexer;
         }
 
         public Result<ContentUnitIndexedTypes> Index(ContentUnit contentUnit)
         {
-            NamespacePath namespacePath;
+            RootNamespacePath namespacePath;
             {
                 var result = this.namespacePathResolver.ResolveContentUnitNamespace(contentUnit.Info);
 
@@ -46,22 +45,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
                     throw new NotImplementedException();
                 }
 
-                var indexedTypes = this.BuildContentUnitIndexedTypes(context, contentUnit);
+                var indexedTypes = ContentUnitIndexedTypesBuilder.BuildFromList(contentUnit.Id, namespacePath, context.IndexedTypes);
 
                 return Result.FromValue(indexedTypes);
             }
-        }
-
-        private ContentUnitIndexedTypes BuildContentUnitIndexedTypes(TypeIndexingContext context, ContentUnit contentUnit)
-        {
-            var builder = new ContentUnitIndexedTypesBuilder(contentUnit.Id);
-
-            foreach (var typeReference in context.IndexedTypes)
-            {
-                builder.AddType(typeReference);
-            }
-
-            return builder.Build();
         }
     }
 }

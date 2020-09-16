@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
@@ -52,16 +53,18 @@ namespace DdlModelCreation
 
         private static ScopeContent CreateFileScopeContent()
         {
-            var importPaths = CreateRootImports();
+            var scopeContentBuilder = new ScopeContentBuilder();
 
-            var items = RootItemCreator.CreateRootScopeItems();
+            CreateRootImports(scopeContentBuilder);
 
-            var scopes = CreateRootScopes();
+            RootItemCreator.CreateRootScopeItems(scopeContentBuilder);
 
-            return ScopeContent.Create(items, scopes, importPaths);
+            CreateRootScopes(scopeContentBuilder);
+
+            return scopeContentBuilder.Build();
         }
 
-        private static IReadOnlyList<ImportStatement> CreateRootImports()
+        private static void CreateRootImports(ScopeContentBuilder builder)
         {
             var imports = new List<ImportStatement>
             {
@@ -110,13 +113,11 @@ namespace DdlModelCreation
                 ImportStatement.CreateWithAlias(ImportPath.CreateNonRooted("module_name13", "sub1"), "name5")
             };
 
-            return imports;
+            builder.Imports.AddRange(imports);
         }
 
-        private static IReadOnlyList<IRootScope> CreateRootScopes()
+        private static void CreateRootScopes(ScopeContentBuilder builder)
         {
-            List<IRootScope> scopes = new List<IRootScope>();
-
             // Empty Scope With Conditional Expression
             {
                 ////scope((DEFINE_1 && ((DEFINE_2 != "Something") && DEFINE_3 == "Something else")) || false)
@@ -132,10 +133,8 @@ namespace DdlModelCreation
                     BoolLiteralExpression.False);
 
                 var scope = new ConditionalRootScope(conditionalExpression, ScopeContent.Empty);
-                scopes.Add(scope);
+                builder.Scopes.Add(scope);
             }
-
-            return scopes;
         }
     }
 }

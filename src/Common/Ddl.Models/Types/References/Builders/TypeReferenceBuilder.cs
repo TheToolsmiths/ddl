@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.Types.References.Locality;
+using TheToolsmiths.Ddl.Models.Types.References.Modifiers;
+using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 using TheToolsmiths.Ddl.Models.Types.References.Storage;
 using TheToolsmiths.Ddl.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
@@ -27,28 +29,28 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
 
         public bool IsConstantModifier { get; set; }
 
-        public static implicit operator TypeReference(TypeReferenceBuilder builder)
-        {
-            return builder.Build();
-        }
-
         public static TypeReferenceBuilder Start() => new TypeReferenceBuilder(new Context());
 
         public TypeReference Build()
         {
-            TypeReferencePath typePath = BuildPathParts();
+            var typePath = BuildPathParts();
+
             var modifiers = BuildTypeModifiers();
 
-            var resolveState = new ResolveState(this.context.BuiltReferences);
+            int typeIndex = this.context.BuiltReferences.Count;
+            var typeResolve = new ResolveStateHandle(typeIndex, this.context.ResolveState, ResolvedTypeKind.Unresolved);
 
-            return new TypeReference(
+            var typeReference = new TypeReference(
                 typePath,
                 this.Storage,
                 this.Locality,
                 modifiers,
-                ResolvedTypeKind.Unresolved,
-                resolveState,
-                TypeResolution.Unresolved);
+                typeResolve);
+
+            var typeResolveState = new ReferencedTypeResolveState(typeReference, TypeResolution.Unresolved);
+            this.context.BuiltReferences.Add(typeResolveState);
+
+            return typeReference;
 
             TypeModifiers BuildTypeModifiers()
             {
@@ -75,6 +77,7 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
                      ? TypeReferencePath.CreateRootedFromParts(pathParts)
                      : TypeReferencePath.CreateFromParts(pathParts);
             }
+
         }
 
         public GenericPartBuilder StartsWithGenericPart(string genericIdentifier)

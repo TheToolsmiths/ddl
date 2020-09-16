@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         {
             var resolver = new RootParserResolver(this.provider, registry);
 
-            return new CategoryRootParser(resolver);
+            return new CategoryRootItemParser(resolver);
         }
     }
 }

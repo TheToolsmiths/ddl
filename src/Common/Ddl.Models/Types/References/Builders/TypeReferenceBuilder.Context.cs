@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 
 namespace TheToolsmiths.Ddl.Models.Types.References.Builders
 {
@@ -6,7 +7,15 @@ namespace TheToolsmiths.Ddl.Models.Types.References.Builders
     {
         internal class Context
         {
-            public List<TypeReference> BuiltReferences { get; } = new List<TypeReference>();
+            public Context()
+            {
+                this.BuiltReferences = new List<ReferencedTypeResolveState>();
+                this.ResolveState = new ResolveState(this.BuiltReferences);
+            }
+
+            public List<ReferencedTypeResolveState> BuiltReferences { get; }
+
+            public ResolveState ResolveState { get; }
         }
     }
 }

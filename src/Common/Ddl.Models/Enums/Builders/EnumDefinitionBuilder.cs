@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Models.Enums.Builders
@@ -23,7 +24,9 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
 
             var variants = this.Constants.Select(v => v.Build()).ToList();
 
-            return new EnumDefinition(typeName, variants);
+            var attributes = new List<IAttributeUse>();
+
+            return new EnumDefinition(typeName, variants, attributes);
         }
 
         public EnumConstantDefinitionBuilder WithConstant(string constantName)

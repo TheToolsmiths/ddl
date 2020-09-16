@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Indexers.Wrappers
 
         public override RootItemIndexResult IndexItem(IRootItemIndexContext context, IRootItem item)
         {
-            return this.builder.BuildItem(context, (TItem)item);
+            return this.builder.IndexItem(context, (TItem)item);
         }
     }
 

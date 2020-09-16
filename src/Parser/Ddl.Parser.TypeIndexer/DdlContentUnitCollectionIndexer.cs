@@ -1,26 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 {
     internal class DdlContentUnitCollectionIndexer : IDdlContentUnitCollectionIndexer
     {
-        private readonly DdlContentUnitIndexer contentUnitBuilder;
+        private readonly DdlContentUnitIndexer contentUnitIndexer;
 
-        public DdlContentUnitCollectionIndexer(DdlContentUnitIndexer contentUnitBuilder)
+        public DdlContentUnitCollectionIndexer(DdlContentUnitIndexer contentUnitIndexer)
         {
-            this.contentUnitBuilder = contentUnitBuilder;
+            this.contentUnitIndexer = contentUnitIndexer;
         }
 
-        public Result<PackageIndexedTypes> IndexCollection(IEnumerable<ContentUnit> astContentUnits)
+        public Result<TypeReferenceIndex> IndexCollection(IEnumerable<ContentUnit> contentUnits)
         {
             var indexedTypes = new List<ContentUnitIndexedTypes>();
 
-            foreach (var contentUnit in astContentUnits)
+            foreach (var contentUnit in contentUnits)
             {
-                var result = this.contentUnitBuilder.Index(contentUnit);
+                var result = this.contentUnitIndexer.Index(contentUnit);
 
                 if (result.IsError)
                 {
@@ -31,8 +34,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             }
 
             var packageIndexedTypes = PackageIndexedTypesBuilder.Build(indexedTypes);
+            
+            var typeReferenceIndex = TypeReferenceIndexBuilder.CreateFromPackage(packageIndexedTypes);
 
-            return Result.FromValue(packageIndexedTypes);
+            return Result.FromValue(typeReferenceIndex);
         }
     }
 }

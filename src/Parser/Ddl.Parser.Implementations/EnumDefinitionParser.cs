@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 {
     internal class EnumDefinitionParser : IRootItemParser
     {
-        public async ValueTask<RootParseResult<IAstRootItem>> ParseRootContent(IRootItemParserContext context)
+        public async ValueTask<RootItemParseResult> ParseRootContent(IRootItemParserContext context)
         {
             TypeName typeName;
             {
@@ -52,7 +52,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
             var value = new EnumAstDefinition(typeName, content, context.AttributeList);
 
-            return RootParseResult.FromResult<IAstRootItem>(value);
+            return RootItemParseResult.FromResult(value);
         }
 
         private async Task<Result<EnumDefinitionContent>> ParseBlockContent(IRootItemParserContext context)

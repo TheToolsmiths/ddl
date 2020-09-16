@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
@@ -24,7 +22,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
 
         public Result<ContentUnit> Build(AstContentUnit astContentUnit)
         {
-            var scopeContext = RootScopeBuildContext.CreateRootContext(serviceProvider);
+            var scopeContext = RootScopeBuildContext.CreateRootContext(this.serviceProvider);
 
             var result = this.scopeBuilder.BuildScope(scopeContext, astContentUnit.FileRootScope);
 
@@ -36,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
                     throw new NotImplementedException();
                 }
 
-                rootScope = success.Scopes.First();
+                rootScope = success.Scopes[0];
             }
             else if (result is RootScopeBuildError error)
             {

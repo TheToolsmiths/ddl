@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Types.References;
+using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 
 namespace TheToolsmiths.Ddl.Models.Types.Resolution
 {
@@ -13,42 +14,46 @@ namespace TheToolsmiths.Ddl.Models.Types.Resolution
             bool hasPartialResolved = false;
             bool hasFullResolved = false;
 
-            foreach (var typeReference in typeReferences)
-            {
-                hasReferences = true;
+            throw new NotImplementedException();
 
-                switch (typeReference.TypeResolution)
-                {
-                    case MatchImportResolution _:
-                        hasPartialResolved = true;
-                        break;
-                    case ResolvedType _:
-                        hasFullResolved = true;
-                        break;
-                    case UnresolvedType _:
-                        hasUnresolved = true;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            //foreach (var typeReference in typeReferences)
+            //{
+            //    hasReferences = true;
+
+            //    switch (typeReference.TypeResolution)
+            //    {
+            //        case MatchImportResolution _:
+            //            hasPartialResolved = true;
+            //            break;
+            //        case ResolvedType _:
+            //            hasFullResolved = true;
+            //            break;
+            //        case UnresolvedType _:
+            //            hasUnresolved = true;
+            //            break;
+            //        default:
+            //            throw new ArgumentOutOfRangeException();
+            //    }
+            //}
 
             if (hasReferences == false)
             {
                 return ResolvedTypeKind.Unresolved;
             }
 
-            if (hasUnresolved)
-            {
-                return hasFullResolved || hasPartialResolved
-                    ? ResolvedTypeKind.Incomplete
-                    : ResolvedTypeKind.Unresolved;
-            }
+            //if (hasUnresolved)
+            //{
+            //    return hasFullResolved || hasPartialResolved
+            //        ? ResolvedTypeKind.Incomplete
+            //        : ResolvedTypeKind.Unresolved;
+            //}
 
-            if (hasPartialResolved)
-            {
-                return ResolvedTypeKind.Incomplete;
-            }
+            //if (hasPartialResolved)
+            //{
+            //    return ResolvedTypeKind.Incomplete;
+            //}
+
+            throw new NotImplementedException();
 
             return ResolvedTypeKind.Resolved;
         }

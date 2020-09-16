@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Types.References;
+using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -102,21 +102,71 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
             IRootEntryBuildContext context,
             KeyedLiteralAstAttributeUse astAttributeUse)
         {
-            throw new NotImplementedException();
+            string key = astAttributeUse.Key.Text;
+
+            LiteralValue value;
+            {
+                var result = context.CommonBuilders.BuildLiteral(astAttributeUse.Literal);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                value = result.Value;
+            }
+
+            var attribute = new KeyedLiteralAttributeUse(key, value);
+
+            return Result.FromValue<IAttributeUse>(attribute);
         }
 
         private Result<IAttributeUse> CreateKeyedStructInitializationAttribute(
             IRootEntryBuildContext context,
             KeyedStructInitializationAstAttributeUse astAttributeUse)
         {
-            throw new NotImplementedException();
+            string key = astAttributeUse.Key.Text;
+
+            StructInitialization initialization;
+            {
+                var result = context.CommonBuilders.BuildStructInitialization(astAttributeUse.Initialization);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                initialization = result.Value;
+            }
+
+            var attribute = new KeyedStructInitializationAttributeUse(key, initialization);
+
+            return Result.FromValue<IAttributeUse>(attribute);
         }
 
         private Result<IAttributeUse> CreateKeyedTypedAttribute(
             IRootEntryBuildContext context,
             KeyedTypedAstAttributeUse astAttributeUse)
         {
-            throw new NotImplementedException();
+            string key = astAttributeUse.Key.Text;
+
+            var type = TypeReferenceCreator.CreateFromTypeIdentifier(astAttributeUse.Type);
+
+            StructInitialization initialization;
+            {
+                var result = context.CommonBuilders.BuildStructInitialization(astAttributeUse.Initialization);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                initialization = result.Value;
+            }
+
+            var attribute = new KeyedTypedAttributeUse(key, type, initialization);
+
+            return Result.FromValue<IAttributeUse>(attribute);
         }
     }
 }

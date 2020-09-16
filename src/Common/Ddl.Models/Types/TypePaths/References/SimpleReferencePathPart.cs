@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
+﻿using TheToolsmiths.Ddl.Models.Types.Names;
+
+namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
 {
     public class SimpleReferencePathPart : TypeReferencePathPart
     {
@@ -7,7 +9,7 @@
         {
         }
 
-        public override TypeReferencePathPartKind PartKind => TypeReferencePathPartKind.Simple;
+        public override TypeNameKind PartKind => TypeNameKind.Simple;
 
         public override string ToString()
         {

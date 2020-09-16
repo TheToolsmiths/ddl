@@ -11,16 +11,16 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations
 {
     public class IndexingConfigurationBuilder : IIndexingConfigurationBuilder
     {
-        private readonly Dictionary<ItemType, Type> itemBuilders;
+        private readonly Dictionary<ItemType, Type> itemIndexers;
 
         public IndexingConfigurationBuilder()
         {
-            this.itemBuilders = new Dictionary<ItemType, Type>();
+            this.itemIndexers = new Dictionary<ItemType, Type>();
         }
         public void RegisterItemIndexer<T>(ItemType itemType)
             where T : IRootItemIndexer
         {
-            this.itemBuilders.Add(itemType, typeof(T));
+            this.itemIndexers.Add(itemType, typeof(T));
         }
 
         public void Configure(ConfigurationBuilderContext context)
@@ -35,7 +35,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations
                 throw new NotImplementedException();
             }
 
-            foreach (var (itemType, builderType) in this.itemBuilders)
+            foreach (var (itemType, builderType) in this.itemIndexers)
             {
                 section.RegisterTypeValue(itemType, builderType);
 

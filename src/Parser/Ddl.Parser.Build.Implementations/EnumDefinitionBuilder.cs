@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
 using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
@@ -19,16 +19,31 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 
             var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
 
-            var result = this.BuildEnumStructContent(itemContext, item.Content);
-
-            if (result.IsError)
+            IReadOnlyList<EnumConstantDefinition> constants;
             {
-                throw new NotImplementedException();
+                var result = this.BuildEnumStructContent(itemContext, item.Content);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                constants = result.Value;
             }
 
-            var constants = result.Value;
+            IReadOnlyList<IAttributeUse> attributes;
+            {
+                var result = itemContext.CommonBuilders.BuildAttributes(item.Attributes);
 
-            var structDefinition = new EnumDefinition(typeName, constants);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var structDefinition = new EnumDefinition(typeName, constants, attributes);
 
             builder.Items.Add(structDefinition);
 

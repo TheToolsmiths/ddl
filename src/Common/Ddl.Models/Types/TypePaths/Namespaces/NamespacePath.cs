@@ -6,13 +6,13 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 {
     public class NamespacePath
     {
-        private NamespacePath(IEnumerable<string> identifiers, bool isRooted)
+        protected NamespacePath(IEnumerable<string> identifiers, bool isRooted)
         {
             this.IsRooted = isRooted;
             this.Identifiers = identifiers.ToList();
         }
 
-        private NamespacePath(bool isRooted)
+        protected NamespacePath(bool isRooted)
         {
             this.IsRooted = isRooted;
             this.Identifiers = Array.Empty<string>();
@@ -26,8 +26,6 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 
         public static NamespacePath Empty { get; } = new NamespacePath(false);
 
-        public static NamespacePath EmptyRoot { get; } = new NamespacePath(true);
-
         public override string ToString()
         {
             return $"{(this.IsRooted ? TypeConstants.TypeSeparator : string.Empty)}" + string.Join(
@@ -40,9 +38,23 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
             return new NamespacePath(identifiers, false);
         }
 
-        public static NamespacePath CreateRootedFromIdentifiers(IEnumerable<string> identifiers)
+        public static RootNamespacePath CreateRootedFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new NamespacePath(identifiers, true);
+            return RootNamespacePath.CreateFromIdentifiers(identifiers);
+        }
+
+        public static NamespacePath Append(NamespacePath namespacePath, string identifier)
+        {
+            if (string.IsNullOrWhiteSpace(identifier))
+            {
+                throw new ArgumentNullException(nameof(identifier));
+            }
+
+            var identifiers = namespacePath.Identifiers.ToList();
+
+            identifiers.Add(identifier);
+
+            return new NamespacePath(identifiers, namespacePath.IsRooted);
         }
 
         public static NamespacePath Prepend(NamespacePath namespacePath, NamespacePath prefix)

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Enums.Builders;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
@@ -13,19 +12,14 @@ namespace DdlModelCreation
 {
     public static class RootItemCreator
     {
-        public static IReadOnlyList<IRootItem> CreateRootScopeItems()
+        public static void CreateRootScopeItems(ScopeContentBuilder builder)
         {
-            var items = new List<IRootItem>
-            {
-                CreateStructWithFieldTestTypes(),
-                CreateStructWithScopes(),
-                CreateGenericStructWithSimpleTypeParameter(),
-                CreateGenericStructWithMultipleTypeParameter(),
-                CreateEnumStructConstantValue(),
-                CreateEnumTextureType(),
-            };
-
-            return items;
+            builder.Items.Add(CreateStructWithFieldTestTypes());
+            builder.Items.Add(CreateStructWithScopes());
+            builder.Items.Add(CreateGenericStructWithSimpleTypeParameter());
+            builder.Items.Add(CreateGenericStructWithMultipleTypeParameter());
+            builder.Items.Add(CreateEnumStructConstantValue());
+            builder.Items.Add(CreateEnumTextureType());
         }
 
         private static IRootItem CreateEnumTextureType()

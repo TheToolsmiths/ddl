@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 using TheToolsmiths.Ddl.Models.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -57,6 +58,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
                 {
                     throw new NotImplementedException();
                 }
+
+                if (TryHandleScopeBuildResult(buildContext, result) == false)
+                {
+                    throw new NotImplementedException();
+                }
             }
 
             var rootScope = this.CreateScopeContent(buildContext);
@@ -71,7 +77,36 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
                 return false;
             }
 
-            buildContext.Items.AddRange(successResult.Items);
+            foreach (var rootItem in successResult.Items)
+            {
+                if (rootItem.ItemType == CommonItemTypes.ImportStatement)
+                {
+                    if (rootItem is ImportStatement importStatement)
+                    {
+                        buildContext.ImportPaths.Add(importStatement);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    buildContext.Items.Add(rootItem);
+                }
+            }
+
+            return true;
+        }
+
+        private static bool TryHandleScopeBuildResult(ScopeContentBuildContext buildContext, RootScopeBuildResult result)
+        {
+            if (!(result is RootScopeBuildSuccess successResult))
+            {
+                return false;
+            }
+
+            buildContext.Scopes.AddRange(successResult.Scopes);
 
             return true;
         }

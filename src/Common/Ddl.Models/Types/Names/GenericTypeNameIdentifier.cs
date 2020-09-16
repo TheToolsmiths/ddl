@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Names
             this.GenericParameters = genericParameters;
         }
 
-        public override TypeNameIdentifierKind IdentifierKind => TypeNameIdentifierKind.Generic;
+        public override TypeNameKind IdentifierKind => TypeNameKind.Generic;
 
         public IReadOnlyList<GenericTypeNameParameter> GenericParameters { get; }
 

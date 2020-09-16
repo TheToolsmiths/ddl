@@ -6,11 +6,17 @@ namespace TheToolsmiths.Ddl.Models.Enums
 {
     public class EnumStructVariantDefinition
     {
+        public EnumStructVariantDefinition(SimpleTypeNameIdentifier variantName, StructDefinitionContent content)
+            : this(SubItemId.CreateNew(), variantName, content)
+        {
+        }
+
         public EnumStructVariantDefinition(
+            in SubItemId variantId,
             SimpleTypeNameIdentifier variantName,
             StructDefinitionContent content)
         {
-            this.VariantId = SubItemId.CreateNew();
+            this.VariantId = variantId;
             this.VariantName = variantName;
             this.Content = content;
         }

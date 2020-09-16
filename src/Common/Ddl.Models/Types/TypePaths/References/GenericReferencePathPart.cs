@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
 {
@@ -14,7 +15,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
             this.ParameterTypesIndices = parameterTypesIndices;
         }
 
-        public override TypeReferencePathPartKind PartKind => TypeReferencePathPartKind.Generic;
+        public override TypeNameKind PartKind => TypeNameKind.Generic;
 
         public int GenericParametersCount { get; }
 

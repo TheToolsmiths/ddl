@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Entries;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Results;
@@ -12,15 +14,18 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 {
     public class ScopeContentParser : IScopeContentParser
     {
+        private readonly ILogger<ScopeContentParser> log;
         private readonly IRootParserResolver parserResolver;
         private readonly IRootItemParserContextFactory itemContextFactory;
         private readonly IRootScopeParserContextFactory scopeContextFactory;
 
         public ScopeContentParser(
+            ILogger<ScopeContentParser> log,
             IRootParserResolver parserResolver,
             IRootItemParserContextFactory itemContextFactory,
             IRootScopeParserContextFactory scopeContextFactory)
         {
+            this.log = log;
             this.itemContextFactory = itemContextFactory;
             this.scopeContextFactory = scopeContextFactory;
             this.parserResolver = parserResolver;
@@ -42,7 +47,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
                 if (result.IsError)
                 {
-                    throw new NotImplementedException();
+                    this.HandleParseRootContentError(result);
                 }
             }
 
@@ -51,7 +56,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return Result.FromValue(scopeContent);
         }
 
-        private async Task<RootParseResult> ParseRootContent(
+        private async Task<RootEntryParseResult> ParseRootContent(
             IParserContext context,
             ScopeContentParseContext scopeContext)
         {
@@ -85,7 +90,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             }
         }
 
-        private async Task<RootParseResult> TryHandleInitialToken(
+        private async Task<RootEntryParseResult> TryHandleInitialToken(
             IParserContext context,
             ScopeContentParseContext scopeContext,
             IReadOnlyList<IAstAttributeUse> attributeList)
@@ -108,12 +113,10 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
                 var result = await itemParser.ParseRootContent(itemParserContext).ConfigureAwait(true);
 
-                if (result.IsError)
+                if (result is RootItemParseSuccess success)
                 {
-                    return result;
+                    scopeContext.Items.Add(success.Value);
                 }
-
-                scopeContext.Items.Add(result.Value);
 
                 return result;
             }
@@ -124,18 +127,17 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
 
                 var result = await scopeParser.ParseRootScope(itemParserContext).ConfigureAwait(true);
 
-                if (result.IsError)
+                if (result is RootScopeParseSuccess success)
                 {
-                    return result;
+                    scopeContext.Scopes.Add(success.Value);
                 }
-
-                scopeContext.Scopes.Add(result.Value);
 
                 return result;
             }
 
             string[] identifiers = { token.Memory.Span.ToString() };
-            return RootParseResult.CreateParserHandlerNotFound<IAstRootEntry>(identifiers);
+
+            return RootItemParseResult.CreateParserHandlerNotFound(identifiers);
         }
 
         private async Task SkipNonParseableStruct(IParserContext context, LexerScopeLevel scopeLevel)
@@ -169,6 +171,32 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         {
             while (await context.Lexer.TrySkipEndStatement())
             {
+            }
+        }
+
+        private void HandleParseRootContentError(RootEntryParseResult result)
+        {
+            if (result.IsSuccess)
+            {
+                throw new InvalidOperationException();
+            }
+
+            switch (result)
+            {
+                case IParserNotFoundParseError parserNotFoundError:
+                    this.log.LogWarning("Parser failed to find root parser for '{identifiers}'", parserNotFoundError.ParserLookupIdentifiers);
+                    break;
+
+                case RootItemParseError rootItemParseError:
+                    this.log.LogWarning("Root item parser failed. Error: {message}", rootItemParseError.ErrorMessage);
+                    break;
+
+                case RootScopeParseError rootScopeParseError:
+                    this.log.LogWarning("Root scope parser failed. Error: {message}", rootScopeParseError.ErrorMessage);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(result));
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
@@ -16,7 +17,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
             this.scopeContentParser = scopeContentParser;
         }
 
-        public async ValueTask<RootParseResult<IAstRootScope>> ParseRootScope(IRootScopeParserContext context)
+        public async ValueTask<RootScopeParseResult> ParseRootScope(IRootScopeParserContext context)
         {
             LexerToken token;
             {
@@ -82,7 +83,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
 
                 var value = new ConditionalAstRootScope(expression, rootContent);
 
-                return RootParseResult.FromResult<IAstRootScope>(value);
+                return RootScopeParseResult.FromResult(value);
             }
         }
     }

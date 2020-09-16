@@ -25,6 +25,9 @@
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Implementations\Ddl.Parser.TypeIndexer.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Shared\Ddl.Parser.TypeIndexer.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer\Ddl.Parser.TypeIndexer.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Implementations\Ddl.Parser.TypeResolver.Implementations.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver\Ddl.Parser.TypeResolver.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\Ddl.Shared\Ddl.Shared.csproj" />
   </ItemGroup>

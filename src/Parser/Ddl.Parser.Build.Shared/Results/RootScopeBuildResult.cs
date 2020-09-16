@@ -13,9 +13,9 @@
 
         public RootScopeBuildResultKind ResultKind { get; }
 
-        public static RootItemBuildError FromError(string errorMessage)
+        public static RootScopeBuildError FromError(string errorMessage)
         {
-            return new RootItemBuildError(errorMessage);
+            return new RootScopeBuildError(errorMessage);
         }
     }
 }

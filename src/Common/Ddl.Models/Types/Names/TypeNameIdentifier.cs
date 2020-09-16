@@ -7,7 +7,7 @@
             this.Name = name;
         }
 
-        public abstract TypeNameIdentifierKind IdentifierKind { get; }
+        public abstract TypeNameKind IdentifierKind { get; }
 
         public string Name { get; }
 

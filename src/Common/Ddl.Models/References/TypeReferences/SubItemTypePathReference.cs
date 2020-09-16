@@ -12,10 +12,9 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
             NamespacePath namespacePath,
             SubItemReference subItemReference,
             TypeIdentifierPath typeIdentifier)
-            : base(typeIdentifier)
+            : base(typeIdentifier, namespacePath)
         {
             this.TypedSubItemName = typedSubItemName;
-            this.NamespacePath = namespacePath;
             this.SubItemReference = subItemReference;
         }
 
@@ -25,7 +24,7 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
 
         public override EntityReference EntityReference => this.SubItemReference;
 
-        public NamespacePath NamespacePath { get; }
+        public override TypeName EntityTypeName => this.TypedSubItemName;
 
         public override string ToString()
         {

@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
+﻿using TheToolsmiths.Ddl.Models.Types.Names;
+
+namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
 {
     public abstract class TypeReferencePathPart
     {
@@ -7,7 +9,7 @@
             this.Name = name;
         }
 
-        public abstract TypeReferencePathPartKind PartKind { get; }
+        public abstract TypeNameKind PartKind { get; }
 
         public string Name { get; }
     }

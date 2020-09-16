@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations
 {
     internal class StructDefinitionIndexer : IRootItemIndexer<StructDefinition>
     {
-        public RootItemIndexResult BuildItem(IRootItemIndexContext itemContext, StructDefinition item)
+        public RootItemIndexResult IndexItem(IRootItemIndexContext itemContext, StructDefinition item)
         {
             var builder = new RootItemIndexResultBuilder();
 

@@ -12,20 +12,19 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
             NamespacePath namespacePath,
             ItemReference itemReference,
             TypeIdentifierPath typeIdentifier)
-            : base(typeIdentifier)
+            : base(typeIdentifier, namespacePath)
         {
             this.TypedItemName = typedItemName;
-            this.NamespacePath = namespacePath;
             this.ItemReference = itemReference;
         }
 
         public TypedItemName TypedItemName { get; }
 
-        public NamespacePath NamespacePath { get; }
-
         public ItemReference ItemReference { get; }
 
         public override EntityReference EntityReference => this.ItemReference;
+
+        public override TypeName EntityTypeName => this.TypedItemName;
 
         public override string ToString()
         {

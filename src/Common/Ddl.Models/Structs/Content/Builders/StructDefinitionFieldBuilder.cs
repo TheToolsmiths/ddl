@@ -28,6 +28,8 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
 
         public List<IAttributeUse> Attributes { get; } = new List<IAttributeUse>();
 
+        public ValueInitialization Initialization { get; set; } = ValueInitialization.CreateEmpty();
+
         public TypeReferenceBuilder WithType()
         {
             return this.TypeBuilder;
@@ -47,6 +49,13 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
             return this;
         }
 
+        public StructDefinitionFieldBuilder AddInitialization(ValueInitialization initialization)
+        {
+            this.Initialization = initialization;
+
+            return this;
+        }
+
         public FieldDefinition Build()
         {
             if (string.IsNullOrWhiteSpace(this.Name))
@@ -54,12 +63,12 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
                 throw new InvalidOperationException();
             }
 
-            var fieldType = this.TypeReference ?? this.TypeBuilder;
+            var fieldType = this.TypeReference ?? this.TypeBuilder.Build();
 
             var attributes = this.AttributeBuilders.Select(a => a.Build()).ToList();
             attributes.AddRange(this.Attributes);
 
-            var initialization = ValueInitialization.CreateEmpty();
+            var initialization = this.Initialization;
 
             return new FieldDefinition(this.Name, fieldType, attributes, initialization);
         }

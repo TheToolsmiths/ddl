@@ -62,5 +62,10 @@ namespace TheToolsmiths.Ddl.Models.EntryTypes
         {
             return !Equals(left, right);
         }
+
+        public override string ToString()
+        {
+            return this.type;
+        }
     }
 }

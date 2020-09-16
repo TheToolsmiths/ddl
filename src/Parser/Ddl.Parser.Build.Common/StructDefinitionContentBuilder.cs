@@ -9,6 +9,7 @@ using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;
 
 using StructDefinitionContent = TheToolsmiths.Ddl.Models.Structs.Content.StructDefinitionContent;
+using ValueInitialization = TheToolsmiths.Ddl.Models.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -108,7 +109,19 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
             if (fieldDefinition.Initialization.Type != ValueInitializationType.Empty)
             {
-                throw new NotImplementedException();
+                ValueInitialization initialization;
+                {
+                    var result = context.CommonBuilders.BuildValueInitialization(fieldDefinition.Initialization);
+
+                    if (result.IsError)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    initialization = result.Value;
+                }
+
+                fieldBuilder.AddInitialization(initialization);
             }
 
             var type = TypeReferenceCreator.CreateFromTypeIdentifier(fieldDefinition.FieldType);

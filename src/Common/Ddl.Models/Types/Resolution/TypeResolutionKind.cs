@@ -4,6 +4,7 @@
     {
         Unresolved,
         MatchImport,
-        ResolvedType
+        ResolvedType,
+        Builtin
     }
 }
