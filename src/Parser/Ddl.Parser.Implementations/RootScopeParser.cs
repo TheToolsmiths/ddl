@@ -81,7 +81,7 @@ namespace TheToolsmiths.Ddl.Parser.Implementations
                     throw new NotImplementedException();
                 }
 
-                var value = new ConditionalAstRootScope(expression, rootContent);
+                var value = new ConditionalAstRootScope(expression, rootContent, context.AttributeList);
 
                 return RootScopeParseResult.FromResult(value);
             }

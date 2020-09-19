@@ -14,13 +14,13 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
     public class AttributeUseBuilder
     {
-        public Result<IReadOnlyList<IAttributeUse>> BuildList(
+        public Result<AttributeUseCollection> BuildList(
             IRootEntryBuildContext context,
-            IReadOnlyList<IAstAttributeUse> astAttributes)
+            AstAttributeUseCollection astAttributes)
         {
             var attributes = new List<IAttributeUse>();
 
-            foreach (var astAttribute in astAttributes)
+            foreach (var astAttribute in astAttributes.Items)
             {
                 var result = astAttribute switch
                 {
@@ -49,7 +49,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
                 attributes.Add(result.Value);
             }
 
-            return Result.FromValue<IReadOnlyList<IAttributeUse>>(attributes);
+            return Result.FromValue(AttributeUseCollection.Create(attributes));
         }
 
         private Result<IAttributeUse> CreateTypedStructInitialization(

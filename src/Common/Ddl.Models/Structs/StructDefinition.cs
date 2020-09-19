@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
             ItemId itemId,
             TypedItemName typeName,
             StructDefinitionContent content,
-            IReadOnlyList<IAttributeUse> attributes)
+            AttributeUseCollection attributes)
         {
             this.TypeName = typeName;
             this.Content = content;
@@ -26,13 +26,13 @@ namespace TheToolsmiths.Ddl.Models.Structs
         public StructDefinition(
             TypedItemName typeName,
             StructDefinitionContent content,
-            IReadOnlyList<IAttributeUse> attributes)
+            AttributeUseCollection attributes)
             : this(ItemId.CreateNew(), typeName, content, attributes)
         {
         }
 
         public StructDefinition(TypedItemName typeName, StructDefinitionContent content)
-            : this(ItemId.CreateNew(), typeName, content, new List<IAttributeUse>())
+            : this(ItemId.CreateNew(), typeName, content, AttributeUseCollection.Empty)
         {
         }
 
@@ -40,7 +40,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
 
         public StructDefinitionContent Content { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public AttributeUseCollection Attributes { get; }
 
         public ItemType ItemType => CommonItemTypes.StructDefinition;
 

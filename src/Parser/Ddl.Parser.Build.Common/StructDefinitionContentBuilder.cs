@@ -101,9 +101,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
                     throw new NotImplementedException();
                 }
 
-                var attributes = result.Value;
-
-                fieldBuilder.Attributes.AddRange(attributes);
+                fieldBuilder.AttributeCollection = result.Value;
             }
 
 

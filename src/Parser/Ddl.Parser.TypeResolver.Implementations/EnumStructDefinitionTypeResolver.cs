@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.Structs.Content;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 using TheToolsmiths.Ddl.Results;
@@ -16,9 +15,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
             IRootItemTypeResolveContext itemContext,
             EnumStructDefinition item)
         {
+            var updatedItemContext = itemContext.AddTypeNameInfoToContext(item.TypeName);
+
             IReadOnlyList<EnumStructVariantDefinition> variants;
             {
-                var result = this.ResolveVariants(itemContext, item.Variants);
+                var result = this.ResolveVariants(updatedItemContext, item.Variants);
 
                 if (result.IsError)
                 {
@@ -28,9 +29,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
                 variants = result.Value;
             }
 
-            IReadOnlyList<IAttributeUse> attributes;
+            AttributeUseCollection attributes;
             {
-                var result = itemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
+                var result = updatedItemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
 
                 if (result.IsError)
                 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
@@ -31,7 +30,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
             return this.provider.GetRequiredService<ScopeContentTypeResolver>().ResolveScopeContent(this.context, scopeContent);
         }
 
-        public Result<IReadOnlyList<IAttributeUse>> ResolveAttributes(IReadOnlyList<IAttributeUse> attributes)
+        public Result<AttributeUseCollection> ResolveAttributes(AttributeUseCollection attributes)
         {
             return this.provider.GetRequiredService<AttributesTypeResolver>().ResolveAttributes(this.context, attributes);
         }

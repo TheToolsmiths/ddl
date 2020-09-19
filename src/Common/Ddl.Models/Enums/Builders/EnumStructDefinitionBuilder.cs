@@ -21,13 +21,12 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
         public EnumStructDefinition Build()
         {
             var nameIdentifier = this.TypeName ?? throw new NotImplementedException();
+
             var typeName = new TypedItemName(nameIdentifier);
 
             var variants = this.Variants.Select(v => v.Build()).ToList();
 
-            var attributes = new List<IAttributeUse>();
-
-            return new EnumStructDefinition(typeName, variants, attributes);
+            return new EnumStructDefinition(typeName, variants, AttributeUseCollection.Empty);
         }
 
         public EnumStructDefinitionBuilder WithSimpleTypeName(string typeName)

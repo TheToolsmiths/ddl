@@ -169,6 +169,22 @@ def struct StructWithMultipleFields
 }
 
 /*********************
+    Scope Attributes
+**********************/
+[foo1 = "stuff"]
+[foo2 = Foo { name: "something" }]
+[foo2 = { name: "something" }]
+[ foo3 = ::std::Foo { name: "something" }]
+[ ::std::Foo { name: "something" }]
+[std::Foo { name: "something" },
+ Foo { name: "something" },
+ Foo]
+scope
+{
+
+}
+
+/*********************
     Generic Types
 **********************/
 def struct GenericStructWithSimpleTypeParameter<TString>
@@ -177,6 +193,26 @@ def struct GenericStructWithSimpleTypeParameter<TString>
 }
 
 def struct GenericStructWithMultipleTypeParameter<TString, TFoo, TBar>
+{
+}
+
+def enum struct GenericEnumStructWithSimpleTypeParameter<TString>
+{
+    Foo
+    {
+        field1: TString
+    }
+}
+
+def enum struct GenericEnumStructWithMultipleTypeParameter<TString, TFoo, TBar>
+{
+}
+
+def enum GenericEnumWithSimpleTypeParameter<TString>
+{
+}
+
+def enum GenericEnumWithMultipleTypeParameter<TString, TFoo, TBar>
 {
 }
 

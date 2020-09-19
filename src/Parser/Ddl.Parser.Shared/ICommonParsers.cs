@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
@@ -21,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser
 
         Task<Result<TypeName>> ParseTypeName();
 
-        Task<Result<IReadOnlyList<IAstAttributeUse>>> ParseAttributeUseList();
+        Task<Result<AstAttributeUseCollection>> ParseAttributeUseList();
 
         Task<Result<StructValueInitialization>> ParseStructValueInitialization();
 

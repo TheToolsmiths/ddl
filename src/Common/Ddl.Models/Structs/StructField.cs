@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Values;
 
@@ -11,7 +10,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
             string name,
             TypeReference fieldType,
             ValueInitialization initialization,
-            IReadOnlyList<IAttributeUse> attributes)
+            AttributeUseCollection attributes)
         {
             this.Attributes = attributes;
             this.Initialization = initialization;
@@ -23,7 +22,7 @@ namespace TheToolsmiths.Ddl.Models.Structs
 
         public TypeReference FieldType { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public AttributeUseCollection Attributes { get; }
 
         public ValueInitialization Initialization { get; }
 

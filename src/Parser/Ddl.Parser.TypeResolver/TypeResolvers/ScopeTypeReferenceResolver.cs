@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 using TheToolsmiths.Ddl.Models.Types.Resolution;
@@ -11,15 +13,41 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 {
     public class ScopeTypeReferenceResolver : IScopeTypeReferenceResolver
     {
-        private ScopeTypeReferenceResolver(TypeReferenceIndex typeIndex, TypeReferenceIndexedNamespace namespaceIndex)
+        private ScopeTypeReferenceResolver(
+            TypeReferenceIndex typeIndex,
+            TypeReferenceIndexedNamespace namespaceIndex,
+            IReadOnlyDictionary<string, GenericTypeNameParameter> genericParameters)
         {
             this.TypeIndex = typeIndex;
             this.NamespaceIndex = namespaceIndex;
+            this.GenericParameters = genericParameters;
         }
+
+        public IReadOnlyDictionary<string, GenericTypeNameParameter> GenericParameters { get; }
 
         public TypeReferenceIndex TypeIndex { get; }
 
         public TypeReferenceIndexedNamespace NamespaceIndex { get; }
+
+        public ScopeTypeReferenceResolver AddGenericParameters(
+            IReadOnlyList<GenericTypeNameParameter> genericParameters)
+        {
+            var concatParams = this.GenericParameters.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            foreach (var genericParameter in genericParameters)
+            {
+                concatParams.Add(genericParameter.Text, genericParameter);
+            }
+
+            return new ScopeTypeReferenceResolver(this.TypeIndex, this.NamespaceIndex, concatParams);
+        }
+
+        public static ScopeTypeReferenceResolver CreateForNamespace(
+            TypeReferenceIndex typeIndex,
+            TypeReferenceIndexedNamespace namespaceIndex)
+        {
+            return new ScopeTypeReferenceResolver(typeIndex, namespaceIndex, new Dictionary<string, GenericTypeNameParameter>());
+        }
 
         public TypeReference Resolve(TypeReference typeReference)
         {
@@ -31,7 +59,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
             foreach (var referencedType in typeReference.TypeResolve.State.ReferencedTypes)
             {
-                if (this.TryResolveStuff(referencedType, resolveState, previousResolvedState, out var resolveResult))
+                if (this.TryResolveReferencedType(referencedType, resolveState, previousResolvedState, out var resolveResult))
                 {
                     previousResolvedState = ResolvedTypeKind.Unresolved;
                 }
@@ -42,14 +70,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             return resolvedEntries[typeReference.TypeResolve.TypeIndex].TypeReference;
         }
 
-        public static ScopeTypeReferenceResolver CreateForNamespace(
-            TypeReferenceIndex typeIndex,
-            TypeReferenceIndexedNamespace namespaceIndex)
-        {
-            return new ScopeTypeReferenceResolver(typeIndex, namespaceIndex);
-        }
-
-        private bool TryResolveStuff(
+        private bool TryResolveReferencedType(
             ReferencedTypeResolveState referencedType,
             ResolveState resolveState,
             ResolvedTypeKind previousResolvedState,
@@ -69,6 +90,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
                 // TODO: Change this to check if the import is valid
                 MatchImportResolution _ => ResolvedTypeKind.Unresolved,
+                MatchGenericParameterResolution _ => ResolvedTypeKind.Unresolved,
 
                 ResolvedType _ => ResolvedTypeKind.Resolved,
                 UnresolvedType _ => ResolvedTypeKind.Unresolved,
@@ -98,6 +120,15 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         private TypeResolution ResolveTypePath(TypeReferencePath typePath)
         {
+            // Resolve Generic Parameters
+            {
+                if (this.TryResolveGenericParameter(typePath, out var typeResolution))
+                {
+                    return typeResolution;
+                }
+            }
+
+            // Resolve BuiltIn Types
             {
                 if (this.TypeIndex.BuiltinTypeReferenceResolver.TryResolveBuiltinType(typePath, out var typeResolution))
                 {
@@ -105,10 +136,12 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
                 }
             }
 
+            // Resolve Imports
             {
                 // TODO: Try resolve imports
             }
 
+            // Resolve Namespace scoped Types
             {
                 if (this.TryResolveNamespacePath(typePath, out var typeResolution))
                 {
@@ -117,6 +150,40 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             }
 
             return TypeResolution.Unresolved;
+        }
+
+        private bool TryResolveGenericParameter(TypeReferencePath typePath, out TypeResolution typeResolution)
+        {
+            if (typePath.IsRooted)
+            {
+                typeResolution = TypeResolution.Unresolved;
+                return false;
+            }
+
+            if (typePath.PathParts.Length != 1)
+            {
+                typeResolution = TypeResolution.Unresolved;
+                return false;
+            }
+
+            ref readonly var pathPart = ref typePath.PathParts.Span[0];
+
+            if (pathPart.PartKind != TypeNameKind.Simple)
+            {
+                typeResolution = TypeResolution.Unresolved;
+                return false;
+            }
+
+            string partName = pathPart.Name;
+
+            if (this.GenericParameters.TryGetValue(partName, out var genericTypeNameParameter) == false)
+            {
+                typeResolution = TypeResolution.Unresolved;
+                return false;
+            }
+
+            typeResolution = new MatchGenericParameterResolution(genericTypeNameParameter.Text);
+            return true;
         }
 
         private bool TryResolveNamespacePath(TypeReferencePath typePath, out TypeResolution typeResolution)
@@ -129,7 +196,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             return this.TryResolveFromNamespace(typePath.PathParts.Span, this.NamespaceIndex, out typeResolution);
         }
 
-        private bool TryResolveFromNamespace(in ReadOnlySpan<TypeReferencePathPart> pathParts, TypeReferenceIndexedNamespace indexedNamespace, out TypeResolution typeResolution)
+        private bool TryResolveFromNamespace(
+            in ReadOnlySpan<TypeReferencePathPart> pathParts,
+            TypeReferenceIndexedNamespace indexedNamespace,
+            out TypeResolution typeResolution)
         {
             ref readonly var initialPart = ref pathParts[index: 0];
 
@@ -148,10 +218,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             {
                 if (indexedNamespace.ChildNamespaces.TryGetValue(initialPart.Name, out var childNamespace))
                 {
-                    if (this.TryResolvePathFromChildNamespace(
-                        pathParts,
-                        childNamespace,
-                        out typeResolution))
+                    if (this.TryResolvePathFromChildNamespace(pathParts, childNamespace, out typeResolution))
                     {
                         return true;
                     }

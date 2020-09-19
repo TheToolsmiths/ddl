@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Writer.StructuredWriters;
 
@@ -7,11 +6,11 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
 {
     public static class AttributesWriter
     {
-        public static void WriteAttributeUseArray(IStructuredWriter writer, IEnumerable<IAstAttributeUse> attributes)
+        public static void WriteAttributeUseArray(IStructuredWriter writer, AstAttributeUseCollection attributes)
         {
             writer.WriteStartArray();
 
-            foreach (var attributeUse in attributes)
+            foreach (var attributeUse in attributes.Items)
             {
                 WriteAttributeUse(writer, attributeUse);
             }

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
@@ -23,7 +23,19 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 scopeContent = result.Value;
             }
 
-            var conditionalScope = new RootScope(scopeContent);
+            AttributeUseCollection attributes;
+            {
+                var result = scopeContext.CommonBuilders.BuildAttributes(scope.Attributes);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var conditionalScope = new RootScope(scopeContent, attributes);
 
             var builder = new RootScopeResultBuilder();
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
@@ -66,7 +65,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             var scopeLevel = context.Lexer.LexerScopeLevel;
 
             // Parse possible attributes
-            IReadOnlyList<IAstAttributeUse> attributes;
+            AstAttributeUseCollection attributes;
             {
                 var result = await context.Parsers.ParseAttributeUseList();
 
@@ -93,7 +92,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         private async Task<RootEntryParseResult> TryHandleInitialToken(
             IParserContext context,
             ScopeContentParseContext scopeContext,
-            IReadOnlyList<IAstAttributeUse> attributeList)
+            AstAttributeUseCollection attributeList)
         {
             LexerToken token;
             {

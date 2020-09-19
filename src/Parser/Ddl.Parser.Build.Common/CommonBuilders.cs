@@ -8,6 +8,7 @@ using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Structs.Content;
 using TheToolsmiths.Ddl.Models.Values;
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
@@ -34,8 +35,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
             return new CommonBuilders(this.provider, scopeContext);
         }
 
-        public Result<IReadOnlyList<IAttributeUse>> BuildAttributes(
-            IReadOnlyList<Ast.Models.AttributeUsage.IAstAttributeUse> attributes)
+        public Result<AttributeUseCollection> BuildAttributes(AstAttributeUseCollection attributes)
         {
             return this.provider.GetRequiredService<AttributeUseBuilder>().BuildList(this.context, attributes);
         }

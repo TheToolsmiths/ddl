@@ -4,6 +4,7 @@
     {
         Unresolved,
         MatchImport,
+        MatchGenericParameter,
         ResolvedType,
         Builtin
     }

@@ -30,6 +30,8 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
 
         public ValueInitialization Initialization { get; set; } = ValueInitialization.CreateEmpty();
 
+        public AttributeUseCollection? AttributeCollection { get; set; }
+
         public TypeReferenceBuilder WithType()
         {
             return this.TypeBuilder;
@@ -65,8 +67,10 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content.Builders
 
             var fieldType = this.TypeReference ?? this.TypeBuilder.Build();
 
-            var attributes = this.AttributeBuilders.Select(a => a.Build()).ToList();
-            attributes.AddRange(this.Attributes);
+            var builtAttributes = this.AttributeBuilders.Select(a => a.Build()).ToList();
+            builtAttributes.AddRange(this.Attributes);
+
+            var attributes = this.AttributeCollection ?? AttributeUseCollection.Create(this.Attributes);
 
             var initialization = this.Initialization;
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
@@ -12,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
         public StructAstDefinition(
             TypeName typeName,
             StructDefinitionContent content,
-            IReadOnlyList<IAstAttributeUse> attributes)
+            AstAttributeUseCollection attributes)
             : base(typeName, attributes)
         {
             this.Content = content;

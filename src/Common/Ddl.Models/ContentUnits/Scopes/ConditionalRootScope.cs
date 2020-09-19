@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
@@ -7,8 +8,9 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
     {
         public ConditionalRootScope(
             ConditionalExpression conditionalExpression,
-            ScopeContent content)
-            : base(content)
+            ScopeContent content,
+            AttributeUseCollection attributes)
+            : base(content, attributes)
         {
             this.ConditionalExpression = conditionalExpression;
         }

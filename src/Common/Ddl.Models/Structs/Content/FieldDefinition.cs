@@ -10,7 +10,7 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content
         public FieldDefinition(
             string name,
             TypeReference fieldType,
-            IReadOnlyList<IAttributeUse> attributes,
+            AttributeUseCollection attributes,
             ValueInitialization initialization)
         {
             this.Name = name;
@@ -23,7 +23,7 @@ namespace TheToolsmiths.Ddl.Models.Structs.Content
 
         public TypeReference FieldType { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public AttributeUseCollection Attributes { get; }
 
         public ValueInitialization Initialization { get; }
 

@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
@@ -7,8 +8,9 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
     {
         public ConditionalAstRootScope(
             AstConditionalExpression conditionalExpression,
-            AstScopeContent content)
-            : base(content)
+            AstScopeContent content,
+            AstAttributeUseCollection attributes)
+            : base(content, attributes)
         {
             this.ConditionalExpression = conditionalExpression;
         }

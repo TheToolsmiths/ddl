@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
+using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
@@ -54,7 +55,7 @@ namespace TheToolsmiths.Ddl.Parser
                     throw new NotImplementedException();
                 }
 
-                var value = new AstRootScope(result.Value);
+                var value = new AstRootScope(result.Value, AstAttributeUseCollection.Empty);
 
                 return Result.FromValue<IAstRootScope>(value);
             }

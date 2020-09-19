@@ -9,11 +9,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
 {
     public class AttributesTypeResolver
     {
-        public Result<IReadOnlyList<IAttributeUse>> ResolveAttributes(IRootScopeTypeResolveContext context, IReadOnlyList<IAttributeUse> attributes)
+        public Result<AttributeUseCollection> ResolveAttributes(IRootScopeTypeResolveContext context, AttributeUseCollection attributes)
         {
             var resolvedAttributes = new List<IAttributeUse>();
 
-            foreach (var attribute in attributes)
+            foreach (var attribute in attributes.Items)
             {
                 var result = this.ResolveAttribute(context, attribute);
 
@@ -24,9 +24,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
 
                 resolvedAttributes.Add(result.Value);
             }
-
-
-            return Result.FromValue<IReadOnlyList<IAttributeUse>>(resolvedAttributes);
+            
+            return Result.FromValue(AttributeUseCollection.Create(resolvedAttributes));
         }
 
         private Result<IAttributeUse> ResolveAttribute(IRootScopeTypeResolveContext context, IAttributeUse attribute)

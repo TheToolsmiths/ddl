@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Structs;
 using TheToolsmiths.Ddl.Models.Structs.Content;
-using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 
@@ -14,13 +12,13 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
     {
         public RootItemTypeResolveResult ResolveItemTypes(IRootItemTypeResolveContext itemContext, StructDefinition item)
         {
-            var updatedItemContext = this.AddTypeNameGenericParamsToContext(itemContext, item.TypeName);
+            var updatedItemContext = itemContext.AddTypeNameInfoToContext(item.TypeName);
 
             var builder = new RootItemResultBuilder();
 
-            IReadOnlyList<IAttributeUse> attributes;
+            AttributeUseCollection attributes;
             {
-                var result = itemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
+                var result = updatedItemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
 
                 if (result.IsError)
                 {
@@ -32,7 +30,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
 
             StructDefinitionContent structContent;
             {
-                var result = itemContext.CommonTypeResolvers.ResolveStructDefinitionContent(item.Content);
+                var result = updatedItemContext.CommonTypeResolvers.ResolveStructDefinitionContent(item.Content);
 
                 if (result.IsError)
                 {
@@ -45,18 +43,6 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
             builder.Item = new StructDefinition(item.ItemId, item.TypeName, structContent, attributes);
 
             return builder.CreateSuccessResult();
-        }
-
-        private IRootItemTypeResolveContext AddTypeNameGenericParamsToContext(
-            IRootItemTypeResolveContext itemContext,
-            TypedItemName typeName)
-        {
-            if (!(typeName.ItemNameIdentifier is GenericTypeNameIdentifier genericIdentifier))
-            {
-                return itemContext;
-            }
-
-            throw new NotImplementedException();
         }
     }
 }

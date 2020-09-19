@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Structs.Content;
 using TheToolsmiths.Ddl.Models.Values;
@@ -12,7 +10,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver
     {
         Result<ScopeContent> ResolveScopeContent(ScopeContent scopeContent);
 
-        Result<IReadOnlyList<IAttributeUse>> ResolveAttributes(IReadOnlyList<IAttributeUse> attributes);
+        Result<AttributeUseCollection> ResolveAttributes(AttributeUseCollection attributes);
 
         Result<StructDefinitionContent> ResolveStructDefinitionContent(StructDefinitionContent content);
 

@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Models.Enums
 {
     public class EnumStructDefinition : ITypedRootItem
     {
-        public EnumStructDefinition(TypedItemName typeName, IReadOnlyList<EnumStructVariantDefinition> variants, IReadOnlyList<IAttributeUse> attributes)
+        public EnumStructDefinition(TypedItemName typeName, IReadOnlyList<EnumStructVariantDefinition> variants, AttributeUseCollection attributes)
         {
             this.TypeName = typeName;
             this.Variants = variants;
@@ -25,6 +25,6 @@ namespace TheToolsmiths.Ddl.Models.Enums
 
         public IReadOnlyList<EnumStructVariantDefinition> Variants { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public AttributeUseCollection Attributes { get; }
     }
 }

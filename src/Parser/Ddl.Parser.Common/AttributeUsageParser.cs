@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
@@ -14,9 +15,9 @@ namespace TheToolsmiths.Ddl.Parser.Common
 {
     public class AttributeUsageParser
     {
-        public async Task<Result<IReadOnlyList<IAstAttributeUse>>> ParseAttributeUseList(IParserContext context)
+        public async Task<Result<AstAttributeUseCollection>> ParseAttributeUseList(IParserContext context)
         {
-            var attributeUses = new List<IAstAttributeUse>();
+            var astAttributes = new List<IAstAttributeUse>();
 
             while (true)
             {
@@ -33,10 +34,10 @@ namespace TheToolsmiths.Ddl.Parser.Common
                     throw new NotImplementedException();
                 }
 
-                attributeUses.AddRange(result.Value);
+                astAttributes.AddRange(result.Value);
             }
 
-            return Result.FromValue<IReadOnlyList<IAstAttributeUse>>(attributeUses);
+            return Result.FromValue(AstAttributeUseCollection.Create(astAttributes));
         }
 
         private async Task<Result<IReadOnlyList<IAstAttributeUse>>> ParseAttributeUseBlock(IParserContext context)

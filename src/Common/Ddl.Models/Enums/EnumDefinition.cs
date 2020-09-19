@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Models.Enums
             ItemId itemId,
             TypedItemName typeName,
             IReadOnlyList<EnumConstantDefinition> constants,
-            IReadOnlyList<IAttributeUse> attributes)
+            AttributeUseCollection attributes)
         {
             this.TypeName = typeName;
             this.Constants = constants;
@@ -24,7 +24,7 @@ namespace TheToolsmiths.Ddl.Models.Enums
         public EnumDefinition(
             TypedItemName typeName,
             IReadOnlyList<EnumConstantDefinition> constants,
-            IReadOnlyList<IAttributeUse> attributes)
+            AttributeUseCollection attributes)
             : this(ItemId.CreateNew(), typeName, constants, attributes)
         {
         }
@@ -33,7 +33,7 @@ namespace TheToolsmiths.Ddl.Models.Enums
 
         public IReadOnlyList<EnumConstantDefinition> Constants { get; }
 
-        public IReadOnlyList<IAttributeUse> Attributes { get; }
+        public AttributeUseCollection Attributes { get; }
 
         public ItemType ItemType => CommonItemTypes.EnumDefinition;
 

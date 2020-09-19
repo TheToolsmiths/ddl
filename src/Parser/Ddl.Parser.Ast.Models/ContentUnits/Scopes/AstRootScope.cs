@@ -1,11 +1,12 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 {
     public class AstRootScope : AstRootScopeBase
     {
-        public AstRootScope(AstScopeContent content)
-            : base(content)
+        public AstRootScope(AstScopeContent content, AstAttributeUseCollection attributes)
+            : base(content, attributes)
         {
         }
 

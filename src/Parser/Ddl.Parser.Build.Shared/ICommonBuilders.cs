@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Structs.Content;
@@ -18,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
 {
     public interface ICommonBuilders
     {
-        Result<IReadOnlyList<IAttributeUse>> BuildAttributes(IReadOnlyList<IAstAttributeUse> attributes);
+        Result<AttributeUseCollection> BuildAttributes(AstAttributeUseCollection attributes);
 
         Result<ScopeContent> BuildScopeContent(AstScopeContent astScopeContent);
 

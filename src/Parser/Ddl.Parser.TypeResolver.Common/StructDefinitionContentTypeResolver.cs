@@ -85,7 +85,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
 
                 var attributes = result.Value;
 
-                fieldBuilder.Attributes.AddRange(attributes);
+                fieldBuilder.AttributeCollection = attributes;
             }
 
 

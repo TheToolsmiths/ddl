@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Contexts
 {
     public interface IRootScopeParserContext
     {
-        IReadOnlyList<IAstAttributeUse> AttributeList { get; }
+        AstAttributeUseCollection AttributeList { get; }
 
         ILexer Lexer { get; }
 

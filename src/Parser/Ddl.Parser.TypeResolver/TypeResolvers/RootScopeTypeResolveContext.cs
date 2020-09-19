@@ -1,4 +1,5 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Parser.TypeResolver.Common;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 
@@ -11,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             ScopeTypeReferenceResolver typeReferenceResolver)
         {
             this.TypeReferenceResolver = typeReferenceResolver;
-            this.CommonBuilders = new CommonTypeResolvers(serviceProvider, this);
+            this.CommonTypeResolvers = new CommonTypeResolvers(serviceProvider, this);
         }
 
         private RootScopeTypeResolveContext(
@@ -19,25 +20,25 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             ScopeTypeReferenceResolver typeReferenceResolver)
         {
             this.TypeReferenceResolver = typeReferenceResolver;
-            this.CommonBuilders = commonBuilders.CreateForScope(this);
+            this.CommonTypeResolvers = commonBuilders.CreateForScope(this);
         }
 
-        public CommonTypeResolvers CommonBuilders { get; }
+        public CommonTypeResolvers CommonTypeResolvers { get; }
 
         public ScopeTypeReferenceResolver TypeReferenceResolver { get; }
 
-        ICommonTypeResolvers IRootEntryTypeResolveContext.CommonTypeResolvers => this.CommonBuilders;
+        ICommonTypeResolvers IRootEntryTypeResolveContext.CommonTypeResolvers => this.CommonTypeResolvers;
 
         IScopeTypeReferenceResolver IRootEntryTypeResolveContext.TypeReferenceResolver => this.TypeReferenceResolver;
 
         public IRootScopeTypeResolveContext CreateScopeContext()
         {
-            return new RootScopeTypeResolveContext(this.CommonBuilders, this.TypeReferenceResolver);
+            return new RootScopeTypeResolveContext(this.CommonTypeResolvers, this.TypeReferenceResolver);
         }
 
         public IRootItemTypeResolveContext CreateItemContext()
         {
-            return new RootItemTypeResolveContext(this.CommonBuilders, this.TypeReferenceResolver);
+            return new RootItemTypeResolveContext(this, this.CommonTypeResolvers, this.TypeReferenceResolver);
         }
 
         public static IRootScopeTypeResolveContext CreateRootContext(
@@ -45,6 +46,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             ScopeTypeReferenceResolver typeReferenceResolver)
         {
             return new RootScopeTypeResolveContext(serviceProvider, typeReferenceResolver);
+        }
+
+        public RootScopeTypeResolveContext CreateWithTypeResolver(ScopeTypeReferenceResolver scopeTypeReferenceResolver)
+        {
+            return new RootScopeTypeResolveContext(this.CommonTypeResolvers, scopeTypeReferenceResolver);
         }
     }
 }

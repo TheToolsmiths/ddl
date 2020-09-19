@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
@@ -12,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
             Identifier name,
             ITypeIdentifier fieldType,
             ValueInitialization initialization,
-            IReadOnlyList<IAstAttributeUse> attributes)
+            AstAttributeUseCollection attributes)
         {
             this.Attributes = attributes;
             this.Initialization = initialization;
@@ -24,7 +23,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Structs
 
         public ITypeIdentifier FieldType { get; }
 
-        public IReadOnlyList<IAstAttributeUse> Attributes { get; }
+        public AstAttributeUseCollection Attributes { get; }
 
         public ValueInitialization Initialization { get; }
 

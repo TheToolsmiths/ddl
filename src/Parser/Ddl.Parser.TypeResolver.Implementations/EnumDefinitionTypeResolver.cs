@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 using TheToolsmiths.Ddl.Results;
@@ -14,11 +13,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
     {
         public RootItemTypeResolveResult ResolveItemTypes(IRootItemTypeResolveContext itemContext, EnumDefinition item)
         {
-            var updatedItemContext = this.AddTypeNameGenericParamsToContext(itemContext, item.TypeName);
+            var updatedItemContext = itemContext.AddTypeNameInfoToContext(item.TypeName);
 
             var builder = new RootItemResultBuilder();
 
-            IReadOnlyList<IAttributeUse> attributes;
+            AttributeUseCollection attributes;
             {
                 var result = itemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
 
@@ -75,18 +74,6 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
             // TODO: Resolve enum attributes
 
             return Result.FromValue(constantDefinition);
-        }
-
-        private IRootItemTypeResolveContext AddTypeNameGenericParamsToContext(
-            IRootItemTypeResolveContext itemContext,
-            TypedItemName typeName)
-        {
-            if (!(typeName.ItemNameIdentifier is GenericTypeNameIdentifier genericIdentifier))
-            {
-                return itemContext;
-            }
-
-            throw new NotImplementedException();
         }
     }
 }

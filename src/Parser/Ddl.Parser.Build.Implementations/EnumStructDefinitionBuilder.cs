@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 variants = result.Value;
             }
 
-            IReadOnlyList<IAttributeUse> attributes;
+            AttributeUseCollection attributes;
             {
                 var result = itemContext.CommonBuilders.BuildAttributes(item.Attributes);
 

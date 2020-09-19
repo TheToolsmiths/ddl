@@ -28,7 +28,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             while (true)
             {
-                IReadOnlyList<IAstAttributeUse> attributesList;
+                AstAttributeUseCollection attributesList;
                 {
                     var result = await context.Parsers.ParseAttributeUseList();
 
@@ -79,7 +79,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
         private async Task<Result<IStructDefinitionItem>> ParseStructDefinitionItem(
             IParserContext context,
-            IReadOnlyList<IAstAttributeUse> attributesList)
+            AstAttributeUseCollection attributesList)
         {
             {
                 var result = await context.Lexer.TryPeekIdentifierToken();
@@ -215,7 +215,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
         private async Task<Result<IStructDefinitionItem>> ParseStructFieldDefinition(
             IParserContext context,
-            IReadOnlyList<IAstAttributeUse> attributesList)
+            AstAttributeUseCollection attributesList)
         {
             Identifier fieldName;
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
 
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
@@ -29,7 +30,7 @@ namespace DdlModelCreation
         {
             var scopeContent = CreateFileScopeContent();
 
-            var rootScope = new RootScope(scopeContent);
+            var rootScope = new RootScope(scopeContent, AttributeUseCollection.Empty);
 
             var info = ContentUnitInfo.CreateFromFilePath("test-model-creation.ddl");
             var contentUnit = new ContentUnit(info, rootScope);
@@ -132,7 +133,7 @@ namespace DdlModelCreation
                         ),
                     BoolLiteralExpression.False);
 
-                var scope = new ConditionalRootScope(conditionalExpression, ScopeContent.Empty);
+                var scope = new ConditionalRootScope(conditionalExpression, ScopeContent.Empty, AttributeUseCollection.Empty);
                 builder.Scopes.Add(scope);
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
@@ -22,7 +23,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
                 TypeIdentifierWriter.WriteTypeName(writer, definition.TypeName);
             }
 
-            if (definition.Attributes.Any())
+            if (definition.Attributes.HasAttributes)
             {
                 writer.WritePropertyName("attributes");
 
@@ -142,7 +143,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
                 TypeIdentifierWriter.WriteTypeIdentifier(writer, fieldDefinition.FieldType);
             }
 
-            if (fieldDefinition.Attributes.Any())
+            if (fieldDefinition.Attributes.HasAttributes)
             {
                 writer.WritePropertyName("attributes");
 

@@ -1,5 +1,6 @@
 ﻿using System;
 
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
@@ -10,16 +11,31 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
     {
         public RootScopeTypeResolveResult ResolveScopeTypes(IRootScopeTypeResolveContext scopeContext, RootScope scope)
         {
-            var result = scopeContext.CommonTypeResolvers.ResolveScopeContent(scope.Content);
-
-            if (result.IsError)
+            ScopeContent scopeContent;
             {
-                throw new NotImplementedException();
+                var result = scopeContext.CommonTypeResolvers.ResolveScopeContent(scope.Content);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                scopeContent = result.Value;
             }
 
-            var scopeContent = result.Value;
+            AttributeUseCollection attributes;
+            {
+                var result = scopeContext.CommonTypeResolvers.ResolveAttributes(scope.Attributes);
 
-            var resolvedScope = new RootScope(scopeContent);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var resolvedScope = new RootScope(scopeContent, attributes);
 
             return new RootScopeTypeResolveSuccess(resolvedScope);
         }

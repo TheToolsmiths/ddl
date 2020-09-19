@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
 using TheToolsmiths.Ddl.Writer.StructuredWriters;
@@ -20,7 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
                 TypeIdentifierWriter.WriteTypeName(writer, structDefinition.TypeName);
             }
 
-            if (structDefinition.Attributes.Any())
+            if (structDefinition.Attributes.HasAttributes)
             {
                 writer.WritePropertyName("attributes");
 
@@ -97,14 +98,14 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
 
             writer.WriteString("name", fieldDefinition.Name.ToString());
 
-            
+
             {
                 writer.WritePropertyName("fieldType");
 
                 TypeIdentifierWriter.WriteTypeIdentifier(writer, fieldDefinition.FieldType);
             }
 
-            if (fieldDefinition.Attributes.Any())
+            if (fieldDefinition.Attributes.HasAttributes)
             {
                 writer.WritePropertyName("attributes");
 

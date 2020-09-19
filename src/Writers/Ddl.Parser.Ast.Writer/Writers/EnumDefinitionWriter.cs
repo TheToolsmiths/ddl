@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer.Writers
                 TypeIdentifierWriter.WriteTypeName(writer, definition.TypeName);
             }
 
-            if (definition.Attributes.Any())
+            if (definition.Attributes.HasAttributes)
             {
                 writer.WritePropertyName("attributes");
 

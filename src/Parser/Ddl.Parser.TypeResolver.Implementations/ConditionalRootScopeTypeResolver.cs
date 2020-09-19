@@ -1,4 +1,7 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
+﻿using System;
+
+using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 
@@ -8,9 +11,33 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
     {
         public RootScopeTypeResolveResult ResolveScopeTypes(IRootScopeTypeResolveContext scopeContext, ConditionalRootScope scope)
         {
-            var result = scopeContext.CommonTypeResolvers.ResolveScopeContent(scope.Content);
+            ScopeContent scopeContent;
+            {
+                var result = scopeContext.CommonTypeResolvers.ResolveScopeContent(scope.Content);
 
-            throw new System.NotImplementedException();
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                scopeContent = result.Value;
+            }
+
+            AttributeUseCollection attributes;
+            {
+                var result = scopeContext.CommonTypeResolvers.ResolveAttributes(scope.Attributes);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var resolvedScope = new ConditionalRootScope(scope.ConditionalExpression, scopeContent, attributes);
+
+            return new RootScopeTypeResolveSuccess(resolvedScope);
         }
     }
 }
