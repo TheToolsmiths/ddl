@@ -9,7 +9,8 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
     {
         public ScopeContent Build()
         {
-            return new ScopeContent(this.Items, this.Scopes, this.Imports);
+            var imports = ImportStatementCollection.Create(this.Imports);
+            return new ScopeContent(this.Items, this.Scopes, imports);
         }
 
         public List<ImportStatement> Imports { get; } = new List<ImportStatement>();

@@ -20,5 +20,15 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
         {
             return new RootNamespacePath(identifiers);
         }
+
+        public static RootNamespacePath Create(RootNamespacePath namespacePath, string identifier)
+        {
+            var identifiers = new List<string>();
+
+            identifiers.AddRange(namespacePath.Identifiers);
+            identifiers.Add(identifier);
+
+            return new RootNamespacePath(identifiers);
+        }
     }
 }

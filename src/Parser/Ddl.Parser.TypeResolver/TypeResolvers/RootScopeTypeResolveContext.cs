@@ -1,5 +1,6 @@
 ﻿using System;
 
+using TheToolsmiths.Ddl.Models.ImportPaths;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Common;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 
@@ -51,6 +52,20 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
         public RootScopeTypeResolveContext CreateWithTypeResolver(ScopeTypeReferenceResolver scopeTypeReferenceResolver)
         {
             return new RootScopeTypeResolveContext(this.CommonTypeResolvers, scopeTypeReferenceResolver);
+        }
+
+        public IRootScopeTypeResolveContext AddImportPaths(
+            IRootScopeTypeResolveContext context,
+            ImportStatementCollection imports)
+        {
+            if (imports.Items.Count == 0)
+            {
+                return context;
+            }
+
+            var updatedTypeReferenceResolver = this.TypeReferenceResolver.AddImports(imports);
+
+            return new RootScopeTypeResolveContext(this.CommonTypeResolvers, updatedTypeReferenceResolver);
         }
     }
 }

@@ -26,6 +26,8 @@ namespace TheToolsmiths.Ddl.Parser.Build.Services
             // Root Builders
             services.AddScoped<IAstRootItemBuilder, AstRootItemBuilder>();
             services.AddScoped<IAstRootScopeBuilder, AstRootScopeBuilder>();
+            
+            services.AddScoped<IAstContentUnitScopeBuilder, AstContentUnitScopeBuilder>();
 
             return services;
         }

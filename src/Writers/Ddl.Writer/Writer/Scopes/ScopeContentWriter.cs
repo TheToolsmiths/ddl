@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.ImportPaths;
@@ -14,7 +15,7 @@ namespace TheToolsmiths.Ddl.Writer.Writer.Scopes
         {
             writer.WriteStartObject();
 
-            WriteImportPaths(writer, content.ImportPaths);
+            WriteImportPaths(writer, content.Imports);
 
             WriteItems(writer, content.Items);
 
@@ -23,11 +24,11 @@ namespace TheToolsmiths.Ddl.Writer.Writer.Scopes
             writer.WriteEndObject();
         }
 
-        private static void WriteImportPaths(IStructuredWriter writer, IReadOnlyList<ImportStatement> imports)
+        private static void WriteImportPaths(IStructuredWriter writer, ImportStatementCollection imports)
         {
             writer.WriteStartArray("imports");
 
-            foreach (var importStatement in imports)
+            foreach (var importStatement in imports.Items)
             {
                 ImportPathWriter.WriteImportPath(writer, importStatement);
             }

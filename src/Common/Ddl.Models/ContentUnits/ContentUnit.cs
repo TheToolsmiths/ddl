@@ -1,13 +1,11 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-
-namespace TheToolsmiths.Ddl.Models.ContentUnits
+﻿namespace TheToolsmiths.Ddl.Models.ContentUnits
 {
     public class ContentUnit
     {
         public ContentUnit(
             ContentUnitId id,
             ContentUnitInfo info,
-            IRootScope rootScope)
+            ContentUnitScope rootScope)
         {
             this.Id = id;
             this.Info = info;
@@ -16,7 +14,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits
 
         public ContentUnit(
             ContentUnitInfo info,
-            IRootScope rootScope)
+            ContentUnitScope rootScope)
         {
             this.Id = ContentUnitId.CreateNew();
             this.Info = info;
@@ -27,6 +25,6 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits
 
         public ContentUnitInfo Info { get; }
 
-        public IRootScope RootScope { get; }
+        public ContentUnitScope RootScope { get; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
 {
     public class TypeReferenceIndexedNamespaceBuilder
@@ -32,21 +34,35 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
 
         public TypeReferenceIndexedNamespace Build()
         {
-            return this.BuildInternal();
+            return this.BuildInternal(null, null);
         }
 
-        private TypeReferenceIndexedNamespace BuildInternal(TypeReferenceIndexedNamespace? parentNamespace = null)
+        private TypeReferenceIndexedNamespace BuildInternal(
+            TypeReferenceIndexedNamespace? rootNamespace,
+            TypeReferenceIndexedNamespace? parentNamespace)
         {
             string identifier = this.Identifier ?? throw new InvalidOperationException($"{nameof(this.Identifier)} is (null) or empty");
 
             var items = this.Items.Build();
             var childNamespaces = new Dictionary<string, TypeReferenceIndexedNamespace>();
 
-            var indexedNamespace = new TypeReferenceIndexedNamespace(parentNamespace, identifier, items, childNamespaces);
+            RootNamespacePath namespacePath;
+            if (parentNamespace == null)
+            {
+                namespacePath = RootNamespacePath.EmptyRoot;
+            }
+            else
+            {
+                var parentNamespacePath = parentNamespace.NamespacePath;
+
+                namespacePath = RootNamespacePath.Create(parentNamespacePath, identifier);
+            }
+
+            var indexedNamespace = new TypeReferenceIndexedNamespace(identifier, namespacePath, items, parentNamespace, rootNamespace, childNamespaces);
 
             foreach (var (key, childBuilder) in this.ChildNamespaces)
             {
-                var childNamespace = childBuilder.BuildInternal(indexedNamespace);
+                var childNamespace = childBuilder.BuildInternal(rootNamespace ?? indexedNamespace, indexedNamespace);
 
                 childNamespaces.Add(key, childNamespace);
             }

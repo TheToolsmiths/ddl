@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.Names
+﻿using TheToolsmiths.Ddl.Models.Paths;
+
+namespace TheToolsmiths.Ddl.Models.Types.Names
 {
     public abstract class TypeNameIdentifier
     {
@@ -7,7 +9,7 @@
             this.Name = name;
         }
 
-        public abstract TypeNameKind IdentifierKind { get; }
+        public abstract PathPartKind IdentifierKind { get; }
 
         public string Name { get; }
 

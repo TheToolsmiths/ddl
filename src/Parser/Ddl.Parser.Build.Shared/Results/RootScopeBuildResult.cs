@@ -1,6 +1,6 @@
 ﻿namespace TheToolsmiths.Ddl.Parser.Build.Results
 {
-    public class RootScopeBuildResult
+    public abstract class RootScopeBuildResult
     {
         protected RootScopeBuildResult(RootScopeBuildResultKind resultKind)
         {

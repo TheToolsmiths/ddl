@@ -1,5 +1,6 @@
 ﻿using System;
 
+using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.References.TypeReferences;
@@ -19,11 +20,14 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             this.indexerResolver = indexerResolver;
         }
 
-        public Result IndexScopeTypes(TypeIndexingContext context, IRootScope scope)
+        public Result IndexContentUnitTypes(TypeIndexingContext context, ContentUnitScope rootScope)
         {
-            var content = scope.Content;
+            return this.IndexScopeContentTypes(context, rootScope.Content);
+        }
 
-            foreach (var childScope in content.Scopes)
+        private Result IndexScopeContentTypes(TypeIndexingContext context, ScopeContent scopeContent)
+        {
+            foreach (var childScope in scopeContent.Scopes)
             {
                 var result = this.IndexScopeTypes(context, childScope);
 
@@ -33,7 +37,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
                 }
             }
 
-            foreach (var item in content.Items)
+            foreach (var item in scopeContent.Items)
             {
                 var result = this.IndexScopeItem(context, item);
 
@@ -44,6 +48,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             }
 
             return Result.Success;
+        }
+
+        private Result IndexScopeTypes(TypeIndexingContext context, IRootScope scope)
+        {
+            return this.IndexScopeContentTypes(context, scope.Content);
         }
 
         private Result IndexScopeItem(TypeIndexingContext context, IRootItem item)

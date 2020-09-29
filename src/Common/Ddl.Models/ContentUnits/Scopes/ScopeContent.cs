@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.ImportPaths;
 
@@ -10,18 +11,18 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
         public ScopeContent(
             IReadOnlyList<IRootItem> items,
             IReadOnlyList<IRootScope> scopes,
-            IReadOnlyList<ImportStatement> importPaths)
+            ImportStatementCollection imports)
         {
             this.Items = items;
             this.Scopes = scopes;
-            this.ImportPaths = importPaths;
+            this.Imports = imports;
         }
 
         public IReadOnlyList<IRootItem> Items { get; }
 
         public IReadOnlyList<IRootScope> Scopes { get; }
 
-        public IReadOnlyList<ImportStatement> ImportPaths { get; }
+        public ImportStatementCollection Imports { get; }
 
         public static ScopeContent Empty { get; } = CreateEmpty();
 
@@ -30,7 +31,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
             return new ScopeContent(
                 new List<IRootItem>(),
                 new List<IRootScope>(),
-                new List<ImportStatement>());
+                ImportStatementCollection.Empty);
         }
 
         public static ScopeContent Create(
@@ -38,7 +39,12 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Scopes
             IEnumerable<IRootScope> scopes,
             IEnumerable<ImportStatement> importPaths)
         {
-            return new ScopeContent(items.ToList(), scopes.ToList(), importPaths.ToList());
+            return new ScopeContent(items.ToList(), scopes.ToList(), ImportStatementCollection.Create(importPaths.ToList()));
+        }
+
+        public static ScopeContent Create(IReadOnlyList<IRootScope> scopes)
+        {
+            return new ScopeContent(new List<IRootItem>(), scopes, ImportStatementCollection.Empty);
         }
     }
 }

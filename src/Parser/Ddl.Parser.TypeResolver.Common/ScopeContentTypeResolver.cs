@@ -24,9 +24,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
         {
             var builder = new ScopeContentBuilder();
 
+            var updatedContext = context.AddImportPaths(context, scopeContent.Imports);
+
             foreach (var childScope in scopeContent.Scopes)
             {
-                var result = this.IndexScopeTypes(context, builder, childScope);
+                var result = this.IndexScopeTypes(updatedContext, builder, childScope);
 
                 if (result.IsError)
                 {
@@ -36,7 +38,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Common
 
             foreach (var item in scopeContent.Items)
             {
-                var result = this.IndexScopeItem(context, builder, item);
+                var result = this.IndexScopeItem(updatedContext, builder, item);
 
                 if (result.IsError)
                 {

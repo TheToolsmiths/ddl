@@ -6,6 +6,7 @@
         MatchImport,
         MatchGenericParameter,
         ResolvedType,
-        Builtin
+        Builtin,
+        Namespace
     }
 }

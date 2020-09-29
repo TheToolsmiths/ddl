@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.Names
+﻿using TheToolsmiths.Ddl.Models.Paths;
+
+namespace TheToolsmiths.Ddl.Models.Types.Names
 {
     public class SimpleTypeNameIdentifier : TypeNameIdentifier
     {
@@ -7,7 +9,7 @@
         {
         }
 
-        public override TypeNameKind IdentifierKind => TypeNameKind.Simple;
+        public override PathPartKind IdentifierKind => PathPartKind.Simple;
 
         public override string ToString()
         {

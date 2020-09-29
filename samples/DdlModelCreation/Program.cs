@@ -30,7 +30,7 @@ namespace DdlModelCreation
         {
             var scopeContent = CreateFileScopeContent();
 
-            var rootScope = new RootScope(scopeContent, AttributeUseCollection.Empty);
+            var rootScope = new ContentUnitScope(scopeContent);
 
             var info = ContentUnitInfo.CreateFromFilePath("test-model-creation.ddl");
             var contentUnit = new ContentUnit(info, rootScope);

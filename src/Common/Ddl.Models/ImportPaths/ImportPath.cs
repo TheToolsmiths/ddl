@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.ImportPaths
 {
-    public class ImportPath
+    public class ImportPath : IQualifiedPath<ImportPathPart>
     {
-        private ImportPath(IReadOnlyList<string> pathIdentifiers, bool isRooted)
+        private ImportPath(ImmutableArray<string> pathParts, bool isRooted)
         {
-            this.PathIdentifiers = pathIdentifiers;
+            this.PathParts = pathParts.Select(name => new ImportPathPart(name)).ToImmutableArray();
             this.IsRooted = isRooted;
         }
 
-        public IReadOnlyList<string> PathIdentifiers { get; }
+        public ImmutableArray<ImportPathPart> PathParts { get; }
 
         public bool IsRooted { get; }
 
         public static ImportPath CreateRooted(IReadOnlyList<string> pathIdentifiers)
         {
-            return new ImportPath(pathIdentifiers, true);
+            return new ImportPath(pathIdentifiers.ToImmutableArray(), true);
         }
 
         public static ImportPath CreateNonRooted(IReadOnlyList<string> pathIdentifiers)
         {
-            return new ImportPath(pathIdentifiers, false);
+            return new ImportPath(pathIdentifiers.ToImmutableArray(), false);
         }
 
         public static ImportPath CreateRooted(params string[] pathIdentifiers)
@@ -32,7 +36,7 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
                 throw new ArgumentException(nameof(pathIdentifiers));
             }
 
-            return new ImportPath(pathIdentifiers, true);
+            return new ImportPath(pathIdentifiers.ToImmutableArray(), true);
         }
 
         public static ImportPath CreateNonRooted(params string[] pathIdentifiers)
@@ -42,12 +46,12 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
                 throw new ArgumentException(nameof(pathIdentifiers));
             }
 
-            return new ImportPath(pathIdentifiers, false);
+            return new ImportPath(pathIdentifiers.ToImmutableArray(), false);
         }
 
         public override string ToString()
         {
-            return $"{(this.IsRooted ? "::" : "")}{string.Join("::", this.PathIdentifiers)}";
+            return $"{(this.IsRooted ? "::" : "")}{string.Join("::", this.PathParts)}";
         }
     }
 }

@@ -28,7 +28,12 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 
         public override string ToString()
         {
-            return $"{(this.IsRooted ? TypeConstants.TypeSeparator : string.Empty)}" + string.Join(
+            if (this.Identifiers.Count == 0)
+            {
+                return this.IsRooted ? TypeConstants.TypeSeparator : string.Empty;
+            }
+
+            return string.Join(
                 TypeConstants.TypeSeparator,
                 this.Identifiers.Select(i => i.ToString()));
         }

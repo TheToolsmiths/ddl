@@ -22,6 +22,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Services
             services.AddScoped<ValueInitializationTypeResolver>();
 
 
+            services.AddScoped<IContentUnitTypeResolver, ContentUnitTypeResolver>();
+
             services.AddScoped<IRootScopeTypeResolver, RootScopeTypeResolver>();
             services.AddScoped<IRootItemTypeResolver, RootItemTypeResolver>();
 

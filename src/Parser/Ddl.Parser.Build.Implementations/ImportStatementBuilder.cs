@@ -106,8 +106,8 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             public void CreateAndAddImportPath()
             {
                 var path = this.IsRoot
-                    ? ImportPath.CreateRooted(this.IdentifierStack.ToList())
-                    : ImportPath.CreateNonRooted(this.IdentifierStack.ToList());
+                    ? ImportPath.CreateRooted(this.IdentifierStack.Reverse().ToList())
+                    : ImportPath.CreateNonRooted(this.IdentifierStack.Reverse().ToList());
 
                 var statement = ImportStatement.Create(path);
 

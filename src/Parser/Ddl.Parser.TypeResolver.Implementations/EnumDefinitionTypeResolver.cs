@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
 
             AttributeUseCollection attributes;
             {
-                var result = itemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
+                var result = updatedItemContext.CommonTypeResolvers.ResolveAttributes(item.Attributes);
 
                 if (result.IsError)
                 {
@@ -31,7 +31,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
 
             IReadOnlyList<EnumConstantDefinition> constants;
             {
-                var result = this.ResolveConstants(itemContext, item.Constants);
+                var result = this.ResolveConstants(updatedItemContext, item.Constants);
 
                 if (result.IsError)
                 {

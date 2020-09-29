@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Globalization;
-using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Paths;
 using TheToolsmiths.Ddl.Models.Types.Resolution;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences.BuiltinTypes
 {
     public class BuiltinTypeReferenceResolver
     {
-        public bool TryResolveBuiltinType(TypeReferencePath typePath, out TypeResolution typeResolution)
+        public bool TryResolveBuiltinType<T>(IQualifiedPath<T> typePath, out TypeResolution typeResolution)
+            where T : IPathPart
         {
             // If type path is rooted, assume it can't be a builtin type
             if (typePath.IsRooted)
@@ -24,10 +24,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
                 return false;
             }
 
-            ref readonly var initialPart = ref typePath.PathParts.Span[0];
+            ref readonly var initialPart = ref typePath.PathParts.AsSpan()[index: 0];
 
             // We don't have generic builtin types for now
-            if (initialPart.PartKind == TypeNameKind.Generic)
+            if (initialPart.PartKind == PathPartKind.Generic)
             {
                 typeResolution = TypeResolution.Unresolved;
                 return false;
@@ -98,7 +98,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             }
 
             // Check for matrix prefix
-            if (initialPart.Name.StartsWith(BuiltinTypeNames.VectorPrefix, StringComparison.Ordinal))
+            if (initialPart.Name.StartsWith(BuiltinTypeNames.MatrixPrefix, StringComparison.Ordinal))
             {
                 if (this.TryResolveMatrixType(typePath, out typeResolution))
                 {
@@ -106,12 +106,12 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
                 }
             }
 
-
             typeResolution = TypeResolution.Unresolved;
             return false;
         }
 
-        private bool TryResolveVectorType(TypeReferencePath typePath, out TypeResolution typeResolution)
+        private bool TryResolveVectorType<T>(IQualifiedPath<T> typePath, out TypeResolution typeResolution)
+            where T : IPathPart
         {
             if (typePath.PathParts.Length != 2)
             {
@@ -119,12 +119,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
                 return false;
             }
 
-            ref readonly var vectorPart = ref typePath.PathParts.Span[0];
+            ref readonly var vectorPart = ref typePath.PathParts.AsSpan()[index: 0];
 
-            ref readonly var typePart = ref typePath.PathParts.Span[1];
+            ref readonly var typePart = ref typePath.PathParts.AsSpan()[index: 1];
 
-            if (vectorPart.PartKind == TypeNameKind.Generic ||
-                vectorPart.PartKind == TypeNameKind.Generic)
+            if (vectorPart.PartKind == PathPartKind.Generic || vectorPart.PartKind == PathPartKind.Generic)
             {
                 typeResolution = TypeResolution.Unresolved;
                 return false;
@@ -154,7 +153,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             return true;
         }
 
-        private bool TryResolveMatrixType(TypeReferencePath typePath, out TypeResolution typeResolution)
+        private bool TryResolveMatrixType<T>(IQualifiedPath<T> typePath, out TypeResolution typeResolution)
+            where T : IPathPart
         {
             throw new NotImplementedException();
         }
@@ -219,67 +219,5 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             builtinTypeKind = default;
             return false;
         }
-    }
-
-    public static class BuiltinTypeResolutions
-    {
-        public static TypeResolution Bool { get; } = new ScalarBuiltinType(BuiltinTypeKind.Bool);
-
-        public static TypeResolution UInt8 { get; } = new ScalarBuiltinType(BuiltinTypeKind.UInt8);
-
-        public static TypeResolution Int8 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Int8);
-
-        public static TypeResolution UInt16 { get; } = new ScalarBuiltinType(BuiltinTypeKind.UInt16);
-
-        public static TypeResolution Int16 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Int16);
-
-        public static TypeResolution UInt32 { get; } = new ScalarBuiltinType(BuiltinTypeKind.UInt32);
-
-        public static TypeResolution Int32 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Int32);
-
-        public static TypeResolution UInt64 { get; } = new ScalarBuiltinType(BuiltinTypeKind.UInt64);
-
-        public static TypeResolution Int64 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Int64);
-
-        public static TypeResolution Float32 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Float32);
-
-        public static TypeResolution Float64 { get; } = new ScalarBuiltinType(BuiltinTypeKind.Float64);
-
-        public static TypeResolution Char { get; } = new ScalarBuiltinType(BuiltinTypeKind.Char);
-
-        public static TypeResolution String { get; } = new ScalarBuiltinType(BuiltinTypeKind.String);
-    }
-
-    public static class BuiltinTypeNames
-    {
-        public const string VectorPrefix = "vec";
-
-        public const string MatrixPrefix = "mat";
-
-        public const string Bool = "bool";
-
-        public const string UInt8 = "u8";
-
-        public const string Int8 = "i8";
-
-        public const string UInt16 = "u16";
-
-        public const string Int16 = "i16";
-
-        public const string UInt32 = "u32";
-
-        public const string Int32 = "i32";
-
-        public const string UInt64 = "u64";
-
-        public const string Int64 = "i64";
-
-        public const string Float32 = "f32";
-
-        public const string Float64 = "f64";
-
-        public const string Char = "char";
-
-        public const string String = "string";
     }
 }

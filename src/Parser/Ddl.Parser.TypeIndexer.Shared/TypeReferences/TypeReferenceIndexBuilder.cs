@@ -3,6 +3,7 @@
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences.BuiltinTypes;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Types.Names
 {
@@ -11,7 +12,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Names
             this.GenericParameters = genericParameters;
         }
 
-        public override TypeNameKind IdentifierKind => TypeNameKind.Generic;
+        public override PathPartKind IdentifierKind => PathPartKind.Generic;
 
         public IReadOnlyList<GenericTypeNameParameter> GenericParameters { get; }
 

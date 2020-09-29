@@ -1,7 +1,9 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
+
 using Microsoft.Extensions.Hosting;
+
 using TheToolsmiths.Ddl.Cli.CommandHandlers;
 
 namespace TheToolsmiths.Ddl.Cli.Initialization
@@ -15,7 +17,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
             var parseCommand = CreateParseCommand();
 
             var bundleCommand = CreateBundleCommand();
-            
+
             var packageCommand = CreatePackageCommand();
 
             var rootCommand = new RootCommand
@@ -52,7 +54,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
                 new Option<FileInfo?>(new[] {"--output", "-o"})
                 {
                     Name = "outputFile",
-                    Required = false,
+                    IsRequired = false,
                     Description = "Optional output file",
                     Argument = {
                         Arity = ArgumentArity.ExactlyOne
@@ -106,7 +108,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
                     {
                         Arity = ArgumentArity.ExactlyOne
                     },
-                    Required = false
+                    IsRequired = false
                 }
             };
 
@@ -151,7 +153,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
                     {
                         Arity = ArgumentArity.ExactlyOne
                     },
-                    Required = false
+                    IsRequired = false
                 },
                 new Option<DirectoryInfo>(new[] {"--output", "-o"})
                 {

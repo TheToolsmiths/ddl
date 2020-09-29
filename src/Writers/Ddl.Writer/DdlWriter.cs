@@ -28,7 +28,7 @@ namespace TheToolsmiths.Ddl.Writer
 
             writer.WritePropertyName("content");
 
-            RootScopeWriter.WriteRootScope(writer, contentUnit.RootScope);
+            ScopeContentWriter.WriteScopeContent(writer, contentUnit.RootScope.Content);
 
             writer.WriteEndObject();
 

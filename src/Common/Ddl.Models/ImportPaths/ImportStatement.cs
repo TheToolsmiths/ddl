@@ -1,4 +1,5 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.EntryTypes;
@@ -29,7 +30,7 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
 
         public static ImportStatement Create(ImportPath importPath)
         {
-            string? alias = importPath.PathIdentifiers[^1];
+            string? alias = importPath.PathParts[^1].Name;
 
             if (alias == null)
             {

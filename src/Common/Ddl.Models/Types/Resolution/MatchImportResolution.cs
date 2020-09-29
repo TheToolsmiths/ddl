@@ -1,26 +1,20 @@
-﻿using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
+﻿using TheToolsmiths.Ddl.Models.References.ItemReferences;
 
 namespace TheToolsmiths.Ddl.Models.Types.Resolution
 {
     public class MatchImportResolution : TypeResolution
     {
         public MatchImportResolution(
-            ImportPath importPath,
-            TypeReferencePath referencePath,
-            NamespacePath scopeNamespace)
+            ItemReference importPathReference,
+            TypeResolution importPathTypeResolution)
             : base(TypeResolutionKind.MatchImport)
         {
-            this.ImportPath = importPath;
-            this.ReferencePath = referencePath;
-            this.ScopeNamespace = scopeNamespace;
+            this.ImportPathReference = importPathReference;
+            this.ImportPathTypeResolution = importPathTypeResolution;
         }
 
-        public ImportPath ImportPath { get; }
+        public ItemReference ImportPathReference { get; }
 
-        public TypeReferencePath ReferencePath { get; }
-
-        public NamespacePath ScopeNamespace { get; }
+        public TypeResolution ImportPathTypeResolution { get; }
     }
 }

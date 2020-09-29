@@ -1,6 +1,6 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Build.Builders;
 using TheToolsmiths.Ddl.Parser.Build.Results;
@@ -11,10 +11,10 @@ namespace TheToolsmiths.Ddl.Parser.Build
 {
     internal class DdlContentUnitBuilder
     {
-        private readonly IAstRootScopeBuilder scopeBuilder;
+        private readonly IAstContentUnitScopeBuilder scopeBuilder;
         private readonly IServiceProvider serviceProvider;
 
-        public DdlContentUnitBuilder(IAstRootScopeBuilder scopeBuilder, IServiceProvider serviceProvider)
+        public DdlContentUnitBuilder(IAstContentUnitScopeBuilder scopeBuilder, IServiceProvider serviceProvider)
         {
             this.scopeBuilder = scopeBuilder;
             this.serviceProvider = serviceProvider;
@@ -26,17 +26,12 @@ namespace TheToolsmiths.Ddl.Parser.Build
 
             var result = this.scopeBuilder.BuildScope(scopeContext, astContentUnit.FileRootScope);
 
-            IRootScope rootScope;
-            if (result is RootScopeBuildSuccess success)
+            ContentUnitScope rootScope;
+            if (result is ContentUnitScopeBuildSuccess success)
             {
-                if (success.Scopes.Count != 1)
-                {
-                    throw new NotImplementedException();
-                }
-
-                rootScope = success.Scopes[0];
+                rootScope = success.Scope;
             }
-            else if (result is RootScopeBuildError error)
+            else if (result is ContentUnitScopeBuildError error)
             {
                 throw new NotImplementedException();
             }
@@ -48,6 +43,7 @@ namespace TheToolsmiths.Ddl.Parser.Build
             var contentUnitId = ContentUnitId.CreateNew();
 
             var info = AstContentUnitInfoHelper.ToContentUnitInfo(astContentUnit.Info);
+
             var contentUnit = new ContentUnit(contentUnitId, info, rootScope);
 
             return Result.FromValue(contentUnit);

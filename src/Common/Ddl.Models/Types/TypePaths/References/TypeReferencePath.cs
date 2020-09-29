@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
 {
-    public class TypeReferencePath
+    public class TypeReferencePath : IQualifiedPath<TypeReferencePathPart>
     {
         protected TypeReferencePath(bool isRooted, IReadOnlyList<TypeReferencePathPart> pathParts)
         {
             this.IsRooted = isRooted;
-            this.PathParts = new ReadOnlyMemory<TypeReferencePathPart>(pathParts.ToArray());
+            this.PathParts = pathParts.ToImmutableArray();
         }
 
-        public ReadOnlyMemory<TypeReferencePathPart> PathParts { get; }
+        public ImmutableArray<TypeReferencePathPart> PathParts { get; }
 
         public bool IsRooted { get; }
 

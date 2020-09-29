@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Namespaces
     {
         public Result<RootNamespacePath> ResolveContentUnitNamespace(ContentUnitInfo info)
         {
-            var relativePath = info.RelativePath;
+            string relativePath = info.RelativePath;
 
             string? relativeDir = Path.GetDirectoryName(relativePath.Replace('\\', '/'));
 

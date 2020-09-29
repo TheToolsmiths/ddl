@@ -36,9 +36,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             {
                 var context = new TypeIndexingContext(namespacePath);
 
-                var rootScope = contentUnit.RootScope;
-
-                var result = this.typeReferenceIndexer.IndexScopeTypes(context, rootScope);
+                var result = this.typeReferenceIndexer.IndexContentUnitTypes(context, contentUnit.RootScope);
 
                 if (result.IsError)
                 {
