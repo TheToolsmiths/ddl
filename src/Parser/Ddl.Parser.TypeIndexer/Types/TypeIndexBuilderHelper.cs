@@ -1,13 +1,14 @@
-﻿using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
+﻿using TheToolsmiths.Ddl.Models.Types.Index;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Types
 {
-    internal class TypeReferenceIndexBuilderHelper
+    public static class TypeIndexBuilderHelper
     {
-        public static TypeReferenceIndex CreateFromPackage(PackageIndexedTypes packageIndexedTypes)
+        public static TypeIndex CreateFromPackage(PackageIndexedTypes packageIndexedTypes)
         {
-            var builder = new TypeReferenceIndexBuilder();
+            var builder = new TypeIndexBuilder();
 
             foreach (var contentUnit in packageIndexedTypes.ContentUnits)
             {
@@ -17,18 +18,16 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             return builder.Build();
         }
 
-        private static void AddContentUnit(TypeReferenceIndexBuilder builder, ContentUnitIndexedTypes contentUnit)
+        private static void AddContentUnit(TypeIndexBuilder builder, ContentUnitIndexedTypes contentUnit)
         {
             var namespaceBuilder = builder.GetNamespaceBuilder(contentUnit.ContentUnitNamespace);
-
-            builder.AddContentUnitNamespace(contentUnit.ContentUnitId, contentUnit.ContentUnitNamespace);
 
             AddNamespace(contentUnit.RootIndexedNamespace, namespaceBuilder);
         }
 
         private static void AddNamespace(
             ContentUnitIndexedNamespace indexedNamespace,
-            TypeReferenceIndexedNamespaceBuilder namespaceBuilder)
+            TypeIndexedNamespaceBuilder namespaceBuilder)
         {
             foreach (var (itemName, indexedPath) in indexedNamespace.Items)
             {

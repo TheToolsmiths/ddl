@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
+using TheToolsmiths.Ddl.Models.Packages.Index;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver
@@ -17,13 +17,13 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver
 
         public Result<IReadOnlyList<ContentUnit>> ResolveCollection(
             IReadOnlyList<ContentUnit> contentUnits,
-            TypeReferenceIndex typeReferenceIndex)
+            PackageTypeIndex packageTypeIndex)
         {
             var indexedContentUnits = new List<ContentUnit>();
 
             foreach (var contentUnit in contentUnits)
             {
-                var result = this.typeResolver.ResolveTypes(contentUnit, typeReferenceIndex);
+                var result = this.typeResolver.ResolveTypes(contentUnit, packageTypeIndex);
 
                 if (result.IsError)
                 {

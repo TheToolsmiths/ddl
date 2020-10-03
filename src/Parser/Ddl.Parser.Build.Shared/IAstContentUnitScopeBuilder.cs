@@ -6,6 +6,6 @@ namespace TheToolsmiths.Ddl.Parser.Build
 {
     public interface IAstContentUnitScopeBuilder
     {
-        ContentUnitScopeBuildResult BuildScope(IRootScopeBuildContext scopeContext, IAstRootScope rootScope);
+        ContentUnitScopeBuildResult BuildScope(IRootScopeBuildContext scopeContext, AstContentUnitScope rootScope);
     }
 }

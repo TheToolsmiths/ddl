@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl\Ddl.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />

@@ -17,6 +17,4 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes
 
         public AstScopeContent Content { get; }
     }
-
-
 }

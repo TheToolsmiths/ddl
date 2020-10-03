@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Models.Types.Index
 {
-    public class TypeReferenceIndexedNamespaceBuilder
+    public class TypeIndexedNamespaceBuilder
     {
-        public TypeReferenceIndexedNamespaceBuilder()
+        public TypeIndexedNamespaceBuilder()
         {
             this.Identifier = string.Empty;
-            this.Items = new TypeReferenceIndexedItemsBuilder();
-            this.ChildNamespaces = new Dictionary<string, TypeReferenceIndexedNamespaceBuilder>();
+            this.Items = new TypeIndexedItemsBuilder();
+            this.ChildNamespaces = new Dictionary<string, TypeIndexedNamespaceBuilder>();
         }
 
         public string Identifier { get; set; }
 
-        public Dictionary<string, TypeReferenceIndexedNamespaceBuilder> ChildNamespaces { get; }
+        public Dictionary<string, TypeIndexedNamespaceBuilder> ChildNamespaces { get; }
 
-        public TypeReferenceIndexedItemsBuilder Items { get; }
+        public TypeIndexedItemsBuilder Items { get; }
 
-        public TypeReferenceIndexedNamespaceBuilder GetChildNamespace(string identifier)
+        public TypeIndexedNamespaceBuilder GetChildNamespace(string identifier)
         {
             if (this.ChildNamespaces.TryGetValue(identifier, out var childNamespaceBuilder) == false)
             {
-                childNamespaceBuilder = new TypeReferenceIndexedNamespaceBuilder();
+                childNamespaceBuilder = new TypeIndexedNamespaceBuilder();
 
                 this.ChildNamespaces.Add(identifier, childNamespaceBuilder);
             }
@@ -32,19 +31,19 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             return childNamespaceBuilder;
         }
 
-        public TypeReferenceIndexedNamespace Build()
+        public TypeIndexedNamespace Build()
         {
             return this.BuildInternal(null, null);
         }
 
-        private TypeReferenceIndexedNamespace BuildInternal(
-            TypeReferenceIndexedNamespace? rootNamespace,
-            TypeReferenceIndexedNamespace? parentNamespace)
+        private TypeIndexedNamespace BuildInternal(
+            TypeIndexedNamespace? rootNamespace,
+            TypeIndexedNamespace? parentNamespace)
         {
             string identifier = this.Identifier ?? throw new InvalidOperationException($"{nameof(this.Identifier)} is (null) or empty");
 
             var items = this.Items.Build();
-            var childNamespaces = new Dictionary<string, TypeReferenceIndexedNamespace>();
+            var childNamespaces = new Dictionary<string, TypeIndexedNamespace>();
 
             RootNamespacePath namespacePath;
             if (parentNamespace == null)
@@ -58,7 +57,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
                 namespacePath = RootNamespacePath.Create(parentNamespacePath, identifier);
             }
 
-            var indexedNamespace = new TypeReferenceIndexedNamespace(identifier, namespacePath, items, parentNamespace, rootNamespace, childNamespaces);
+            var indexedNamespace = new TypeIndexedNamespace(identifier, namespacePath, items, parentNamespace, rootNamespace, childNamespaces);
 
             foreach (var (key, childBuilder) in this.ChildNamespaces)
             {

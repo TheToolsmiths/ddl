@@ -2,22 +2,22 @@
 using System.Linq;
 using TheToolsmiths.Ddl.Models.References.TypeReferences;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Models.Types.Index
 {
-    public class TypeReferenceIndexedItemsBuilder
+    public class TypeIndexedItemsBuilder
     {
-        public TypeReferenceIndexedItemsBuilder()
+        public TypeIndexedItemsBuilder()
         {
-            this.MappedItems = new Dictionary<string, TypeReferenceIndexedPathBuilder>();
+            this.MappedItems = new Dictionary<string, TypeIndexedPathBuilder>();
         }
 
-        public Dictionary<string, TypeReferenceIndexedPathBuilder> MappedItems { get; }
+        public Dictionary<string, TypeIndexedPathBuilder> MappedItems { get; }
 
         public void AddItemReference(string itemName, ItemTypePathReference pathReference)
         {
             if (this.MappedItems.TryGetValue(itemName, out var pathReferences) == false)
             {
-                pathReferences = new TypeReferenceIndexedPathBuilder();
+                pathReferences = new TypeIndexedPathBuilder();
 
                 this.MappedItems.Add(itemName, pathReferences);
             }
@@ -29,7 +29,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
         {
             if (this.MappedItems.TryGetValue(itemName, out var pathReferences) == false)
             {
-                pathReferences = new TypeReferenceIndexedPathBuilder();
+                pathReferences = new TypeIndexedPathBuilder();
 
                 this.MappedItems.Add(itemName, pathReferences);
             }
@@ -37,11 +37,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             pathReferences.AddSubItem(subItemName, pathReference);
         }
 
-        public TypeReferenceIndexedItems Build()
+        public TypeIndexedItems Build()
         {
             var items = this.MappedItems.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Build());
 
-            return new TypeReferenceIndexedItems(items);
+            return new TypeIndexedItems(items);
         }
     }
 }

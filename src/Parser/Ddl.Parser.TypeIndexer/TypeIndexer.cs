@@ -11,11 +11,11 @@ using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 {
-    internal class TypeReferenceIndexer
+    internal class TypeIndexer
     {
         private readonly RootIndexerResolver indexerResolver;
 
-        public TypeReferenceIndexer(RootIndexerResolver indexerResolver)
+        public TypeIndexer(RootIndexerResolver indexerResolver)
         {
             this.indexerResolver = indexerResolver;
         }

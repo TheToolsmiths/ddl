@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits
     {
         public AstContentUnit(
             AstContentUnitInfo info,
-            IAstRootScope fileRootScope)
+            AstContentUnitScope fileRootScope)
         {
             this.Info = info;
             this.FileRootScope = fileRootScope;
@@ -16,6 +16,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits
 
         public AstContentUnitInfo Info { get; }
 
-        public IAstRootScope FileRootScope { get; }
+        public AstContentUnitScope FileRootScope { get; }
     }
 }

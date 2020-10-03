@@ -28,7 +28,8 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Writer
 
             writer.WriteStartArray("content");
 
-            RootScopeWriter.WriteScope(writer, contentUnit.FileRootScope);
+            throw new NotImplementedException();
+            //RootScopeWriter.WriteScope(writer, contentUnit.FileRootScope);
 
             writer.WriteEndArray();
 

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
-
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
@@ -18,10 +15,7 @@ namespace TheToolsmiths.Ddl.Parser
         private readonly IScopeContentParser parser;
         private readonly IParserContext parserContext;
 
-        public DdlParser(
-            ILogger<DdlParser> log,
-            IParserContext parserContext,
-            IScopeContentParser parser)
+        public DdlParser(ILogger<DdlParser> log, IParserContext parserContext, IScopeContentParser parser)
         {
             this.log = log;
             this.parserContext = parserContext;
@@ -44,7 +38,7 @@ namespace TheToolsmiths.Ddl.Parser
             return ContentUnitParseResult.FromValue(fileContent);
         }
 
-        private async Task<Result<IAstRootScope>> ParseFileScopeContent(AstContentUnitInfo info)
+        private async Task<Result<AstContentUnitScope>> ParseFileScopeContent(AstContentUnitInfo info)
         {
             try
             {
@@ -55,9 +49,9 @@ namespace TheToolsmiths.Ddl.Parser
                     throw new NotImplementedException();
                 }
 
-                var value = new AstRootScope(result.Value, AstAttributeUseCollection.Empty);
+                var value = new AstContentUnitScope(result.Value);
 
-                return Result.FromValue<IAstRootScope>(value);
+                return Result.FromValue(value);
             }
             catch (Exception e)
             {
@@ -66,7 +60,7 @@ namespace TheToolsmiths.Ddl.Parser
                     Debugger.Break();
                 }
 
-                return Result.FromErrorMessage<IAstRootScope>(e.ToString());
+                return Result.FromErrorMessage<AstContentUnitScope>(e.ToString());
             }
         }
     }

@@ -9,29 +9,20 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
 {
     internal class AstContentUnitScopeBuilder : IAstContentUnitScopeBuilder
     {
-        private readonly IAstRootScopeBuilder scopeBuilder;
-
-        public AstContentUnitScopeBuilder(IAstRootScopeBuilder scopeBuilder)
+        public ContentUnitScopeBuildResult BuildScope(IRootScopeBuildContext context, AstContentUnitScope rootScope)
         {
-            this.scopeBuilder = scopeBuilder;
-        }
+            var result = context.CommonBuilders.BuildScopeContent(rootScope.Content);
 
-        public ContentUnitScopeBuildResult BuildScope(IRootScopeBuildContext context, IAstRootScope rootScope)
-        {
-            var result = this.scopeBuilder.BuildScope(context, rootScope);
-
-            if (result is RootScopeBuildSuccess success)
-            {
-                var scopeContent = ScopeContent.Create(success.Scopes);
-
-                var contentUnitScope = new ContentUnitScope(scopeContent);
-
-                return new ContentUnitScopeBuildSuccess(contentUnitScope);
-            }
-            else
+            if (result.IsError)
             {
                 throw new NotImplementedException();
             }
+
+            ScopeContent scopeContent = result.Value;
+
+            var contentUnitScope = new ContentUnitScope(scopeContent);
+
+            return new ContentUnitScopeBuildSuccess(contentUnitScope);
         }
     }
 }

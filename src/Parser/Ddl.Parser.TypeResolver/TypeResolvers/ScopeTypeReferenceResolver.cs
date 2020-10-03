@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 
 using TheToolsmiths.Ddl.Models.ImportPaths;
+using TheToolsmiths.Ddl.Models.Packages.Index;
 using TheToolsmiths.Ddl.Models.Paths;
+using TheToolsmiths.Ddl.Models.Types.Index;
 using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.References.Resolve;
 using TheToolsmiths.Ddl.Models.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 {
     public class ScopeTypeReferenceResolver : IScopeTypeReferenceResolver
     {
         private ScopeTypeReferenceResolver(
-            TypeReferenceIndex typeIndex,
-            TypeReferenceIndexedNamespace namespaceIndex,
+            PackageTypeIndex packageTypeIndex,
+            TypeIndexedNamespace namespaceIndex,
             ImportPathReferenceResolver importPathResolver,
+            BuiltinTypeReferenceResolver builtinTypeReferenceResolver,
             IReadOnlyDictionary<string, GenericTypeNameParameter> genericParameters)
         {
-            this.TypeIndex = typeIndex;
+            this.BuiltinTypeReferenceResolver = builtinTypeReferenceResolver;
+            this.PackageTypeIndex = packageTypeIndex;
             this.NamespaceIndex = namespaceIndex;
             this.GenericParameters = genericParameters;
             this.ImportPathResolver = importPathResolver;
@@ -29,9 +33,11 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         public IReadOnlyDictionary<string, GenericTypeNameParameter> GenericParameters { get; }
 
-        public TypeReferenceIndex TypeIndex { get; }
+        public BuiltinTypeReferenceResolver BuiltinTypeReferenceResolver { get; }
 
-        public TypeReferenceIndexedNamespace NamespaceIndex { get; }
+        public PackageTypeIndex PackageTypeIndex { get; }
+
+        public TypeIndexedNamespace NamespaceIndex { get; }
 
         public ImportPathReferenceResolver ImportPathResolver { get; }
 
@@ -64,7 +70,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
         {
             // Resolve BuiltIn Types
             {
-                if (this.TypeIndex.BuiltinTypeReferenceResolver.TryResolveBuiltinType(
+                if (this.BuiltinTypeReferenceResolver.TryResolveBuiltinType(
                     importPath,
                     out var typeResolution))
                 {
@@ -102,9 +108,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             }
 
             return new ScopeTypeReferenceResolver(
-                this.TypeIndex,
+                this.PackageTypeIndex,
                 this.NamespaceIndex,
                 this.ImportPathResolver,
+                this.BuiltinTypeReferenceResolver,
                 concatParams);
         }
 
@@ -113,22 +120,25 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             var updatedImportPathResolver = this.ImportPathResolver.AddImports(this, imports);
 
             return new ScopeTypeReferenceResolver(
-                this.TypeIndex,
+                this.PackageTypeIndex,
                 this.NamespaceIndex,
                 updatedImportPathResolver,
+                this.BuiltinTypeReferenceResolver,
                 this.GenericParameters);
         }
 
         public static ScopeTypeReferenceResolver CreateForNamespace(
-            TypeReferenceIndex typeIndex,
-            TypeReferenceIndexedNamespace namespaceIndex)
+            PackageTypeIndex packageTypeIndex,
+            TypeIndexedNamespace namespaceIndex,
+            BuiltinTypeReferenceResolver builtinTypeReferenceResolver)
         {
             var importPathResolver = new ImportPathReferenceResolver();
 
             return new ScopeTypeReferenceResolver(
-                typeIndex,
+                packageTypeIndex,
                 namespaceIndex,
                 importPathResolver,
+                builtinTypeReferenceResolver,
                 new Dictionary<string, GenericTypeNameParameter>());
         }
 
@@ -197,7 +207,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
             // Resolve BuiltIn Types
             {
-                if (this.TypeIndex.BuiltinTypeReferenceResolver.TryResolveBuiltinType(typePath, out var typeResolution))
+                if (this.BuiltinTypeReferenceResolver.TryResolveBuiltinType(typePath, out var typeResolution))
                 {
                     return typeResolution;
                 }
@@ -321,7 +331,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         private bool TryResolveFromNamespace<T>(
             in ReadOnlySpan<T> pathParts,
-            TypeReferenceIndexedNamespace indexedNamespace,
+            TypeIndexedNamespace indexedNamespace,
             out TypeResolution typeResolution)
             where T : IPathPart
         {
@@ -347,7 +357,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         private bool TryResolveFromChildEntries<T>(
             in ReadOnlySpan<T> pathParts,
-            TypeReferenceIndexedNamespace indexedNamespace,
+            TypeIndexedNamespace indexedNamespace,
             out TypeResolution typeResolution)
             where T : IPathPart
         {
@@ -390,7 +400,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
         }
 
         private bool TryResolveFromParentNamespace<T>(
-            TypeReferenceIndexedNamespace indexedNamespace,
+            TypeIndexedNamespace indexedNamespace,
             in ReadOnlySpan<T> pathParts,
             out TypeResolution typeResolution)
             where T : IPathPart
@@ -406,7 +416,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         private bool TryResolvePathFromChildNamespace<T>(
             in ReadOnlySpan<T> pathParts,
-            TypeReferenceIndexedNamespace indexedNamespace,
+            TypeIndexedNamespace indexedNamespace,
             out TypeResolution typeResolution)
             where T : IPathPart
         {
@@ -421,7 +431,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         private bool TryResolvePathFromItems<T>(
             in ReadOnlySpan<T> pathParts,
-            TypeReferenceIndexedPath indexedPath,
+            TypeIndexedPath indexedPath,
             out TypeResolution typeResolution)
             where T : IPathPart
         {

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 using TheToolsmiths.Ddl.Cli.Builders;
 using TheToolsmiths.Ddl.Cli.Lexers;
+using TheToolsmiths.Ddl.Cli.Packagers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Plugins;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
@@ -58,8 +59,9 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
             services.AddScoped<DdlLexerTokenWriter>();
 
             services.AddTransient<ContentUnitsBuilder>();
-            services.AddTransient<ContentUnitsTypeIndexer>();
+            services.AddTransient<PackageTypeIndexer>();
             services.AddTransient<ContentUnitsTypeResolver>();
+            services.AddTransient<ContentUnitsPackager>();
         }
 
         private static void ConfigureAppConfiguration(HostBuilderContext context, IConfigurationBuilder config)

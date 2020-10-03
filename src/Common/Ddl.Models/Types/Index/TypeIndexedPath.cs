@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.References.TypeReferences;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Models.Types.Index
 {
-    public class TypeReferenceIndexedPath
+    public class TypeIndexedPath
     {
-        public TypeReferenceIndexedPath(
+        public TypeIndexedPath(
             IReadOnlyList<ItemTypePathReference> items,
             IReadOnlyDictionary<string, IReadOnlyList<SubItemTypePathReference>> subItems)
         {

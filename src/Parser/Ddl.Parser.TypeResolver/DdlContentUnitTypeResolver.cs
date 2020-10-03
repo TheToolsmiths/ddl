@@ -1,7 +1,8 @@
 ﻿using System;
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
+using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers;
 using TheToolsmiths.Ddl.Results;
 
@@ -18,11 +19,20 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver
             this.typeResolver = typeResolver;
         }
 
-        public Result<ContentUnit> ResolveTypes(ContentUnit contentUnit, TypeReferenceIndex typeIndex)
+        public Result<ContentUnit> ResolveTypes(
+            ContentUnit contentUnit,
+            PackageTypeIndex packageTypeIndex)
         {
-            var rootNamespace = typeIndex.GetContentUnitNamespaceIndex(contentUnit.Id);
+            if (packageTypeIndex.TryGetContentUnitNamespace(contentUnit.Id, out var rootNamespace) == false)
+            {
+                throw new NotImplementedException();
+            }
 
-            var typeReferenceResolver = ScopeTypeReferenceResolver.CreateForNamespace(typeIndex, rootNamespace);
+            var builtinReferences = new BuiltinTypeReferenceIndexBuilder();
+
+            var builtinTypeReferenceResolver = builtinReferences.Build();
+
+            var typeReferenceResolver = ScopeTypeReferenceResolver.CreateForNamespace(packageTypeIndex, rootNamespace, builtinTypeReferenceResolver);
 
             var scopeContext = RootScopeTypeResolveContext.CreateRootContext(this.serviceProvider, typeReferenceResolver);
 

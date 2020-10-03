@@ -8,14 +8,15 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Services
     {
         public static IServiceCollection RegisterIndexingServices(IServiceCollection services)
         {
-            services.AddScoped<DdlContentUnitIndexer>();
+            services.AddScoped<DdlContentUnitTypeIndexer>();
+            services.AddScoped<DdlContentUnitNamespaceIndexer>();
 
             services.AddScoped<NamespacePathResolver>();
-            services.AddScoped<TypeReferenceIndexer>();
+            services.AddScoped<TypeIndexer>();
 
             services.AddScoped(RootIndexerResolver.CreateResolver);
 
-            services.AddScoped<IDdlContentUnitCollectionIndexer, DdlContentUnitCollectionIndexer>();
+            services.AddScoped<IDdlPackageIndexer, DdlPackageIndexer>();
 
             return services;
         }

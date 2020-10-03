@@ -3,6 +3,7 @@
 using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Lexer.Services;
 using TheToolsmiths.Ddl.Parser.Build.Services;
+using TheToolsmiths.Ddl.Parser.Packager.Services;
 using TheToolsmiths.Ddl.Parser.Services;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Services;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Services;
@@ -37,6 +38,8 @@ namespace TheToolsmiths.Ddl.Services
             IndexingServicesInitializer.RegisterIndexingServices(this.services);
 
             ResolverServicesInitializer.RegisterResolverServices(this.services);
+
+            PackagerServicesInitializer.RegisterResolverServices(this.services);
 
             LexerServicesInitializer.RegisterLexerServices(this.services);
 

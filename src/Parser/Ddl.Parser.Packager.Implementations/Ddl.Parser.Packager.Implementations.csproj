@@ -5,15 +5,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>TheToolsmiths.Ddl.Parser.TypeResolver.Implementations</AssemblyName>
-    <RootNamespace>TheToolsmiths.Ddl.Parser.TypeResolver.Implementations</RootNamespace>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Packager.Implementations</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Packager.Implementations</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.TypeResolver\Ddl.Parser.TypeResolver.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Packager\Ddl.Parser.Packager.csproj" />
   </ItemGroup>
 
 </Project>

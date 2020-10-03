@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Packages.Index;
 using TheToolsmiths.Ddl.Parser.TypeIndexer;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Cli.TypeIndexers
 {
-    public class ContentUnitsTypeIndexer
+    public class PackageTypeIndexer
     {
-        private readonly ILogger<ContentUnitsTypeIndexer> log;
-        private readonly IDdlContentUnitCollectionIndexer indexer;
+        private readonly ILogger<PackageTypeIndexer> log;
+        private readonly IDdlPackageIndexer indexer;
 
-        public ContentUnitsTypeIndexer(
-            ILogger<ContentUnitsTypeIndexer> log,
-            IDdlContentUnitCollectionIndexer indexer)
+        public PackageTypeIndexer(
+            ILogger<PackageTypeIndexer> log,
+            IDdlPackageIndexer indexer)
         {
             this.log = log;
             this.indexer = indexer;
         }
 
-        public Result<TypeReferenceIndex> IndexContentUnits(IReadOnlyList<ContentUnit> contentUnits)
+        public Result<PackageTypeIndex> IndexContentUnits(IReadOnlyList<ContentUnit> contentUnits)
         {
             using var _ = this.log.BeginScope("Indexing Content Units");
 

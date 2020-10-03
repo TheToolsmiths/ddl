@@ -8,12 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using TheToolsmiths.Ddl.Cli.Builders;
+using TheToolsmiths.Ddl.Cli.Packagers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.ContentUnits.Index;
+using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Types.Index;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
-using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
@@ -52,17 +55,17 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             var contentUnits = buildResult.Value;
 
             // Index all model's content units
-            var indexResult = await IndexContentUnits(serviceProvider, contentUnits);
+            var indexResult = IndexContentUnits(serviceProvider, contentUnits);
 
             if (indexResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            var typeReferenceIndex = indexResult.Value;
+            var packageIndex = indexResult.Value;
 
             // Resolve all model's content units types
-            var typeResolveResult = await ResolveContentUnitsTypes(serviceProvider, contentUnits, typeReferenceIndex);
+            var typeResolveResult = ResolveContentUnitsTypes(serviceProvider, contentUnits, packageIndex);
 
             if (typeResolveResult.IsError)
             {
@@ -70,6 +73,18 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             }
 
             var resolvedContentUnits = typeResolveResult.Value;
+
+            timer.Stop();
+
+            // Resolve all model's content units types
+            var packageResult = PackageContentUnits(serviceProvider, resolvedContentUnits, packageIndex);
+
+            if (packageResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            var package = packageResult.Value;
 
             throw new NotImplementedException();
         }
@@ -111,14 +126,14 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             return Result.FromValue(result.Value);
         }
 
-        private static async Task<Result<TypeReferenceIndex>> IndexContentUnits(
+        private static Result<PackageTypeIndex> IndexContentUnits(
             IServiceProvider serviceProvider,
             IReadOnlyList<ContentUnit> contentUnits)
 
         {
             using var scope = serviceProvider.CreateScope();
 
-            var typeIndexer = scope.ServiceProvider.GetRequiredService<ContentUnitsTypeIndexer>();
+            var typeIndexer = scope.ServiceProvider.GetRequiredService<PackageTypeIndexer>();
 
             var result = typeIndexer.IndexContentUnits(contentUnits);
 
@@ -127,19 +142,38 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
                 throw new NotImplementedException();
             }
 
-            return Result.FromValue(result.Value);
+            return result;
         }
 
-        private static async Task<Result<IReadOnlyList<ContentUnit>>> ResolveContentUnitsTypes(
+        private static Result<IReadOnlyList<ContentUnit>> ResolveContentUnitsTypes(
             IServiceProvider serviceProvider,
             IReadOnlyList<ContentUnit> contentUnits,
-            TypeReferenceIndex typeReferenceIndex)
+            PackageTypeIndex packageTypeIndex)
         {
             using var scope = serviceProvider.CreateScope();
 
             var typeResolver = scope.ServiceProvider.GetRequiredService<ContentUnitsTypeResolver>();
 
-            var typeResolveResult = typeResolver.ResolveContentUnitsTypes(contentUnits, typeReferenceIndex);
+            var typeResolveResult = typeResolver.ResolveContentUnitsTypes(contentUnits, packageTypeIndex);
+
+            if (typeResolveResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            return typeResolveResult;
+        }
+
+        private static Result<object> PackageContentUnits(
+            IServiceProvider serviceProvider,
+            IReadOnlyList<ContentUnit> contentUnits,
+            PackageTypeIndex packageTypeIndex)
+        {
+            using var scope = serviceProvider.CreateScope();
+
+            var typeResolver = scope.ServiceProvider.GetRequiredService<ContentUnitsPackager>();
+
+            var typeResolveResult = typeResolver.PackageContentUnits(contentUnits, packageTypeIndex);
 
             if (typeResolveResult.IsError)
             {

@@ -2,11 +2,11 @@
 using System.Linq;
 using TheToolsmiths.Ddl.Models.References.TypeReferences;
 
-namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
+namespace TheToolsmiths.Ddl.Models.Types.Index
 {
-    public class TypeReferenceIndexedPathBuilder
+    public class TypeIndexedPathBuilder
     {
-        public TypeReferenceIndexedPathBuilder()
+        public TypeIndexedPathBuilder()
         {
             this.MappedItems = new List<ItemTypePathReference>();
             this.MappedSubItems = new Dictionary<string, List<SubItemTypePathReference>>();
@@ -33,12 +33,12 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences
             references.Add(pathReference);
         }
 
-        public TypeReferenceIndexedPath Build()
+        public TypeIndexedPath Build()
         {
             var items = this.MappedItems;
             var subItems = this.MappedSubItems.ToDictionary(kvp => kvp.Key, kvp => (IReadOnlyList<SubItemTypePathReference>)kvp.Value);
 
-            return new TypeReferenceIndexedPath(items, subItems);
+            return new TypeIndexedPath(items, subItems);
         }
     }
 }

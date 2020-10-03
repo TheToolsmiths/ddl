@@ -1,4 +1,4 @@
-﻿namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeReferences.BuiltinTypes
+﻿namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes
 {
     public class BuiltinTypeReferenceIndexBuilder
     {
