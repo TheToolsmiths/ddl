@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />

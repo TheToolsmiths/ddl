@@ -39,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl\Ddl.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
@@ -47,6 +46,7 @@
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Implementations\Ddl.Parser.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Build\Ddl.Parser.Build.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Implementations\Ddl.Parser.TypeIndexer.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Shared\Ddl.Parser.TypeIndexer.Shared.csproj" />

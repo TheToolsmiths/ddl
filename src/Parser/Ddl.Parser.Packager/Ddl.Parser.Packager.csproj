@@ -22,8 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
-    <ProjectReference Include="..\..\..\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
   </ItemGroup>
 
 </Project>

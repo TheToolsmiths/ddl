@@ -95,7 +95,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packager", "Packager", "{EE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser.Packager", "src\Parser\Ddl.Parser.Packager\Ddl.Parser.Packager.csproj", "{0FDAC0A7-44F6-4672-AA05-19C740D50D04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser.Packager.Shared", "Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj", "{92D0B635-91DD-4DFB-B8A5-C59207884613}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser.Packager.Shared", "src\Parser\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj", "{92D0B635-91DD-4DFB-B8A5-C59207884613}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ddl.Parser.Packager.Implementations", "src\Parser\Ddl.Parser.Packager.Implementations\Ddl.Parser.Packager.Implementations.csproj", "{ADAA32AC-5389-43F8-BDD8-6291254BA042}"
 EndProject

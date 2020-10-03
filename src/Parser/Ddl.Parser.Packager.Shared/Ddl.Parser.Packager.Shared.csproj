@@ -10,9 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Common\Ddl.Common\Ddl.Common.csproj" />
-    <ProjectReference Include="..\src\Common\Ddl.Models\Ddl.Models.csproj" />
-    <ProjectReference Include="..\src\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
   </ItemGroup>
 
 </Project>
