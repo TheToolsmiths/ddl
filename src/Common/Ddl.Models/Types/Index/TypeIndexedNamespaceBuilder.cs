@@ -6,9 +6,9 @@ namespace TheToolsmiths.Ddl.Models.Types.Index
 {
     public class TypeIndexedNamespaceBuilder
     {
-        public TypeIndexedNamespaceBuilder()
+        public TypeIndexedNamespaceBuilder(string identifier)
         {
-            this.Identifier = string.Empty;
+            this.Identifier = identifier;
             this.Items = new TypeIndexedItemsBuilder();
             this.ChildNamespaces = new Dictionary<string, TypeIndexedNamespaceBuilder>();
         }
@@ -23,7 +23,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Index
         {
             if (this.ChildNamespaces.TryGetValue(identifier, out var childNamespaceBuilder) == false)
             {
-                childNamespaceBuilder = new TypeIndexedNamespaceBuilder();
+                childNamespaceBuilder = new TypeIndexedNamespaceBuilder(identifier);
 
                 this.ChildNamespaces.Add(identifier, childNamespaceBuilder);
             }

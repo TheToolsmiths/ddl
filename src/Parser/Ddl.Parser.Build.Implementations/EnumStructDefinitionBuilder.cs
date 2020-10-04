@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
@@ -46,7 +47,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var structDefinition = new EnumStructDefinition(typeName, variants, attributes);
+            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+
+            var structDefinition = new EnumStructDefinition(typeName, typeNameResolution, variants, attributes);
 
             builder.Items.Add(structDefinition);
 
@@ -90,11 +93,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             {
                 throw new NotImplementedException();
             }
-
             var structContent = result.Value;
 
+            // TODO: Implement parser support for attributes on enum struct variants
+            var attributes = AttributeUseCollection.Empty;
+
             var variantName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
-            var variant = new EnumStructVariantDefinition(variantName, structContent);
+
+            var variant = new EnumStructVariantDefinition(variantName, attributes, structContent);
 
             return Result.FromValue(variant);
         }

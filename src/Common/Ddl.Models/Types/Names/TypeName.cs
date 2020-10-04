@@ -2,12 +2,12 @@
 {
     public abstract class TypeName
     {
-        protected TypeName(TypeNameIdentifier itemNameIdentifier)
+        protected TypeName(TypeNameIdentifier itemName)
         {
-            this.ItemNameIdentifier = itemNameIdentifier;
+            this.ItemName = itemName;
         }
 
-        public TypeNameIdentifier ItemNameIdentifier { get; }
+        public TypeNameIdentifier ItemName { get; }
 
         public abstract override string ToString();
     }

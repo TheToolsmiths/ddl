@@ -5,5 +5,7 @@
         ICommonTypeResolvers CommonTypeResolvers { get; }
 
         IScopeTypeReferenceResolver TypeReferenceResolver { get; }
+        
+        IScopeTypeNameResolver TypeNameResolver { get; }
     }
 }

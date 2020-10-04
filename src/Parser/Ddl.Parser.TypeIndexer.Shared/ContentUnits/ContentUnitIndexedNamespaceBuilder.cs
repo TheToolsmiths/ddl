@@ -91,7 +91,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
 
         private ContentUnitIndexedPathBuilder GetItemsCollection(EntityTypeReference typeReference)
         {
-            string typeName = typeReference.EntityTypeName.ItemNameIdentifier.Name;
+            string typeName = typeReference.EntityTypeName.ItemName.Name;
 
             if (this.Items.TryGetValue(typeName, out var itemsCollection) == false)
             {

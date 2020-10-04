@@ -2,8 +2,8 @@
 {
     public class TypedSubItemName : TypeName
     {
-        public TypedSubItemName(TypeNameIdentifier itemNameIdentifier, TypeNameIdentifier subItemNameIdentifier)
-            : base(itemNameIdentifier)
+        public TypedSubItemName(TypeNameIdentifier itemName, TypeNameIdentifier subItemNameIdentifier)
+            : base(itemName)
         {
             this.SubItemNameIdentifier = subItemNameIdentifier;
         }
@@ -12,7 +12,7 @@
 
         public override string ToString()
         {
-            return $"{this.ItemNameIdentifier}::{this.SubItemNameIdentifier}";
+            return $"{this.ItemName}::{this.SubItemNameIdentifier}";
         }
     }
 }

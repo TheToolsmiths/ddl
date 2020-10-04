@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
+using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
@@ -43,7 +46,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var structDefinition = new EnumDefinition(typeName, constants, attributes);
+            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+
+            var structDefinition = new EnumDefinition(typeName, typeNameResolution, constants, attributes);
 
             builder.Items.Add(structDefinition);
 
@@ -81,17 +86,24 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             IRootItemBuildContext itemContext,
             EnumDefinitionConstantDefinition astVariant)
         {
-            var result = itemContext.CommonBuilders.BuildLiteral(astVariant.LiteralValue);
-
-            if (result.IsError)
+            LiteralValue literalValue;
             {
-                throw new NotImplementedException();
+                var result = itemContext.CommonBuilders.BuildLiteral(astVariant.LiteralValue);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                literalValue = result.Value;
             }
 
-            var literalValue = result.Value;
+            // TODO: Implement parser support for attributes on enum constants
+            var attributes = AttributeUseCollection.Empty;
 
             var variantName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
-            var variant = new EnumConstantDefinition(variantName, literalValue);
+
+            var variant = new EnumConstantDefinition(variantName, attributes, literalValue);
 
             return Result.FromValue(variant);
         }

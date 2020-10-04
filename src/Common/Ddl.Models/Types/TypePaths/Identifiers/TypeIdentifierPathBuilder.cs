@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
         {
             var parts = CreateTypeReferenceParts(namespacePath);
 
-            parts.Add(CreateTypeIdentifierPathPart(typedItemName.ItemNameIdentifier));
+            parts.Add(CreateTypeIdentifierPathPart(typedItemName.ItemName));
 
             return namespacePath.IsRooted
                 ? TypeIdentifierPath.CreateRootedFromParts(parts)
@@ -22,7 +22,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
         {
             var parts = CreateTypeReferenceParts(namespacePath);
 
-            parts.Add(CreateTypeIdentifierPathPart(typedSubItemName.ItemNameIdentifier));
+            parts.Add(CreateTypeIdentifierPathPart(typedSubItemName.ItemName));
 
             parts.Add(CreateTypeIdentifierPathPart(typedSubItemName.SubItemNameIdentifier));
 

@@ -2,14 +2,14 @@
 {
     public class TypedItemName : TypeName
     {
-        public TypedItemName(TypeNameIdentifier itemNameIdentifier)
-            : base(itemNameIdentifier)
+        public TypedItemName(TypeNameIdentifier itemName)
+            : base(itemName)
         {
         }
 
         public override string ToString()
         {
-            return this.ItemNameIdentifier.ToString();
+            return this.ItemName.ToString();
         }
     }
 }

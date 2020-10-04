@@ -39,7 +39,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
         {
             var subItemTypeName = new SimpleTypeNameIdentifier(subItemIdentifier.Text);
 
-            return new TypedSubItemName(typedItemName.ItemNameIdentifier, subItemTypeName);
+            return new TypedSubItemName(typedItemName.ItemName, subItemTypeName);
         }
     }
 }

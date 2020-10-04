@@ -33,7 +33,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
 
         public void IndexSubItem(SubItemTypePathReference subItemTypeReference)
         {
-            string typeName = subItemTypeReference.EntityTypeName.ItemNameIdentifier.Name;
+            string typeName = subItemTypeReference.EntityTypeName.ItemName.Name;
 
             if (this.SubItems.TryGetValue(typeName, out var namedSubItems) == false)
             {

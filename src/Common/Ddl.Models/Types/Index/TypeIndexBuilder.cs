@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Index
     {
         public TypeIndexBuilder()
         {
-            this.RootNamespace = new TypeIndexedNamespaceBuilder();
+            this.RootNamespace = new TypeIndexedNamespaceBuilder(string.Empty);
         }
 
         public TypeIndexedNamespaceBuilder RootNamespace { get; }

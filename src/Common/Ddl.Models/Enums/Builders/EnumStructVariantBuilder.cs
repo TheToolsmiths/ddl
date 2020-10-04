@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
 using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Models.Enums.Builders
@@ -21,7 +22,8 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
 
             var content = this.Content.Build();
 
-            return new EnumStructVariantDefinition(variantName, content);
+            var attributes = AttributeUseCollection.Empty;
+            return new EnumStructVariantDefinition(variantName, attributes, content);
         }
     }
 }

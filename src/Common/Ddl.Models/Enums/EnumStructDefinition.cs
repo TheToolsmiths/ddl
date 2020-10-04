@@ -4,18 +4,38 @@ using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Items;
 using TheToolsmiths.Ddl.Models.EntryTypes;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Enums
 {
     public class EnumStructDefinition : ITypedRootItem
     {
-        public EnumStructDefinition(TypedItemName typeName, IReadOnlyList<EnumStructVariantDefinition> variants, AttributeUseCollection attributes)
+        public EnumStructDefinition(
+            TypedItemName typeName,
+            QualifiedItemTypeNameResolution typeNameResolution,
+            IReadOnlyList<EnumStructVariantDefinition> variants,
+            AttributeUseCollection attributes)
+            : this(ItemId.CreateNew(), typeName, typeNameResolution, variants, attributes)
         {
+        }
+
+        public EnumStructDefinition(
+            ItemId itemId,
+            TypedItemName typeName,
+            QualifiedItemTypeNameResolution typeNameResolution,
+            IReadOnlyList<EnumStructVariantDefinition> variants,
+            AttributeUseCollection attributes)
+        {
+            this.ItemId = itemId;
             this.TypeName = typeName;
+            this.TypeNameResolution = typeNameResolution;
             this.Variants = variants;
             this.Attributes = attributes;
-            this.ItemId = ItemId.CreateNew();
         }
+
+        public IReadOnlyList<EnumStructVariantDefinition> Variants { get; }
+
+        public AttributeUseCollection Attributes { get; }
 
         public ItemType ItemType => CommonItemTypes.EnumStructDefinition;
 
@@ -23,8 +43,6 @@ namespace TheToolsmiths.Ddl.Models.Enums
 
         public TypedItemName TypeName { get; }
 
-        public IReadOnlyList<EnumStructVariantDefinition> Variants { get; }
-
-        public AttributeUseCollection Attributes { get; }
+        public QualifiedItemTypeNameResolution TypeNameResolution { get; }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Enums;
+using TheToolsmiths.Ddl.Models.Structs.Content;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 using TheToolsmiths.Ddl.Results;
@@ -19,7 +21,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
 
             IReadOnlyList<EnumStructVariantDefinition> variants;
             {
-                var result = this.ResolveVariants(updatedItemContext, item.Variants);
+                var result = this.ResolveVariants(updatedItemContext, item.Variants, item.TypeName.ItemName);
 
                 if (result.IsError)
                 {
@@ -41,20 +43,23 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
                 attributes = result.Value;
             }
 
-            var resolvedItem = new EnumStructDefinition(item.TypeName, variants, attributes);
+            var typeNameResolution = updatedItemContext.TypeNameResolver.Resolve(item.TypeName);
+
+            var resolvedItem = new EnumStructDefinition(item.ItemId, item.TypeName, typeNameResolution, variants, attributes);
 
             return new RootItemTypeResolveSuccess(resolvedItem);
         }
 
         private Result<IReadOnlyList<EnumStructVariantDefinition>> ResolveVariants(
             IRootItemTypeResolveContext itemContext,
-            IReadOnlyList<EnumStructVariantDefinition> variants)
+            IReadOnlyList<EnumStructVariantDefinition> variants,
+            TypeNameIdentifier itemName)
         {
             var resolvedVariants = new List<EnumStructVariantDefinition>();
 
             foreach (var variant in variants)
             {
-                var result = this.ResolveVariant(itemContext, variant);
+                var result = this.ResolveVariant(itemContext, variant, itemName);
 
                 if (result.IsError)
                 {
@@ -67,18 +72,40 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
             return Result.FromValue<IReadOnlyList<EnumStructVariantDefinition>>(resolvedVariants);
         }
 
-        private Result<EnumStructVariantDefinition> ResolveVariant(IRootItemTypeResolveContext itemContext, EnumStructVariantDefinition variant)
+        private Result<EnumStructVariantDefinition> ResolveVariant(
+            IRootItemTypeResolveContext itemContext,
+            EnumStructVariantDefinition variant,
+            TypeNameIdentifier itemName)
         {
-            var result = itemContext.CommonTypeResolvers.ResolveStructDefinitionContent(variant.Content);
-
-            if (result.IsError)
+            StructDefinitionContent content;
             {
-                throw new NotImplementedException();
+                var result = itemContext.CommonTypeResolvers.ResolveStructDefinitionContent(variant.Content);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                content = result.Value;
             }
 
-            var content = result.Value;
+            AttributeUseCollection attributes;
+            {
+                var result = itemContext.CommonTypeResolvers.ResolveAttributes(variant.Attributes);
 
-            var resolvedVariant = new EnumStructVariantDefinition(variant.VariantId, variant.VariantName, content);
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                attributes = result.Value;
+            }
+
+            var subItemName = new TypedSubItemName(itemName, variant.Name);
+
+            var typeNameResolution = itemContext.TypeNameResolver.Resolve(subItemName);
+
+            var resolvedVariant = new EnumStructVariantDefinition(variant.SubItemId, variant.Name, typeNameResolution, attributes, content);
 
             return Result.FromValue(resolvedVariant);
         }

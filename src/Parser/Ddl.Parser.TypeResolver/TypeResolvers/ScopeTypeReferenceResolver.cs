@@ -441,7 +441,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
                 foreach (var itemTypePath in indexedPath.Items)
                 {
-                    var typeNameIdentifier = itemTypePath.TypedItemName.ItemNameIdentifier;
+                    var typeNameIdentifier = itemTypePath.TypedItemName.ItemName;
 
                     if (typeNameIdentifier.IdentifierKind == itemPart.PartKind)
                     {

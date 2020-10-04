@@ -4,6 +4,7 @@ using System.Linq;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Enums.Builders
 {
@@ -26,7 +27,9 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
 
             var variants = this.Variants.Select(v => v.Build()).ToList();
 
-            return new EnumStructDefinition(typeName, variants, AttributeUseCollection.Empty);
+            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+
+            return new EnumStructDefinition(typeName, typeNameResolution, variants, AttributeUseCollection.Empty);
         }
 
         public EnumStructDefinitionBuilder WithSimpleTypeName(string typeName)

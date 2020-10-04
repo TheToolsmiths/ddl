@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Structs;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
@@ -43,7 +43,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var structDefinition = new StructDefinition(typeName, structContent, attributes);
+            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+
+            var structDefinition = new StructDefinition(typeName, typeNameResolution, structContent, attributes);
 
             builder.Items.Add(structDefinition);
 

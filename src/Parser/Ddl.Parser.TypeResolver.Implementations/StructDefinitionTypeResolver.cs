@@ -40,7 +40,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations
                 structContent = result.Value;
             }
 
-            builder.Item = new StructDefinition(item.ItemId, item.TypeName, structContent, attributes);
+            var typeNameResolution = updatedItemContext.TypeNameResolver.Resolve(item.TypeName);
+
+            builder.Item = new StructDefinition(item.ItemId, item.TypeName, typeNameResolution, structContent, attributes);
 
             return builder.CreateSuccessResult();
         }

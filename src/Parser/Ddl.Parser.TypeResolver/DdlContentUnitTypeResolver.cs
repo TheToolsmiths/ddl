@@ -34,7 +34,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver
 
             var typeReferenceResolver = ScopeTypeReferenceResolver.CreateForNamespace(packageTypeIndex, rootNamespace, builtinTypeReferenceResolver);
 
-            var scopeContext = RootScopeTypeResolveContext.CreateRootContext(this.serviceProvider, typeReferenceResolver);
+            var typeNameResolver = new ScopeTypeNameResolver(rootNamespace.NamespacePath);
+
+            var scopeContext = RootScopeTypeResolveContext.CreateRootContext(this.serviceProvider, typeReferenceResolver, typeNameResolver);
 
             var result = this.typeResolver.ResolveContentUnitScopeTypes(scopeContext, contentUnit.RootScope);
 

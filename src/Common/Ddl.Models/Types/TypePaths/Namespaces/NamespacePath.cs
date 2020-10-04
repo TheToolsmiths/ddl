@@ -10,6 +10,11 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
         {
             this.IsRooted = isRooted;
             this.Identifiers = identifiers.ToList();
+
+            if (this.Identifiers.Any(string.IsNullOrWhiteSpace))
+            {
+                throw new ArgumentException("Some path identifiers are not valid", nameof(identifiers));
+            }
         }
 
         protected NamespacePath(bool isRooted)

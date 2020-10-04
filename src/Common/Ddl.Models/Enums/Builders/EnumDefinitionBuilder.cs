@@ -4,6 +4,7 @@ using System.Linq;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Enums.Builders
 {
@@ -26,7 +27,9 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
 
             var variants = this.Constants.Select(v => v.Build()).ToList();
 
-            return new EnumDefinition(typeName, variants, AttributeUseCollection.Empty);
+            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+
+            return new EnumDefinition(typeName, typeNameResolution, variants, AttributeUseCollection.Empty);
         }
 
         public EnumConstantDefinitionBuilder WithConstant(string constantName)

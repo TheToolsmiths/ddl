@@ -1,5 +1,6 @@
 ﻿using System;
 
+using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Types.Names;
 
@@ -36,7 +37,9 @@ namespace TheToolsmiths.Ddl.Models.Enums.Builders
 
             var typeName = new SimpleTypeNameIdentifier(name);
 
-            return new EnumConstantDefinition(typeName, value);
+            var attributes = AttributeUseCollection.Empty;
+
+            return new EnumConstantDefinition(typeName, attributes, value);
         }
     }
 }
