@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 {
-    public class RootNamespacePath : NamespacePath
+    public partial class RootNamespacePath : NamespacePath
     {
-        private RootNamespacePath(IEnumerable<string> identifiers)
+        private RootNamespacePath(ImmutableArray<string> identifiers)
             : base(identifiers, true)
         {
         }
@@ -18,17 +20,32 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces
 
         public new static RootNamespacePath CreateFromIdentifiers(IEnumerable<string> identifiers)
         {
-            return new RootNamespacePath(identifiers);
+            return new RootNamespacePath(ImmutableArray.CreateRange(identifiers));
         }
 
-        public static RootNamespacePath Create(RootNamespacePath namespacePath, string identifier)
+        public static RootNamespacePath Append(RootNamespacePath namespacePath, string identifier)
         {
-            var identifiers = new List<string>();
+            var builder = ImmutableArray.CreateBuilder<string>(namespacePath.Identifiers.Length + 1);
 
-            identifiers.AddRange(namespacePath.Identifiers);
-            identifiers.Add(identifier);
+            builder.AddRange(namespacePath.Identifiers);
+            builder.Add(identifier);
 
-            return new RootNamespacePath(identifiers);
+            return new RootNamespacePath(builder.MoveToImmutable());
+        }
+
+        public new static RootNamespacePath Append(NamespacePath namespacePath, string identifier)
+        {
+            if (string.IsNullOrWhiteSpace(identifier))
+            {
+                throw new ArgumentNullException(nameof(identifier));
+            }
+
+            var builder = ImmutableArray.CreateBuilder<string>(namespacePath.Identifiers.Length + 1);
+
+            builder.AddRange(namespacePath.Identifiers);
+            builder.Add(identifier);
+
+            return new RootNamespacePath(builder.MoveToImmutable());
         }
     }
 }

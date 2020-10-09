@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
     {
         public ItemTypePathReference(
             TypedItemName typedItemName,
-            NamespacePath namespacePath,
+            RootNamespacePath namespacePath,
             ItemReference itemReference,
             TypeIdentifierPath typeIdentifier)
             : base(typeIdentifier, namespacePath)

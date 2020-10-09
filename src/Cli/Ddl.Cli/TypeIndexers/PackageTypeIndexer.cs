@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.TypeIndexer;
 using TheToolsmiths.Ddl.Results;
 

@@ -8,6 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Services
         {
             services.AddScoped<IDdlContentUnitCollectionPackager, DdlContentUnitCollectionPackager>();
             services.AddScoped<DdlContentUnitPackager>();
+            services.AddScoped<DdlPackager>();
 
             return services;
         }

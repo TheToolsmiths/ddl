@@ -18,7 +18,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Names
 
         public override string ToString()
         {
-            return $"{this.Name}<{string.Join(',', this.GenericParameters.Select(gp => gp.ToString()))}>";
+            return PathHelpers.ToGenericName(this.Name, this.GenericParameters);
         }
 
         public static TypeNameIdentifier Create(string typeName, params string[] genericParameters)

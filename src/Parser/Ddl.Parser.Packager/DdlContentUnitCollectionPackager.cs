@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Packages;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
+using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Packager
@@ -11,15 +11,48 @@ namespace TheToolsmiths.Ddl.Parser.Packager
     internal class DdlContentUnitCollectionPackager : IDdlContentUnitCollectionPackager
     {
         private readonly DdlContentUnitPackager contentUnitPackager;
+        private readonly DdlPackager packager;
 
-        public DdlContentUnitCollectionPackager(DdlContentUnitPackager contentUnitPackager)
+        public DdlContentUnitCollectionPackager(
+            DdlContentUnitPackager contentUnitPackager,
+            DdlPackager packager)
         {
             this.contentUnitPackager = contentUnitPackager;
+            this.packager = packager;
         }
 
-        public Result<object> ResolveCollection(IReadOnlyList<ContentUnit> contentUnits, PackageTypeIndex packageTypeIndex)
+        public Result<Package> PackageCollection(IReadOnlyList<ContentUnit> contentUnits, PackageTypeIndex packageTypeIndex)
         {
-            var packedContentUnits = new List<PackagedContentUnit>();
+            IReadOnlyList<PackageContentUnit> packedContentUnits;
+            {
+                var result = this.PackageContentUnits(contentUnits, packageTypeIndex);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                packedContentUnits = result.Value;
+            }
+
+            Package package;
+            {
+                var result = this.PackContentUnits(packedContentUnits);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                package = result.Value;
+            }
+
+            return Result.FromValue(package);
+        }
+
+        private Result<IReadOnlyList<PackageContentUnit>> PackageContentUnits(IReadOnlyList<ContentUnit> contentUnits, PackageTypeIndex packageTypeIndex)
+        {
+            var packedContentUnits = new List<PackageContentUnit>();
 
             foreach (var contentUnit in contentUnits)
             {
@@ -33,7 +66,19 @@ namespace TheToolsmiths.Ddl.Parser.Packager
                 packedContentUnits.Add(result.Value);
             }
 
-            throw new NotImplementedException();
+            return Result.FromValue<IReadOnlyList<PackageContentUnit>>(packedContentUnits);
+        }
+
+        private Result<Package> PackContentUnits(IReadOnlyList<PackageContentUnit> contentUnits)
+        {
+            var result = this.packager.PackageContentUnits(contentUnits);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            return result;
         }
     }
 }

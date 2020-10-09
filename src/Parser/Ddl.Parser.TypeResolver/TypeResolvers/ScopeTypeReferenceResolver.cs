@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Models.Paths;
 using TheToolsmiths.Ddl.Models.Types.Index;
 using TheToolsmiths.Ddl.Models.Types.Names;
@@ -70,9 +71,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
         {
             // Resolve BuiltIn Types
             {
-                if (this.BuiltinTypeReferenceResolver.TryResolveBuiltinType(
-                    importPath,
-                    out var typeResolution))
+                if (this.BuiltinTypeReferenceResolver.TryResolveBuiltinType(importPath, out var typeResolution))
                 {
                     return typeResolution;
                 }
@@ -306,14 +305,45 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             {
                 throw new NotImplementedException();
             }
+
             // If import resolves to another import, recursively check the resolves of the imports
-            else if (importResolution.TypeResolution is MatchImportResolution matchImportResolution)
+            if (importResolution.TypeResolution is MatchImportResolution matchImportResolution)
             {
-                throw new NotImplementedException();
+                typeResolution = this.ResolveMatchImportResolution(matchImportResolution, typePath.PathParts);
+                return true;
             }
 
             typeResolution = TypeResolution.Unresolved;
             return false;
+        }
+
+        private TypeResolution ResolveMatchImportResolution<T>(
+            MatchImportResolution matchImportResolution,
+            ImmutableArray<T> typePathParts)
+            where T : IPathPart
+        {
+            switch (matchImportResolution.ImportPathTypeResolution)
+            {
+                case BuiltinType builtinType:
+                    break;
+                case MatchGenericParameterResolution matchGenericParameterResolution:
+                    break;
+                case MatchImportResolution childImportResolution:
+                    {
+                        var childResolution = this.ResolveMatchImportResolution(childImportResolution, typePathParts);
+                        return new MatchImportResolution(matchImportResolution.ImportPathReference, childResolution);
+                    }
+                case ResolvedNamespace resolvedNamespace:
+                    break;
+                case ResolvedType resolvedType:
+                    break;
+                case UnresolvedType unresolvedType:
+                    return matchImportResolution;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            throw new NotImplementedException();
         }
 
         private bool TryResolveNamespacePath<T>(IQualifiedPath<T> typePath, out TypeResolution typeResolution)

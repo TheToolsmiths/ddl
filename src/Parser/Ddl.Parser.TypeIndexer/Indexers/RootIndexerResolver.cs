@@ -21,33 +21,31 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Indexers
             this.modelConfiguration = modelConfiguration;
         }
 
-        public bool TryResolveItemBuilder(
+        public bool TryResolveItemIndexer(
             IRootItem item,
-            [MaybeNullWhen(false)] out RootItemIndexerWrapper itemBuilder)
+            [MaybeNullWhen(false)] out RootItemIndexerWrapper itemIndexer)
         {
             var instanceType = item.GetType();
             var itemType = item.ItemType;
 
             if (this.modelConfiguration.TryGetTypeValue(itemType, out var builderType))
             {
-                var wrapperOpenType = typeof(RootItemIndexerWrapper<,>);
+                Type wrapperType = typeof(RootItemIndexerWrapper<,>).MakeGenericType(builderType, instanceType);
 
-                Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
+                itemIndexer = (RootItemIndexerWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
 
-                itemBuilder = (RootItemIndexerWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
-
-                return itemBuilder != null;
+                return true;
             }
 
-            itemBuilder = default;
+            itemIndexer = default;
             return false;
         }
 
         public static RootIndexerResolver CreateResolver(IServiceProvider serviceProvider)
         {
-            var astConfigurationRegistry = serviceProvider.GetRequiredService<IModelConfigurationRegistry>();
+            var configurationRegistry = serviceProvider.GetRequiredService<IModelConfigurationRegistry>();
 
-            if (astConfigurationRegistry.TryGetSection(ConfigurationKeys.IndexingConfigurationSection, out var configurationSection) == false)
+            if (configurationRegistry.TryGetSection(ConfigurationKeys.IndexingConfigurationSection, out var configurationSection) == false)
             {
                 throw new NotImplementedException();
             }

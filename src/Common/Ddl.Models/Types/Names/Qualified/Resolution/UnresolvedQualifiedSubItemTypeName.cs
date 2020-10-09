@@ -9,7 +9,7 @@
 
         public override string ToString()
         {
-            return $"SubItem TypeName: {nameof(QualifiedTypeNameResolutionKind.Unresolved)}";
+            return "Unresolved SubItem TypeName";
         }
     }
 }

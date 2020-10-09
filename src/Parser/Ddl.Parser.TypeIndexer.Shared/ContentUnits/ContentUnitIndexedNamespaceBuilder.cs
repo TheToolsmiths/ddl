@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+
 using TheToolsmiths.Ddl.Models.References.TypeReferences;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 
@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
 {
     public class ContentUnitIndexedNamespaceBuilder
     {
-        private ContentUnitIndexedNamespaceBuilder(NamespacePath namespacePath, string identifier, bool isRoot)
+        private ContentUnitIndexedNamespaceBuilder(RootNamespacePath namespacePath, string identifier, bool isRoot)
         {
             this.NamespacePath = namespacePath;
             this.Identifier = identifier;
@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
 
         public Dictionary<string, ContentUnitIndexedPathBuilder> Items { get; }
 
-        public NamespacePath NamespacePath { get; }
+        public RootNamespacePath NamespacePath { get; }
 
         public string Identifier { get; }
 
@@ -42,13 +42,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
             return new ContentUnitIndexedNamespace(this.Identifier, this.IsRoot, items, childNamespaces);
         }
 
-        public ContentUnitIndexedNamespaceBuilder TryGetNamespaceBuilder(NamespacePath namespacePath)
+        public ContentUnitIndexedNamespaceBuilder TryGetNamespaceBuilder(RootNamespacePath namespacePath)
         {
-            if (namespacePath.IsRooted)
-            {
-                return this;
-            }
-
             var currentNamespaceBuilder = this;
 
             foreach (string identifier in namespacePath.Identifiers)
@@ -56,7 +51,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
                 currentNamespaceBuilder = currentNamespaceBuilder.GetOrCreateChildNamespace(identifier);
             }
 
-            throw new NotImplementedException();
+            return currentNamespaceBuilder;
         }
 
         public void IndexItemType(ItemTypePathReference itemTypeReference)
@@ -80,7 +75,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
                 return childBuilder;
             }
 
-            var namespacePath = NamespacePath.Append(this.NamespacePath, identifier);
+            var namespacePath = RootNamespacePath.Append((NamespacePath) this.NamespacePath, identifier);
 
             childBuilder = new ContentUnitIndexedNamespaceBuilder(namespacePath, identifier, false);
 

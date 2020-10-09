@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.Packager;
 using TheToolsmiths.Ddl.Results;
 
@@ -23,13 +23,13 @@ namespace TheToolsmiths.Ddl.Cli.Packagers
             this.collectionPackager = collectionPackager;
         }
 
-        public Result<object> PackageContentUnits(
+        public Result<Package> PackageContentUnits(
             IReadOnlyList<ContentUnit> contentUnits,
             PackageTypeIndex packageTypeIndex)
         {
             using var _ = this.log.BeginScope("Packaging Content Units");
 
-            var result = this.collectionPackager.ResolveCollection(contentUnits, packageTypeIndex);
+            var result = this.collectionPackager.PackageCollection(contentUnits, packageTypeIndex);
 
             if (result.IsError)
             {
@@ -38,7 +38,7 @@ namespace TheToolsmiths.Ddl.Cli.Packagers
 
             this.log.LogInformation("Content Units packaged");
 
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

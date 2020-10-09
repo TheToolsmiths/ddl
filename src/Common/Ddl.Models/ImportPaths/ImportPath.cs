@@ -51,7 +51,7 @@ namespace TheToolsmiths.Ddl.Models.ImportPaths
 
         public override string ToString()
         {
-            return $"{(this.IsRooted ? "::" : "")}{string.Join("::", this.PathParts)}";
+            return PathHelpers.ToQualifiedString(this.IsRooted, this.PathParts);
         }
     }
 }

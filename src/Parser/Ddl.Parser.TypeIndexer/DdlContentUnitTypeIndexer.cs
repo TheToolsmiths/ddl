@@ -24,6 +24,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             ContentUnitNamespaceIndex namespaceIndex,
             IReadOnlyList<ContentUnit> contentUnits)
         {
+            // TODO: Reimplement in a way that doesnt need two passes
+
             var indexedTypes = new List<ContentUnitIndexedTypes>();
 
             foreach (var contentUnit in contentUnits)
@@ -45,7 +47,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             return Result.FromValue(typeIndex);
         }
 
-        public Result<ContentUnitIndexedTypes> Index(ContentUnitNamespaceIndex namespaceIndex, ContentUnit contentUnit)
+        private Result<ContentUnitIndexedTypes> Index(ContentUnitNamespaceIndex namespaceIndex, ContentUnit contentUnit)
         {
             if (namespaceIndex.TryGetContentUnitNameSpace(contentUnit.Id, out var namespacePath) == false)
             {

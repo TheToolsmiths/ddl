@@ -1,13 +1,15 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
+﻿using TheToolsmiths.Ddl.Models.Paths;
+
+namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
 {
-    public abstract class TypeIdentifierPathPart
+    public abstract class TypeIdentifierPathPart : IPathPart
     {
         protected TypeIdentifierPathPart(string name)
         {
             this.Name = name;
         }
 
-        public abstract TypeIdentifierPathPartKind PartKind { get; }
+        public abstract PathPartKind PartKind { get; }
 
         public string Name { get; }
     }

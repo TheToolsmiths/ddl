@@ -1,5 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.Packages;
+using TheToolsmiths.Ddl.Models.Package;
 using TheToolsmiths.Ddl.Models.References.ItemReferences;
 
 namespace TheToolsmiths.Ddl.Models.Types.Resolution

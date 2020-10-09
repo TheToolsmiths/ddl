@@ -14,9 +14,10 @@ using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Index;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Models.Types.Index;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Packager;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
@@ -74,8 +75,6 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 
             var resolvedContentUnits = typeResolveResult.Value;
 
-            timer.Stop();
-
             // Resolve all model's content units types
             var packageResult = PackageContentUnits(serviceProvider, resolvedContentUnits, packageIndex);
 
@@ -85,6 +84,8 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             }
 
             var package = packageResult.Value;
+
+            timer.Stop();
 
             throw new NotImplementedException();
         }
@@ -164,7 +165,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             return typeResolveResult;
         }
 
-        private static Result<object> PackageContentUnits(
+        private static Result<Package> PackageContentUnits(
             IServiceProvider serviceProvider,
             IReadOnlyList<ContentUnit> contentUnits,
             PackageTypeIndex packageTypeIndex)

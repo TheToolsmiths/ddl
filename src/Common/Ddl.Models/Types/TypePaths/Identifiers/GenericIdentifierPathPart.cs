@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
+﻿using TheToolsmiths.Ddl.Models.Paths;
+
+namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
 {
     public class GenericIdentifierPathPart : TypeIdentifierPathPart
     {
@@ -10,13 +12,13 @@
             this.GenericParametersCount = genericParametersCount;
         }
 
-        public override TypeIdentifierPathPartKind PartKind => TypeIdentifierPathPartKind.Generic;
+        public override PathPartKind PartKind => PathPartKind.Generic;
 
         public int GenericParametersCount { get; }
 
         public override string ToString()
         {
-            return $"{this.Name}<{new string(',', this.GenericParametersCount - 1)}>";
+            return PathHelpers.ToGenericIdentifier(this.Name, this.GenericParametersCount);
         }
     }
 }

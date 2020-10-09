@@ -7,16 +7,16 @@
 **  Imports   ** 
 ***************/
 import module_name1::export1;
-import ::module_name2::export1;
+import ::module_name2::export2;
 import module_name3 as name1;
 import module_name4::export1 as name3;
-import module_name5::{ export1 };
+import module_name5::{ export5 };
 import module_name6;
 import { module_name7 };
 import module_name8::{ export1 as alias1 };
-import module_name9::{ export1, export2 };
+import module_name9::{ export9, export9_other };
 import module_name10::path::to::specific::unexported::file::{ foo , bar };
-import ::module_name11::{ export1 , export2 as alias2 };
+import ::module_name11::{ export11 , export2 as alias12 };
 import module_name12::{ sub1 };
 import module_name13::{ sub1 as name5 };
 
@@ -283,7 +283,7 @@ scope
         // 6. Places the Foo::Bar root namespace in scope
         import ::Foo::Bar;        
         // 7. Places the Foo::Bar namespace in scope, based on import (1)
-        import Foo::Bar;
+        import Foo::Bar2;
         // 8. Places the BarStruct1 type in scope, based on import (1)
         import Foo::Bar::BarStruct1;
         // 9. Places the BarStruct2 type in scope, based on root namespace

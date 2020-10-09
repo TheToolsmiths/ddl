@@ -8,14 +8,14 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 {
     internal class TypeIndexingContext
     {
-        public TypeIndexingContext(NamespacePath namespacePath)
+        public TypeIndexingContext(RootNamespacePath namespacePath)
         {
             this.NamespacePath = namespacePath;
 
             this.IndexedTypes = new List<EntityTypeReference>();
         }
 
-        public NamespacePath NamespacePath { get; }
+        public RootNamespacePath NamespacePath { get; }
 
         public List<EntityTypeReference> IndexedTypes { get; }
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
 {
@@ -27,7 +27,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers
 
         public override string ToString()
         {
-            return $"{(this.IsRooted ? "::" : "")}{string.Join("::", this.PathParts.Select(pp => pp.ToString()))}";
+            return PathHelpers.ToQualifiedString(this.IsRooted, this.PathParts);
         }
     }
 }

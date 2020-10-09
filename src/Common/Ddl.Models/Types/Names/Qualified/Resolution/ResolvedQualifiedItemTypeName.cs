@@ -12,7 +12,7 @@
 
         public override string ToString()
         {
-            return $"Item TypeName: {this.TypeName}";
+            return $"Item > {this.TypeName}";
         }
     }
 }

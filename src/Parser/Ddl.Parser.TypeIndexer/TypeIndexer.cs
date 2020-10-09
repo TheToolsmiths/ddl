@@ -62,7 +62,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
                 return Result.Success;
             }
 
-            if (this.indexerResolver.TryResolveItemBuilder(item, out var itemIndexer) == false)
+            if (this.indexerResolver.TryResolveItemIndexer(item, out var itemIndexer) == false)
             {
                 throw new NotImplementedException();
             }

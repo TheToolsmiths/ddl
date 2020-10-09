@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
@@ -23,7 +24,7 @@ namespace TheToolsmiths.Ddl.Models.Types.TypePaths.References
 
         public override string ToString()
         {
-            return $"{this.Name}<{string.Join(',', this.ParameterTypesIndices)}>";
+            return PathHelpers.ToGenericIdentifier(this.Name, this.ParameterTypesIndices.Count);
         }
     }
 }

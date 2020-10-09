@@ -13,13 +13,6 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
             RootNamespacePath contentUnitNamespace,
             IReadOnlyList<EntityTypeReference> indexedTypes)
         {
-            // TODO: Index and build the indexed types collection
-            // I'm skipping implementation for now since the actual indexing usage isn't clear yet
-
-            List<ItemTypePathReference> items = new List<ItemTypePathReference>();
-            List<SubItemTypePathReference> subItems = new List<SubItemTypePathReference>();
-            List<EntityTypeReference> entities = new List<EntityTypeReference>();
-
             var rootNamespaceBuilder = ContentUnitIndexedNamespaceBuilder.CreateRoot();
 
             foreach (var indexedType in indexedTypes)
@@ -29,10 +22,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
                 switch (indexedType)
                 {
                     case ItemTypePathReference itemTypeReference:
-                        IndexItemType(itemTypeReference, namespaceBuilder);
+                        namespaceBuilder.IndexItemType(itemTypeReference);
                         break;
                     case SubItemTypePathReference subItemTypeReference:
-                        IndexSubItemType(subItemTypeReference, namespaceBuilder);
+                        namespaceBuilder.IndexSubItemType(subItemTypeReference);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(indexedType));
@@ -42,26 +35,6 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
             var rootIndexedNamespace = rootNamespaceBuilder.Build();
 
             return new ContentUnitIndexedTypes(contentUnitId, contentUnitNamespace, rootIndexedNamespace);
-
-            void IndexItemType(
-                ItemTypePathReference itemTypeReference,
-                ContentUnitIndexedNamespaceBuilder namespaceBuilder)
-            {
-                namespaceBuilder.IndexItemType(itemTypeReference);
-
-                items.Add(itemTypeReference);
-                entities.Add(itemTypeReference);
-            }
-
-            void IndexSubItemType(
-                SubItemTypePathReference subItemTypeReference,
-                ContentUnitIndexedNamespaceBuilder namespaceBuilder)
-            {
-                namespaceBuilder.IndexSubItemType(subItemTypeReference);
-
-                subItems.Add(subItemTypeReference);
-                entities.Add(subItemTypeReference);
-            }
         }
     }
 }

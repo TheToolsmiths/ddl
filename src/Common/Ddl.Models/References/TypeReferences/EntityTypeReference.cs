@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
 {
     public abstract class EntityTypeReference
     {
-        protected EntityTypeReference(TypeIdentifierPath typeIdentifier, NamespacePath namespacePath)
+        protected EntityTypeReference(TypeIdentifierPath typeIdentifier, RootNamespacePath namespacePath)
         {
             this.TypeIdentifier = typeIdentifier;
             this.NamespacePath = namespacePath;
@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Models.References.TypeReferences
 
         public abstract TypeName EntityTypeName { get; }
 
-        public NamespacePath NamespacePath { get; }
+        public RootNamespacePath NamespacePath { get; }
 
         public abstract override string ToString();
     }

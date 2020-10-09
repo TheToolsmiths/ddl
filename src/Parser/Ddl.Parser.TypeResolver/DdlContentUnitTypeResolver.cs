@@ -1,7 +1,7 @@
 ﻿using System;
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.Packages.Index;
+using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers;
 using TheToolsmiths.Ddl.Results;

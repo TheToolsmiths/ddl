@@ -54,7 +54,7 @@ namespace TheToolsmiths.Ddl.Models.Types.Index
             {
                 var parentNamespacePath = parentNamespace.NamespacePath;
 
-                namespacePath = RootNamespacePath.Create(parentNamespacePath, identifier);
+                namespacePath = RootNamespacePath.Append(parentNamespacePath, identifier);
             }
 
             var indexedNamespace = new TypeIndexedNamespace(identifier, namespacePath, items, parentNamespace, rootNamespace, childNamespaces);
