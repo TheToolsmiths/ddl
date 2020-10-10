@@ -6,8 +6,8 @@ using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders;
+using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Packager.Contexts;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Packager
@@ -90,20 +90,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
 
         private Result PackageItem(ContentUnitPackagerContext context, IRootItem item)
         {
-            switch (item)
-            {
-                case ITypedRootItem typedItem:
-                    context.AddItem(new PackageTypedItem(
-                        item.ItemId,
-                        item.ItemType,
-                        typedItem.TypeName,
-                        typedItem.TypeNameResolution,
-                        typedItem));
-                    break;
-                default:
-                    context.AddItem(new PackageItem(item.ItemId, item.ItemType, item));
-                    break;
-            }
+            context.AddItem(new PackageContentUnitItem(item.ItemId, item.ItemType, item));
 
             return Result.Success;
         }

@@ -19,7 +19,7 @@ namespace TheToolsmiths.Ddl.Models.Package.Index
 
         public bool TryGetContentUnitNamespace(
             in ContentUnitId contentUnitId,
-            [NotNullWhen(returnValue: true)] out TypeIndexedNamespace? indexedNamespace)
+            [NotNullWhen(true)] out TypeIndexedNamespace? indexedNamespace)
         {
             if (this.namespaceIndex.TryGetContentUnitNameSpace(contentUnitId, out var namespacePath) == false)
             {

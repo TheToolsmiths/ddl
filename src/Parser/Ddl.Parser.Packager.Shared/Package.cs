@@ -1,5 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Parser.Packager.Content;
-using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
+using TheToolsmiths.Ddl.Parser.Packager.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager
 {

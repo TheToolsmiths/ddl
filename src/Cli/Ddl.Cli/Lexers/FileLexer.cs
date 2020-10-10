@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
+
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Lexer.Writer;
-using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace TheToolsmiths.Ddl.Cli.Lexers
 {
@@ -12,15 +13,16 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
     {
         private readonly ILogger<FileLexer> log;
         private readonly IDdlLexerFactory lexerFactory;
-        private readonly DdlLexerTokenWriter tokenWriter;
+        //private readonly DdlLexerTokenWriter tokenWriter;
 
         public FileLexer(ILogger<FileLexer> log,
-            IDdlLexerFactory lexerFactory,
-            DdlLexerTokenWriter tokenWriter)
+            IDdlLexerFactory lexerFactory
+            //DdlLexerTokenWriter tokenWriter
+            )
         {
             this.log = log;
             this.lexerFactory = lexerFactory;
-            this.tokenWriter = tokenWriter;
+            //this.tokenWriter = tokenWriter;
         }
 
         public void LexerFromFilePath(FileInfo input)
@@ -31,22 +33,24 @@ namespace TheToolsmiths.Ddl.Cli.Lexers
 
             var pipe = new Pipe();
 
-            var read = Task.Run(async () => await this.LexerFile(input.FullName, pipe.Writer));
+            throw new NotImplementedException();
 
-            var write = Task.Run(async () => await ConsoleOutputWriter.WriteOutputToConsole(pipe.Reader));
+            //var read = Task.Run(async () => await this.LexerFile(input.FullName, pipe.Writer));
 
-            Task.WaitAll(read, write);
+            //var write = Task.Run(async () => await ConsoleOutputWriter.WriteOutputToConsole(pipe.Reader));
+
+            //Task.WaitAll(read, write);
 
             this.log.LogInformation("File lexed");
         }
 
-        private async Task LexerFile(string input, PipeWriter pipeWriter)
-        {
-            var lexer = await this.lexerFactory.CreateForFile(input);
+        //private async Task LexerFile(string input, PipeWriter pipeWriter)
+        //{
+        //    var lexer = await this.lexerFactory.CreateForFile(input);
 
-            await this.tokenWriter.WriteToString(lexer, pipeWriter);
+        //    await this.tokenWriter.WriteToString(lexer, pipeWriter);
 
-            await pipeWriter.CompleteAsync();
-        }
+        //    await pipeWriter.CompleteAsync();
+        //}
     }
 }

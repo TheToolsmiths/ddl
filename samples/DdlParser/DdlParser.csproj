@@ -15,7 +15,7 @@
     <ProjectReference Include="..\..\src\Common\Ddl.Models\Ddl.Models.csproj" />
     <ProjectReference Include="..\..\src\Common\Ddl\Ddl.csproj" />
     <ProjectReference Include="..\..\src\Parser\Ddl.Parser\Ddl.Parser.csproj" />
-    <ProjectReference Include="..\..\src\Writers\Ddl.Parser.Ast.Writer\Ddl.Parser.Ast.Writer.csproj" />
+    <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Output\Ddl.Writer.Output.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer\Ddl.Writer.csproj" />
   </ItemGroup>

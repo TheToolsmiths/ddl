@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits.Index
 
         public bool TryGetContentUnitNameSpace(
             in ContentUnitId contentUnitId,
-            [NotNullWhen(returnValue: true)] out RootNamespacePath? namespacePath)
+            [NotNullWhen(true)] out RootNamespacePath? namespacePath)
         {
             return this.namespaceMap.TryGetValue(contentUnitId, out namespacePath);
         }

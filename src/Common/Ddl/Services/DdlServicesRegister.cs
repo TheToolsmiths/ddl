@@ -7,6 +7,7 @@ using TheToolsmiths.Ddl.Parser.Packager.Services;
 using TheToolsmiths.Ddl.Parser.Services;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Services;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Services;
+using TheToolsmiths.Ddl.Writer.Services;
 
 namespace TheToolsmiths.Ddl.Services
 {
@@ -44,6 +45,8 @@ namespace TheToolsmiths.Ddl.Services
             LexerServicesInitializer.RegisterLexerServices(this.services);
 
             ParserServicesInitializer.RegisterParserServices(this.services);
+
+            WriterServicesInitializer.RegisterWriterServices(this.services);
         }
 
         private void RegisterPluginServices(

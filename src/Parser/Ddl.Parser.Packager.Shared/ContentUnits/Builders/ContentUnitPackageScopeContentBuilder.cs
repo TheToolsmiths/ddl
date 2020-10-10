@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Packager.Items;
-using TheToolsmiths.Ddl.Parser.Packager.Scopes;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {
@@ -14,8 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
         {
             this.NamespacePath = namespacePath;
             this.ItemsBuilder = itemsBuilder;
-            this.Items = new List<PackageItem>();
-            this.TypedItems = new List<PackageTypedItem>();
+            this.Items = new List<PackageContentUnitItem>();
             this.Namespaces = new Dictionary<string, ContentUnitPackageNamespaceBuilder>();
             this.Scopes = new List<ContentUnitPackageScopeBuilder>();
         }
@@ -24,22 +23,13 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 
         public RootNamespacePath NamespacePath { get; }
 
-        public List<PackageItem> Items { get; }
-
-        public List<PackageTypedItem> TypedItems { get; }
+        public List<PackageContentUnitItem> Items { get; }
 
         public Dictionary<string, ContentUnitPackageNamespaceBuilder> Namespaces { get; }
 
         public List<ContentUnitPackageScopeBuilder> Scopes { get; }
 
-        public void AddItem(PackageTypedItem item)
-        {
-            this.ItemsBuilder.AddItem(item);
-
-            this.TypedItems.Add(item);
-        }
-
-        public void AddItem(PackageItem item)
+        public void AddItem(PackageContentUnitItem item)
         {
             this.ItemsBuilder.AddItem(item);
 
@@ -76,12 +66,6 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
             var items = new List<PackageItemReference>();
 
             foreach (var packageItem in this.Items)
-            {
-                var itemReference = new PackageItemReference(packageItem.ItemId, packageItem.ItemType);
-                items.Add(itemReference);
-            }
-
-            foreach (var packageItem in this.TypedItems)
             {
                 var itemReference = new PackageItemReference(packageItem.ItemId, packageItem.ItemType);
                 items.Add(itemReference);

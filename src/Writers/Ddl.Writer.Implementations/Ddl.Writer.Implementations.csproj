@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Writer.Implementations</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Writer.Implementations</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

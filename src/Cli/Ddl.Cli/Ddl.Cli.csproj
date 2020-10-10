@@ -55,8 +55,6 @@
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver\Ddl.Parser.TypeResolver.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
-    <ProjectReference Include="..\..\Writers\Ddl.Lexer.Writer\Ddl.Lexer.Writer.csproj" />
-    <ProjectReference Include="..\..\Writers\Ddl.Parser.Ast.Writer\Ddl.Parser.Ast.Writer.csproj" />
     <ProjectReference Include="..\..\Writers\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Cli.Abstractions\Ddl.Cli.Abstractions.csproj" />
   </ItemGroup>

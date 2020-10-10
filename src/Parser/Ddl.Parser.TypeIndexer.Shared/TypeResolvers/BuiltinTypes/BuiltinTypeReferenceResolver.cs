@@ -24,7 +24,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes
                 return false;
             }
 
-            ref readonly var initialPart = ref typePath.PathParts.AsSpan()[index: 0];
+            ref readonly var initialPart = ref typePath.PathParts.AsSpan()[0];
 
             // We don't have generic builtin types for now
             if (initialPart.PartKind == PathPartKind.Generic)
@@ -119,9 +119,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes
                 return false;
             }
 
-            ref readonly var vectorPart = ref typePath.PathParts.AsSpan()[index: 0];
+            ref readonly var vectorPart = ref typePath.PathParts.AsSpan()[0];
 
-            ref readonly var typePart = ref typePath.PathParts.AsSpan()[index: 1];
+            ref readonly var typePart = ref typePath.PathParts.AsSpan()[1];
 
             if (vectorPart.PartKind == PathPartKind.Generic || vectorPart.PartKind == PathPartKind.Generic)
             {

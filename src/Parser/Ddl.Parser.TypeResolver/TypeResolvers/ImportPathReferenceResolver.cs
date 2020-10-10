@@ -23,7 +23,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         public bool TryGetImportPathResolve(
             string name,
-            [NotNullWhen(returnValue: true)] out ImportPathResolution? importResolution)
+            [NotNullWhen(true)] out ImportPathResolution? importResolution)
         {
             return this.entries.TryGetValue(name, out importResolution);
         }

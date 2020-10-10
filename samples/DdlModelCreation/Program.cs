@@ -9,7 +9,6 @@ using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.ImportPaths;
 using TheToolsmiths.Ddl.Writer;
-using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace DdlModelCreation
 {
@@ -35,21 +34,23 @@ namespace DdlModelCreation
             var info = ContentUnitInfo.CreateFromFilePath("test-model-creation.ddl");
             var contentUnit = new ContentUnit(info, rootScope);
 
-            await DdlWriter.Write(contentUnit, pipeWriter).ConfigureAwait(false);
+            await DdlContentUnitWriter.Write(contentUnit, pipeWriter).ConfigureAwait(false);
 
             await pipeWriter.CompleteAsync().ConfigureAwait(false);
         }
 
         private static async Task WriteOutput(PipeReader pipeReader)
         {
-            var result = await OutputWriter.WriteToStdOut(pipeReader).ConfigureAwait(false);
+            throw new NotImplementedException();
 
-            if (result.IsError)
-            {
-                Console.WriteLine($"Error writing to console: {result.ErrorMessage}");
-            }
+            //var result = await OutputWriter.WriteToStdOut(pipeReader).ConfigureAwait(false);
 
-            await pipeReader.CompleteAsync().ConfigureAwait(false);
+            //if (result.IsError)
+            //{
+            //    Console.WriteLine($"Error writing to console: {result.ErrorMessage}");
+            //}
+
+            //await pipeReader.CompleteAsync().ConfigureAwait(false);
         }
 
         private static ScopeContent CreateFileScopeContent()

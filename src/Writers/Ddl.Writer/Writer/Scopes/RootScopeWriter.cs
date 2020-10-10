@@ -1,11 +1,11 @@
 ﻿using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Writer.StructuredWriters;
+using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Writer.Scopes
 {
     public static class RootScopeWriter
     {
-        public static void WriteRootScope(IStructuredWriter writer, IRootScope rootScope)
+        public static void WriteRootScope(IStructuredContentWriter writer, IRootScope rootScope)
         {
             writer.WriteStartObject();
 
@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Writer.Writer.Scopes
             writer.WriteEndObject();
         }
 
-        private static void WriteRootScopeProperties(IStructuredWriter writer, IRootScope rootScope)
+        private static void WriteRootScopeProperties(IStructuredContentWriter writer, IRootScope rootScope)
         {
             writer.WritePropertyName("scopeContent");
 

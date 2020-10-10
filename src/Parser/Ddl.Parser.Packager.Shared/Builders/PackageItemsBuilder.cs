@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Builders
@@ -9,17 +8,9 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Builders
         public PackageItemsBuilder()
         {
             this.Items = new List<PackageItem>();
-            this.TypedItems = new List<PackageTypedItem>();
         }
 
         public List<PackageItem> Items { get; }
-
-        public List<PackageTypedItem> TypedItems { get; }
-
-        public void AddItem(PackageTypedItem item)
-        {
-            this.TypedItems.Add(item);
-        }
 
         public void AddItem(PackageItem item)
         {
@@ -28,7 +19,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Builders
 
         public PackageItemsCollection Build()
         {
-            return new PackageItemsCollection(this.Items, this.TypedItems);
+            return new PackageItemsCollection(this.Items);
         }
     }
 }

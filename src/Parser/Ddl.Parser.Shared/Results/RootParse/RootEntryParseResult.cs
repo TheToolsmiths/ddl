@@ -23,13 +23,13 @@ namespace TheToolsmiths.Ddl.Parser
     public abstract class RootEntryParseError : RootEntryParseResult
     {
         internal RootEntryParseError(string errorMessage)
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = errorMessage;
         }
 
         protected RootEntryParseError()
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = string.Empty;
         }

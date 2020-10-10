@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Parser;
-using TheToolsmiths.Ddl.Parser.Ast.Writer;
-using TheToolsmiths.Ddl.Writer.OutputWriters;
 
 namespace TheToolsmiths.Ddl.Cli.Parsers
 {
@@ -40,26 +38,26 @@ namespace TheToolsmiths.Ddl.Cli.Parsers
             // TODO: Add AST output option to CLI
             throw new NotImplementedException();
 
-            var result = await this.textParser.ParseFromFile(input);
+            //var result = await this.textParser.ParseFromFile(input);
 
-            if (result.IsSuccess
-                && result.AstContent != null)
-            {
-                await DdlWriter.Write(result.AstContent, pipeWriter);
-            }
-            else
-            {
-                this.log.LogError("Error parsing '{input}'. Message: '{message}'", input, result.ErrorMessage);
-            }
+            //if (result.IsSuccess
+            //    && result.AstContent != null)
+            //{
+            //    await DdlWriter.Write(result.AstContent, pipeWriter);
+            //}
+            //else
+            //{
+            //    this.log.LogError("Error parsing '{input}'. Message: '{message}'", input, result.ErrorMessage);
+            //}
 
-            await pipeWriter.CompleteAsync();
+            //await pipeWriter.CompleteAsync();
         }
 
         private async Task WriteOutput(FileInfo? outputFile, PipeReader pipeReader)
         {
-            var result = outputFile != null
-                ? await OutputWriter.WriteToFile(outputFile, pipeReader)
-                : await OutputWriter.WriteToStdOut(pipeReader);
+            //var result = outputFile != null
+            //    ? await OutputWriter.WriteToFile(outputFile, pipeReader)
+            //    : await OutputWriter.WriteToStdOut(pipeReader);
 
             throw new NotImplementedException();
         }

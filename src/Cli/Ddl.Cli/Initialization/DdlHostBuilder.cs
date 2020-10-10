@@ -12,7 +12,7 @@ using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Plugins;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
-using TheToolsmiths.Ddl.Lexer.Writer;
+using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Services;
 
 using IConfigurationBuilder = Microsoft.Extensions.Configuration.IConfigurationBuilder;
@@ -42,13 +42,13 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
         {
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
-            DdlCoreServices.RegisterCoreServices(configurationBuilder);
+            DdlConfigurationBuilders.RegisterConfigurationBuilders(configurationBuilder);
 
             PluginSystemRegister.Register(configurationBuilder, context, services);
 
             RegisterCliApplicationServices(services);
 
-            DdlCoreServices.BuildAndRegisterConfiguration(configurationBuilder, services);
+            DdlConfigurationBuilders.BuildAndRegisterConfiguration(configurationBuilder, services);
         }
 
         private static void RegisterCliApplicationServices(IServiceCollection services)
@@ -56,12 +56,13 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
             services.AddTransient<FileParser>();
             services.AddTransient<GlobParser>();
             services.AddTransient<FileLexer>();
-            services.AddScoped<DdlLexerTokenWriter>();
 
             services.AddTransient<ContentUnitsBuilder>();
             services.AddTransient<PackageTypeIndexer>();
             services.AddTransient<ContentUnitsTypeResolver>();
             services.AddTransient<ContentUnitsPackager>();
+            services.AddTransient<PackageWriter>();
+            services.AddTransient<WriterProvider>();
         }
 
         private static void ConfigureAppConfiguration(HostBuilderContext context, IConfigurationBuilder config)

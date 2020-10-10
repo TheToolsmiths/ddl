@@ -1,5 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
+using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Contexts
 {
@@ -24,12 +24,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Contexts
             return new ContentUnitPackagerContext(scopeBuilder);
         }
 
-        public void AddItem(PackageItem packageItem)
-        {
-            this.builder.AddItem(packageItem);
-        }
-
-        public void AddItem(PackageTypedItem packageItem)
+        public void AddItem(PackageContentUnitItem packageItem)
         {
             this.builder.AddItem(packageItem);
         }

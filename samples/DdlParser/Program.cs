@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.IO.Pipelines;
 using System.Threading.Tasks;
 
-using TheToolsmiths.Ddl.Parser.Ast.Writer;
+using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Services;
-using TheToolsmiths.Ddl.Writer.OutputWriters;
+using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace DdlParser
 {
@@ -13,18 +12,21 @@ namespace DdlParser
     {
         private const string TestFilePath = "allFeatures.ddl";
 
-        public static void Main()
+        public static async Task Main()
         {
-            var pipe = new Pipe();
+            throw new NotImplementedException();
 
-            Task.WaitAll(
-                Task.Run(() => ParseFile(pipe.Writer)),
-                Task.Run(() => WriteOutput(pipe.Reader)));
+            //var workHandler = new DdlWriterWorkHandler();
 
-            Console.WriteLine("Model created");
+            //var result = await workHandler.WriteToConsole(async sw => await ParseFile(sw));
+
+            //if (result.IsSuccess)
+            //{
+            //    Console.WriteLine("Model created");
+            //}
         }
 
-        private static async Task ParseFile(PipeWriter pipeWriter)
+        private static async Task<Result> ParseFile(IStructuredContentWriter pipeWriter)
         {
             await using var ddlServices = DdlServices.Create();
 
@@ -32,30 +34,10 @@ namespace DdlParser
 
             var result = await textParser.ParseFromFile(new FileInfo(TestFilePath)).ConfigureAwait(false);
 
-            if (result.IsSuccess == false
-                || result.AstContent == null)
-            {
-                Console.WriteLine($"Error parsing. Message: '{result.ErrorMessage}'");
-            }
-            else
-            {
-                await DdlWriter.Write(result.AstContent, pipeWriter)
-                    .ConfigureAwait(false);
-            }
+            //await DdlWriter.Write(result.AstContent, pipeWriter)
+            //    .ConfigureAwait(false);
 
-            await pipeWriter.CompleteAsync().ConfigureAwait(false);
-        }
-
-        private static async Task WriteOutput(PipeReader pipeReader)
-        {
-            var result = await OutputWriter.WriteToStdOut(pipeReader).ConfigureAwait(false);
-
-            if (result.IsError)
-            {
-                Console.WriteLine($"Error writing to console: {result.ErrorMessage}");
-            }
-
-            await pipeReader.CompleteAsync().ConfigureAwait(false);
+            throw new NotImplementedException();
         }
     }
 }

@@ -46,13 +46,13 @@ namespace TheToolsmiths.Ddl.Parser
     public class RootItemParseError : RootItemParseResult
     {
         internal RootItemParseError(string errorMessage)
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = errorMessage;
         }
 
         protected RootItemParseError()
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = string.Empty;
         }
@@ -63,7 +63,7 @@ namespace TheToolsmiths.Ddl.Parser
     public class RootItemParseSuccess : RootItemParseResult
     {
         internal RootItemParseSuccess(IAstRootItem value)
-            : base(isSuccess: true)
+            : base(true)
         {
             this.Value = value;
         }

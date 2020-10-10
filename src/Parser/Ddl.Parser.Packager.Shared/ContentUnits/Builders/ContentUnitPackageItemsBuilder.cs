@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
+using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {
@@ -7,27 +7,19 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
     {
         public ContentUnitPackageItemsBuilder()
         {
-            this.Items = new List<PackageItem>();
-            this.TypedItems = new List<PackageTypedItem>();
+            this.Items = new List<PackageContentUnitItem>();
         }
 
-        public List<PackageItem> Items { get; }
+        public List<PackageContentUnitItem> Items { get; }
 
-        public List<PackageTypedItem> TypedItems { get; }
-
-        public void AddItem(PackageTypedItem item)
-        {
-            this.TypedItems.Add(item);
-        }
-
-        public void AddItem(PackageItem item)
+        public void AddItem(PackageContentUnitItem item)
         {
             this.Items.Add(item);
         }
 
-        public PackageItemsCollection Build()
+        public PackageContentUnitItemsCollection Build()
         {
-            return new PackageItemsCollection(this.Items, this.TypedItems);
+            return new PackageContentUnitItemsCollection(this.Items);
         }
     }
 }

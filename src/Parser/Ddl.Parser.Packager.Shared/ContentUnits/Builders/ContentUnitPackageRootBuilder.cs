@@ -38,7 +38,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
             return currentNamespaceBuilder;
         }
 
-        public PackageItemsCollection BuildItemsCollection()
+        public PackageContentUnitItemsCollection BuildItemsCollection()
         {
             return this.itemsBuilder.Build();
         }

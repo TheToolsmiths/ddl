@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Packager.Shared\Ddl.Parser.Packager.Shared.csproj" />
+    <ProjectReference Include="..\Ddl.Writer.Output\Ddl.Writer.Output.csproj" />
   </ItemGroup>
 
   <ItemGroup>

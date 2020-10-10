@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
 
 namespace TheToolsmiths.Ddl.Lexer
@@ -18,7 +19,7 @@ namespace TheToolsmiths.Ddl.Lexer
         {
             var stream = File.OpenRead(path);
 
-            var pipeReader = PipeReader.Create(stream, new StreamPipeReaderOptions(bufferSize: 32));
+            var pipeReader = PipeReader.Create(stream, new StreamPipeReaderOptions(minimumReadSize: 32));
 
             var log = this.loggerFactory.CreateLogger<DdlLexer>();
 

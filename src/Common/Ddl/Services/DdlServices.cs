@@ -26,11 +26,11 @@ namespace TheToolsmiths.Ddl.Services
 
             var configurationBuilder = new DdlServicesConfigurationBuilder();
 
-            DdlCoreServices.RegisterCoreServices(configurationBuilder);
+            DdlConfigurationBuilders.RegisterConfigurationBuilders(configurationBuilder);
 
             RegisterApplicationServices(services);
 
-            DdlCoreServices.BuildAndRegisterConfiguration(configurationBuilder, services);
+            DdlConfigurationBuilders.BuildAndRegisterConfiguration(configurationBuilder, services);
 
             var serviceProvider = services.BuildServiceProvider();
 

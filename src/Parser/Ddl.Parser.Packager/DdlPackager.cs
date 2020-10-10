@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using TheToolsmiths.Ddl.Parser.Packager.Builders;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.Contexts;
-using TheToolsmiths.Ddl.Parser.Packager.Namespaces;
-using TheToolsmiths.Ddl.Parser.Packager.Scopes;
+using TheToolsmiths.Ddl.Parser.Packager.Items;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Packager
@@ -57,16 +56,13 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.Success;
         }
 
-        private void PackageItems(PackageItemsBuilder itemsBuilder, PackageItemsCollection items)
+        private void PackageItems(PackageItemsBuilder itemsBuilder, PackageContentUnitItemsCollection items)
         {
-            foreach (var item in items.TypedItems)
-            {
-                itemsBuilder.AddItem(item);
-            }
-
             foreach (var item in items.Items)
             {
-                itemsBuilder.AddItem(item);
+                var packageItem = new PackageItem(item.ItemId, item.ItemType, item.Item);
+
+                itemsBuilder.AddItem(packageItem);
             }
         }
 

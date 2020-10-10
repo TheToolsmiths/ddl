@@ -47,13 +47,13 @@ namespace TheToolsmiths.Ddl.Parser
     public class RootScopeParseError : RootScopeParseResult
     {
         internal RootScopeParseError(string errorMessage)
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = errorMessage;
         }
 
         protected RootScopeParseError()
-            : base(isSuccess: false)
+            : base(false)
         {
             this.ErrorMessage = string.Empty;
         }
@@ -64,7 +64,7 @@ namespace TheToolsmiths.Ddl.Parser
     public class RootScopeParseSuccess : RootScopeParseResult
     {
         internal RootScopeParseSuccess(IAstRootScope value)
-            : base(isSuccess: true)
+            : base(true)
         {
             this.Value = value;
         }

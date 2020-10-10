@@ -1,11 +1,11 @@
 ﻿using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Writer.StructuredWriters;
+using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Writer.Items
 {
     internal static class RootItemWriter
     {
-        public static void WriteItem(IStructuredWriter writer, IRootItem item)
+        public static void WriteItem(IStructuredContentWriter writer, IRootItem item)
         {
             writer.WriteStartObject();
 

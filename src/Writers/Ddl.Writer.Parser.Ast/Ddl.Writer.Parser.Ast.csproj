@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>TheToolsmiths.Ddl.Writer.Parser.Ast</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Writer.Parser.Ast</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
+    <ProjectReference Include="..\Ddl.Writer.Output\Ddl.Writer.Output.csproj" />
+    <ProjectReference Include="..\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

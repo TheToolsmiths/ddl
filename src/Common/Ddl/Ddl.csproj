@@ -30,6 +30,8 @@
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver\Ddl.Parser.TypeResolver.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
+    <ProjectReference Include="..\..\Writers\Ddl.Writer.Implementations\Ddl.Writer.Implementations.csproj" />
+    <ProjectReference Include="..\..\Writers\Ddl.Writer\Ddl.Writer.csproj" />
     <ProjectReference Include="..\Ddl.Shared\Ddl.Shared.csproj" />
   </ItemGroup>
 

@@ -221,3 +221,6 @@ dotnet_diagnostic.CA1062.exclude_extension_method_this_parameter = true
 
 # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1062.severity = silent
+
+# CA2007: Do not directly await a Task
+dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary

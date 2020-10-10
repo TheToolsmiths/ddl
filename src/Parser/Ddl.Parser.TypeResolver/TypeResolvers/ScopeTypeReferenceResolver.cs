@@ -245,7 +245,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
                 return false;
             }
 
-            ref readonly var pathPart = ref typePath.PathParts.AsSpan()[index: 0];
+            ref readonly var pathPart = ref typePath.PathParts.AsSpan()[0];
 
             if (pathPart.PartKind != PathPartKind.Simple)
             {
@@ -276,7 +276,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
                 return false;
             }
 
-            ref readonly var itemPart = ref pathParts[index: 0];
+            ref readonly var itemPart = ref pathParts[0];
 
             if (itemPart.PartKind != PathPartKind.Simple)
             {
@@ -391,7 +391,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
             out TypeResolution typeResolution)
             where T : IPathPart
         {
-            ref readonly var initialPart = ref pathParts[index: 0];
+            ref readonly var initialPart = ref pathParts[0];
 
             // Try Resolve Child Item
             {
@@ -467,7 +467,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
         {
             if (pathParts.Length == 1)
             {
-                ref readonly var itemPart = ref pathParts[index: 0];
+                ref readonly var itemPart = ref pathParts[0];
 
                 foreach (var itemTypePath in indexedPath.Items)
                 {

@@ -9,7 +9,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits
             ContentUnitId id,
             ContentUnitInfo info,
             RootNamespacePath namespacePath,
-            PackageItemsCollection items,
+            PackageContentUnitItemsCollection items,
             PackageContentUnitRootContent rootContent)
         {
             this.Id = id;
@@ -23,7 +23,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits
 
         public ContentUnitInfo Info { get; }
 
-        public PackageItemsCollection Items { get; }
+        public PackageContentUnitItemsCollection Items { get; }
 
         public PackageContentUnitRootContent RootContent { get; }
 

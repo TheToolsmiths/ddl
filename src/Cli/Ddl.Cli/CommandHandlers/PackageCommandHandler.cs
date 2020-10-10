@@ -12,13 +12,13 @@ using TheToolsmiths.Ddl.Cli.Packagers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
+using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Index;
 using TheToolsmiths.Ddl.Models.Package.Index;
-using TheToolsmiths.Ddl.Models.Types.Index;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager;
 using TheToolsmiths.Ddl.Results;
+using TheToolsmiths.Ddl.Writer;
 
 namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 {
@@ -46,7 +46,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             var astContentUnits = lexerResult.Value;
 
             // Build models from the parsed ASTs
-            var buildResult = await BuildContentUnits(serviceProvider, astContentUnits);
+            var buildResult = BuildContentUnits(serviceProvider, astContentUnits);
 
             if (buildResult.IsError)
             {
@@ -85,9 +85,33 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
 
             var package = packageResult.Value;
 
-            timer.Stop();
+            // Prepare output
+            var fooResult = PrepareOutput(serviceProvider, outputFile);
 
-            throw new NotImplementedException();
+            if (fooResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            await using var writerFoo = fooResult.Value;
+
+            // Write the package content to output
+            var writeResult = await WritePackageContent(serviceProvider, package, writerFoo);
+
+            if (writeResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            // Write output
+            var outputResult = await WriteOutput(serviceProvider, writerFoo);
+
+            if (outputResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            timer.Stop();
         }
 
         private static async Task<Result<IReadOnlyList<AstContentUnit>>> ParseSources(
@@ -109,7 +133,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             return Result.FromValue(result.Contents);
         }
 
-        private static async Task<Result<IReadOnlyList<ContentUnit>>> BuildContentUnits(
+        private static Result<IReadOnlyList<ContentUnit>> BuildContentUnits(
             IServiceProvider serviceProvider,
             IReadOnlyList<AstContentUnit> astContentUnits)
         {
@@ -182,6 +206,53 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             }
 
             return typeResolveResult;
+        }
+
+        private static Result<IWriterHandler> PrepareOutput(IServiceProvider serviceProvider, FileInfo? outputFile)
+        {
+            using var scope = serviceProvider.CreateScope();
+
+            var typeResolver = scope.ServiceProvider.GetRequiredService<WriterProvider>();
+
+            var result = typeResolver.PrepareOutput(outputFile);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            return result;
+        }
+
+        private static async Task<Result> WritePackageContent(
+            IServiceProvider serviceProvider,
+            Package package,
+            IWriterHandler writerHandler)
+        {
+            using var scope = serviceProvider.CreateScope();
+
+            var typeResolver = scope.ServiceProvider.GetRequiredService<PackageWriter>();
+
+            var typeResolveResult = await typeResolver.WritePackage(package, writerHandler);
+
+            if (typeResolveResult.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            return typeResolveResult;
+        }
+
+        private static async Task<Result> WriteOutput(IServiceProvider serviceProvider, IWriterHandler writerHandler)
+        {
+            var result = await writerHandler.WriteOutputAsync();
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            return result;
         }
     }
 }
