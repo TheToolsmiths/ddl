@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Configurations
 
         public IEnumerable<IConfigurationProvider> ConfigurationProviders => this.configurationProviders.Values;
 
-        public bool TryGetConfigurationProvider<T>([MaybeNullWhen(false)] out T provider)
+        public bool TryGetConfigurationProvider<T>([NotNullWhen(true)] out T? provider)
             where T : class, IConfigurationProvider
         {
             if (this.configurationProviders.TryGetValue(typeof(T), out var cachedProvider))

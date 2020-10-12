@@ -25,6 +25,8 @@ namespace TheToolsmiths.Ddl.Writer.Output.StructuredWriters
 
         void WriteBoolean(string propertyName, in bool value);
 
+        void WriteNumber(string propertyName, in int value);
+
         ValueTask FlushAsync();
     }
 }

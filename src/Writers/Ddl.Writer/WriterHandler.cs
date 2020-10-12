@@ -35,6 +35,24 @@ namespace TheToolsmiths.Ddl.Writer
             return result;
         }
 
+        public async Task<Result> WriteContent<TContext>(Func<IStructuredContentWriter, TContext, Task<Result>> contentWriterFunc, TContext context)
+        {
+            var writer = this.contentWriter;
+
+            var result = await contentWriterFunc(writer, context).ConfigureAwait(false);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            await this.contentWriter.FlushAsync().ConfigureAwait(false);
+
+            await this.pipe.Writer.CompleteAsync().ConfigureAwait(false);
+
+            return result;
+        }
+
         public async Task<Result> WriteContent(Func<IStructuredContentWriter, Task<Result>> contentWriterFunc)
         {
             var writer = this.contentWriter;

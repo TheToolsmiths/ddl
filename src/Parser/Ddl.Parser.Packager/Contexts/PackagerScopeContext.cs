@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Packager.Builders;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
+﻿using TheToolsmiths.Ddl.Models.Package.Items;
+using TheToolsmiths.Ddl.Parser.Packager.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Contexts
 {

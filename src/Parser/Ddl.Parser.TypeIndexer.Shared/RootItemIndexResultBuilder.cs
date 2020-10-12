@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;

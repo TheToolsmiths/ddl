@@ -6,8 +6,8 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Ast
 {
     public interface IAstConfigurationSection
     {
-        bool TryGetTypeValue(AstItemType itemType, [MaybeNullWhen(false)] out Type typeValue);
+        bool TryGetTypeValue(AstItemType itemType, [NotNullWhen(true)] out Type? typeValue);
 
-        bool TryGetTypeValue(AstScopeType scopeType, [MaybeNullWhen(false)] out Type typeValue);
+        bool TryGetTypeValue(AstScopeType scopeType, [NotNullWhen(true)] out Type? typeValue);
     }
 }

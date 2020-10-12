@@ -21,13 +21,13 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Configurations
             this.scopeTypeResolvers = new Dictionary<ScopeType, Type>();
         }
 
-        public void RegisterItemTypeResolver<T>(ItemType itemType)
+        public void RegisterTypeResolver<T>(ItemType itemType)
             where T : IItemTypeResolver
         {
             this.itemTypeResolvers.Add(itemType, typeof(T));
         }
 
-        public void RegisterScopeTypeResolver<T>(ScopeType scopeType)
+        public void RegisterTypeResolver<T>(ScopeType scopeType)
             where T : IScopeTypeResolver
         {
             this.scopeTypeResolvers.Add(scopeType, typeof(T));

@@ -6,10 +6,10 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
     {
         bool TryGetCategoryBuilder<TValue>(
             string sectionKey,
-            [MaybeNullWhen(false)] out IModelConfigurationSectionBuilder<TValue> sectionBuilder);
+            [NotNullWhen(true)] out IModelConfigurationSectionBuilder<TValue>? sectionBuilder);
 
         bool TryGetCategoryBuilder(
             string sectionKey,
-            [MaybeNullWhen(false)] out IModelConfigurationSectionBuilder sectionBuilder);
+            [NotNullWhen(true)] out IModelConfigurationSectionBuilder? sectionBuilder);
     }
 }

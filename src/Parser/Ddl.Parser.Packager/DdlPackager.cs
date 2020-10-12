@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using TheToolsmiths.Ddl.Models.Package;
+using TheToolsmiths.Ddl.Models.Package.Items;
 using TheToolsmiths.Ddl.Parser.Packager.Builders;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.Contexts;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.Packager
@@ -106,9 +107,30 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.Success;
         }
 
-        private Result PackageScope(PackagerScopeContext scopeContext, PackageContentUnitScope scope)
+        private Result PackageScope(PackagerScopeContext context, PackageContentUnitScope packageScope)
         {
-            throw new NotImplementedException();
+            var content = packageScope.ScopeContent;
+
+            foreach (var scope in content.Scopes)
+            {
+                var scopeContext = context.CreateScopeContext();
+
+                var result = this.PackageScope(scopeContext, scope);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            {
+                foreach (var item in content.Items)
+                {
+                    context.AddItem(item);
+                }
+            }
+
+            return Result.Success;
         }
     }
 }

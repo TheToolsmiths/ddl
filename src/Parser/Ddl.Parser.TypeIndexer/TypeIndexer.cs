@@ -13,9 +13,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 {
     internal class TypeIndexer
     {
-        private readonly RootIndexerResolver indexerResolver;
+        private readonly RootItemIndexerResolver indexerResolver;
 
-        public TypeIndexer(RootIndexerResolver indexerResolver)
+        public TypeIndexer(RootItemIndexerResolver indexerResolver)
         {
             this.indexerResolver = indexerResolver;
         }

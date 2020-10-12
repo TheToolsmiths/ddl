@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Writer.Configurations
     {
         public static bool TryGetWriterConfigurationBuilder(
             this IParserConfigurationContext context,
-            [MaybeNullWhen(false)] out IWriterConfigurationBuilder builder)
+            [NotNullWhen(true)] out IWriterConfigurationBuilder? builder)
         {
             return context.TryGetConfigurationBuilder(out builder);
         }

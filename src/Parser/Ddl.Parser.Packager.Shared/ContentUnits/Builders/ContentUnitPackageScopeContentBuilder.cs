@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheToolsmiths.Ddl.Models.Package.Items;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {

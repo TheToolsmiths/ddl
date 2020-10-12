@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Packager.Items;
+using TheToolsmiths.Ddl.Models.Package.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Builders
 {

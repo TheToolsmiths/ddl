@@ -24,7 +24,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
 
         public bool TryResolveItemBuilder(
             IAstRootItem astItem,
-            [MaybeNullWhen(false)] out RootItemBuilderWrapper itemBuilder)
+            [NotNullWhen(true)] out RootItemBuilderWrapper? itemBuilder)
         {
             var instanceType = astItem.GetType();
             var itemType = astItem.ItemType;
@@ -46,7 +46,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Builders
 
         public bool TryResolveScopeBuilder(
             IAstRootScope astScope,
-            [MaybeNullWhen(false)] out RootScopeBuilderWrapper scopeBuilder)
+            [NotNullWhen(true)] out RootScopeBuilderWrapper? scopeBuilder)
         {
             var instanceType = astScope.GetType();
             var scopeType = astScope.ScopeType;

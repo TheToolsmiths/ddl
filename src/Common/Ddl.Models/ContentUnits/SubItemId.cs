@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits
             return this.value == other.value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is SubItemId other && this.Equals(other);
         }

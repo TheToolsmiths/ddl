@@ -4,6 +4,6 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Ast
 {
     public interface IAstConfigurationRegistry
     {
-        bool TryGetSection(string sectionKey, [MaybeNullWhen(false)] out IAstConfigurationSection configurationSection);
+        bool TryGetSection(string sectionKey, [NotNullWhen(true)] out IAstConfigurationSection? configurationSection);
     }
 }

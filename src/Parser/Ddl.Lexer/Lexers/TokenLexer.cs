@@ -290,7 +290,7 @@ namespace TheToolsmiths.Ddl.Lexer.Lexers
 
             public CharTokenOptions FirstChar { get; }
 
-            public bool TryGetTokenOptionsFor(in char secondChar, [MaybeNullWhen(false)] out CharTokenOptions tokenOptions)
+            public bool TryGetTokenOptionsFor(in char secondChar, [NotNullWhen(true)] out CharTokenOptions? tokenOptions)
             {
                 return this.map.TryGetValue(secondChar, out tokenOptions);
             }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Values;
 

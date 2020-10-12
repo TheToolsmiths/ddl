@@ -6,10 +6,10 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Ast
     {
         bool TryGetCategoryBuilder<TValue>(
             string sectionKey,
-            [MaybeNullWhen(false)] out IAstConfigurationSectionBuilder<TValue> sectionBuilder);
+            [NotNullWhen(true)] out IAstConfigurationSectionBuilder<TValue>? sectionBuilder);
 
         bool TryGetCategoryBuilder(
             string sectionKey,
-            [MaybeNullWhen(false)] out IAstConfigurationSectionBuilder sectionBuilder);
+            [NotNullWhen(true)] out IAstConfigurationSectionBuilder? sectionBuilder);
     }
 }

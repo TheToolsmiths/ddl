@@ -5,10 +5,10 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Configurations
 {
     public interface ITypeResolveConfigurationBuilder : IConfigurationBuilder
     {
-        void RegisterItemTypeResolver<T>(ItemType itemType)
+        void RegisterTypeResolver<T>(ItemType itemType)
             where T : IItemTypeResolver;
 
-        void RegisterScopeTypeResolver<T>(ScopeType scopeType)
+        void RegisterTypeResolver<T>(ScopeType scopeType)
             where T : IScopeTypeResolver;
 
         void RegisterPassthroughTypeResolver(ItemType itemType);

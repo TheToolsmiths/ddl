@@ -8,7 +8,7 @@ using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Enums
 {
-    public class EnumStructDefinition : ITypedRootItem
+    public class EnumStructDefinition : ITypedRootItem, IAttributableRootItem
     {
         public EnumStructDefinition(
             TypedItemName typeName,

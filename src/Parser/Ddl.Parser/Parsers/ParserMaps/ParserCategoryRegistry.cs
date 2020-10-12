@@ -24,17 +24,17 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
             this.categoriesMap = categoriesMap;
         }
 
-        public bool TryGetItemParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out Type type)
+        public bool TryGetItemParserType(in ReadOnlySpan<char> key, [NotNullWhen(true)] out Type? type)
         {
             return this.itemParsersMap.TryGetValue(key, out type);
         }
 
-        public bool TryGetScopeParserType(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out Type type)
+        public bool TryGetScopeParserType(in ReadOnlySpan<char> key, [NotNullWhen(true)] out Type? type)
         {
             return this.scopeParsersMap.TryGetValue(key, out type);
         }
 
-        public bool TryGetDefaultParserType([MaybeNullWhen(false)] out Type type)
+        public bool TryGetDefaultParserType([NotNullWhen(true)] out Type? type)
         {
             type = this.defaultParser;
             return type != null;
@@ -42,7 +42,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers.ParserMaps
 
         public bool TryGetCategoryRegistry(
             in ReadOnlySpan<char> key,
-            [MaybeNullWhen(false)] out IParserMapRegistry registry)
+            [NotNullWhen(true)] out IParserMapRegistry? registry)
         {
             if (this.categoriesMap.TryGetValue(key, out var categoryRegistry))
             {

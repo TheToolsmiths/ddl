@@ -21,11 +21,11 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
         }
 
 
-        public bool TryResolveScopeParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IRootScopeParser scopeParser)
+        public bool TryResolveScopeParser(in ReadOnlySpan<char> key, [NotNullWhen(true)] out IRootScopeParser? scopeParser)
         {
             if (this.registry.TryGetScopeParserType(key, out var type))
             {
-                scopeParser = (IRootScopeParser)this.provider.GetRequiredService(type);
+                scopeParser = this.provider.GetRequiredService(type) as IRootScopeParser;
 
                 return scopeParser != null;
             }
@@ -34,11 +34,11 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return false;
         }
 
-        public bool TryResolveDefaultItemParser([MaybeNullWhen(false)] out IRootItemParser itemParser)
+        public bool TryResolveDefaultItemParser([NotNullWhen(true)] out IRootItemParser? itemParser)
         {
             if (this.registry.TryGetDefaultParserType(out var type))
             {
-                itemParser = (IRootItemParser)this.provider.GetRequiredService(type);
+                itemParser = this.provider.GetRequiredService(type) as IRootItemParser;
 
                 return itemParser != null;
             }
@@ -47,11 +47,11 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             return false;
         }
 
-        public bool TryResolveItemParser(in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out IRootItemParser itemParser)
+        public bool TryResolveItemParser(in ReadOnlySpan<char> key, [NotNullWhen(true)] out IRootItemParser? itemParser)
         {
             if (this.registry.TryGetItemParserType(key, out var type))
             {
-                itemParser = (IRootItemParser)this.provider.GetRequiredService(type);
+                itemParser = this.provider.GetRequiredService(type) as IRootItemParser;
 
                 return itemParser != null;
             }
@@ -60,7 +60,7 @@ namespace TheToolsmiths.Ddl.Parser.Parsers
             {
                 itemParser = this.provider.GetRequiredService<ICategoryParserFactory>().CreateCategoryParser(category);
 
-                return itemParser != null;
+                return true;
             }
 
             itemParser = default;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Package;
 using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.Packager;
 using TheToolsmiths.Ddl.Results;

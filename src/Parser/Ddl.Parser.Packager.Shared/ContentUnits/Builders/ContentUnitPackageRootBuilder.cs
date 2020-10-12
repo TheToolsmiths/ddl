@@ -1,5 +1,4 @@
 ﻿using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Parser.Packager.Content;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {

@@ -25,11 +25,11 @@ import module_name13::{ sub1 as name5 };
 
 def struct StructWithFieldTestTypes
 {
+    field5: const ref std::experimental::TestFieldType<Result<int[], ::std::Error<string>>,std::Foo[]>[][20][20, 45, 0b101],
     field1: alias1,
     field2: ::alias1,
     field3: foo::foo_type<int>,
     field4: ::GenericStructWithSimpleTypeParameter<string>,
-    field5: const ref std::experimental::TestFieldType<Result<int[], ::std::Error<string>>,std::Foo[]>[][20][20, 45, 0b101],
     field6: ref std::experimental::TestFieldType<Foo>[][20][20, 45, 0x02],
     // Errors
     // field1: ref std::experimental::<Foo>[][20][20, 45, 0x02],

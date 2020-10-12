@@ -14,6 +14,7 @@ using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Package;
 using TheToolsmiths.Ddl.Models.Package.Index;
 using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager;

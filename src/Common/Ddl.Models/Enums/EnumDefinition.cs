@@ -9,7 +9,7 @@ using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Enums
 {
-    public class EnumDefinition : ITypedRootItem
+    public class EnumDefinition : ITypedRootItem, IAttributableRootItem
     {
         public EnumDefinition(
             ItemId itemId,

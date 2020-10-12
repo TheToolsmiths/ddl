@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Models.Package
             return this.value == other.value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is PackageId other && this.Equals(other);
         }

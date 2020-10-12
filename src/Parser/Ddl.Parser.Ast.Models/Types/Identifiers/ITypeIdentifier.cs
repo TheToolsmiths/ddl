@@ -2,5 +2,6 @@
 {
     public interface ITypeIdentifier
     {
+        string ToString();
     }
 }

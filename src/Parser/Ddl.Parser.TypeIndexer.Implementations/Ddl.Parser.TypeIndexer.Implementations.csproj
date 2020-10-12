@@ -14,7 +14,6 @@
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser.TypeIndexer.Shared\Ddl.Parser.TypeIndexer.Shared.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.TypeIndexer\Ddl.Parser.TypeIndexer.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Parser\Ddl.Parser.csproj" />
   </ItemGroup>

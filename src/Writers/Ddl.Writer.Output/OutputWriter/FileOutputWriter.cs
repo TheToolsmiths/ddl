@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Writer.Output.OutputWriter
@@ -33,7 +34,7 @@ namespace TheToolsmiths.Ddl.Writer.Output.OutputWriter
 
         private async Task HandleWriteOutputToFile()
         {
-            await using var fileStream = File.OpenWrite(this.outputFile.FullName);
+            await using var fileStream = File.Open(this.outputFile.FullName, FileMode.Create, FileAccess.Write);
 
             await this.pipeReader.CopyToAsync(fileStream).ConfigureAwait(false);
         }

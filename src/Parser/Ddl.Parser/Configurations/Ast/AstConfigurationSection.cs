@@ -18,12 +18,12 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Ast
             this.scopeBuilders = scopeBuilders;
         }
 
-        public bool TryGetTypeValue(AstItemType itemType, [MaybeNullWhen(false)] out Type typeValue)
+        public bool TryGetTypeValue(AstItemType itemType, [NotNullWhen(true)] out Type? typeValue)
         {
             return this.itemBuilders.TryGetValue(itemType, out typeValue);
         }
 
-        public bool TryGetTypeValue(AstScopeType scopeType, [MaybeNullWhen(false)] out Type typeValue)
+        public bool TryGetTypeValue(AstScopeType scopeType, [NotNullWhen(true)] out Type? typeValue)
         {
             return this.scopeBuilders.TryGetValue(scopeType, out typeValue);
         }

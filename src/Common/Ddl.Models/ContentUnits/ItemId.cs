@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace TheToolsmiths.Ddl.Models.ContentUnits
 {
+    [DebuggerDisplay("Item Id '{" + nameof(value) + "}'")]
     public readonly struct ItemId : IEquatable<ItemId>
     {
         private static int nextId;
@@ -20,7 +22,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits
             return this.value == other.value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is ItemId other && this.Equals(other);
         }
@@ -44,5 +46,7 @@ namespace TheToolsmiths.Ddl.Models.ContentUnits
         {
             return $"Item Id '{this.value}'";
         }
+
+        public int ToInt() => this.value;
     }
 }

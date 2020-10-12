@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Services
             services.AddScoped<NamespacePathResolver>();
             services.AddScoped<TypeIndexer>();
 
-            services.AddScoped(RootIndexerResolver.CreateResolver);
+            services.AddScoped(RootItemIndexerResolver.CreateResolver);
 
             services.AddScoped<IDdlPackageIndexer, DdlPackageIndexer>();
 

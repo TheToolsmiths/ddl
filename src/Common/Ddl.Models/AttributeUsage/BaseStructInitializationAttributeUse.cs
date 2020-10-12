@@ -1,5 +1,4 @@
-﻿using System;
-using TheToolsmiths.Ddl.Models.Values;
+﻿using TheToolsmiths.Ddl.Models.Values;
 
 namespace TheToolsmiths.Ddl.Models.AttributeUsage
 {
@@ -12,7 +11,7 @@ namespace TheToolsmiths.Ddl.Models.AttributeUsage
 
         public StructInitialization Initialization { get; }
 
-        public override AttributeUseKind UseKind => throw new NotImplementedException();
+        public abstract override AttributeUseKind UseKind { get; }
 
         public override bool IsTyped => false;
     }

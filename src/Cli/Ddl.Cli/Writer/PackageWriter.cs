@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-
-using TheToolsmiths.Ddl.Parser.Packager;
+using TheToolsmiths.Ddl.Models.Package;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer;
 
@@ -26,7 +24,7 @@ namespace TheToolsmiths.Ddl.Cli.Writer
         {
             using var _ = this.log.BeginScope("Writing Package");
 
-            var result = await writerHandler.WriteContent(async sw => await this.packageWriter.WritePackage(sw, package));
+            var result = await writerHandler.WriteContent(this.packageWriter.WritePackage, package);
 
             this.log.LogInformation("Package written");
 

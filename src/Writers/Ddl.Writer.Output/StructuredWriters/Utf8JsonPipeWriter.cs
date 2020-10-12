@@ -50,11 +50,6 @@ namespace TheToolsmiths.Ddl.Writer.Output.StructuredWriters
             this.jsonWriter.WriteString(propertyName, value);
         }
 
-        public async ValueTask FlushAsync()
-        {
-            await this.jsonWriter.FlushAsync().ConfigureAwait(true);
-        }
-
         public void WritePropertyName(string propertyName)
         {
             this.jsonWriter.WritePropertyName(propertyName);
@@ -78,6 +73,16 @@ namespace TheToolsmiths.Ddl.Writer.Output.StructuredWriters
         public void WriteBoolean(string propertyName, in bool value)
         {
             this.jsonWriter.WriteBoolean(propertyName, value);
+        }
+
+        public void WriteNumber(string propertyName, in int value)
+        {
+            this.jsonWriter.WriteNumber(propertyName, value);
+        }
+
+        public async ValueTask FlushAsync()
+        {
+            await this.jsonWriter.FlushAsync().ConfigureAwait(true);
         }
     }
 }

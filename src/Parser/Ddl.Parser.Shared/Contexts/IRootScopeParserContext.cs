@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Lexer;
+﻿using TheToolsmiths.Ddl.Lexer;
 using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
 
 namespace TheToolsmiths.Ddl.Parser.Contexts

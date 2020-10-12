@@ -1,10 +1,11 @@
-﻿using System.CommandLine.Builder;
+﻿using System;
+using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
-
+using System.IO;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using TheToolsmiths.Ddl.Cli.Builders;
 using TheToolsmiths.Ddl.Cli.Lexers;
 using TheToolsmiths.Ddl.Cli.Packagers;
@@ -14,8 +15,6 @@ using TheToolsmiths.Ddl.Cli.TypeIndexers;
 using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Services;
-
-using IConfigurationBuilder = Microsoft.Extensions.Configuration.IConfigurationBuilder;
 
 namespace TheToolsmiths.Ddl.Cli.Initialization
 {
@@ -67,12 +66,20 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
 
         private static void ConfigureAppConfiguration(HostBuilderContext context, IConfigurationBuilder config)
         {
-            config.AddJsonFile("appsettings.json");
+            string location = Assembly.GetEntryAssembly()?.Location ??
+                              throw new InvalidOperationException("Can not get Entry Assembly location");
 
-            config.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true);
+            string configurationDirectory = Path.GetDirectoryName(location) ??
+                                            throw new InvalidOperationException("Invalid Entry Assembly location");
+
+            config.AddJsonFile(Path.Join(configurationDirectory, "appsettings.json"));
+
+            config.AddJsonFile(
+                Path.Join(configurationDirectory, $"appsettings.{context.HostingEnvironment.EnvironmentName}.json"),
+                optional: true);
 
 #if DEBUG
-            config.AddJsonFile("appsettings.Debug.json", true);
+            config.AddJsonFile(Path.Join(configurationDirectory, "appsettings.Debug.json"), optional: true);
 #endif
         }
     }

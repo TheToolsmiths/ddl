@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.Pipelines;
-using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Lexer;

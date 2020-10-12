@@ -11,5 +11,7 @@ namespace TheToolsmiths.Ddl.Writer
         Task<Result> WriteOutputAsync();
 
         Task<Result> WriteContent(Func<IStructuredContentWriter, Task<Result>> contentWriterFunc);
+
+        Task<Result> WriteContent<TContext>(Func<IStructuredContentWriter, TContext, Task<Result>> contentWriterFunc, TContext context);
     }
 }

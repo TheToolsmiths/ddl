@@ -19,12 +19,12 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
             this.scopeBuilders = scopeBuilders;
         }
 
-        public bool TryGetTypeValue(ItemType itemType, [MaybeNullWhen(false)] out Type typeValue)
+        public bool TryGetTypeValue(ItemType itemType, [NotNullWhen(true)] out Type? typeValue)
         {
             return this.itemBuilders.TryGetValue(itemType, out typeValue);
         }
 
-        public bool TryGetTypeValue(ScopeType scopeType, [MaybeNullWhen(false)] out Type typeValue)
+        public bool TryGetTypeValue(ScopeType scopeType, [NotNullWhen(true)] out Type? typeValue)
         {
             return this.scopeBuilders.TryGetValue(scopeType, out typeValue);
         }

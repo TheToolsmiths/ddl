@@ -11,7 +11,7 @@ namespace TheToolsmiths.Ddl.Configurations
             this.builderCollection = builderCollection;
         }
 
-        public bool TryGetConfigurationBuilder<T>([MaybeNullWhen(false)] out T builder)
+        public bool TryGetConfigurationBuilder<T>([NotNullWhen(true)] out T? builder)
             where T : class, IConfigurationBuilder
         {
             return this.builderCollection.TryGetConfigurationBuilder(out builder);

@@ -3,7 +3,6 @@
 using TheToolsmiths.Ddl.Configurations;
 using TheToolsmiths.Ddl.Models.EntryTypes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Configurations;
-using TheToolsmiths.Ddl.Parser.TypeResolver.Extensions;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations.Configurators
 {
@@ -24,16 +23,16 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations.Configurators
             // Register Item Type Resolvers
             {
                 builder.RegisterPassthroughTypeResolver(CommonItemTypes.ImportStatement);
-                builder.RegisterItemTypeResolver<EnumDefinitionTypeResolver>(CommonItemTypes.EnumDefinition);
-                builder.RegisterItemTypeResolver<EnumStructDefinitionTypeResolver>(
+                builder.RegisterTypeResolver<EnumDefinitionTypeResolver>(CommonItemTypes.EnumDefinition);
+                builder.RegisterTypeResolver<EnumStructDefinitionTypeResolver>(
                     CommonItemTypes.EnumStructDefinition);
-                builder.RegisterItemTypeResolver<StructDefinitionTypeResolver>(CommonItemTypes.StructDefinition);
+                builder.RegisterTypeResolver<StructDefinitionTypeResolver>(CommonItemTypes.StructDefinition);
             }
 
             // Register Scope Type Resolvers
             {
-                builder.RegisterScopeTypeResolver<RootScopeTypeResolver>(CommonScopeTypes.RootScope);
-                builder.RegisterScopeTypeResolver<ConditionalRootScopeTypeResolver>(CommonScopeTypes.ConditionalScope);
+                builder.RegisterTypeResolver<RootScopeTypeResolver>(CommonScopeTypes.RootScope);
+                builder.RegisterTypeResolver<ConditionalRootScopeTypeResolver>(CommonScopeTypes.ConditionalScope);
             }
         }
     }

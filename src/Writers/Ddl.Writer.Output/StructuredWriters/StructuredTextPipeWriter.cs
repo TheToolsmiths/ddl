@@ -72,6 +72,11 @@ namespace TheToolsmiths.Ddl.Writer.Output.StructuredWriters
             throw new NotImplementedException();
         }
 
+        public void WriteNumber(string propertyName, in int value)
+        {
+            throw new NotImplementedException();
+        }
+
         public ValueTask FlushAsync()
         {
             return default;

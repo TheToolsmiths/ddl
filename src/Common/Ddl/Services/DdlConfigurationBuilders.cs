@@ -28,7 +28,6 @@ namespace TheToolsmiths.Ddl.Services
             configurationBuilder.ConfigurationRegistryBuilder
                 .AddConfigurationProvider<IParserConfigurationProvider>(new ParserConfigurationProvider(parserRegistryBuilder))
                 .AddConfigurationProvider<IAstConfigurationProvider>(new AstConfigurationProvider())
-                .AddConfigurationProvider<IWriterConfigurationProvider>(new WriterConfigurationProvider())
                 .AddConfigurationProvider<IModelConfigurationProvider>(new ModelConfigurationProvider());
 
             configurationBuilder.ParserConfigurators

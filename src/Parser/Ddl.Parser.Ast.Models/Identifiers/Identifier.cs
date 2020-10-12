@@ -39,16 +39,6 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers
 
         public static bool Equals(Identifier a, Identifier b)
         {
-            if (a is null)
-            {
-                return false;
-            }
-
-            if (b is null)
-            {
-                return false;
-            }
-
             if (ReferenceEquals(a, b))
             {
                 return true;
@@ -94,7 +84,7 @@ namespace TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers
 
         public override int GetHashCode()
         {
-            return this.Text != null ? this.Text.GetHashCode(StringComparison.InvariantCulture) : 0;
+            return this.Text.GetHashCode(StringComparison.InvariantCulture);
         }
 
         public static bool operator ==(Identifier left, Identifier right)

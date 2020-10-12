@@ -3,7 +3,6 @@ using System.Buffers;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
-using TheToolsmiths.Ddl.Writer.Writer.Scopes;
 
 namespace TheToolsmiths.Ddl.Writer
 {
@@ -28,7 +27,9 @@ namespace TheToolsmiths.Ddl.Writer
 
             writer.WritePropertyName("content");
 
-            ScopeContentWriter.WriteScopeContent(writer, contentUnit.RootScope.Content);
+            throw new NotImplementedException();
+
+            //ScopeContentWriter.WriteScopeContent(writer, contentUnit.RootScope.Content);
 
             writer.WriteEndObject();
 

@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Configurations
 
         public IEnumerable<IConfigurationBuilder> ConfigurationBuilders => this.configurationBuilders.Values;
 
-        public bool TryGetConfigurationBuilder<T>([MaybeNullWhen(false)] out T builder)
+        public bool TryGetConfigurationBuilder<T>([NotNullWhen(true)] out T? builder)
             where T : class, IConfigurationBuilder
         {
             if (this.configurationBuilders.TryGetValue(typeof(T), out var cachedBuilder))

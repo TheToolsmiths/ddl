@@ -25,7 +25,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         public bool TryResolveItemTypeResolver(
             IRootItem item,
-            [MaybeNullWhen(false)] out RootItemTypeResolverWrapper typeResolver)
+            [NotNullWhen(true)] out RootItemTypeResolverWrapper? typeResolver)
         {
             var instanceType = item.GetType();
             var itemType = item.ItemType;
@@ -41,7 +41,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
                 Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
 
-                typeResolver = (RootItemTypeResolverWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+                typeResolver = ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType) as RootItemTypeResolverWrapper;
 
                 return typeResolver != null;
             }
@@ -52,7 +52,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
         public bool TryResolveScopeTypeResolver(
             IRootScope astScope,
-            [MaybeNullWhen(false)] out RootScopeTypeResolverWrapper scopeBuilder)
+            [NotNullWhen(true)] out RootScopeTypeResolverWrapper? scopeBuilder)
         {
             var instanceType = astScope.GetType();
             var scopeType = astScope.ScopeType;
@@ -68,7 +68,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 
                 Type wrapperType = wrapperOpenType.MakeGenericType(builderType, instanceType);
 
-                scopeBuilder = (RootScopeTypeResolverWrapper)ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType);
+                scopeBuilder = ActivatorUtilities.GetServiceOrCreateInstance(this.provider, wrapperType) as RootScopeTypeResolverWrapper;
 
                 return scopeBuilder != null;
             }

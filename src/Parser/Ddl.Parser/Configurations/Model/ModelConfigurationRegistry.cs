@@ -12,7 +12,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
             this.sections = sections;
         }
 
-        public bool TryGetSection(string sectionKey, [MaybeNullWhen(false)] out IModelConfigurationSection configurationSection)
+        public bool TryGetSection(string sectionKey, [NotNullWhen(true)] out IModelConfigurationSection? configurationSection)
         {
             if (this.sections.TryGetValue(sectionKey, out var section))
             {

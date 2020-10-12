@@ -5,9 +5,9 @@ namespace TheToolsmiths.Ddl.Parser.TypeResolver.Configurations
 {
     public static class ResolveConfigurationExtensions
     {
-        public static bool TryGetBuilderConfigurationBuilder(
+        public static bool TryGetTypeResolverConfigurationBuilder(
             this IParserConfigurationContext context,
-            [MaybeNullWhen(false)] out ITypeResolveConfigurationBuilder typeResolveConfigurationBuilder)
+            [NotNullWhen(true)] out ITypeResolveConfigurationBuilder? typeResolveConfigurationBuilder)
         {
             return context.TryGetConfigurationBuilder(out typeResolveConfigurationBuilder);
         }

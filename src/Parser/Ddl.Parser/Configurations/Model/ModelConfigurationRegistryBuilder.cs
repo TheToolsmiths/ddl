@@ -16,7 +16,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
 
         public bool TryGetCategoryBuilder<TValue>(
             string sectionKey,
-            [MaybeNullWhen(false)] out IModelConfigurationSectionBuilder<TValue> sectionBuilder)
+            [NotNullWhen(true)] out IModelConfigurationSectionBuilder<TValue>? sectionBuilder)
         {
             if (this.sectionBuilders.TryGetValue(sectionKey, out var builder) == false)
             {
@@ -33,7 +33,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
             return sectionBuilder != null;
         }
 
-        public bool TryGetCategoryBuilder(string sectionKey, out IModelConfigurationSectionBuilder sectionBuilder)
+        public bool TryGetCategoryBuilder(string sectionKey, [NotNullWhen(true)] out IModelConfigurationSectionBuilder? sectionBuilder)
         {
             if (this.sectionBuilders.TryGetValue(sectionKey, out var builder) == false)
             {
@@ -45,7 +45,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Model
                 return true;
             }
 
-            sectionBuilder = builder as IModelConfigurationSectionBuilder ?? throw new InvalidOperationException();
+            sectionBuilder = builder as IModelConfigurationSectionBuilder;
 
             return sectionBuilder != null;
         }

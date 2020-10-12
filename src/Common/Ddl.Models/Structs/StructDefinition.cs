@@ -8,7 +8,7 @@ using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Models.Structs
 {
-    public class StructDefinition : ITypedRootItem
+    public class StructDefinition : ITypedRootItem, IAttributableRootItem
     {
         public StructDefinition(
             ItemId itemId,
