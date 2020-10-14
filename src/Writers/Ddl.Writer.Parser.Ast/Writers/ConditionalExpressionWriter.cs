@@ -1,6 +1,6 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.Operators;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
+using TheToolsmiths.Ddl.Models.Ast.Literals;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Results;
 

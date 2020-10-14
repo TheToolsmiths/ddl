@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.Values;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Models.Ast.Values;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
-using LiteralValue = TheToolsmiths.Ddl.Models.Literals.LiteralValue;
-using ValueInitialization = TheToolsmiths.Ddl.Models.Values.ValueInitialization;
+using LiteralValue = TheToolsmiths.Ddl.Models.Build.Literals.LiteralValue;
+using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -15,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
     {
         public Result<ValueInitialization> BuildValueInitialization(
             IRootEntryBuildContext context,
-            Ast.Models.Values.ValueInitialization astInitialization)
+            Models.Ast.Values.ValueInitialization astInitialization)
         {
             return astInitialization switch
             {

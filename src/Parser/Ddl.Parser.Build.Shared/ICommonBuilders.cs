@@ -1,16 +1,16 @@
-﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Structs.Content;
-using TheToolsmiths.Ddl.Models.Values;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+﻿using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Ast.Values;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Literals;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Results;
 
-using ValueInitialization = TheToolsmiths.Ddl.Models.Values.ValueInitialization;
+using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build
 {
@@ -20,14 +20,14 @@ namespace TheToolsmiths.Ddl.Parser.Build
 
         Result<ScopeContent> BuildScopeContent(AstScopeContent astScopeContent);
 
-        Result<StructDefinitionContent> BuildStructContent(Ast.Models.Structs.StructDefinitionContent content);
+        Result<StructDefinitionContent> BuildStructContent(Models.Ast.Structs.StructDefinitionContent content);
 
         Result<ConditionalExpression> BuildConditionalExpression(AstConditionalExpression conditionalExpression);
 
         Result<StructInitialization> BuildStructInitialization(StructValueInitialization astInitialization);
 
-        Result<ValueInitialization> BuildValueInitialization(Ast.Models.Values.ValueInitialization astInitialization);
+        Result<ValueInitialization> BuildValueInitialization(Models.Ast.Values.ValueInitialization astInitialization);
 
-        Result<Models.Literals.LiteralValue> BuildLiteral(LiteralValue astLiteral);
+        Result<LiteralValue> BuildLiteral(Models.Ast.Literals.LiteralValue astLiteral);
     }
 }

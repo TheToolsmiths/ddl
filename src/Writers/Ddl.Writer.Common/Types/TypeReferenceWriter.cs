@@ -1,12 +1,11 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.References;
-using TheToolsmiths.Ddl.Models.Types.References.Locality;
-using TheToolsmiths.Ddl.Models.Types.References.Modifiers;
-using TheToolsmiths.Ddl.Models.Types.References.Resolve;
-using TheToolsmiths.Ddl.Models.Types.References.Storage;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.References;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Locality;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Modifiers;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Resolve;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Storage;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.References;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 

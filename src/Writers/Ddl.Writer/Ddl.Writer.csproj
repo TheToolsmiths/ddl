@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Common\Ddl.Writer.Common.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
   </ItemGroup>

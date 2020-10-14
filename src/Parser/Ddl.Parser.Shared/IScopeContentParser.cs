@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Results;
 

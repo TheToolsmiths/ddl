@@ -12,8 +12,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\Ddl.Lexer\Ddl.Lexer.csproj" />
-    <ProjectReference Include="..\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Shared\Ddl.Parser.Shared.csproj" />
   </ItemGroup>

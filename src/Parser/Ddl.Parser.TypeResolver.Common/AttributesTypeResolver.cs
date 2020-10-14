@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Results;
 

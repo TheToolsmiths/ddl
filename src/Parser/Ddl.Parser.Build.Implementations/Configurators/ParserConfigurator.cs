@@ -1,6 +1,6 @@
 ﻿using System;
 using TheToolsmiths.Ddl.Configurations;
-using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Ast.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Build.Configurations;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations.Configurators

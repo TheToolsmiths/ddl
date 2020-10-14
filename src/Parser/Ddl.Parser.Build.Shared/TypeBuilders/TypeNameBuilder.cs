@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
-using TypeName = TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names.TypeName;
+using TheToolsmiths.Ddl.Models.Ast.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TypeName = TheToolsmiths.Ddl.Models.Ast.Types.Names.TypeName;
 
 namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
 {

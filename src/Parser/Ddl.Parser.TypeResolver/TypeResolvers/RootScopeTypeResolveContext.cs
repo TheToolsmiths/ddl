@@ -1,6 +1,5 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.ImportPaths;
+using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Common;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 

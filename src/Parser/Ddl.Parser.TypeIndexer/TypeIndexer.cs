@@ -1,10 +1,9 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Indexers;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 using TheToolsmiths.Ddl.Results;

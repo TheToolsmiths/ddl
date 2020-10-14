@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Ast.Arrays;
+using TheToolsmiths.Ddl.Models.Ast.Types.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.Names;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

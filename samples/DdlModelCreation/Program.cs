@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Threading.Tasks;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.ImportPaths;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Writer;
 
 namespace DdlModelCreation

@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
+﻿using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

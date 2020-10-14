@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Types.Names;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Names;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.Contexts
 {

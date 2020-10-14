@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Structs.Content;
-using TheToolsmiths.Ddl.Models.Values;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Results;
 

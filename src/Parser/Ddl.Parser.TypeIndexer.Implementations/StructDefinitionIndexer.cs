@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.References.ItemReferences;
-using TheToolsmiths.Ddl.Models.Structs;
+﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Structs;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 

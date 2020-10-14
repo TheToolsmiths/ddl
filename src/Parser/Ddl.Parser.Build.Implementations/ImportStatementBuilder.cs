@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements;
+using TheToolsmiths.Ddl.Models.Ast.ImportStatements;
+using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Results;

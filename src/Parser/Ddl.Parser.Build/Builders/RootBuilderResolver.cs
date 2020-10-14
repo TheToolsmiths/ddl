@@ -2,9 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Builders.Wrappers;
 using TheToolsmiths.Ddl.Parser.Build.Configurations;
 using TheToolsmiths.Ddl.Parser.Configurations.Ast;

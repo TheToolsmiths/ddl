@@ -1,9 +1,9 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Ast.Enums;
+using TheToolsmiths.Ddl.Models.Ast.ImportStatements;
+using TheToolsmiths.Ddl.Models.Ast.Structs;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

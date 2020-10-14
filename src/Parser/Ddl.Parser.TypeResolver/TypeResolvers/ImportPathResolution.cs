@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.References.ItemReferences;
-using TheToolsmiths.Ddl.Models.Types.Resolution;
+﻿using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Types.Resolution;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Literals;
-using TheToolsmiths.Ddl.Models.Values;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.Literals;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;

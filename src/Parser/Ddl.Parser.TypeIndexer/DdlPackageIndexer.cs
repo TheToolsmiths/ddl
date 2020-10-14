@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Index;
-using TheToolsmiths.Ddl.Models.Package.Index;
-using TheToolsmiths.Ddl.Models.Types.Index;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Index;
+using TheToolsmiths.Ddl.Models.Build.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.Types.Index;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer

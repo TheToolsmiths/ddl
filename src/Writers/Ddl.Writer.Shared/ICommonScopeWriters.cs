@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
+﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Writer

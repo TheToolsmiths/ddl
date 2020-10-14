@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Package.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.Package.Items;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using TheToolsmiths.Ddl.Models.Structs.Content;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Common.Types;
 using TheToolsmiths.Ddl.Writer.Contexts;

@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.Literals;
+using TheToolsmiths.Ddl.Models.Ast.Structs;
+using TheToolsmiths.Ddl.Models.Ast.Types.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.Names;
+using TheToolsmiths.Ddl.Models.Ast.Values;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser

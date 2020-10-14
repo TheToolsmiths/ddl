@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer

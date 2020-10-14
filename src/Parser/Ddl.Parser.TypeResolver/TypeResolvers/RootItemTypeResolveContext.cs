@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Common;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 

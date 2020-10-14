@@ -1,6 +1,6 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Models.Ast.Literals;
+using TheToolsmiths.Ddl.Models.Ast.Values;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

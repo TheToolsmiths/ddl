@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
+using TheToolsmiths.Ddl.Models.Ast.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.Operators;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
-using BoolLiteralExpression = TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions.BoolLiteralExpression;
-using EmptyExpression = TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions.EmptyExpression;
-using NegateExpression = TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions.NegateExpression;
+using BoolLiteralExpression = TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions.BoolLiteralExpression;
+using EmptyExpression = TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions.EmptyExpression;
+using NegateExpression = TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions.NegateExpression;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -97,20 +96,20 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
             var innerExpression = result.Value;
 
-            var negateExpression = new Models.ConditionalExpressions.NegateExpression(innerExpression);
+            var negateExpression = new Models.Build.ConditionalExpressions.NegateExpression(innerExpression);
             return Result.FromValue<IConditionalExpressionElement>(negateExpression);
         }
 
         private Result<IConditionalExpressionElement> CreateEmptyExpression(EmptyExpression _)
         {
-            return Result.FromValue<IConditionalExpressionElement>(new Models.ConditionalExpressions.EmptyExpression());
+            return Result.FromValue<IConditionalExpressionElement>(new Models.Build.ConditionalExpressions.EmptyExpression());
         }
 
         private Result<IConditionalExpressionElement> CreateBoolLiteralExpression(BoolLiteralExpression expression)
         {
             var literalExpression = expression.Value
-                ? Models.ConditionalExpressions.BoolLiteralExpression.True
-                : Models.ConditionalExpressions.BoolLiteralExpression.False;
+                ? Models.Build.ConditionalExpressions.BoolLiteralExpression.True
+                : Models.Build.ConditionalExpressions.BoolLiteralExpression.False;
 
             return Result.FromValue<IConditionalExpressionElement>(literalExpression);
         }

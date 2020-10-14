@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using TheToolsmiths.Ddl.Models.Paths;
-using TheToolsmiths.Ddl.Models.Types.Resolution;
+using TheToolsmiths.Ddl.Models.Build.Paths;
+using TheToolsmiths.Ddl.Models.Build.Types.Resolution;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes
 {

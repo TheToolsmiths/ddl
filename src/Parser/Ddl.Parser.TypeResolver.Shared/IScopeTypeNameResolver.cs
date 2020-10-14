@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver
 {

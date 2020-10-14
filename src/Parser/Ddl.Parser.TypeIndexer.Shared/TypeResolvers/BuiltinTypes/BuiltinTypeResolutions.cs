@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Types.Resolution;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Resolution;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes
 {

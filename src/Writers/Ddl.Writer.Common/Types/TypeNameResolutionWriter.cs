@@ -1,8 +1,8 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Paths;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
+using TheToolsmiths.Ddl.Models.Build.Paths;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 

@@ -1,9 +1,8 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Package.Index;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;

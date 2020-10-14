@@ -1,8 +1,7 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Structs;
-using TheToolsmiths.Ddl.Models.Structs.Content;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Structs;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 

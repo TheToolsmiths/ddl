@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
+using TheToolsmiths.Ddl.Models.Ast.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Operators;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Results;
 

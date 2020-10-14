@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.Literals;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
+using TheToolsmiths.Ddl.Models.Ast.Enums;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Enums;
+using TheToolsmiths.Ddl.Models.Build.Literals;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;

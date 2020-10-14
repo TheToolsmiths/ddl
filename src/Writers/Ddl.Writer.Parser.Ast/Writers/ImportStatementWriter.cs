@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ImportStatements;
+using TheToolsmiths.Ddl.Models.Ast.ImportStatements;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

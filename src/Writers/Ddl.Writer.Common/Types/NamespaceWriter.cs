@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Types;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Build.Types;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 

@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.ImportPaths;
+﻿using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Common.Imports

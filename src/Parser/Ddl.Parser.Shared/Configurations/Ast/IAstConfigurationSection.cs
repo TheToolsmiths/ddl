@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Ast.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations.Ast
 {

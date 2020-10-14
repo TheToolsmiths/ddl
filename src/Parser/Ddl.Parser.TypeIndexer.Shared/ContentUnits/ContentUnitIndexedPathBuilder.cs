@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Build.References.TypeReferences;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits
 {

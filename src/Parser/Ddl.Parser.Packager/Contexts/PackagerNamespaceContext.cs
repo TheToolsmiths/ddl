@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Package.Items;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Build.Package.Items;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.Packager.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Contexts

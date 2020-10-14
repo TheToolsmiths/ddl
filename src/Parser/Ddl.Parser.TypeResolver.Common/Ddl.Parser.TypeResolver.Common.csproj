@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Ddl.Models\Ddl.Models.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
   </ItemGroup>
 

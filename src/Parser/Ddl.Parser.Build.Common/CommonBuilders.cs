@@ -1,19 +1,19 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Structs.Content;
-using TheToolsmiths.Ddl.Models.Values;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Ast.Values;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Literals;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
-using ValueInitialization = TheToolsmiths.Ddl.Models.Values.ValueInitialization;
+using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -43,18 +43,18 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
             return this.provider.GetRequiredService<ScopeContentBuilder>().BuildScopeContent(this.context, astScopeContent);
         }
 
-        public Result<StructDefinitionContent> BuildStructContent(Ast.Models.Structs.StructDefinitionContent content)
+        public Result<StructDefinitionContent> BuildStructContent(Models.Ast.Structs.StructDefinitionContent content)
         {
             return this.provider.GetRequiredService<StructDefinitionContentBuilder>().BuildContent(this.context, content);
         }
 
-        public Result<ConditionalExpression> BuildConditionalExpression(Ast.Models.ConditionalExpressions.AstConditionalExpression conditionalExpression)
+        public Result<ConditionalExpression> BuildConditionalExpression(AstConditionalExpression conditionalExpression)
         {
             return this.provider.GetRequiredService<ConditionalExpressionBuilder>().BuildExpression(this.context, conditionalExpression);
         }
 
         public Result<ValueInitialization> BuildValueInitialization(
-            Ast.Models.Values.ValueInitialization astInitialization)
+            Models.Ast.Values.ValueInitialization astInitialization)
         {
             return this.provider.GetRequiredService<ValueInitializationBuilder>().BuildValueInitialization(this.context, astInitialization);
         }
@@ -64,7 +64,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
             return this.provider.GetRequiredService<ValueInitializationBuilder>().BuildStructInitialization(this.context, astInitialization);
         }
 
-        public Result<Models.Literals.LiteralValue> BuildLiteral(LiteralValue astLiteral)
+        public Result<LiteralValue> BuildLiteral(Models.Ast.Literals.LiteralValue astLiteral)
         {
             return this.provider.GetRequiredService<LiteralValueBuilder>().BuildLiteral(this.context, astLiteral);
         }

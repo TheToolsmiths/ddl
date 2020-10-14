@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.CompareSymbolsExpressions;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Operators;
+﻿using TheToolsmiths.Ddl.Models.Ast.CompareSymbolsExpressions;
+using TheToolsmiths.Ddl.Models.Ast.Operators;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers

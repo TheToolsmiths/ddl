@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
 {

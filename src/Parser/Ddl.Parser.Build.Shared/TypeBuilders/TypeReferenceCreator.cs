@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Types.References;
-using TheToolsmiths.Ddl.Models.Types.References.Builders;
-using TheToolsmiths.Ddl.Models.Types.References.Storage;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Build.Types.References;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Builders;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Storage;
 using TheToolsmiths.Ddl.Parser.Common;
 using TheToolsmiths.Ddl.Results;
-using DynamicArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.DynamicArraySize;
-using FixedArraySize = TheToolsmiths.Ddl.Parser.Ast.Models.Arrays.FixedArraySize;
+using DynamicArraySize = TheToolsmiths.Ddl.Models.Ast.Arrays.DynamicArraySize;
+using FixedArraySize = TheToolsmiths.Ddl.Models.Ast.Arrays.FixedArraySize;
 
 namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
 {
@@ -137,14 +137,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
                     dimensions.Add(integer);
                 }
 
-                ArraySize value = new Models.Types.References.Storage.FixedArraySize(dimensions);
+                ArraySize value = new Models.Build.Types.References.Storage.FixedArraySize(dimensions);
 
                 return Result.FromValue(value);
             }
 
             Result<ArraySize> CreateDynamicSize(DynamicArraySize _)
             {
-                ArraySize value = new Models.Types.References.Storage.DynamicArraySize();
+                ArraySize value = new Models.Build.Types.References.Storage.DynamicArraySize();
 
                 return Result.FromValue(value);
             }

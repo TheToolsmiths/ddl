@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-
-using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Namespaces

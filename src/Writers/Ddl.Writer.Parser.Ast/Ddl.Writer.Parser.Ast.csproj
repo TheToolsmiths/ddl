@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Output\Ddl.Writer.Output.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />

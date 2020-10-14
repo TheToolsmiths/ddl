@@ -2,8 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
 using TheToolsmiths.Ddl.Parser.Configurations.Model;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Indexers.Wrappers;

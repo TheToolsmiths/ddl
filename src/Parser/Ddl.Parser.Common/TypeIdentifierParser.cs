@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Arrays;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Identifiers;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Arrays;
+using TheToolsmiths.Ddl.Models.Ast.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Literals;
+using TheToolsmiths.Ddl.Models.Ast.Types.Identifiers;
+using TheToolsmiths.Ddl.Models.Ast.Types.TypePaths.Identifiers;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Results;
 

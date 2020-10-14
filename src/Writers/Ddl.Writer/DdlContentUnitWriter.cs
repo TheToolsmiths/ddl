@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer

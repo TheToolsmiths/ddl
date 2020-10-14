@@ -1,14 +1,13 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Structs;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
+using TheToolsmiths.Ddl.Models.Ast.Structs;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Structs;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 
-using StructDefinitionContent = TheToolsmiths.Ddl.Models.Structs.Content.StructDefinitionContent;
+using StructDefinitionContent = TheToolsmiths.Ddl.Models.Build.Structs.Content.StructDefinitionContent;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {

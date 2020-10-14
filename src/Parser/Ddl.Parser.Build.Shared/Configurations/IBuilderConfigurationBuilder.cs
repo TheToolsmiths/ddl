@@ -1,5 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Configurations;
-using TheToolsmiths.Ddl.Parser.Ast.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Ast.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Configurations
 {

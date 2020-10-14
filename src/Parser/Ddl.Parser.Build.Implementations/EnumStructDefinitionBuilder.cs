@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Enums;
+using TheToolsmiths.Ddl.Models.Ast.Enums;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Enums;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;
 
-using EnumStructVariantDefinition = TheToolsmiths.Ddl.Models.Enums.EnumStructVariantDefinition;
+using EnumStructVariantDefinition = TheToolsmiths.Ddl.Models.Build.Enums.EnumStructVariantDefinition;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
@@ -66,7 +65,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             {
                 var result = astDefinitionItem switch
                 {
-                    Ast.Models.Enums.EnumStructVariantDefinition astVariant => this.BuildEnumStructVariantDefinition(
+                    Models.Ast.Enums.EnumStructVariantDefinition astVariant => this.BuildEnumStructVariantDefinition(
                         itemContext,
                         astVariant),
                     _ => throw new ArgumentOutOfRangeException(nameof(astDefinitionItem))
@@ -85,7 +84,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 
         private Result<EnumStructVariantDefinition> BuildEnumStructVariantDefinition(
             IRootItemBuildContext itemContext,
-            Ast.Models.Enums.EnumStructVariantDefinition astVariant)
+            Models.Ast.Enums.EnumStructVariantDefinition astVariant)
         {
             var result = itemContext.CommonBuilders.BuildStructContent(astVariant.Content);
 

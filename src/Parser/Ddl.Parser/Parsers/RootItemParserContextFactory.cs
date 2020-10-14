@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+﻿using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Contexts;
 using TheToolsmiths.Ddl.Parser.Parsers.Contexts;
 

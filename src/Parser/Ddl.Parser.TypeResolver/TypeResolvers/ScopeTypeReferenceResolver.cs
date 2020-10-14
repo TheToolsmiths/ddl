@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-
-using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Models.Package.Index;
-using TheToolsmiths.Ddl.Models.Paths;
-using TheToolsmiths.Ddl.Models.Types.Index;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.References;
-using TheToolsmiths.Ddl.Models.Types.References.Resolve;
-using TheToolsmiths.Ddl.Models.Types.Resolution;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Models.Build.ImportPaths;
+using TheToolsmiths.Ddl.Models.Build.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.Paths;
+using TheToolsmiths.Ddl.Models.Build.Types.Index;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.References;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Resolve;
+using TheToolsmiths.Ddl.Models.Build.Types.Resolution;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.References;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.TypeResolvers.BuiltinTypes;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers

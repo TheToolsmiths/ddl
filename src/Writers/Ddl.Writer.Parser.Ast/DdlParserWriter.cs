@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Writer.Parser.Ast
 {

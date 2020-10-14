@@ -41,7 +41,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Common\Ddl\Ddl.csproj" />
-    <ProjectReference Include="..\..\Parser\Ddl.Parser.Ast.Models\Ddl.Parser.Ast.Models.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Build.Implementations\Ddl.Parser.Build.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Implementations\Ddl.Parser.Implementations.csproj" />

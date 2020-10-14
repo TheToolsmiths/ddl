@@ -1,7 +1,7 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.References.ItemReferences;
-using TheToolsmiths.Ddl.Models.Types.Names;
+﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Enums;
+using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 

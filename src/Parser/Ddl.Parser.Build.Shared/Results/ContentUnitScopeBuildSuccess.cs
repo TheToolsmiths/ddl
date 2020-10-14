@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits;
+﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Results
 {

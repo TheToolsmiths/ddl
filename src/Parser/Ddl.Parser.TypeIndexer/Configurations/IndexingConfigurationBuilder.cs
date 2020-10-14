@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Configurations;
-using TheToolsmiths.Ddl.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Build.EntryTypes;
 using TheToolsmiths.Ddl.Parser.Configurations.Model;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations

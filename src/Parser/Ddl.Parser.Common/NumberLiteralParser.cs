@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Literals;
+using TheToolsmiths.Ddl.Models.Ast.Literals;
 
 namespace TheToolsmiths.Ddl.Parser.Common
 {

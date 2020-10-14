@@ -1,15 +1,14 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Values;
+using TheToolsmiths.Ddl.Models.Ast.Structs;
+using TheToolsmiths.Ddl.Models.Ast.Values;
+using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content.Builders;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;
 
-using StructDefinitionContent = TheToolsmiths.Ddl.Models.Structs.Content.StructDefinitionContent;
-using ValueInitialization = TheToolsmiths.Ddl.Models.Values.ValueInitialization;
+using StructDefinitionContent = TheToolsmiths.Ddl.Models.Build.Structs.Content.StructDefinitionContent;
+using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -17,9 +16,9 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
     {
         public Result<StructDefinitionContent> BuildContent(
             IRootEntryBuildContext context,
-            Ast.Models.Structs.StructDefinitionContent astContent)
+            Models.Ast.Structs.StructDefinitionContent astContent)
         {
-            var builder = new Models.Structs.Content.Builders.StructDefinitionContentBuilder();
+            var builder = new Models.Build.Structs.Content.Builders.StructDefinitionContentBuilder();
 
             var result = this.BuildStructContent(context, builder, astContent);
 
@@ -36,7 +35,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
         private Result BuildStructContent(
             IRootEntryBuildContext context,
             StructDefinitionContentBuilderBase builder,
-            Ast.Models.Structs.StructDefinitionContent content)
+            Models.Ast.Structs.StructDefinitionContent content)
         {
             foreach (var astItem in content.Items)
             {

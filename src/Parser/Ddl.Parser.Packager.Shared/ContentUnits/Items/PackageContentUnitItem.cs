@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Models.ContentUnits;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.EntryTypes;
+﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items
 {

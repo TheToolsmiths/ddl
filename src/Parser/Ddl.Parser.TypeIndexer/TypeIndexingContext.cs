@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.References.TypeReferences;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.References.TypeReferences;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer

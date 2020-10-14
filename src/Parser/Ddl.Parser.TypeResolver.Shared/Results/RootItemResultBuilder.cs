@@ -1,6 +1,5 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.Results
 {

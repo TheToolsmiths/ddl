@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Structs;
-using TheToolsmiths.Ddl.Parser.Ast.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Ast.Structs;
+using TheToolsmiths.Ddl.Models.Ast.Types.Names;
 using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Implementations

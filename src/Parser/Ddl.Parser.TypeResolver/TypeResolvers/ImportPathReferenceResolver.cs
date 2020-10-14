@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using TheToolsmiths.Ddl.Extensions;
-using TheToolsmiths.Ddl.Models.ImportPaths;
-using TheToolsmiths.Ddl.Models.References.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.ImportPaths;
+using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.TypeResolvers
 {

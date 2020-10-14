@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.ImportPaths;
+﻿using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.Contexts
 {

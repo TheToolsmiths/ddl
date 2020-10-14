@@ -1,12 +1,12 @@
-﻿using TheToolsmiths.Ddl.Models.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Enums.Builders;
-using TheToolsmiths.Ddl.Models.Structs;
-using TheToolsmiths.Ddl.Models.Structs.Content.Builders;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.References.Builders;
-using TheToolsmiths.Ddl.Models.Types.References.Storage;
+﻿using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Enums.Builders;
+using TheToolsmiths.Ddl.Models.Build.Structs;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content.Builders;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Builders;
+using TheToolsmiths.Ddl.Models.Build.Types.References.Storage;
 
 namespace DdlModelCreation
 {

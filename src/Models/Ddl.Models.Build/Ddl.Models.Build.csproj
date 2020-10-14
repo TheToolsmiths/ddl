@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Models.Build</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Models.Build</RootNamespace>
+  </PropertyGroup>
+
+</Project>

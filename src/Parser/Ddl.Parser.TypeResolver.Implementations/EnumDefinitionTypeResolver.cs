@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Enums;
-using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Enums;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Results;
 using TheToolsmiths.Ddl.Results;

@@ -1,5 +1,5 @@
 ﻿using TheToolsmiths.Ddl.Lexer;
-using TheToolsmiths.Ddl.Parser.Ast.Models.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Ast.AttributeUsage;
 using TheToolsmiths.Ddl.Parser.Contexts;
 
 namespace TheToolsmiths.Ddl.Parser.Parsers.Contexts

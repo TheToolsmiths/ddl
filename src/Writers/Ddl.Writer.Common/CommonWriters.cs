@@ -1,12 +1,11 @@
 ﻿using System;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using TheToolsmiths.Ddl.Models.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Types.Names;
-using TheToolsmiths.Ddl.Models.Types.References;
-using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
-using TheToolsmiths.Ddl.Models.Values;
+using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Build.Types.References;
+using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Common.Attributes;
 using TheToolsmiths.Ddl.Writer.Common.Types;

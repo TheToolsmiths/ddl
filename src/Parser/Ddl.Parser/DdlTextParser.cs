@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-using TheToolsmiths.Ddl.Parser.Ast.Models.ContentUnits;
+using TheToolsmiths.Ddl.Models.Ast.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser
 {

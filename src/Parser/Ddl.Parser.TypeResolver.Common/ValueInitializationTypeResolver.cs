@@ -1,6 +1,5 @@
 ﻿using System;
-
-using TheToolsmiths.Ddl.Models.Values;
+using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Contexts;
 using TheToolsmiths.Ddl.Results;
 

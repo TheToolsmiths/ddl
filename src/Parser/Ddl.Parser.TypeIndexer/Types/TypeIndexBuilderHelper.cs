@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Types.Index;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Index;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
 

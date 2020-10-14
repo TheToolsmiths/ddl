@@ -1,7 +1,7 @@
 ﻿using System;
 
 using TheToolsmiths.Ddl.Configurations;
-using TheToolsmiths.Ddl.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Build.EntryTypes;
 using TheToolsmiths.Ddl.Parser.TypeResolver.Configurations;
 
 namespace TheToolsmiths.Ddl.Parser.TypeResolver.Implementations.Configurators
