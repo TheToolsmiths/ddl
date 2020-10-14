@@ -5,5 +5,7 @@ namespace TheToolsmiths.Ddl.Writer.Contexts
     public interface IRootEntryWriterContext
     {
         IStructuredContentWriter Writer { get; }
+
+        ICommonWriters CommonWriters { get; }
     }
 }

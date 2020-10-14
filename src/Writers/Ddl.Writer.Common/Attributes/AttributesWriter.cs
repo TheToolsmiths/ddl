@@ -1,4 +1,5 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
@@ -23,6 +24,8 @@ namespace TheToolsmiths.Ddl.Writer.Common.Attributes
 
         private void WriteAttributeUse(IRootEntryWriterContext context, IAttributeUse attributeUse)
         {
+            context.Writer.WriteStartObject();
+
             switch (attributeUse)
             {
                 case ConditionalAttributeUse conditional:
@@ -47,7 +50,7 @@ namespace TheToolsmiths.Ddl.Writer.Common.Attributes
                     throw new ArgumentOutOfRangeException(nameof(attributeUse));
             }
 
-            throw new NotImplementedException();
+            context.Writer.WriteEndObject();
         }
 
         private void WriteTypedInitializationAttribute(
@@ -66,7 +69,15 @@ namespace TheToolsmiths.Ddl.Writer.Common.Attributes
 
         private void WriteKeyedTypedAttribute(IRootEntryWriterContext context, KeyedTypedAttributeUse keyedTyped)
         {
-            throw new NotImplementedException();
+            context.Writer.WriteString("kind", "keyed-typed");
+
+            context.Writer.WriteString("key", keyedTyped.Key);
+
+            context.Writer.WritePropertyName("type");
+            context.CommonWriters.WriteTypeReference(keyedTyped.Type);
+
+            context.Writer.WritePropertyName("initialization");
+            context.CommonWriters.WriteStructInitialization(keyedTyped.Initialization);
         }
 
         private void WriteKeyedStructInitializationAttribute(

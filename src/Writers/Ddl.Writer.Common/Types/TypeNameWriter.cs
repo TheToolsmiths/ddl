@@ -1,10 +1,9 @@
 ﻿using System;
-
 using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
-namespace TheToolsmiths.Ddl.Writer.Common.TypeNames
+namespace TheToolsmiths.Ddl.Writer.Common.Types
 {
     public class TypeNameWriter
     {

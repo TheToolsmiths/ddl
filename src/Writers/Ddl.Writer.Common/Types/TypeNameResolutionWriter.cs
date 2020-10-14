@@ -1,5 +1,4 @@
 ﻿using System;
-
 using TheToolsmiths.Ddl.Models.Paths;
 using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Models.Types.Names.Qualified;
@@ -7,7 +6,7 @@ using TheToolsmiths.Ddl.Models.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
-namespace TheToolsmiths.Ddl.Writer.Common.TypeNames
+namespace TheToolsmiths.Ddl.Writer.Common.Types
 {
     public class TypeNameResolutionWriter
     {

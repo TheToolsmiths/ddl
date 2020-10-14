@@ -19,14 +19,6 @@ namespace TheToolsmiths.Ddl.Writer.Contexts
 
         public IStructuredContentWriter Writer { get; }
 
-        public IRootScopeWriterContext CreateScopeContext()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IRootItemWriterContext CreateItemContext()
-        {
-            throw new System.NotImplementedException();
-        }
+        ICommonWriters IRootEntryWriterContext.CommonWriters => this.CommonWriters;
     }
 }

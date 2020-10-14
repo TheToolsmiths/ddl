@@ -1,5 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Results;
@@ -15,5 +16,9 @@ namespace TheToolsmiths.Ddl.Writer
         Result WriteTypeName(TypedItemName typeNameItemName);
 
         Result WriteNamespace(NamespacePath namespacePath);
+
+        Result WriteTypeReference(TypeReference typeReference);
+
+        Result WriteStructInitialization(StructInitialization initialization);
     }
 }

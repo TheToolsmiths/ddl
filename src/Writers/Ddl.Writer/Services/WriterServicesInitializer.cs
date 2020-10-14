@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Writer.Common.Attributes;
-using TheToolsmiths.Ddl.Writer.Common.TypeNames;
+using TheToolsmiths.Ddl.Writer.Common.Types;
 using TheToolsmiths.Ddl.Writer.Handlers;
 
 namespace TheToolsmiths.Ddl.Writer.Services
@@ -18,6 +18,7 @@ namespace TheToolsmiths.Ddl.Writer.Services
 
             // Register Common Writers
             services.AddScoped<TypeNameWriter>();
+            services.AddScoped<TypeReferenceWriter>();
             services.AddScoped<TypeNameResolutionWriter>();
             services.AddScoped<NamespaceWriter>();
             services.AddScoped<AttributesWriter>();

@@ -3,7 +3,7 @@ using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
-namespace TheToolsmiths.Ddl.Writer.Common.TypeNames
+namespace TheToolsmiths.Ddl.Writer.Common.Types
 {
     public class NamespaceWriter
     {

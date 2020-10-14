@@ -11,6 +11,7 @@
         private TypeLocalityInformation(LocalityKind localityKind)
         {
             this.LocalityKind = localityKind;
+            this.ReferenceKind = LocalityReferenceKind.Owns;
         }
 
         public LocalityKind LocalityKind { get; }
@@ -21,10 +22,8 @@
 
         public static TypeLocalityInformation OwnsReference { get; } = new TypeLocalityInformation(LocalityReferenceKind.Owns);
 
-        public static TypeLocalityInformation HandleReference { get; } =
-            new TypeLocalityInformation(LocalityReferenceKind.Handle);
+        public static TypeLocalityInformation HandleReference { get; } = new TypeLocalityInformation(LocalityReferenceKind.Handle);
 
-        public static TypeLocalityInformation RefReference { get; } =
-            new TypeLocalityInformation(LocalityReferenceKind.Reference);
+        public static TypeLocalityInformation RefReference { get; } = new TypeLocalityInformation(LocalityReferenceKind.Reference);
     }
 }

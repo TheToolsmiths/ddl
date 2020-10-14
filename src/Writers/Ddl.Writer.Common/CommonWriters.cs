@@ -4,11 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Models.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.References;
 using TheToolsmiths.Ddl.Models.Types.TypePaths.Namespaces;
 using TheToolsmiths.Ddl.Models.Values;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Common.Attributes;
-using TheToolsmiths.Ddl.Writer.Common.TypeNames;
+using TheToolsmiths.Ddl.Writer.Common.Types;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
 namespace TheToolsmiths.Ddl.Writer.Common
@@ -43,6 +44,16 @@ namespace TheToolsmiths.Ddl.Writer.Common
         public Result WriteNamespace(NamespacePath namespacePath)
         {
             return this.Provider.GetRequiredService<NamespaceWriter>().Write(this.context, namespacePath);
+        }
+
+        public Result WriteTypeReference(TypeReference typeReference)
+        {
+            return this.Provider.GetRequiredService<TypeReferenceWriter>().Write(this.context, typeReference);
+        }
+
+        public Result WriteStructInitialization(StructInitialization initialization)
+        {
+            throw new NotImplementedException();
         }
     }
 }

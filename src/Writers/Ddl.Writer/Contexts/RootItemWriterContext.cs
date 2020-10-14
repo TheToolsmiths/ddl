@@ -17,5 +17,7 @@ namespace TheToolsmiths.Ddl.Writer.Contexts
         public ICommonItemWriters CommonWriters { get; }
 
         public IStructuredContentWriter Writer { get; }
+
+        ICommonWriters IRootEntryWriterContext.CommonWriters => this.CommonWriters;
     }
 }
