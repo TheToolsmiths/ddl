@@ -1,6 +1,7 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.Index;
+﻿using TheToolsmiths.Ddl.Models.Build.Indexing.Builders;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
+using TypeIndex = TheToolsmiths.Ddl.Models.Build.Indexing.TypeIndex;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Types
 {

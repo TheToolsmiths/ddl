@@ -9,4 +9,8 @@
     <RootNamespace>TheToolsmiths.Ddl.Models.Compiled</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ddl.Models.Common\Ddl.Models.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Build.ImportPaths;
+using TheToolsmiths.Ddl.Models.Build.Items;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
 using TheToolsmiths.Ddl.Writer.Common.Imports;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 

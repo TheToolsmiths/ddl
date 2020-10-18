@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Models.Compiled.Common</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Models.Compiled</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ddl.Models.Compiled\Ddl.Models.Compiled.csproj" />
+  </ItemGroup>
+
+</Project>

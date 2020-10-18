@@ -5,11 +5,11 @@ using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Ast.Values;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Build.Literals;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
 using TheToolsmiths.Ddl.Models.Build.Structs.Content;
 using TheToolsmiths.Ddl.Models.Build.Values;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
@@ -43,7 +43,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
             return this.provider.GetRequiredService<ScopeContentBuilder>().BuildScopeContent(this.context, astScopeContent);
         }
 
-        public Result<StructDefinitionContent> BuildStructContent(Models.Ast.Structs.StructDefinitionContent content)
+        public Result<StructContent> BuildStructContent(Models.Ast.Structs.StructDefinitionContent content)
         {
             return this.provider.GetRequiredService<StructDefinitionContentBuilder>().BuildContent(this.context, content);
         }

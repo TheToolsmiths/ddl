@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using TheToolsmiths.Ddl.Models.Build.EntryTypes;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations.Model
 {

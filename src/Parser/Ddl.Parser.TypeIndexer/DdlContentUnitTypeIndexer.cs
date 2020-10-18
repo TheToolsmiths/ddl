@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Index;
-using TheToolsmiths.Ddl.Models.Build.Types.Index;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
+using TheToolsmiths.Ddl.Models.Build.Indexing.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.ContentUnits;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Packages;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Types;

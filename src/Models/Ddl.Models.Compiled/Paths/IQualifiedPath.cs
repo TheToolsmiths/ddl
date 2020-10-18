@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Paths
 {

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.Package.Items;
+﻿using System;
+using System.Collections.Generic;
+using TheToolsmiths.Ddl.Models.Build.Items;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Items;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
@@ -45,7 +46,7 @@ namespace TheToolsmiths.Ddl.Writer
 
             this.WriteItemInfo(context, packageItem);
 
-            if (packageItem.Item is ITypedRootItem typedItem)
+            if (packageItem.Item is INamedRootItem typedItem)
             {
                 this.WriteItemTypeInfo(context, typedItem);
             }
@@ -67,11 +68,13 @@ namespace TheToolsmiths.Ddl.Writer
             context.Writer.WriteString("type", packageItem.ItemType.ToString());
         }
 
-        private void WriteItemTypeInfo(IRootItemWriterContext context, ITypedRootItem typedItem)
+        private void WriteItemTypeInfo(IRootItemWriterContext context, INamedRootItem namedItem)
         {
             context.Writer.WritePropertyName("typeName");
 
-            context.CommonWriters.WriteTypeNameResolution(typedItem.TypeNameResolution);
+            throw new NotImplementedException();
+
+            //context.CommonWriters.WriteTypeNameResolution(typedItem.TypeNameResolution);
         }
 
         private void WriteItemAttributes(IRootItemWriterContext context, IAttributableRootItem attributableItem)

@@ -2,12 +2,11 @@
 using TheToolsmiths.Ddl.Models.Ast.Structs;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Structs;
-using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
+using TheToolsmiths.Ddl.Models.Items;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
-
-using StructDefinitionContent = TheToolsmiths.Ddl.Models.Build.Structs.Content.StructDefinitionContent;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Implementations
 {
@@ -16,9 +15,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, StructAstDefinition item)
         {
             var builder = new RootItemResultBuilder();
-
-            var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
-            StructDefinitionContent structContent;
+            StructContent structContent;
             {
                 var result = itemContext.CommonBuilders.BuildStructContent(item.Content);
 
@@ -42,9 +39,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+            var itemId = ItemId.CreateNew();
 
-            var structDefinition = new StructDefinition(typeName, typeNameResolution, structContent, attributes);
+            var itemName = ItemTypeNameBuilder.CreateItemTypeName(item.TypeName);
+
+            var structDefinition = new StructDefinition(itemId, itemName, structContent, attributes);
 
             builder.Items.Add(structDefinition);
 

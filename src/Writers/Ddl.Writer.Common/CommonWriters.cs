@@ -2,10 +2,11 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.References;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Build.Types.Usage;
 using TheToolsmiths.Ddl.Models.Build.Values;
+using TheToolsmiths.Ddl.Models.Compiled.Values;
+using TheToolsmiths.Ddl.Models.Types.Items;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Common.Attributes;
 using TheToolsmiths.Ddl.Writer.Common.Types;
@@ -25,7 +26,7 @@ namespace TheToolsmiths.Ddl.Writer.Common
 
         protected IServiceProvider Provider { get; }
 
-        public Result WriteValueInitialization(ValueInitialization initialization)
+        public Result WriteValueInitialization(CompiledValueInitialization initialization)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +36,7 @@ namespace TheToolsmiths.Ddl.Writer.Common
             return this.Provider.GetRequiredService<AttributesWriter>().Write(this.context, attributes);
         }
 
-        public Result WriteTypeName(TypedItemName typeName)
+        public Result WriteTypeName(ItemTypeName typeName)
         {
             return this.Provider.GetRequiredService<TypeNameWriter>().Write(this.context, typeName);
         }
@@ -45,9 +46,9 @@ namespace TheToolsmiths.Ddl.Writer.Common
             return this.Provider.GetRequiredService<NamespaceWriter>().Write(this.context, namespacePath);
         }
 
-        public Result WriteTypeReference(TypeReference typeReference)
+        public Result WriteTypeReference(TypeUse typeUse)
         {
-            return this.Provider.GetRequiredService<TypeReferenceWriter>().Write(this.context, typeReference);
+            return this.Provider.GetRequiredService<TypeReferenceWriter>().Write(this.context, typeUse);
         }
 
         public Result WriteStructInitialization(StructInitialization initialization)

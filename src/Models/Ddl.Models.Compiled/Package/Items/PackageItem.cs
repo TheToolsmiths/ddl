@@ -1,12 +1,12 @@
-﻿using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
-using TheToolsmiths.Ddl.Models.Compiled.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Compiled.EntryTypes;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Items;
+using TheToolsmiths.Ddl.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Items;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Package.Items
 {
     public class PackageItem
     {
-        public PackageItem(in ItemId itemId, ItemType itemType, IRootItem item)
+        public PackageItem(in ItemId itemId, ItemType itemType, ICompiledItem item)
         {
             this.ItemId = itemId;
             this.ItemType = itemType;
@@ -17,6 +17,6 @@ namespace TheToolsmiths.Ddl.Models.Compiled.Package.Items
 
         public ItemType ItemType { get; }
 
-        public IRootItem Item { get; }
+        public ICompiledItem Item { get; }
     }
 }

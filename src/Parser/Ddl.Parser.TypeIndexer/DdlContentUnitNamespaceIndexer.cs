@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Index;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Indexing.ContentUnits;
+using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Namespaces;
 using TheToolsmiths.Ddl.Results;
 

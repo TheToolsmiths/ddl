@@ -8,16 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using TheToolsmiths.Ddl.Cli.Builders;
+using TheToolsmiths.Ddl.Cli.Compilers;
 using TheToolsmiths.Ddl.Cli.Packagers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
-using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Models.Ast.ContentUnits;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.Package;
-using TheToolsmiths.Ddl.Models.Build.Package.Index;
-using TheToolsmiths.Ddl.Parser.Packager;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
+using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
+using TheToolsmiths.Ddl.Models.Compiled.Package;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer;
 
@@ -67,17 +67,17 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             var packageIndex = indexResult.Value;
 
             // Resolve all model's content units types
-            var typeResolveResult = ResolveContentUnitsTypes(serviceProvider, contentUnits, packageIndex);
+            var compileResult = CompileContentUnits(serviceProvider, contentUnits, packageIndex);
 
-            if (typeResolveResult.IsError)
+            if (compileResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            var resolvedContentUnits = typeResolveResult.Value;
+            var compiledContentUnits = compileResult.Value;
 
             // Resolve all model's content units types
-            var packageResult = PackageContentUnits(serviceProvider, resolvedContentUnits, packageIndex);
+            var packageResult = PackageContentUnits(serviceProvider, compiledContentUnits, packageIndex);
 
             if (packageResult.IsError)
             {
@@ -152,7 +152,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             return Result.FromValue(result.Value);
         }
 
-        private static Result<PackageTypeIndex> IndexContentUnits(
+        private static Result<ContentUnitsTypeIndex> IndexContentUnits(
             IServiceProvider serviceProvider,
             IReadOnlyList<ContentUnit> contentUnits)
 
@@ -171,51 +171,51 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             return result;
         }
 
-        private static Result<IReadOnlyList<ContentUnit>> ResolveContentUnitsTypes(
+        private static Result<IReadOnlyList<CompiledContentUnit>> CompileContentUnits(
             IServiceProvider serviceProvider,
             IReadOnlyList<ContentUnit> contentUnits,
-            PackageTypeIndex packageTypeIndex)
+            ContentUnitsTypeIndex contentUnitsTypeIndex)
         {
             using var scope = serviceProvider.CreateScope();
 
-            var typeResolver = scope.ServiceProvider.GetRequiredService<ContentUnitsTypeResolver>();
+            var compiler = scope.ServiceProvider.GetRequiredService<ContentUnitCompiler>();
 
-            var typeResolveResult = typeResolver.ResolveContentUnitsTypes(contentUnits, packageTypeIndex);
+            var compileResult = compiler.CompileContentUnits(contentUnits, contentUnitsTypeIndex);
 
-            if (typeResolveResult.IsError)
+            if (compileResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            return typeResolveResult;
+            return compileResult;
         }
 
         private static Result<Package> PackageContentUnits(
             IServiceProvider serviceProvider,
-            IReadOnlyList<ContentUnit> contentUnits,
-            PackageTypeIndex packageTypeIndex)
+            IReadOnlyList<CompiledContentUnit> contentUnits,
+            ContentUnitsTypeIndex contentUnitsTypeIndex)
         {
             using var scope = serviceProvider.CreateScope();
 
-            var typeResolver = scope.ServiceProvider.GetRequiredService<ContentUnitsPackager>();
+            var packager = scope.ServiceProvider.GetRequiredService<ContentUnitsPackager>();
 
-            var typeResolveResult = typeResolver.PackageContentUnits(contentUnits, packageTypeIndex);
+            var packageResult = packager.PackageContentUnits(contentUnits, contentUnitsTypeIndex);
 
-            if (typeResolveResult.IsError)
+            if (packageResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            return typeResolveResult;
+            return packageResult;
         }
 
         private static Result<IWriterHandler> PrepareOutput(IServiceProvider serviceProvider, FileInfo? outputFile)
         {
             using var scope = serviceProvider.CreateScope();
 
-            var typeResolver = scope.ServiceProvider.GetRequiredService<WriterProvider>();
+            var writerProvider = scope.ServiceProvider.GetRequiredService<WriterProvider>();
 
-            var result = typeResolver.PrepareOutput(outputFile);
+            var result = writerProvider.PrepareOutput(outputFile);
 
             if (result.IsError)
             {
@@ -232,16 +232,16 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
         {
             using var scope = serviceProvider.CreateScope();
 
-            var typeResolver = scope.ServiceProvider.GetRequiredService<PackageWriter>();
+            var packageWriter = scope.ServiceProvider.GetRequiredService<PackageWriter>();
 
-            var typeResolveResult = await typeResolver.WritePackage(package, writerHandler);
+            var writeResult = await packageWriter.WritePackage(package, writerHandler);
 
-            if (typeResolveResult.IsError)
+            if (writeResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            return typeResolveResult;
+            return writeResult;
         }
 
         private static async Task<Result> WriteOutput(IServiceProvider serviceProvider, IWriterHandler writerHandler)

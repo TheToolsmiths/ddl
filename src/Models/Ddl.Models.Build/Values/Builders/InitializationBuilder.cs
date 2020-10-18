@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Literals;
-using TheToolsmiths.Ddl.Models.Build.Types.References;
+using TheToolsmiths.Ddl.Models.Build.Types.Usage;
+using TheToolsmiths.Ddl.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Models.Build.Values.Builders
 {
@@ -12,16 +12,15 @@ namespace TheToolsmiths.Ddl.Models.Build.Values.Builders
         {
             this.InitializationType = initializationType;
             this.Fields = new List<FieldInitializationBuilder>();
-            this.LiteralValue = new DefaultLiteral();
         }
 
         public ValueInitializationType InitializationType { get; set; }
 
         private List<FieldInitializationBuilder> Fields { get; }
 
-        public LiteralValue LiteralValue { get; set; }
+        public LiteralValue? LiteralValue { get; set; }
 
-        public TypeReference? TypeReference { get; set; }
+        public TypeUse? TypeReference { get; set; }
 
         public static InitializationBuilder StartStructured()
         {
@@ -65,7 +64,7 @@ namespace TheToolsmiths.Ddl.Models.Build.Values.Builders
             return new StructInitialization(fields);
         }
 
-        public TypedStructInitialization BuildTypeIdentifier()
+        public TypedStructInitialization BuildTypedStruct()
         {
             if (this.InitializationType != ValueInitializationType.TypedStruct)
             {
@@ -74,11 +73,11 @@ namespace TheToolsmiths.Ddl.Models.Build.Values.Builders
 
             var fields = this.Fields.Select(f => f.Build()).ToList();
 
-            TypeReference typeReference = this.TypeReference ?? throw new NotImplementedException();
+            TypeUse typeUse = this.TypeReference ?? throw new NotImplementedException();
 
             var initialization = new StructInitialization(fields);
 
-            return new TypedStructInitialization(typeReference, initialization);
+            return new TypedStructInitialization(typeUse, initialization);
         }
 
         public ValueInitialization Build()
@@ -88,7 +87,7 @@ namespace TheToolsmiths.Ddl.Models.Build.Values.Builders
                 ValueInitializationType.Empty => this.BuildEmpty(),
                 ValueInitializationType.Literal => this.BuildLiteral(),
                 ValueInitializationType.Struct => this.BuildStructured(),
-                ValueInitializationType.TypedStruct => this.BuildTypeIdentifier(),
+                ValueInitializationType.TypedStruct => this.BuildTypedStruct(),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

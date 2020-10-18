@@ -1,7 +1,7 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.Build.Enums;
-using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
+﻿using TheToolsmiths.Ddl.Models.Build.Enums;
+using TheToolsmiths.Ddl.Models.Build.Indexing.Items;
+using TheToolsmiths.Ddl.Models.Build.Items.References;
+using TheToolsmiths.Ddl.Models.Types.Items;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 
@@ -14,17 +14,19 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations
             var builder = new RootItemIndexResultBuilder();
 
             var itemReference = new ItemReference(item.ItemId);
-            builder.RootTypeReference = new TypedItemReference(item.TypeName, itemReference);
+            builder.ItemType = new ItemTypeIndexEntry(item.TypeName, itemReference);
 
-            TypeNameIdentifier itemTypeName = item.TypeName.ItemName;
+            var itemTypeName = item.TypeName.ItemName;
 
             foreach (var itemVariant in item.Variants)
             {
-                var subItemName = new TypedSubItemName(itemTypeName, itemVariant.Name);
-                var subItemReference = new SubItemReference(item.ItemId, itemVariant.SubItemId);
-                var typedSubItemReference = new TypedSubItemReference(subItemName, subItemReference);
+                var subItemName = new SubItemTypeName(itemTypeName, itemVariant.SubItemName);
 
-                builder.SubItemTypesReferences.Add(typedSubItemReference);
+                var subItemReference = new SubItemReference(item.ItemId, itemVariant.SubItemId);
+
+                var typedSubItemReference = new SubItemTypeIndexEntry(subItemName, subItemReference);
+
+                builder.SubItemTypes.Add(typedSubItemReference);
             }
 
             return builder.CreateSuccessResult();

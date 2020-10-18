@@ -1,17 +1,17 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Build.Types.References;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {
     public class ConditionalAttributeUse : BaseAttributeUse
     {
-        public ConditionalAttributeUse(TypeReference type, ConditionalExpression conditionalExpression)
+        public ConditionalAttributeUse(TypeUse type, ConditionalExpression conditionalExpression)
         {
             this.Type = type;
             this.ConditionalExpression = conditionalExpression;
         }
 
-        public TypeReference Type { get; }
+        public TypeUse Type { get; }
 
         public ConditionalExpression ConditionalExpression { get; }
 

@@ -1,11 +1,11 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.References;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage;
 using TheToolsmiths.Ddl.Models.Build.Values;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {
     public class KeyedTypedAttributeUse : BaseTypedAttributeUse, IKeyedTypedAttributeUse
     {
-        public KeyedTypedAttributeUse(string key, TypeReference type, StructInitialization initialization)
+        public KeyedTypedAttributeUse(string key, TypeUse type, StructInitialization initialization)
             : base(type, initialization)
         {
             this.Key = key;

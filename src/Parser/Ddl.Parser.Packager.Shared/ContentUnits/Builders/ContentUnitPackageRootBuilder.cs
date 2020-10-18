@@ -1,4 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {
@@ -10,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
         private ContentUnitPackageRootBuilder(ContentUnitPackageItemsBuilder itemsBuilder)
         {
             this.itemsBuilder = itemsBuilder;
-            this.rootNamespaceBuilder = new ContentUnitPackageNamespaceBuilder(itemsBuilder, RootNamespacePath.EmptyRoot);
+            this.rootNamespaceBuilder = new ContentUnitPackageNamespaceBuilder(itemsBuilder, QualifiedNamespacePath.Root);
         }
 
         public static ContentUnitPackageRootBuilder CreateRoot()

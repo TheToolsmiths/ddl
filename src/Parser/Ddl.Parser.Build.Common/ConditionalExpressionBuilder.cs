@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Ast.CompareSymbolsExpressions;
 using TheToolsmiths.Ddl.Models.Ast.ConditionalExpressions;
 using TheToolsmiths.Ddl.Models.Ast.Operators;
-using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
@@ -96,20 +96,20 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
             var innerExpression = result.Value;
 
-            var negateExpression = new Models.Build.ConditionalExpressions.NegateExpression(innerExpression);
+            var negateExpression = new Models.ConditionalExpressions.NegateExpression(innerExpression);
             return Result.FromValue<IConditionalExpressionElement>(negateExpression);
         }
 
         private Result<IConditionalExpressionElement> CreateEmptyExpression(EmptyExpression _)
         {
-            return Result.FromValue<IConditionalExpressionElement>(new Models.Build.ConditionalExpressions.EmptyExpression());
+            return Result.FromValue<IConditionalExpressionElement>(new Models.ConditionalExpressions.EmptyExpression());
         }
 
         private Result<IConditionalExpressionElement> CreateBoolLiteralExpression(BoolLiteralExpression expression)
         {
             var literalExpression = expression.Value
-                ? Models.Build.ConditionalExpressions.BoolLiteralExpression.True
-                : Models.Build.ConditionalExpressions.BoolLiteralExpression.False;
+                ? Models.ConditionalExpressions.BoolLiteralExpression.True
+                : Models.ConditionalExpressions.BoolLiteralExpression.False;
 
             return Result.FromValue<IConditionalExpressionElement>(literalExpression);
         }

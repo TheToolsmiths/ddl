@@ -1,12 +1,13 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+﻿using System;
 using TheToolsmiths.Ddl.Models.Build.Enums.Builders;
-using TheToolsmiths.Ddl.Models.Build.Structs;
+using TheToolsmiths.Ddl.Models.Build.Items;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
 using TheToolsmiths.Ddl.Models.Build.Structs.Content.Builders;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Builders;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Storage;
+using TheToolsmiths.Ddl.Models.Build.Types.Usage.Builders;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Types.Items;
+using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Usage.Storage;
 
 namespace DdlModelCreation
 {
@@ -128,16 +129,17 @@ namespace DdlModelCreation
             //def struct GenericStructWithMultipleTypeParameter<TString, TFoo, TBar>
             //{
             var itemNameIdentifier = GenericTypeNameIdentifier.Create("GenericStructWithSimpleTypeParameter", "TString", "TFoo", "TBar");
-            var typeName = new TypedItemName(itemNameIdentifier);
+            var typeName = new ItemTypeName(itemNameIdentifier);
 
-            var contentBuilder = new StructDefinitionContentBuilder();
+            var contentBuilder = new StructContentBuilder();
 
             var structContent = contentBuilder.Build();
+            
+            throw new NotImplementedException();
+            //var structDefinition = new StructDefinition(typeName, structContent);
+            ////}
 
-            var structDefinition = new StructDefinition(typeName, structContent);
-            //}
-
-            return structDefinition;
+            //return structDefinition;
         }
 
         private static IRootItem CreateGenericStructWithSimpleTypeParameter()
@@ -147,18 +149,19 @@ namespace DdlModelCreation
             //def struct GenericStructWithSimpleTypeParameter<TString>
             //{
             var itemNameIdentifier = GenericTypeNameIdentifier.Create("GenericStructWithSimpleTypeParameter", genericParam);
-            var typeName = new TypedItemName(itemNameIdentifier);
+            var typeName = new ItemTypeName(itemNameIdentifier);
 
-            var contentBuilder = new StructDefinitionContentBuilder();
+            var contentBuilder = new StructContentBuilder();
 
             contentBuilder.AddField("field1").WithType().StartsWithSimplePath(genericParam);
 
             var structContent = contentBuilder.Build();
 
-            var structDefinition = new StructDefinition(typeName, structContent);
-            //}
+            throw new NotImplementedException();
+            //var structDefinition = new StructDefinition(typeName, structContent);
+            ////}
 
-            return structDefinition;
+            //return structDefinition;
         }
 
         private static IRootItem CreateStructWithScopes()
@@ -167,9 +170,9 @@ namespace DdlModelCreation
             //def struct StructWithScopes
             //{
             var itemNameIdentifier = new SimpleTypeNameIdentifier("StructWithScopes");
-            var typeName = new TypedItemName(itemNameIdentifier);
+            var typeName = new ItemTypeName(itemNameIdentifier);
 
-            var contentBuilder = new StructDefinitionContentBuilder();
+            var contentBuilder = new StructContentBuilder();
             //    // Scope
             //    scope
             contentBuilder.AddScope()
@@ -246,10 +249,11 @@ namespace DdlModelCreation
 
             var structContent = contentBuilder.Build();
 
-            var structDefinition = new StructDefinition(typeName, structContent);
-            //}
+            throw new NotImplementedException();
+            //var structDefinition = new StructDefinition(typeName, structContent);
+            ////}
 
-            return structDefinition;
+            //return structDefinition;
         }
 
         private static IRootItem CreateStructWithFieldTestTypes()
@@ -257,9 +261,9 @@ namespace DdlModelCreation
             //def struct StructWithFieldTestTypes
             //{
             var itemNameIdentifier = new SimpleTypeNameIdentifier("StructWithFieldTestTypes");
-            var typeName = new TypedItemName(itemNameIdentifier);
+            var typeName = new ItemTypeName(itemNameIdentifier);
 
-            var contentBuilder = new StructDefinitionContentBuilder();
+            var contentBuilder = new StructContentBuilder();
 
             //    field1: alias1,
             contentBuilder.AddField("field1").WithType().StartsWithSimplePath("alias1");
@@ -317,10 +321,11 @@ namespace DdlModelCreation
 
             var structContent = contentBuilder.Build();
 
-            var structDefinition = new StructDefinition(typeName, structContent);
-            //}
+            throw new NotImplementedException();
+            //var structDefinition = new StructDefinition(typeName, structContent);
+            ////}
 
-            return structDefinition;
+            //return structDefinition;
         }
     }
 }

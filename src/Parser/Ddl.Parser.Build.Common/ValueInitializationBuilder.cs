@@ -5,7 +5,7 @@ using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
 
-using LiteralValue = TheToolsmiths.Ddl.Models.Build.Literals.LiteralValue;
+using LiteralValue = TheToolsmiths.Ddl.Models.Literals.LiteralValue;
 using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common

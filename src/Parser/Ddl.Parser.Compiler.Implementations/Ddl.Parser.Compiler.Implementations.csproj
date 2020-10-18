@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>TheToolsmiths.Ddl.Parser.Compiler.Implementations</AssemblyName>
+    <RootNamespace>TheToolsmiths.Ddl.Parser.Compiler.Implementations</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Compiled.Common\Ddl.Models.Compiled.Common.csproj" />
+    <ProjectReference Include="..\Ddl.Parser.Compiler.Shared\Ddl.Parser.Compiler.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

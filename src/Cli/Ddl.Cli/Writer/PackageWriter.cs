@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-using TheToolsmiths.Ddl.Models.Build.Package;
+using TheToolsmiths.Ddl.Models.Compiled.Package;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer;
 

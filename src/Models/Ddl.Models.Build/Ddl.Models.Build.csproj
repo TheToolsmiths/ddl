@@ -9,4 +9,9 @@
     <RootNamespace>TheToolsmiths.Ddl.Models.Build</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ddl.Models.Common\Ddl.Models.Common.csproj" />
+    <ProjectReference Include="..\Ddl.Models.Shared\Ddl.Models.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

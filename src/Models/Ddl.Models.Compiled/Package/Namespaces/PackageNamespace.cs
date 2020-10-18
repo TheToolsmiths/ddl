@@ -1,17 +1,17 @@
-﻿using TheToolsmiths.Ddl.Models.Compiled.Package.Content;
-using TheToolsmiths.Ddl.Models.Compiled.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Content;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Package.Namespaces
 {
     public class PackageNamespace
     {
-        public PackageNamespace(RootNamespacePath namespacePath, PackageScopeContent scopeContent)
+        public PackageNamespace(QualifiedNamespacePath namespacePath, PackageScopeContent scopeContent)
         {
             this.NamespacePath = namespacePath;
             this.ScopeContent = scopeContent;
         }
 
-        public RootNamespacePath NamespacePath { get; }
+        public QualifiedNamespacePath NamespacePath { get; }
 
         public PackageScopeContent ScopeContent { get; }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Indexing.Items;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer
@@ -8,16 +8,16 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
     {
         public RootItemIndexResultBuilder()
         {
-            this.SubItemTypesReferences = new List<TypedSubItemReference>();
+            this.SubItemTypes = new List<SubItemTypeIndexEntry>();
         }
 
-        public List<TypedSubItemReference> SubItemTypesReferences { get; }
+        public List<SubItemTypeIndexEntry> SubItemTypes { get; }
 
-        public TypedItemReference? RootTypeReference { get; set; }
+        public ItemTypeIndexEntry? ItemType { get; set; }
 
         public RootItemIndexResult CreateSuccessResult()
         {
-            return new RootItemIndexSuccess(this.RootTypeReference, this.SubItemTypesReferences);
+            return new RootItemIndexSuccess(this.ItemType, this.SubItemTypes);
         }
     }
 }

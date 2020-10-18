@@ -1,24 +1,24 @@
 ﻿using System;
 using TheToolsmiths.Ddl.Models.Ast.Structs;
 using TheToolsmiths.Ddl.Models.Ast.Values;
-using TheToolsmiths.Ddl.Models.Build.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Build.Structs.Content;
 using TheToolsmiths.Ddl.Models.Build.Structs.Content.Builders;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
 using TheToolsmiths.Ddl.Results;
-
-using StructDefinitionContent = TheToolsmiths.Ddl.Models.Build.Structs.Content.StructDefinitionContent;
+using FieldDefinition = TheToolsmiths.Ddl.Models.Ast.Structs.FieldDefinition;
 using ValueInitialization = TheToolsmiths.Ddl.Models.Build.Values.ValueInitialization;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
     public class StructDefinitionContentBuilder
     {
-        public Result<StructDefinitionContent> BuildContent(
+        public Result<StructContent> BuildContent(
             IRootEntryBuildContext context,
             Models.Ast.Structs.StructDefinitionContent astContent)
         {
-            var builder = new Models.Build.Structs.Content.Builders.StructDefinitionContentBuilder();
+            var builder = new Models.Build.Structs.Content.Builders.StructContentBuilder();
 
             var result = this.BuildStructContent(context, builder, astContent);
 
@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
         private Result BuildStructContent(
             IRootEntryBuildContext context,
-            StructDefinitionContentBuilderBase builder,
+            StructContentBuilderBase builder,
             Models.Ast.Structs.StructDefinitionContent content)
         {
             foreach (var astItem in content.Items)
@@ -57,7 +57,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
         private Result BuildScope(
             IRootEntryBuildContext context,
-            StructDefinitionContentBuilderBase builder,
+            StructContentBuilderBase builder,
             StructScope structScope)
         {
             if (structScope.ConditionalExpression.IsEmpty == false)
@@ -87,7 +87,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
 
         private Result BuildFieldDefinition(
             IRootEntryBuildContext context,
-            StructDefinitionContentBuilderBase builder,
+            StructContentBuilderBase builder,
             FieldDefinition fieldDefinition)
         {
             var fieldBuilder = builder.AddField(fieldDefinition.Name.Text);

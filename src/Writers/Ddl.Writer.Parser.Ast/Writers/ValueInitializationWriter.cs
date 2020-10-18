@@ -1,5 +1,4 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Ast.Literals;
 using TheToolsmiths.Ddl.Models.Ast.Values;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
@@ -54,20 +53,22 @@ namespace TheToolsmiths.Ddl.Writer.Parser.Ast.Writers
 
             writer.WriteString("type", "literal");
 
-            string typeText = initialization.Literal switch
-            {
-                BoolLiteral _ => "bool",
-                DefaultLiteral _ => throw new NotImplementedException(),
-                EmptyLiteral _ => throw new NotImplementedException(),
-                NumberLiteral _ => "number",
-                StringLiteral _ => "string",
-                _ => throw new ArgumentOutOfRangeException(nameof(initialization.Literal))
-            };
+            throw new System.NotImplementedException();
 
-            writer.WriteString("literalType", typeText);
-            writer.WriteString("literalText", initialization.Literal.Text);
+            //string typeText = initialization.Literal switch
+            //{
+            //    BoolLiteral _ => "bool",
+            //    DefaultLiteral _ => throw new NotImplementedException(),
+            //    EmptyLiteral _ => throw new NotImplementedException(),
+            //    NumberLiteral _ => "number",
+            //    StringLiteral _ => "string",
+            //    _ => throw new ArgumentOutOfRangeException(nameof(initialization.Literal))
+            //};
 
-            writer.WriteEndObject();
+            //writer.WriteString("literalType", typeText);
+            //writer.WriteString("literalText", initialization.Literal.Text);
+
+            //writer.WriteEndObject();
         }
 
         private static void WriteTypeIdentifierInitialization(IStructuredContentWriter writer, TypeIdentifierInitialization initialization)

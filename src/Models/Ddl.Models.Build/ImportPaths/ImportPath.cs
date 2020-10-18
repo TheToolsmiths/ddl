@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Paths;
+using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Build.ImportPaths
 {
-    public class ImportPath : IQualifiedPath<ImportPathPart>
+    public class ImportPath : IPath<ImportPathPart>
     {
         private ImportPath(ImmutableArray<string> pathParts, bool isRooted)
         {

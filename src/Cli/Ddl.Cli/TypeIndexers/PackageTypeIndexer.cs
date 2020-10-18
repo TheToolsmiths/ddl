@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
 using TheToolsmiths.Ddl.Parser.TypeIndexer;
 using TheToolsmiths.Ddl.Results;
 
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Cli.TypeIndexers
             this.indexer = indexer;
         }
 
-        public Result<PackageTypeIndex> IndexContentUnits(IReadOnlyList<ContentUnit> contentUnits)
+        public Result<ContentUnitsTypeIndex> IndexContentUnits(IReadOnlyList<ContentUnit> contentUnits)
         {
             using var _ = this.log.BeginScope("Indexing Content Units");
 

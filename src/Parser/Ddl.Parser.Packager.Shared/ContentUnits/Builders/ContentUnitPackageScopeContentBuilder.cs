@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Package.Items;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Items;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
@@ -10,7 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
     {
         protected ContentUnitPackageScopeContentBuilder(
             ContentUnitPackageItemsBuilder itemsBuilder,
-            RootNamespacePath namespacePath)
+            QualifiedNamespacePath namespacePath)
         {
             this.NamespacePath = namespacePath;
             this.ItemsBuilder = itemsBuilder;
@@ -21,7 +22,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 
         protected ContentUnitPackageItemsBuilder ItemsBuilder { get; }
 
-        public RootNamespacePath NamespacePath { get; }
+        public QualifiedNamespacePath NamespacePath { get; }
 
         public List<PackageContentUnitItem> Items { get; }
 
@@ -52,7 +53,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
                 return childBuilder;
             }
 
-            var namespacePath = RootNamespacePath.Append((NamespacePath) this.NamespacePath, identifier);
+            var namespacePath = QualifiedNamespacePath.Append(this.NamespacePath, identifier);
 
             childBuilder = new ContentUnitPackageNamespaceBuilder(this.ItemsBuilder, namespacePath);
 

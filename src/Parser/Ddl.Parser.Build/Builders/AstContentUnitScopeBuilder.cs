@@ -1,7 +1,7 @@
 ﻿using System;
 using TheToolsmiths.Ddl.Models.Ast.ContentUnits.Scopes;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 

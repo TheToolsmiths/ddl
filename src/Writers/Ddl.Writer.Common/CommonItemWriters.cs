@@ -1,9 +1,6 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using TheToolsmiths.Ddl.Models.Build.Structs.Content;
-using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
 using TheToolsmiths.Ddl.Results;
-using TheToolsmiths.Ddl.Writer.Common.Types;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
 namespace TheToolsmiths.Ddl.Writer.Common
@@ -18,14 +15,15 @@ namespace TheToolsmiths.Ddl.Writer.Common
             this.context = context;
         }
 
-        public Result WriteStructDefinitionContent(StructDefinitionContent content)
+        public Result WriteStructDefinitionContent(StructContent content)
         {
             throw new NotImplementedException();
         }
 
-        public Result WriteTypeNameResolution(QualifiedItemTypeNameResolution typeNameResolution)
-        {
-            return this.Provider.GetRequiredService<TypeNameResolutionWriter>().Write(this.context, typeNameResolution);
-        }
+        // TODO: Uncomment
+        //public Result WriteTypeNameResolution(QualifiedItemTypeNameResolution typeNameResolution)
+        //{
+        //    return this.Provider.GetRequiredService<TypeNameResolutionWriter>().Write(this.context, typeNameResolution);
+        //}
     }
 }

@@ -1,15 +1,15 @@
-﻿using TheToolsmiths.Ddl.Models.Compiled.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Types.Resolution
 {
     public class ResolvedNamespace : TypeResolution
     {
-        public ResolvedNamespace(RootNamespacePath namespacePath)
+        public ResolvedNamespace(QualifiedNamespacePath namespacePath)
             : base(TypeResolutionKind.Namespace)
         {
             this.NamespacePath = namespacePath;
         }
 
-        public RootNamespacePath NamespacePath { get; }
+        public QualifiedNamespacePath NamespacePath { get; }
     }
 }

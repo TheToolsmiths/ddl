@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TheToolsmiths.Ddl.Models.Build.Package;
-using TheToolsmiths.Ddl.Parser.Packager;
+using TheToolsmiths.Ddl.Models.Compiled.Package;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 

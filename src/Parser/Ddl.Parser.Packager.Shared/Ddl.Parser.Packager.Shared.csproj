@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Compiled\Ddl.Models.Compiled.csproj" />
   </ItemGroup>
 
 </Project>

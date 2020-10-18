@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 using TheToolsmiths.Ddl.Parser.Build.Configurations;
+using TheToolsmiths.Ddl.Parser.Compiler.Configurations;
 using TheToolsmiths.Ddl.Parser.Configurations.Ast;
 using TheToolsmiths.Ddl.Parser.Configurations.Model;
 using TheToolsmiths.Ddl.Parser.Configurations.Parser;
 using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations;
-using TheToolsmiths.Ddl.Parser.TypeResolver.Configurations;
 using TheToolsmiths.Ddl.Writer.Configurations;
 using TheToolsmiths.Ddl.Writer.Configurations.Writer;
 
@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Services
             configurationBuilder.ConfigurationBuilders
                 .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
                 .AddConfigurationBuilder<IIndexingConfigurationBuilder>(new IndexingConfigurationBuilder())
-                .AddConfigurationBuilder<ITypeResolveConfigurationBuilder>(new TypeResolveConfigurationBuilder())
+                .AddConfigurationBuilder<ICompilerConfigurationBuilder>(new CompilerConfigurationBuilder())
                 .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder))
                 .AddConfigurationBuilder<IWriterConfigurationBuilder>(new WriterConfigurationBuilder());
 
@@ -34,7 +34,7 @@ namespace TheToolsmiths.Ddl.Services
                 .AddConfigurator<Parser.Build.Implementations.Configurators.ParserConfigurator>()
                 .AddConfigurator<Parser.Implementations.Configurators.ParserConfigurator>()
                 .AddConfigurator<Parser.TypeIndexer.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<Parser.TypeResolver.Implementations.Configurators.ParserConfigurator>()
+                .AddConfigurator<Parser.Compiler.Implementations.Configurators.ParserConfigurator>()
                 .AddConfigurator<Writer.Implementations.Configurators.ParserConfigurator>();
         }
 

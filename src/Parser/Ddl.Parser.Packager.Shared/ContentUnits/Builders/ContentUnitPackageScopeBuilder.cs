@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
 {
@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders
     {
         public ContentUnitPackageScopeBuilder(
             ContentUnitPackageItemsBuilder itemsBuilder,
-            RootNamespacePath namespacePath)
+            QualifiedNamespacePath namespacePath)
             : base(itemsBuilder, namespacePath)
         {
         }

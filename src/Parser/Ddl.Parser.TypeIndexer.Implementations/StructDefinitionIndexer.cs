@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
-using TheToolsmiths.Ddl.Models.Build.References.ItemReferences;
+﻿using TheToolsmiths.Ddl.Models.Build.Indexing.Items;
+using TheToolsmiths.Ddl.Models.Build.Items.References;
 using TheToolsmiths.Ddl.Models.Build.Structs;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Contexts;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
@@ -13,7 +13,8 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Implementations
             var builder = new RootItemIndexResultBuilder();
 
             var itemReference = new ItemReference(item.ItemId);
-            builder.RootTypeReference = new TypedItemReference(item.TypeName, itemReference);
+
+            builder.ItemType = new ItemTypeIndexEntry(item.TypeName, itemReference);
 
             return builder.CreateSuccessResult();
         }

@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+﻿using TheToolsmiths.Ddl.Models.Build.Scopes;
 
 namespace TheToolsmiths.Ddl.Models.Build.ContentUnits
 {

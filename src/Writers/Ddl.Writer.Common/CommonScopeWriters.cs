@@ -1,5 +1,5 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 

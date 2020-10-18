@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Index;
-using TheToolsmiths.Ddl.Models.Build.Package.Index;
-using TheToolsmiths.Ddl.Models.Build.Types.Index;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
+using TheToolsmiths.Ddl.Models.Build.Indexing.ContentUnits;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer
@@ -19,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             this.contentUnitIndexer = contentUnitIndexer;
         }
 
-        public Result<PackageTypeIndex> IndexCollection(IReadOnlyList<ContentUnit> contentUnits)
+        public Result<ContentUnitsTypeIndex> IndexCollection(IReadOnlyList<ContentUnit> contentUnits)
         {
             ContentUnitNamespaceIndex namespaceIndex;
             {
@@ -45,7 +44,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
                 typeIndex = result.Value;
             }
 
-            var packageIndex = new PackageTypeIndex(typeIndex, namespaceIndex);
+            var packageIndex = new ContentUnitsTypeIndex(typeIndex, namespaceIndex);
 
             return Result.FromValue(packageIndex);
         }

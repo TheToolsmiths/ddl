@@ -1,16 +1,16 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.References;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage;
 
 namespace TheToolsmiths.Ddl.Models.Build.Values
 {
     public class TypedStructInitialization : ValueInitialization
     {
-        public TypedStructInitialization(TypeReference type, StructInitialization initialization)
+        public TypedStructInitialization(TypeUse type, StructInitialization initialization)
         {
             this.Type = type;
             this.Initialization = initialization;
         }
 
-        public TypeReference Type { get; }
+        public TypeUse Type { get; }
 
         public StructInitialization Initialization { get; }
 

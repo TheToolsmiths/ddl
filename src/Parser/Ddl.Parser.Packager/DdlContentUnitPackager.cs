@@ -1,8 +1,8 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Build.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
+using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
+using TheToolsmiths.Ddl.Models.Compiled.Items;
+using TheToolsmiths.Ddl.Models.Compiled.Scopes;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Builders;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;
@@ -13,7 +13,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
 {
     internal class DdlContentUnitPackager
     {
-        public Result<PackageContentUnit> Pack(ContentUnit contentUnit, PackageTypeIndex packageTypeIndex)
+        public Result<PackageContentUnit> Pack(CompiledContentUnit contentUnit, ContentUnitsTypeIndex packageTypeIndex)
         {
             if (packageTypeIndex.TryGetContentUnitNamespace(contentUnit.Id, out var indexedNamespace) == false)
             {
@@ -48,7 +48,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.FromValue(packagedContentUnit);
         }
 
-        private Result PackageScopeContent(ContentUnitPackagerContext context, ScopeContent content)
+        private Result PackageScopeContent(ContentUnitPackagerContext context, CompiledScopeContent content)
         {
             foreach (var scope in content.Scopes)
             {
@@ -73,7 +73,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.Success;
         }
 
-        private Result PackageScope(ContentUnitPackagerContext context, IRootScope scope)
+        private Result PackageScope(ContentUnitPackagerContext context, ICompiledScope scope)
         {
             var scopeContext = context.CreateScopeContext();
 
@@ -87,7 +87,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.Success;
         }
 
-        private Result PackageItem(ContentUnitPackagerContext context, IRootItem item)
+        private Result PackageItem(ContentUnitPackagerContext context, ICompiledItem item)
         {
             context.AddItem(new PackageContentUnitItem(item.ItemId, item.ItemType, item));
 

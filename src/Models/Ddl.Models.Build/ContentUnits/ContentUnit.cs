@@ -1,4 +1,6 @@
-﻿namespace TheToolsmiths.Ddl.Models.Build.ContentUnits
+﻿using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
+
+namespace TheToolsmiths.Ddl.Models.Build.ContentUnits
 {
     public class ContentUnit
     {

@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
-using TheToolsmiths.Ddl.Models.Compiled.EntryTypes;
+﻿using TheToolsmiths.Ddl.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Items;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Package.Items
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Scopes;
-using TheToolsmiths.Ddl.Models.Build.References.TypeReferences;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Identifiers;
+using TheToolsmiths.Ddl.Models.Build.Items;
+using TheToolsmiths.Ddl.Models.Build.Scopes;
+using TheToolsmiths.Ddl.Models.Build.Types.References;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Indexers;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Results;
 using TheToolsmiths.Ddl.Results;
@@ -56,7 +55,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 
         private Result IndexScopeItem(TypeIndexingContext context, IRootItem item)
         {
-            if (item is ITypedRootItem == false)
+            if (item is INamedRootItem == false)
             {
                 return Result.Success;
             }
@@ -91,31 +90,31 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             {
                 var itemTypeReference = result.ItemTypeReference;
 
-                var typedItemName = itemTypeReference.Name;
+                var typedItemName = itemTypeReference.TypeName;
                 var namespacePath = context.NamespacePath;
                 var itemReference = itemTypeReference.ItemReference;
-                var typeIdentifier = TypeIdentifierPathBuilder.Create(namespacePath, typedItemName);
+
+                //var typeIdentifier = TypeIdentifierPathBuilder.Create(namespacePath, typeName);
+                
                 var typeReference = new ItemTypePathReference(
                     typedItemName,
                     namespacePath,
-                    itemReference,
-                    typeIdentifier);
+                    itemReference);
 
                 context.IndexedTypes.Add(typeReference);
             }
 
             foreach (var subItemTypeReference in result.SubItemTypesReferences)
             {
-                var typedSubItemName = subItemTypeReference.Name;
+                var typedSubItemName = subItemTypeReference.TypeName;
                 var namespacePath = context.NamespacePath;
 
-                var typeIdentifier = TypeIdentifierPathBuilder.Create(namespacePath, typedSubItemName);
+                //var typeIdentifier = TypeIdentifierPathBuilder.Create(namespacePath, typedSubItemName);
 
                 var typeReference = new SubItemTypePathReference(
                     typedSubItemName,
                     namespacePath,
-                    subItemTypeReference.SubItemReference,
-                    typeIdentifier);
+                    subItemTypeReference.SubItemReference);
 
                 context.IndexedTypes.Add(typeReference);
             }

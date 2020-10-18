@@ -1,9 +1,9 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.References;
+﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {
     public interface ITypedAttributeUse : IStructInitializationAttributeUse
     {
-        TypeReference Type { get; }
+        TypeUse Type { get; }
     }
 }

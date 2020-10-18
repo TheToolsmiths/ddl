@@ -1,11 +1,10 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.References;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Locality;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Modifiers;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Resolve;
-using TheToolsmiths.Ddl.Models.Build.Types.References.Storage;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.References;
+using TheToolsmiths.Ddl.Models.Build.Types.Paths;
+using TheToolsmiths.Ddl.Models.Build.Types.Usage;
+using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Usage.Locality;
+using TheToolsmiths.Ddl.Models.Types.Usage.Modifiers;
+using TheToolsmiths.Ddl.Models.Types.Usage.Storage;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
@@ -13,49 +12,51 @@ namespace TheToolsmiths.Ddl.Writer.Common.Types
 {
     public class TypeReferenceWriter
     {
-        public Result Write(IRootEntryWriterContext context, TypeReference typeReference)
+        public Result Write(IRootEntryWriterContext context, TypeUse typeUse)
         {
             context.Writer.WriteStartObject();
 
-            this.WriteTypePath(context, typeReference.TypePath);
+            this.WriteTypePath(context, typeUse.TypePath);
 
-            this.WriteLocality(context, typeReference.Locality);
+            this.WriteLocality(context, typeUse.Locality);
 
-            this.WriteModifiers(context, typeReference.Modifiers);
+            this.WriteModifiers(context, typeUse.Modifiers);
 
-            this.WriteStorage(context, typeReference.Storage);
+            this.WriteStorage(context, typeUse.Storage);
+            
+            throw new System.NotImplementedException();
 
-            this.WriteResolve(context, typeReference.TypeResolve);
+            //this.WriteResolve(context, typeReference.TypeResolve);
 
-            context.Writer.WriteEndObject();
+            //context.Writer.WriteEndObject();
 
-            return Result.Success;
+            //return Result.Success;
         }
 
-        private void WriteTypePath(IRootEntryWriterContext context, TypeReferencePath typePath)
+        private void WriteTypePath(IRootEntryWriterContext context, TypePath typePath)
         {
             throw new NotImplementedException();
         }
 
-        private void WriteStorage(IRootEntryWriterContext context, TypeStorage storage)
+        private void WriteStorage(IRootEntryWriterContext context, TypeUseStorage storage)
         {
             throw new NotImplementedException();
         }
 
-        private void WriteLocality(IRootEntryWriterContext context, TypeLocalityInformation locality)
+        private void WriteLocality(IRootEntryWriterContext context, TypeUseLocality locality)
         {
             throw new NotImplementedException();
         }
 
-        private void WriteModifiers(IRootEntryWriterContext context, TypeModifiers modifiers)
+        private void WriteModifiers(IRootEntryWriterContext context, TypeUseModifiers modifiers)
         {
             throw new NotImplementedException();
         }
 
-        private void WriteResolve(IRootEntryWriterContext context, ResolveStateHandle resolveState)
-        {
-            throw new NotImplementedException();
-        }
+        //private void WriteResolve(IRootEntryWriterContext context, ResolveStateHandle resolveState)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private void WriteIdentifier(IRootEntryWriterContext context, TypeNameIdentifier identifier)
         {

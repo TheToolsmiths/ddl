@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Literals;
+﻿using TheToolsmiths.Ddl.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {

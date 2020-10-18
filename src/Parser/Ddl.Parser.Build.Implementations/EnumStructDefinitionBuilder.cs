@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.Ast.Enums;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Enums;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
+using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
@@ -19,8 +20,6 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, EnumStructAstDefinition item)
         {
             var builder = new RootItemResultBuilder();
-
-            var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
 
             IReadOnlyList<EnumStructVariantDefinition> variants;
             {
@@ -46,9 +45,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+            var itemId = ItemId.CreateNew();
 
-            var structDefinition = new EnumStructDefinition(typeName, typeNameResolution, variants, attributes);
+            var itemName = ItemTypeNameBuilder.CreateItemTypeName(item.TypeName);
+
+            var structDefinition = new EnumStructDefinition(itemId, itemName, variants, attributes);
 
             builder.Items.Add(structDefinition);
 
@@ -97,9 +98,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
             // TODO: Implement parser support for attributes on enum struct variants
             var attributes = AttributeUseCollection.Empty;
 
-            var variantName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
+            var subItemName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
 
-            var variant = new EnumStructVariantDefinition(variantName, attributes, structContent);
+            var subItemId = SubItemId.CreateNew();
+
+            var variant = new EnumStructVariantDefinition(subItemId, subItemName, attributes, structContent);
 
             return Result.FromValue(variant);
         }

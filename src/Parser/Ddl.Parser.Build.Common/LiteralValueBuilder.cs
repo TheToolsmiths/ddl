@@ -1,10 +1,11 @@
 ﻿using System;
+
 using TheToolsmiths.Ddl.Models.Ast.Literals;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Results;
+
 using BoolLiteral = TheToolsmiths.Ddl.Models.Ast.Literals.BoolLiteral;
-using DefaultLiteral = TheToolsmiths.Ddl.Models.Ast.Literals.DefaultLiteral;
-using LiteralValue = TheToolsmiths.Ddl.Models.Build.Literals.LiteralValue;
+using LiteralValue = TheToolsmiths.Ddl.Models.Literals.LiteralValue;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Common
 {
@@ -16,15 +17,26 @@ namespace TheToolsmiths.Ddl.Parser.Build.Common
         {
             LiteralValue literalValue = astLiteral switch
             {
-                BoolLiteral literal => new Models.Build.Literals.BoolLiteral(literal.Text),
-                DefaultLiteral literal => new Models.Build.Literals.DefaultLiteral(),
-                EmptyLiteral literal => new Models.Build.Literals.DefaultLiteral(),
-                NumberLiteral literal => new Models.Build.Literals.NumberLiteral(literal.Text),
-                StringLiteral literal => new Models.Build.Literals.StringLiteral(literal.Text),
+                BoolLiteral literal => BuildBoolLiteral(literal),
+                NumberLiteral literal => BuildNumberLiteral(literal),
+                StringLiteral literal => new Models.Literals.StringLiteral(literal.Text),
+                DefaultLiteral _ => new Models.Literals.DefaultLiteral(),
                 _ => throw new ArgumentOutOfRangeException(nameof(astLiteral))
             };
 
             return Result.FromValue(literalValue);
+        }
+
+        private static Models.Literals.NumberLiteral BuildNumberLiteral(NumberLiteral literal)
+        {
+            return new Models.Literals.NumberLiteral(literal.Text);
+        }
+
+        private static Models.Literals.BoolLiteral BuildBoolLiteral(BoolLiteral literal)
+        {
+            bool value = bool.Parse(literal.Text);
+
+            return new Models.Literals.BoolLiteral(value);
         }
     }
 }

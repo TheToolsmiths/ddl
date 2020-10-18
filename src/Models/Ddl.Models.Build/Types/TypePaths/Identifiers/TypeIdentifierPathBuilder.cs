@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Types.Items;
+using TheToolsmiths.Ddl.Models.Types.Names;
 
 namespace TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Identifiers
 {
     public static class TypeIdentifierPathBuilder
     {
-        public static TypeIdentifierPath Create(NamespacePath namespacePath, TypedItemName typedItemName)
+        public static TypeIdentifierPath Create(RootNamespacePath namespacePath, TypeNameIdentifier typeName)
         {
             var parts = CreateTypeReferenceParts(namespacePath);
 
-            parts.Add(CreateTypeIdentifierPathPart(typedItemName.ItemName));
+            parts.Add(CreateTypeIdentifierPathPart(typeName));
 
             return namespacePath.IsRooted
                 ? TypeIdentifierPath.CreateRootedFromParts(parts)
                 : TypeIdentifierPath.CreateFromParts(parts);
         }
 
-        public static TypeIdentifierPath Create(NamespacePath namespacePath, TypedSubItemName typedSubItemName)
+        public static TypeIdentifierPath Create(NamespacePath namespacePath, SubItemTypeName typeName)
         {
             var parts = CreateTypeReferenceParts(namespacePath);
 
-            parts.Add(CreateTypeIdentifierPathPart(typedSubItemName.ItemName));
+            parts.Add(CreateTypeIdentifierPathPart(typeName.ItemName));
 
-            parts.Add(CreateTypeIdentifierPathPart(typedSubItemName.SubItemNameIdentifier));
+            parts.Add(CreateTypeIdentifierPathPart(typeName.SubItemNameIdentifier));
 
             return namespacePath.IsRooted
                 ? TypeIdentifierPath.CreateRootedFromParts(parts)

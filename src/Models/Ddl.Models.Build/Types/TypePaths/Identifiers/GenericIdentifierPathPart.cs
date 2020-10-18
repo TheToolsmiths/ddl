@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Paths;
+﻿using TheToolsmiths.Ddl.Models.Paths;
 
 namespace TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Identifiers
 {

@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
+﻿using TheToolsmiths.Ddl.Models.Build.Items;
 using TheToolsmiths.Ddl.Writer.Output.StructuredWriters;
 
 namespace TheToolsmiths.Ddl.Writer

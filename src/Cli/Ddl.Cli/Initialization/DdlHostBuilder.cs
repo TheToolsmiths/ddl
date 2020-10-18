@@ -7,12 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TheToolsmiths.Ddl.Cli.Builders;
+using TheToolsmiths.Ddl.Cli.Compilers;
 using TheToolsmiths.Ddl.Cli.Lexers;
 using TheToolsmiths.Ddl.Cli.Packagers;
 using TheToolsmiths.Ddl.Cli.Parsers;
 using TheToolsmiths.Ddl.Cli.Plugins;
 using TheToolsmiths.Ddl.Cli.TypeIndexers;
-using TheToolsmiths.Ddl.Cli.TypeResolvers;
 using TheToolsmiths.Ddl.Cli.Writer;
 using TheToolsmiths.Ddl.Services;
 
@@ -58,7 +58,7 @@ namespace TheToolsmiths.Ddl.Cli.Initialization
 
             services.AddTransient<ContentUnitsBuilder>();
             services.AddTransient<PackageTypeIndexer>();
-            services.AddTransient<ContentUnitsTypeResolver>();
+            services.AddTransient<ContentUnitCompiler>();
             services.AddTransient<ContentUnitsPackager>();
             services.AddTransient<PackageWriter>();
             services.AddTransient<WriterProvider>();

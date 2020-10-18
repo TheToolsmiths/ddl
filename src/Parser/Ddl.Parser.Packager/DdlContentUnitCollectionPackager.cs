@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.Package;
-using TheToolsmiths.Ddl.Models.Build.Package.Index;
+using TheToolsmiths.Ddl.Models.Build.Indexing;
+using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
+using TheToolsmiths.Ddl.Models.Compiled.Package;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits;
 using TheToolsmiths.Ddl.Results;
 
@@ -21,7 +21,9 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             this.packager = packager;
         }
 
-        public Result<Package> PackageCollection(IReadOnlyList<ContentUnit> contentUnits, PackageTypeIndex packageTypeIndex)
+        public Result<Package> PackageCollection(
+            IReadOnlyList<CompiledContentUnit> contentUnits,
+            ContentUnitsTypeIndex packageTypeIndex)
         {
             IReadOnlyList<PackageContentUnit> packedContentUnits;
             {
@@ -50,7 +52,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.FromValue(package);
         }
 
-        private Result<IReadOnlyList<PackageContentUnit>> PackageContentUnits(IReadOnlyList<ContentUnit> contentUnits, PackageTypeIndex packageTypeIndex)
+        private Result<IReadOnlyList<PackageContentUnit>> PackageContentUnits(IReadOnlyList<CompiledContentUnit> contentUnits, ContentUnitsTypeIndex packageTypeIndex)
         {
             var packedContentUnits = new List<PackageContentUnit>();
 

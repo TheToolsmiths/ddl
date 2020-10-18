@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Build.Common\Ddl.Models.Build.Common.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Common\Ddl.Parser.Common.csproj" />
     <ProjectReference Include="..\Ddl.Parser.Build.Shared\Ddl.Parser.Build.Shared.csproj" />

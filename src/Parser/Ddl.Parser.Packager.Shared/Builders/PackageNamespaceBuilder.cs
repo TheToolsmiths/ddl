@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Package.Content;
-using TheToolsmiths.Ddl.Models.Build.Package.Namespaces;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Content;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Namespaces;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Builders
 {
@@ -13,29 +14,23 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Builders
 
         internal PackageNamespaceBuilder(
             PackageItemsBuilder itemsBuilder,
-            RootNamespacePath namespacePath)
+            QualifiedNamespacePath namespacePath)
             : base(itemsBuilder)
         {
             this.NamespacePath = namespacePath;
             this.namespaces = new Dictionary<string, PackageNamespaceBuilder>();
         }
 
-        public RootNamespacePath NamespacePath { get; }
+        public QualifiedNamespacePath NamespacePath { get; }
 
-        public PackageNamespaceBuilder CreateNamespaceScope(RootNamespacePath childPath)
+        public PackageNamespaceBuilder CreateNamespaceScope(QualifiedNamespacePath childPath)
         {
             if (this.NamespacePath.IsParentOf(childPath) == false)
             {
                 throw new System.NotImplementedException();
             }
 
-            var relativePath = RootNamespacePath.GetRelativePath(this.NamespacePath, childPath);
-
-            // Relative Namespace Path can't be rooted!
-            if (relativePath.IsRooted)
-            {
-                throw new NotImplementedException();
-            }
+            var relativePath = QualifiedNamespacePath.GetRelativePath(this.NamespacePath, childPath);
 
             var currentNamespace = this;
 
@@ -51,7 +46,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Builders
         {
             if (this.namespaces.TryGetValue(pathIdentifier, out var namespaceBuilder) == false)
             {
-                var namespacePath = RootNamespacePath.Append((NamespacePath)this.NamespacePath, pathIdentifier);
+                var namespacePath = QualifiedNamespacePath.Append(this.NamespacePath, pathIdentifier);
 
                 namespaceBuilder = new PackageNamespaceBuilder(this.itemsBuilder, namespacePath);
 

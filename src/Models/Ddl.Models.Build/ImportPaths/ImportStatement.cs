@@ -1,7 +1,7 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items;
-using TheToolsmiths.Ddl.Models.Build.EntryTypes;
+using TheToolsmiths.Ddl.Models.Build.Items;
+using TheToolsmiths.Ddl.Models.EntryTypes;
+using TheToolsmiths.Ddl.Models.Items;
 
 namespace TheToolsmiths.Ddl.Models.Build.ImportPaths
 {

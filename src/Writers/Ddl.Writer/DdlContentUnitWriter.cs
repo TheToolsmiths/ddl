@@ -29,7 +29,7 @@ namespace TheToolsmiths.Ddl.Writer
 
             throw new NotImplementedException();
 
-            //ScopeContentWriter.WriteScopeContent(writer, contentUnit.RootScope.Content);
+            //ScopeContentWriter.WriteScopeContent(writer, contentUnit.CompiledScope.Content);
 
             writer.WriteEndObject();
 

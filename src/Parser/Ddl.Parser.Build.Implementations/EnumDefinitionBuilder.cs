@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.Ast.Enums;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Enums;
-using TheToolsmiths.Ddl.Models.Build.Literals;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
-using TheToolsmiths.Ddl.Models.Build.Types.Names.Qualified.Resolution;
+using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.Literals;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;
 using TheToolsmiths.Ddl.Parser.Build.TypeBuilders;
@@ -18,8 +19,6 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
         public RootItemBuildResult BuildItem(IRootItemBuildContext itemContext, EnumAstDefinition item)
         {
             var builder = new RootItemResultBuilder();
-
-            var typeName = TypeNameBuilder.CreateItemTypeName(item.TypeName);
 
             IReadOnlyList<EnumConstantDefinition> constants;
             {
@@ -45,9 +44,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 attributes = result.Value;
             }
 
-            var typeNameResolution = QualifiedItemTypeNameResolution.Unresolved;
+            var itemId = ItemId.CreateNew();
 
-            var structDefinition = new EnumDefinition(typeName, typeNameResolution, constants, attributes);
+            var itemName = ItemTypeNameBuilder.CreateItemTypeName(item.TypeName);
+
+            var structDefinition = new EnumDefinition(itemId, itemName, constants, attributes);
 
             builder.Items.Add(structDefinition);
 
@@ -97,12 +98,14 @@ namespace TheToolsmiths.Ddl.Parser.Build.Implementations
                 literalValue = result.Value;
             }
 
-            // TODO: Implement parser support for attributes on enum constants
+            var subItemId = SubItemId.CreateNew();
+
+            var subItemName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
+
+            //// TODO: Implement parser support for attributes on enum constants
             var attributes = AttributeUseCollection.Empty;
 
-            var variantName = new SimpleTypeNameIdentifier(astVariant.Name.Text);
-
-            var variant = new EnumConstantDefinition(variantName, attributes, literalValue);
+            var variant = new EnumConstantDefinition(subItemId, subItemName, attributes, literalValue);
 
             return Result.FromValue(variant);
         }

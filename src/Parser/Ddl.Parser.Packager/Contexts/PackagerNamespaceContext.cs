@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Package.Items;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Package.Items;
 using TheToolsmiths.Ddl.Parser.Packager.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.Contexts
@@ -18,7 +18,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager.Contexts
             return new PackagerNamespaceContext(rootBuilder.RootNamespaceBuilder);
         }
 
-        public PackagerNamespaceContext CreateNamespaceContext(RootNamespacePath namespacePath)
+        public PackagerNamespaceContext CreateNamespaceContext(QualifiedNamespacePath namespacePath)
         {
             var namespaceScope = this.Builder.CreateNamespaceScope(namespacePath);
 

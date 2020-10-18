@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Build.ContentUnits;
-using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits
 {

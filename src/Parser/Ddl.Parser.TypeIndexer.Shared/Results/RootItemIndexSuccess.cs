@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
-using TheToolsmiths.Ddl.Models.Build.ContentUnits.Items.ItemReferences;
+using TheToolsmiths.Ddl.Models.Build.Indexing.Items;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Results
 {
     public class RootItemIndexSuccess : RootItemIndexResult
     {
         public RootItemIndexSuccess(
-            TypedItemReference? itemTypeReference,
-            IReadOnlyList<TypedSubItemReference> subItemTypesReferences)
+            ItemTypeIndexEntry? itemTypeReference,
+            IReadOnlyList<SubItemTypeIndexEntry> subItemTypesReferences)
             : base(RootItemIndexResultKind.Success)
         {
             this.ItemTypeReference = itemTypeReference;
             this.SubItemTypesReferences = subItemTypesReferences;
         }
 
-        public TypedItemReference? ItemTypeReference { get; }
+        public ItemTypeIndexEntry? ItemTypeReference { get; }
 
-        public IReadOnlyList<TypedSubItemReference> SubItemTypesReferences { get; }
+        public IReadOnlyList<SubItemTypeIndexEntry> SubItemTypesReferences { get; }
     }
 }

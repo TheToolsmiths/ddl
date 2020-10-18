@@ -1,5 +1,6 @@
 ﻿using System;
-using TheToolsmiths.Ddl.Models.Build.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Items;
+using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
 
@@ -7,7 +8,7 @@ namespace TheToolsmiths.Ddl.Writer.Common.Types
 {
     public class TypeNameWriter
     {
-        public Result Write(IRootEntryWriterContext context, TypedItemName typeName)
+        public Result Write(IRootEntryWriterContext context, ItemTypeName typeName)
         {
             context.Writer.WriteStartObject();
 

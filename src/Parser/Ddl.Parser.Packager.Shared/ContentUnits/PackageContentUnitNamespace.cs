@@ -1,16 +1,16 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.TypePaths.Namespaces;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 
 namespace TheToolsmiths.Ddl.Parser.Packager.ContentUnits
 {
     public class PackageContentUnitNamespace
     {
-        public PackageContentUnitNamespace(RootNamespacePath namespacePath, PackageContentUnitScopeContent scopeContent)
+        public PackageContentUnitNamespace(QualifiedNamespacePath namespacePath, PackageContentUnitScopeContent scopeContent)
         {
             this.NamespacePath = namespacePath;
             this.ScopeContent = scopeContent;
         }
 
-        public RootNamespacePath NamespacePath { get; }
+        public QualifiedNamespacePath NamespacePath { get; }
 
         public PackageContentUnitScopeContent ScopeContent { get; }
     }

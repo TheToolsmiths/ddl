@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Compiled.References.ItemReferences;
+﻿using TheToolsmiths.Ddl.Models.Compiled.Items.References;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Types.Resolution
 {

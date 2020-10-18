@@ -21,14 +21,14 @@
     <ProjectReference Include="..\..\Parser\Ddl.Lexer\Ddl.Lexer.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Build.Implementations\Ddl.Parser.Build.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Build\Ddl.Parser.Build.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Compiler.Implementations\Ddl.Parser.Compiler.Implementations.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Compiler.Shared\Ddl.Parser.Compiler.Shared.csproj" />
+    <ProjectReference Include="..\..\Parser\Ddl.Parser.Compiler\Ddl.Parser.Compiler.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Implementations\Ddl.Parser.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.Packager\Ddl.Parser.Packager.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Implementations\Ddl.Parser.TypeIndexer.Implementations.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer.Shared\Ddl.Parser.TypeIndexer.Shared.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeIndexer\Ddl.Parser.TypeIndexer.csproj" />
-    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Implementations\Ddl.Parser.TypeResolver.Implementations.csproj" />
-    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver.Shared\Ddl.Parser.TypeResolver.Shared.csproj" />
-    <ProjectReference Include="..\..\Parser\Ddl.Parser.TypeResolver\Ddl.Parser.TypeResolver.csproj" />
     <ProjectReference Include="..\..\Parser\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\..\Writers\Ddl.Writer.Implementations\Ddl.Writer.Implementations.csproj" />
     <ProjectReference Include="..\..\Writers\Ddl.Writer\Ddl.Writer.csproj" />
