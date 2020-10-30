@@ -6,11 +6,11 @@ namespace TheToolsmiths.Ddl.Models.ConditionalExpressions
     {
         private LogicalExpression(LogicalExpressionOperator op, IReadOnlyList<IConditionalExpressionElement> expressions)
         {
-            this.Op = op;
+            this.Operator = op;
             this.Expressions = expressions;
         }
 
-        public LogicalExpressionOperator Op { get; }
+        public LogicalExpressionOperator Operator { get; }
 
         public IReadOnlyList<IConditionalExpressionElement> Expressions { get; }
 

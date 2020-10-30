@@ -9,7 +9,7 @@ using TheToolsmiths.Ddl.Parser.Configurations.Model;
 
 namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations
 {
-    public class IndexingConfigurationBuilder : IIndexingConfigurationBuilder
+    public class IndexingConfigurationBuilder : ConfigurationBuilder, IIndexingConfigurationBuilder
     {
         private readonly Dictionary<ItemType, Type> itemIndexers;
 
@@ -17,13 +17,14 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations
         {
             this.itemIndexers = new Dictionary<ItemType, Type>();
         }
+
         public void RegisterItemIndexer<T>(ItemType itemType)
             where T : IRootItemIndexer
         {
             this.itemIndexers.Add(itemType, typeof(T));
         }
 
-        public void Configure(ConfigurationBuilderContext context)
+        public override void Configure(ConfigurationBuilderContext context)
         {
             if (context.ProviderCollection.TryGetConfigurationProvider<IModelConfigurationProvider>(out var provider) == false)
             {

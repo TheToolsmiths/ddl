@@ -2,6 +2,6 @@
 {
     public static class ConfigurationKeys
     {
-        public const string BuildConfigurationSection = "build";
+        public const string DefinitionConfigurationSection = "definitions";
     }
 }

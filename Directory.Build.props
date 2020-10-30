@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- from https://twitter.com/rrelyea/status/1321139401594814465 -->
+    <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>3021</NoWarn>

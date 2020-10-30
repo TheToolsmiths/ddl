@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Compiled.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Parser.Compiler.Contexts;
 using TheToolsmiths.Ddl.Results;
 
@@ -105,7 +104,7 @@ namespace TheToolsmiths.Ddl.Parser.Compiler.Common
 
             var compiledInitialization = result.Value;
 
-            var resolvedAttribute = new CompiledTypedStructInitializationUse(resolvedType, compiledInitialization);
+            var resolvedAttribute = new CompiledTypedInitializationUse(resolvedType, compiledInitialization);
 
             return Result.FromValue<ICompiledAttributeUse>(resolvedAttribute);
         }

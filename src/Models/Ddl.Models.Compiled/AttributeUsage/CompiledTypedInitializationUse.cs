@@ -3,9 +3,9 @@ using TheToolsmiths.Ddl.Models.Compiled.Values;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.AttributeUsage
 {
-    public abstract class CompiledTypedInitializationUse : BaseCompiledTypedAttributeUse
+    public class CompiledTypedInitializationUse : BaseCompiledTypedAttributeUse
     {
-        protected CompiledTypedInitializationUse(
+        public CompiledTypedInitializationUse(
             ResolvedTypeUse type, 
             CompiledStructInitialization initialization)
             : base(type, initialization)

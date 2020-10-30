@@ -3,7 +3,7 @@
     public class TypeNameResolutionWriter
     {
         // TODO: Uncomment
-        //public Result Write(IRootItemWriterContext context, QualifiedItemTypeNameResolution typeNameResolution)
+        //public Result Write(ICompiledItemWriterContext context, QualifiedItemTypeNameResolution typeNameResolution)
         //{
         //    context.Writer.WriteStartObject();
 
@@ -24,13 +24,13 @@
         //    return Result.Success;
         //}
 
-        //private void WriteUnresolvedTypeName(IRootItemWriterContext context)
+        //private void WriteUnresolvedTypeName(ICompiledItemWriterContext context)
         //{
         //    context.Writer.WriteString("kind", "unresolved");
         //}
 
         //private void WriteResolvedTypeName(
-        //    IRootItemWriterContext context,
+        //    ICompiledItemWriterContext context,
         //    QualifiedItemTypeName typeName)
         //{
         //    context.Writer.WriteString("kind", "resolved");

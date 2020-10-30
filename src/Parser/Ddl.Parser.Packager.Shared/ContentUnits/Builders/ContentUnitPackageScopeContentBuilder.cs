@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
 using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 using TheToolsmiths.Ddl.Models.Compiled.Package.Items;
 using TheToolsmiths.Ddl.Parser.Packager.ContentUnits.Items;

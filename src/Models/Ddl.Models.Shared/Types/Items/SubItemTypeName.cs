@@ -4,17 +4,17 @@ namespace TheToolsmiths.Ddl.Models.Types.Items
 {
     public class SubItemTypeName : TypeName
     {
-        public SubItemTypeName(TypeNameIdentifier itemName, TypeNameIdentifier subItemNameIdentifier)
+        public SubItemTypeName(TypeNameIdentifier itemName, TypeNameIdentifier subItemName)
             : base(itemName)
         {
-            this.SubItemNameIdentifier = subItemNameIdentifier;
+            this.SubItemName = subItemName;
         }
 
-        public TypeNameIdentifier SubItemNameIdentifier { get; }
+        public TypeNameIdentifier SubItemName { get; }
 
         public override string ToString()
         {
-            return $"{this.ItemName}::{this.SubItemNameIdentifier}";
+            return $"{this.ItemName}::{this.SubItemName}";
         }
     }
 }

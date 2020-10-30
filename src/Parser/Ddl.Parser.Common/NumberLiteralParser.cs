@@ -8,7 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.Common
     {
         public static bool TryParseInteger(NumberLiteral literal, out int value)
         {
-            var literalText = literal.Text.AsSpan();
+            var literalText = literal.Text.AsSpan().Trim();
 
             if (int.TryParse(literalText, out value))
             {
@@ -17,9 +17,11 @@ namespace TheToolsmiths.Ddl.Parser.Common
 
             if (literalText.StartsWith("0x"))
             {
+                literalText = literalText.Slice(2);
+
                 return int.TryParse(literalText,
-                    NumberStyles.HexNumber | NumberStyles.AllowHexSpecifier,
-                    CultureInfo.CurrentCulture,
+                    NumberStyles.HexNumber,
+                    CultureInfo.InvariantCulture,
                     out value);
             }
 

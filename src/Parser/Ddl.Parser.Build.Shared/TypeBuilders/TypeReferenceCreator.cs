@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Ast.Types.Identifiers;
 using TheToolsmiths.Ddl.Models.Ast.Types.TypePaths.Identifiers;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage.Builders;
+using TheToolsmiths.Ddl.Models.Types.Usage;
+using TheToolsmiths.Ddl.Models.Types.Usage.Builders;
 using TheToolsmiths.Ddl.Models.Types.Usage.Storage;
 using TheToolsmiths.Ddl.Parser.Common;
 using TheToolsmiths.Ddl.Results;
@@ -115,6 +115,11 @@ namespace TheToolsmiths.Ddl.Parser.Build.TypeBuilders
                     FixedArraySize fixedArraySize => CreateFixedSize(fixedArraySize),
                     _ => throw new ArgumentOutOfRangeException(nameof(typeIdentifierSize))
                 };
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
 
                 sizes.Add(result.Value);
             }

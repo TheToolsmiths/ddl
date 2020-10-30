@@ -47,7 +47,7 @@ namespace TheToolsmiths.Ddl.Writer
 
         private Result WritePackageItems(IStructuredContentWriter writer, Package package)
         {
-            var context = new RootItemWriterContext(this.serviceProvider, writer);
+            var context = new CompiledItemWriterContext(this.serviceProvider, writer);
 
             writer.WritePropertyName("items");
 
@@ -63,7 +63,7 @@ namespace TheToolsmiths.Ddl.Writer
 
         private Result WritePackageStructure(IStructuredContentWriter writer, Package package)
         {
-            var context = new RootScopeWriterContext(this.serviceProvider, writer);
+            var context = new CompiledScopeWriterContext(this.serviceProvider, writer);
 
             writer.WritePropertyName("structure");
 

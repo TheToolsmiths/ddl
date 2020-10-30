@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Models\Ddl.Models.Build.Common\Ddl.Models.Build.Common.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer\Ddl.Writer.csproj" />
   </ItemGroup>

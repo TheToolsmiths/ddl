@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
 using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
 using TheToolsmiths.Ddl.Models.Compiled.Package.Content;
 using TheToolsmiths.Ddl.Models.Compiled.Package.Namespaces;

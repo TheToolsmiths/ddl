@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.Compiler.Configurations
     public static class ResolveConfigurationExtensions
     {
         public static bool TryGetCompilerConfigurationBuilder(
-            this IParserConfigurationContext context,
+            this IDdlConfigurationContext context,
             [NotNullWhen(true)] out ICompilerConfigurationBuilder? configurationBuilder)
         {
             return context.TryGetConfigurationBuilder(out configurationBuilder);

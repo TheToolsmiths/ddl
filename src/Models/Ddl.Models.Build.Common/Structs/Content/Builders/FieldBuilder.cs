@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage.Builders;
 using TheToolsmiths.Ddl.Models.Build.Values;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Types.Usage;
+using TheToolsmiths.Ddl.Models.Types.Usage.Builders;
 
 namespace TheToolsmiths.Ddl.Models.Build.Structs.Content.Builders
 {

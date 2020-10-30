@@ -1,6 +1,6 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage.Builders;
-using TheToolsmiths.Ddl.Models.Build.Values.Builders;
+﻿using TheToolsmiths.Ddl.Models.Build.Values.Builders;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Types.Usage.Builders;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {

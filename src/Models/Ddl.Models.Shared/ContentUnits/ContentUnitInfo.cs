@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 
-namespace TheToolsmiths.Ddl.Models.Compiled.ContentUnits
+namespace TheToolsmiths.Ddl.Models.ContentUnits
 {
     [DebuggerDisplay("{" + nameof(RelativePath) + "}")]
     public class ContentUnitInfo

@@ -6,8 +6,8 @@ using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
 using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Models.Build.Scopes;
-using TheToolsmiths.Ddl.Models.Compiled.ContentUnits;
 using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.ContentUnits;
 using TheToolsmiths.Ddl.Writer;
 
 namespace DdlModelCreation

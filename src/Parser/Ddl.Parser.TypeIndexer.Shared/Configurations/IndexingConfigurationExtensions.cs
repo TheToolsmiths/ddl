@@ -6,7 +6,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations
     public static class IndexingConfigurationExtensions
     {
         public static bool TryGetIndexingConfigurationBuilder(
-            this IParserConfigurationContext context,
+            this IDdlConfigurationContext context,
             [NotNullWhen(true)] out IIndexingConfigurationBuilder? indexingConfigurationBuilder)
         {
             return context.TryGetConfigurationBuilder(out indexingConfigurationBuilder);

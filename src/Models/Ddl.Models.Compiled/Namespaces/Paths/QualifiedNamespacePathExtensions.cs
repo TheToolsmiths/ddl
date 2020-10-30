@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths
+﻿namespace TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths
 {
     public static class QualifiedNamespacePathExtensions
     {

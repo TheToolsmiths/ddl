@@ -1,9 +1,15 @@
-﻿using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
-using TheToolsmiths.Ddl.Models.Build.Namespaces.Paths;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage;
-using TheToolsmiths.Ddl.Models.Build.Values;
+﻿using TheToolsmiths.Ddl.Models.Compiled.AttributeUsage;
+using TheToolsmiths.Ddl.Models.Compiled.Namespaces.Paths;
+using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
+using TheToolsmiths.Ddl.Models.Compiled.Types.Usage;
 using TheToolsmiths.Ddl.Models.Compiled.Values;
-using TheToolsmiths.Ddl.Models.Types.Items;
+using TheToolsmiths.Ddl.Models.ConditionalExpressions;
+using TheToolsmiths.Ddl.Models.Literals;
+using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Usage;
+using TheToolsmiths.Ddl.Models.Types.Usage.Locality;
+using TheToolsmiths.Ddl.Models.Types.Usage.Modifiers;
+using TheToolsmiths.Ddl.Models.Types.Usage.Storage;
 using TheToolsmiths.Ddl.Results;
 
 namespace TheToolsmiths.Ddl.Writer
@@ -12,14 +18,28 @@ namespace TheToolsmiths.Ddl.Writer
     {
         Result WriteValueInitialization(CompiledValueInitialization initialization);
 
-        Result WriteAttributes(AttributeUseCollection attributes);
+        Result WriteCompiledAttributes(CompiledAttributeUseCollection attributes);
 
-        Result WriteTypeName(ItemTypeName typeName);
+        Result WriteQualifiedTypeName(QualifiedItemTypeName typeName);
 
-        Result WriteNamespace(NamespacePath namespacePath);
+        Result WriteQualifiedNamespace(QualifiedNamespacePath namespacePath);
 
-        Result WriteTypeReference(TypeUse typeUse);
+        Result WriteTypeUse(ResolvedTypeUse typeUse);
 
-        Result WriteStructInitialization(StructInitialization initialization);
+        Result WriteStructInitialization(CompiledStructInitialization initialization);
+
+        Result WriteTypeNameIdentifier(TypeNameIdentifier typeName);
+
+        Result WriteLiteralValue(LiteralValue literalValue);
+
+        Result WriteTypeUse(TypeUse typeUse);
+
+        Result WriteTypeUseLocality(TypeUseLocality locality);
+
+        Result WriteTypeUseModifiers(TypeUseModifiers modifiers);
+
+        Result WriteTypeUseStorage(TypeUseStorage storage);
+
+        Result WriteConditionalExpression(ConditionalExpression conditionalExpression);
     }
 }

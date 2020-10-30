@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.Compiled.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Compiled.Items;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
@@ -7,7 +8,7 @@ using TheToolsmiths.Ddl.Models.Items;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Enums
 {
-    public class CompiledEnumDefinition : INamedCompiledItem, IAttributableCompiledItem
+    public class CompiledEnumDefinition : INamedCompiledItem, IAttributableCompiledItem, ISubItemOwner
     {
         public CompiledEnumDefinition(
             ItemId itemId,
@@ -30,5 +31,7 @@ namespace TheToolsmiths.Ddl.Models.Compiled.Enums
         public IReadOnlyList<CompiledEnumConstant> Constants { get; }
 
         public CompiledAttributeUseCollection Attributes { get; }
+
+        public IReadOnlyList<ICompiledSubItem> SubItems => this.Constants;
     }
 }

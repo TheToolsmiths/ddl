@@ -7,7 +7,7 @@ using TheToolsmiths.Ddl.Parser.Configurations.Model;
 
 namespace TheToolsmiths.Ddl.Parser.Compiler.Configurations
 {
-    public class CompilerConfigurationBuilder : ICompilerConfigurationBuilder
+    public class CompilerConfigurationBuilder : ConfigurationBuilder, ICompilerConfigurationBuilder
     {
         private readonly Dictionary<ItemType, Type> itemCompilers;
         private readonly Dictionary<ScopeType, Type> scopeCompilers;
@@ -30,7 +30,7 @@ namespace TheToolsmiths.Ddl.Parser.Compiler.Configurations
             this.scopeCompilers.Add(scopeType, typeof(T));
         }
 
-        public void Configure(ConfigurationBuilderContext context)
+        public override void Configure(ConfigurationBuilderContext context)
         {
             if (context.ProviderCollection.TryGetConfigurationProvider<IModelConfigurationProvider>(out var provider) == false)
             {

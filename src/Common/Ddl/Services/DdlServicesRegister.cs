@@ -21,7 +21,7 @@ namespace TheToolsmiths.Ddl.Services
         }
 
         public void RegisterServices(
-            ParserConfiguratorCollection configurators,
+            DdlConfiguratorCollection configurators,
             ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
         {
@@ -50,13 +50,13 @@ namespace TheToolsmiths.Ddl.Services
         }
 
         private void RegisterPluginServices(
-            ParserConfiguratorCollection parserConfigurators,
+            DdlConfiguratorCollection configurators,
             ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
         {
-            foreach (var provider in parserConfigurators.Providers)
+            foreach (var provider in configurators.Providers)
             {
-                var context = new ParserConfiguratorContext(builderCollection);
+                var context = new DdlConfiguratorContext(builderCollection);
 
                 provider.Configure(context);
             }

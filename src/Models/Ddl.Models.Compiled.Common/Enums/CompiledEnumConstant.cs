@@ -1,12 +1,13 @@
 ﻿using TheToolsmiths.Ddl.Models.Compiled.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Compiled.Items;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 using TheToolsmiths.Ddl.Models.Items;
 using TheToolsmiths.Ddl.Models.Literals;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Enums
 {
-    public class CompiledEnumConstant : INamedCompiledSubItem
+    public class CompiledEnumConstant : INamedCompiledSubItem, IAttributableCompiledSubItem
     {
         public CompiledEnumConstant(
             SubItemId subItemId,
@@ -21,6 +22,8 @@ namespace TheToolsmiths.Ddl.Models.Compiled.Enums
         }
 
         public SubItemId SubItemId { get; }
+
+        public SubItemType SubItemType => CommonSubItemTypes.EnumConstantDefinition;
 
         public QualifiedSubItemTypeName SubItemName { get; }
 

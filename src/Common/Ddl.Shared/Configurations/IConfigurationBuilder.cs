@@ -2,6 +2,5 @@
 {
     public interface IConfigurationBuilder
     {
-        void Configure(ConfigurationBuilderContext context);
     }
 }

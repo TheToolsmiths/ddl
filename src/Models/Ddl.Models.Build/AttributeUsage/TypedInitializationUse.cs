@@ -1,5 +1,5 @@
-﻿using TheToolsmiths.Ddl.Models.Build.Types.Usage;
-using TheToolsmiths.Ddl.Models.Build.Values;
+﻿using TheToolsmiths.Ddl.Models.Build.Values;
+using TheToolsmiths.Ddl.Models.Types.Usage;
 
 namespace TheToolsmiths.Ddl.Models.Build.AttributeUsage
 {

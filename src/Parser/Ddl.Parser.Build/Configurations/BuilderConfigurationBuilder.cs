@@ -9,7 +9,7 @@ using TheToolsmiths.Ddl.Parser.Configurations.Ast;
 
 namespace TheToolsmiths.Ddl.Parser.Build.Configurations
 {
-    public class BuilderConfigurationBuilder : IBuilderConfigurationBuilder
+    public class BuilderConfigurationBuilder : ConfigurationBuilder, IBuilderConfigurationBuilder
     {
         private readonly Dictionary<AstItemType, Type> itemBuilders;
         private readonly Dictionary<AstScopeType, Type> scopeBuilders;
@@ -29,7 +29,7 @@ namespace TheToolsmiths.Ddl.Parser.Build.Configurations
             this.scopeBuilders.Add(scopeType, typeof(T));
         }
 
-        public void Configure(ConfigurationBuilderContext context)
+        public override void Configure(ConfigurationBuilderContext context)
         {
             if (context.ProviderCollection.TryGetConfigurationProvider<IAstConfigurationProvider>(out var provider) == false)
             {

@@ -7,7 +7,7 @@ namespace TheToolsmiths.Ddl.Writer.Common
 {
     public class CommonScopeWriters : CommonWriters, ICommonScopeWriters
     {
-        public CommonScopeWriters(IServiceProvider provider, IRootScopeWriterContext context)
+        public CommonScopeWriters(IServiceProvider provider, ICompiledScopeWriterContext context)
             : base(provider, context)
         {
         }

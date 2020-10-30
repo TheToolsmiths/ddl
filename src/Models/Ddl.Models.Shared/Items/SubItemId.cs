@@ -44,5 +44,7 @@ namespace TheToolsmiths.Ddl.Models.Items
         {
             return $"Item Id '{this.value}'";
         }
+
+        public int ToInt() => this.value;
     }
 }

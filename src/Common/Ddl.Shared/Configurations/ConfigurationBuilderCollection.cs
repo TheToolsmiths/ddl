@@ -6,14 +6,14 @@ namespace TheToolsmiths.Ddl.Configurations
 {
     public class ConfigurationBuilderCollection
     {
-        private readonly IReadOnlyDictionary<Type, IConfigurationBuilder> configurationBuilders;
+        private readonly IReadOnlyDictionary<Type, ConfigurationBuilder> configurationBuilders;
 
-        public ConfigurationBuilderCollection(IReadOnlyDictionary<Type, IConfigurationBuilder> configurationBuilders)
+        public ConfigurationBuilderCollection(IReadOnlyDictionary<Type, ConfigurationBuilder> configurationBuilders)
         {
             this.configurationBuilders = configurationBuilders;
         }
 
-        public IEnumerable<IConfigurationBuilder> ConfigurationBuilders => this.configurationBuilders.Values;
+        public IEnumerable<ConfigurationBuilder> ConfigurationBuilders => this.configurationBuilders.Values;
 
         public bool TryGetConfigurationBuilder<T>([NotNullWhen(true)] out T? builder)
             where T : class, IConfigurationBuilder

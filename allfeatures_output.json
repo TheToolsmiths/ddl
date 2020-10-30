@@ -2,95 +2,3568 @@
   "items": [
     {
       "id": 33,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStruct",
+          "kind": "simple"
+        }
+      },
+      "attributes": [
+        {
+          "kind": "keyed-typed",
+          "key": "key",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "TestAttributeType"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct"
+          }
+        }
+      ],
+      "hasSubItems": false
     },
     {
       "id": 34,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "TestFieldType"
+                      }
+                    ]
+                  },
+                  "locality": "reference",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "reference",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [
+                {
+                  "kind": "typed-struct",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "TestAttributeType"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "initialization": {
+                    "kind": "struct"
+                  }
+                }
+              ],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "StructWithSingleField",
+          "kind": "simple"
+        }
+      },
+      "attributes": [
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "TestAttributeType"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct"
+          }
+        }
+      ],
+      "hasSubItems": false
     },
     {
       "id": 49,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "bar1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "BarStruct1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Bar"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "Bar"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "Bar"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct3"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar4",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FantasticBarStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "bar5",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "MegaBarStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "ScopedStruct2",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 50,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "foo1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct5"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo4",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct6"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo5",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "AwesomeFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo6",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "SuperFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "CoolBaz"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct7"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "ScopedStruct3",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 51,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "foo1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo4",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct3"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo5",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "AwesomeFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo6",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "SuperFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "ScopedStruct4",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 40,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "foo1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct2"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo4",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "Foo"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "FooStruct3"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo5",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "AwesomeFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "foo6",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "SuperFooStruct"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "ScopedStruct1",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 16,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "field5",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "std"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "experimental"
+                      },
+                      {
+                        "kind": "generic",
+                        "name": "TestFieldType",
+                        "parameters": [
+                          {
+                            "path": {
+                              "isRooted": false,
+                              "parts": [
+                                {
+                                  "kind": "generic",
+                                  "name": "Result",
+                                  "parameters": [
+                                    {
+                                      "path": {
+                                        "isRooted": false,
+                                        "parts": [
+                                          {
+                                            "kind": "simple",
+                                            "name": "int"
+                                          }
+                                        ]
+                                      },
+                                      "locality": "local",
+                                      "storage": {
+                                        "kind": "array",
+                                        "arrayKind": "dynamic",
+                                        "sizes": [
+                                          {
+                                            "kind": "dynamic"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "path": {
+                                        "isRooted": false,
+                                        "parts": [
+                                          {
+                                            "kind": "simple",
+                                            "name": "std"
+                                          },
+                                          {
+                                            "kind": "generic",
+                                            "name": "Error",
+                                            "parameters": [
+                                              {
+                                                "path": {
+                                                  "isRooted": false,
+                                                  "parts": [
+                                                    {
+                                                      "kind": "simple",
+                                                      "name": "string"
+                                                    }
+                                                  ]
+                                                },
+                                                "locality": "local",
+                                                "storage": {
+                                                  "kind": "single"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "locality": "local",
+                                      "storage": {
+                                        "kind": "single"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "locality": "local",
+                            "storage": {
+                              "kind": "single"
+                            }
+                          },
+                          {
+                            "path": {
+                              "isRooted": false,
+                              "parts": [
+                                {
+                                  "kind": "simple",
+                                  "name": "std"
+                                },
+                                {
+                                  "kind": "simple",
+                                  "name": "Foo"
+                                }
+                              ]
+                            },
+                            "locality": "local",
+                            "storage": {
+                              "kind": "array",
+                              "arrayKind": "dynamic",
+                              "sizes": [
+                                {
+                                  "kind": "dynamic"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "locality": "reference",
+                  "modifiers": {
+                    "isConstant": true
+                  },
+                  "storage": {
+                    "kind": "array",
+                    "arrayKind": "dynamic",
+                    "sizes": [
+                      {
+                        "kind": "dynamic"
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20"
+                        ]
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20",
+                          "45",
+                          "5"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "reference",
+                "modifiers": {
+                  "isConstant": true
+                },
+                "storage": {
+                  "kind": "array",
+                  "arrayKind": "dynamic",
+                  "sizes": [
+                    {
+                      "kind": "dynamic"
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20"
+                      ]
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20",
+                        "45",
+                        "5"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "alias1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "alias1"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "import",
+                  "resolution": {
+                    "kind": "unresolved"
+                  }
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "foo"
+                      },
+                      {
+                        "kind": "generic",
+                        "name": "foo_type",
+                        "parameters": [
+                          {
+                            "path": {
+                              "isRooted": false,
+                              "parts": [
+                                {
+                                  "kind": "simple",
+                                  "name": "int"
+                                }
+                              ]
+                            },
+                            "locality": "local",
+                            "storage": {
+                              "kind": "single"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field4",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "generic",
+                        "name": "GenericStructWithSimpleTypeParameter",
+                        "parameters": [
+                          {
+                            "path": {
+                              "isRooted": false,
+                              "parts": [
+                                {
+                                  "kind": "simple",
+                                  "name": "string"
+                                }
+                              ]
+                            },
+                            "locality": "local",
+                            "storage": {
+                              "kind": "single"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "resolved",
+                  "ref-kind": "item",
+                  "itemId": 25
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field6",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "std"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "experimental"
+                      },
+                      {
+                        "kind": "generic",
+                        "name": "TestFieldType",
+                        "parameters": [
+                          {
+                            "path": {
+                              "isRooted": false,
+                              "parts": [
+                                {
+                                  "kind": "simple",
+                                  "name": "Foo"
+                                }
+                              ]
+                            },
+                            "locality": "local",
+                            "storage": {
+                              "kind": "single"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "locality": "reference",
+                  "storage": {
+                    "kind": "array",
+                    "arrayKind": "dynamic",
+                    "sizes": [
+                      {
+                        "kind": "dynamic"
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20"
+                        ]
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20",
+                          "45",
+                          "2"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "reference",
+                "storage": {
+                  "kind": "array",
+                  "arrayKind": "dynamic",
+                  "sizes": [
+                    {
+                      "kind": "dynamic"
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20"
+                      ]
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20",
+                        "45",
+                        "2"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "StructWithFieldTestTypes",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 17,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStruct",
+          "kind": "simple"
+        }
+      },
+      "attributes": [
+        {
+          "kind": "conditional",
+          "condition": {
+            "root": {
+              "kind": "logical",
+              "operator": "or",
+              "expressions": [
+                {
+                  "kind": "define-check",
+                  "define": "DEFINE_1"
+                },
+                {
+                  "kind": "logical",
+                  "operator": "or",
+                  "expressions": [
+                    {
+                      "kind": "bool-literal",
+                      "value": false
+                    },
+                    {
+                      "kind": "bool-literal",
+                      "value": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "conditional",
+          "condition": {
+            "root": {
+              "kind": "define-check",
+              "define": "DEFINE_2"
+            }
+          }
+        },
+        {
+          "kind": "keyed-literal",
+          "key": "key",
+          "value-kind": "string",
+          "value": "TestValue"
+        }
+      ],
+      "hasSubItems": false
     },
     {
       "id": 18,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStructOnMultipleLines",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 19,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStructOnMultipleLines",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 20,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStructWithSingleBlockAttributeWithMultipleEntries",
+          "kind": "simple"
+        }
+      },
+      "attributes": [
+        {
+          "kind": "keyed-literal",
+          "key": "foo1",
+          "value-kind": "string",
+          "value": "stuff"
+        },
+        {
+          "kind": "keyed-typed",
+          "key": "foo2",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "keyed-typed",
+          "key": "foo2",
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "keyed-typed",
+          "key": "foo3",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "std"
+                  },
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "std"
+                  },
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "std"
+                  },
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "name": {
+              "kind": "literal",
+              "value-kind": "string",
+              "value": "something"
+            }
+          }
+        },
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "Foo"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct"
+          }
+        }
+      ],
+      "hasSubItems": false
     },
     {
       "id": 21,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "scope",
+              "items": []
+            },
+            {
+              "kind": "scope",
+              "conditional": {
+                "root": {
+                  "kind": "bool-literal",
+                  "value": false
+                }
+              },
+              "items": []
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "EmptyStructWithScopes",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 22,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "scope",
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "field1",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "generic",
+                            "name": "TestGenericType",
+                            "parameters": [
+                              {
+                                "path": {
+                                  "isRooted": false,
+                                  "parts": [
+                                    {
+                                      "kind": "simple",
+                                      "name": "Foo"
+                                    }
+                                  ]
+                                },
+                                "locality": "local",
+                                "storage": {
+                                  "kind": "single"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "scope",
+              "conditional": {
+                "root": {
+                  "kind": "logical",
+                  "operator": "or",
+                  "expressions": [
+                    {
+                      "kind": "define-compare",
+                      "define": "DEFINE_1",
+                      "value": "Something"
+                    },
+                    {
+                      "kind": "logical",
+                      "operator": "and",
+                      "expressions": [
+                        {
+                          "kind": "bool-literal",
+                          "value": false
+                        },
+                        {
+                          "kind": "bool-literal",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "bool-literal",
+                      "value": false
+                    },
+                    {
+                      "kind": "define-check",
+                      "define": "DEFINE_2"
+                    },
+                    {
+                      "kind": "negate",
+                      "expression": {
+                        "kind": "define-check",
+                        "define": "DEFINE_3"
+                      }
+                    }
+                  ]
+                }
+              },
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "field1",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "test"
+                          },
+                          {
+                            "kind": "generic",
+                            "name": "Map",
+                            "parameters": [
+                              {
+                                "path": {
+                                  "isRooted": false,
+                                  "parts": [
+                                    {
+                                      "kind": "generic",
+                                      "name": "string",
+                                      "parameters": [
+                                        {
+                                          "path": {
+                                            "isRooted": false,
+                                            "parts": [
+                                              {
+                                                "kind": "simple",
+                                                "name": "foo"
+                                              }
+                                            ]
+                                          },
+                                          "locality": "local",
+                                          "storage": {
+                                            "kind": "single"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "locality": "local",
+                                "storage": {
+                                  "kind": "single"
+                                }
+                              },
+                              {
+                                "path": {
+                                  "isRooted": false,
+                                  "parts": [
+                                    {
+                                      "kind": "simple",
+                                      "name": "test"
+                                    },
+                                    {
+                                      "kind": "simple",
+                                      "name": "Bar"
+                                    }
+                                  ]
+                                },
+                                "locality": "local",
+                                "storage": {
+                                  "kind": "single"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "locality": "reference",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "reference",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [
+                    {
+                      "kind": "typed-struct",
+                      "type": {
+                        "typePath": {
+                          "path": {
+                            "isRooted": false,
+                            "parts": [
+                              {
+                                "kind": "simple",
+                                "name": "TestAttributeType"
+                              }
+                            ]
+                          },
+                          "locality": "local",
+                          "storage": {
+                            "kind": "single"
+                          }
+                        },
+                        "resolution": {
+                          "kind": "unresolved"
+                        },
+                        "locality": "local",
+                        "storage": {
+                          "kind": "single"
+                        }
+                      },
+                      "initialization": {
+                        "kind": "struct",
+                        "struct1": {
+                          "kind": "empty"
+                        }
+                      }
+                    }
+                  ],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                },
+                {
+                  "kind": "field",
+                  "name": "field2",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "bool"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "bool"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [
+                    {
+                      "kind": "conditional",
+                      "condition": {
+                        "root": {
+                          "kind": "logical",
+                          "operator": "or",
+                          "expressions": [
+                            {
+                              "kind": "define-check",
+                              "define": "DEFINE_1"
+                            },
+                            {
+                              "kind": "logical",
+                              "operator": "or",
+                              "expressions": [
+                                {
+                                  "kind": "bool-literal",
+                                  "value": false
+                                },
+                                {
+                                  "kind": "bool-literal",
+                                  "value": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                },
+                {
+                  "kind": "field",
+                  "name": "field3",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "i32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "int32"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "StructWithScopes",
+          "kind": "simple"
+        }
+      },
+      "attributes": [
+        {
+          "kind": "typed-struct",
+          "type": {
+            "typePath": {
+              "path": {
+                "isRooted": false,
+                "parts": [
+                  {
+                    "kind": "simple",
+                    "name": "TestAttributeType"
+                  }
+                ]
+              },
+              "locality": "local",
+              "storage": {
+                "kind": "single"
+              }
+            },
+            "resolution": {
+              "kind": "unresolved"
+            },
+            "locality": "local",
+            "storage": {
+              "kind": "single"
+            }
+          },
+          "initialization": {
+            "kind": "struct",
+            "value1": {
+              "kind": "literal",
+              "value-kind": "bool",
+              "value": false
+            },
+            "value2": {
+              "kind": "literal",
+              "value-kind": "number",
+              "value": "0b10"
+            }
+          }
+        }
+      ],
+      "hasSubItems": false
     },
     {
       "id": 23,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "TestFieldType"
+                      }
+                    ]
+                  },
+                  "locality": "handle",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "handle",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "bool"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "builtin",
+                  "dimension-kind": "scalar",
+                  "type": "bool"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "i32"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "builtin",
+                  "dimension-kind": "scalar",
+                  "type": "int32"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "TestFieldType"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "array",
+                    "arrayKind": "dynamic",
+                    "sizes": [
+                      {
+                        "kind": "dynamic"
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20"
+                        ]
+                      },
+                      {
+                        "kind": "fixed",
+                        "dimensions": [
+                          "20",
+                          "45",
+                          "2"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "array",
+                  "arrayKind": "dynamic",
+                  "sizes": [
+                    {
+                      "kind": "dynamic"
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20"
+                      ]
+                    },
+                    {
+                      "kind": "fixed",
+                      "dimensions": [
+                        "20",
+                        "45",
+                        "2"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "scope",
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "field4",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "i32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "int32"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "scope",
+              "conditional": {
+                "root": {
+                  "kind": "negate",
+                  "expression": {
+                    "kind": "bool-literal",
+                    "value": false
+                  }
+                }
+              },
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "field5",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "std"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "experimental"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "TestFieldType"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                },
+                {
+                  "kind": "field",
+                  "name": "field6",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "bool"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "bool"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "StructWithFieldsAndScopes",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 24,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "TestFieldType"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [
+                {
+                  "kind": "typed-struct",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "TestAttributeType"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "initialization": {
+                    "kind": "struct",
+                    "struct1": {
+                      "kind": "empty"
+                    }
+                  }
+                }
+              ],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field2",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "std"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "experimental"
+                      },
+                      {
+                        "kind": "simple",
+                        "name": "bool"
+                      }
+                    ]
+                  },
+                  "locality": "owns",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "unresolved"
+                },
+                "locality": "owns",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "field3",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "i32"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "builtin",
+                  "dimension-kind": "scalar",
+                  "type": "int32"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "StructWithMultipleFields",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 25,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": [
+            {
+              "kind": "field",
+              "name": "field1",
+              "type": {
+                "typePath": {
+                  "path": {
+                    "isRooted": false,
+                    "parts": [
+                      {
+                        "kind": "simple",
+                        "name": "TString"
+                      }
+                    ]
+                  },
+                  "locality": "local",
+                  "storage": {
+                    "kind": "single"
+                  }
+                },
+                "resolution": {
+                  "kind": "generic-param",
+                  "param-name": "TString"
+                },
+                "locality": "local",
+                "storage": {
+                  "kind": "single"
+                }
+              },
+              "attributes": [],
+              "initialization": {
+                "kind": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericStructWithSimpleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 26,
-      "type": "struct/definition"
+      "type": "struct/definition",
+      "definition": {
+        "content": {
+          "items": []
+        }
+      },
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericStructWithMultipleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            },
+            {
+              "name": "TFoo"
+            },
+            {
+              "name": "TBar"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": false
     },
     {
       "id": 27,
-      "type": "enum-struct/definition"
+      "type": "enum-struct/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericEnumStructWithSimpleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": [
+        {
+          "id": 0,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "field1",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "TString"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "generic-param",
+                      "param-name": "TString"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Foo",
+            "kind": "simple"
+          },
+          "attributes": []
+        }
+      ]
     },
     {
       "id": 28,
-      "type": "enum-struct/definition"
+      "type": "enum-struct/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericEnumStructWithMultipleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            },
+            {
+              "name": "TFoo"
+            },
+            {
+              "name": "TBar"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": []
     },
     {
       "id": 29,
-      "type": "enum/definition"
+      "type": "enum/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericEnumWithSimpleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": []
     },
     {
       "id": 30,
-      "type": "enum/definition"
+      "type": "enum/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "GenericEnumWithMultipleTypeParameter",
+          "kind": "generic",
+          "parameters": [
+            {
+              "name": "TString"
+            },
+            {
+              "name": "TFoo"
+            },
+            {
+              "name": "TBar"
+            }
+          ]
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": []
     },
     {
       "id": 31,
-      "type": "enum-struct/definition"
+      "type": "enum-struct/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "ConstantValue",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": [
+        {
+          "id": 1,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": []
+            }
+          },
+          "typeName": {
+            "name": "Unit",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 2,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "scalar"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "bool"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "unresolved"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Bool",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 3,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "u32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "uin32"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Int",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 4,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "f32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "scalar",
+                      "type": "float32"
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Float",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 5,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "vec2"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "f32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "vector",
+                      "type": "float32",
+                      "size": 2
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Vector2",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 6,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "vec3"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "f32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "vector",
+                      "type": "float32",
+                      "size": 3
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Vector3",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 7,
+          "type": "enum-struct/variant/definition",
+          "definition": {
+            "content": {
+              "items": [
+                {
+                  "kind": "field",
+                  "name": "value",
+                  "type": {
+                    "typePath": {
+                      "path": {
+                        "isRooted": false,
+                        "parts": [
+                          {
+                            "kind": "simple",
+                            "name": "vec4"
+                          },
+                          {
+                            "kind": "simple",
+                            "name": "f32"
+                          }
+                        ]
+                      },
+                      "locality": "local",
+                      "storage": {
+                        "kind": "single"
+                      }
+                    },
+                    "resolution": {
+                      "kind": "builtin",
+                      "dimension-kind": "vector",
+                      "type": "float32",
+                      "size": 4
+                    },
+                    "locality": "local",
+                    "storage": {
+                      "kind": "single"
+                    }
+                  },
+                  "attributes": [],
+                  "initialization": {
+                    "kind": "empty"
+                  }
+                }
+              ]
+            }
+          },
+          "typeName": {
+            "name": "Vector4",
+            "kind": "simple"
+          },
+          "attributes": []
+        }
+      ]
     },
     {
       "id": 32,
-      "type": "enum/definition"
+      "type": "enum/definition",
+      "definition": {},
+      "typeName": {
+        "namespace": {
+          "path": ""
+        },
+        "name": {
+          "name": "TextureType",
+          "kind": "simple"
+        }
+      },
+      "attributes": [],
+      "hasSubItems": true,
+      "subItems": [
+        {
+          "id": 8,
+          "type": "enum/constant/definition",
+          "definition": {},
+          "typeName": {
+            "name": "Unknown",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 9,
+          "type": "enum/constant/definition",
+          "definition": {},
+          "typeName": {
+            "name": "Texture2D",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 10,
+          "type": "enum/constant/definition",
+          "definition": {},
+          "typeName": {
+            "name": "Texture3D",
+            "kind": "simple"
+          },
+          "attributes": []
+        },
+        {
+          "id": 11,
+          "type": "enum/constant/definition",
+          "definition": {},
+          "typeName": {
+            "name": "TextureCube",
+            "kind": "simple"
+          },
+          "attributes": []
+        }
+      ]
     }
   ],
   "structure": {}

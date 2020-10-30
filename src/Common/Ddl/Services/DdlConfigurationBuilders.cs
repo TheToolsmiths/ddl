@@ -7,7 +7,6 @@ using TheToolsmiths.Ddl.Parser.Configurations.Model;
 using TheToolsmiths.Ddl.Parser.Configurations.Parser;
 using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 using TheToolsmiths.Ddl.Parser.TypeIndexer.Configurations;
-using TheToolsmiths.Ddl.Writer.Configurations;
 using TheToolsmiths.Ddl.Writer.Configurations.Writer;
 
 namespace TheToolsmiths.Ddl.Services
@@ -18,31 +17,39 @@ namespace TheToolsmiths.Ddl.Services
         {
             ParserMapRegistryBuilder parserRegistryBuilder = new ParserMapRegistryBuilder();
 
+            // Add Parser Configuration Builders
             configurationBuilder.ConfigurationBuilders
-                .AddConfigurationBuilder<IBuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
-                .AddConfigurationBuilder<IIndexingConfigurationBuilder>(new IndexingConfigurationBuilder())
-                .AddConfigurationBuilder<ICompilerConfigurationBuilder>(new CompilerConfigurationBuilder())
-                .AddConfigurationBuilder<IParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder))
-                .AddConfigurationBuilder<IWriterConfigurationBuilder>(new WriterConfigurationBuilder());
+                .AddConfigurationBuilder<IBuilderConfigurationBuilder, BuilderConfigurationBuilder>(new BuilderConfigurationBuilder())
+                .AddConfigurationBuilder<IIndexingConfigurationBuilder, IndexingConfigurationBuilder>(new IndexingConfigurationBuilder())
+                .AddConfigurationBuilder<ICompilerConfigurationBuilder, CompilerConfigurationBuilder>(new CompilerConfigurationBuilder())
+                .AddConfigurationBuilder<IParserConfigurationBuilder, ParserConfigurationBuilder>(new ParserConfigurationBuilder(parserRegistryBuilder));
 
+            // Add Writer Configuration Builders
+            configurationBuilder.ConfigurationBuilders
+                .AddConfigurationBuilder<IDefinitionWriterConfigurationBuilder, DefinitionWriterConfigurationBuilder>(new DefinitionWriterConfigurationBuilder());
+
+
+            // Add Registry Builders
             configurationBuilder.ConfigurationRegistryBuilder
                 .AddConfigurationProvider<IParserConfigurationProvider>(new ParserConfigurationProvider(parserRegistryBuilder))
                 .AddConfigurationProvider<IAstConfigurationProvider>(new AstConfigurationProvider())
-                .AddConfigurationProvider<IModelConfigurationProvider>(new ModelConfigurationProvider());
+                .AddConfigurationProvider<IModelConfigurationProvider>(new ModelConfigurationProvider())
+                .AddConfigurationProvider<IWriterConfigurationProvider>(new WriterConfigurationProvider());
 
-            configurationBuilder.ParserConfigurators
-                .AddConfigurator<Parser.Build.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<Parser.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<Parser.TypeIndexer.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<Parser.Compiler.Implementations.Configurators.ParserConfigurator>()
-                .AddConfigurator<Writer.Implementations.Configurators.ParserConfigurator>();
+
+            configurationBuilder.Configurators
+                .AddConfigurator<Parser.Build.Implementations.Configurators.DdlConfigurator>()
+                .AddConfigurator<Parser.Implementations.Configurators.DdlConfigurator>()
+                .AddConfigurator<Parser.TypeIndexer.Implementations.Configurators.DdlConfigurator>()
+                .AddConfigurator<Parser.Compiler.Implementations.Configurators.DdlConfigurator>()
+                .AddConfigurator<Writer.Implementations.Configurators.DdlConfigurator>();
         }
 
         public static void BuildAndRegisterConfiguration(
             DdlServicesConfigurationBuilder configurationBuilder,
             IServiceCollection services)
         {
-            var configurationProvider = configurationBuilder.ParserConfigurators.Build();
+            var configurationProvider = configurationBuilder.Configurators.Build();
             var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
             var builderCollection = configurationBuilder.ConfigurationBuilders.Build();
 

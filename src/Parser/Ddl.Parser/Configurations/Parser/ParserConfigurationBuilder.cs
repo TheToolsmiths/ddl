@@ -3,7 +3,7 @@ using TheToolsmiths.Ddl.Parser.ParserMaps.Builders;
 
 namespace TheToolsmiths.Ddl.Parser.Configurations.Parser
 {
-    public class ParserConfigurationBuilder : IParserConfigurationBuilder
+    public class ParserConfigurationBuilder : ConfigurationBuilder, IParserConfigurationBuilder
     {
         private readonly ParserMapRegistryBuilder registryBuilder;
 
@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Parser.Configurations.Parser
 
         public IParserMapRegistryBuilder RegistryBuilder => this.registryBuilder;
 
-        public void Configure(ConfigurationBuilderContext context)
+        public override void Configure(ConfigurationBuilderContext context)
         {
         }
     }

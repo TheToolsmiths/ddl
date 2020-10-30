@@ -10,13 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.4" />
-    <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
-    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Common\Ddl.Models.Common.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Compiled\Ddl.Models.Compiled.csproj" />
+    <ProjectReference Include="..\..\Models\Ddl.Models.Shared\Ddl.Models.Shared.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Common\Ddl.Writer.Common.csproj" />
     <ProjectReference Include="..\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
   </ItemGroup>

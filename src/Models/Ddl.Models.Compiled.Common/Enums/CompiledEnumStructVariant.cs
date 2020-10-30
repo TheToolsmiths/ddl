@@ -2,11 +2,12 @@
 using TheToolsmiths.Ddl.Models.Compiled.Items;
 using TheToolsmiths.Ddl.Models.Compiled.Structs.Content;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
+using TheToolsmiths.Ddl.Models.EntryTypes;
 using TheToolsmiths.Ddl.Models.Items;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Enums
 {
-    public class CompiledEnumStructVariant : INamedCompiledSubItem
+    public class CompiledEnumStructVariant : INamedCompiledSubItem, IAttributableCompiledSubItem
     {
         public CompiledEnumStructVariant(
             SubItemId subItemId,
@@ -21,6 +22,8 @@ namespace TheToolsmiths.Ddl.Models.Compiled.Enums
         }
 
         public SubItemId SubItemId { get; }
+
+        public SubItemType SubItemType => CommonSubItemTypes.EnumStructVariantDefinition;
 
         public QualifiedSubItemTypeName SubItemName { get; }
 

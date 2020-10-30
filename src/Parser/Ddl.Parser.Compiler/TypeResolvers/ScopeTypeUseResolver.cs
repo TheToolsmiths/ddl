@@ -5,12 +5,12 @@ using System.Linq;
 
 using TheToolsmiths.Ddl.Models.Build.ImportPaths;
 using TheToolsmiths.Ddl.Models.Build.Indexing;
-using TheToolsmiths.Ddl.Models.Build.Types.Paths;
-using TheToolsmiths.Ddl.Models.Build.Types.Usage;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Resolution;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Usage;
 using TheToolsmiths.Ddl.Models.Paths;
 using TheToolsmiths.Ddl.Models.Types.Names;
+using TheToolsmiths.Ddl.Models.Types.Paths;
+using TheToolsmiths.Ddl.Models.Types.Usage;
 using TheToolsmiths.Ddl.Parser.Compiler.Helpers;
 using TheToolsmiths.Ddl.Parser.Compiler.TypeResolvers.BuiltinTypes;
 
@@ -50,7 +50,7 @@ namespace TheToolsmiths.Ddl.Parser.Compiler.TypeResolvers
             var locality = typeUse.Locality;
             var modifiers = typeUse.Modifiers;
 
-            return new ResolvedTypeUse(resolution, storage, locality, modifiers);
+            return new ResolvedTypeUse(typeUse, resolution, storage, locality, modifiers);
         }
 
         public TypeResolution ResolveImportPath(ImportPath importPath)
