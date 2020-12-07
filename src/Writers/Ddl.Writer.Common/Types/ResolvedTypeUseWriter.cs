@@ -75,15 +75,32 @@ namespace TheToolsmiths.Ddl.Writer.Common.Types
             switch (resolvedType.EntityReference)
             {
                 case ItemReference itemReference:
-                    context.Writer.WriteString("ref-kind", "item");
+                    {
+                        context.Writer.WriteString("ref-kind", "item");
 
-                    context.Writer.WriteNumber("itemId", itemReference.ItemId.ToInt());
+                        if (!context.EntityKeyMap.TryGetItemKey(itemReference, out var itemKey))
+                        {
+                            throw new NotImplementedException();
+                        }
+
+                        context.Writer.WriteNumber("itemId", itemReference.ItemId.ToInt());
+                        context.Writer.WriteString("item", itemKey);
+                    }
                     break;
                 case SubItemReference subItemReference:
-                    context.Writer.WriteString("ref-kind", "sub-item");
+                    {
+                        context.Writer.WriteString("ref-kind", "sub-item");
 
-                    context.Writer.WriteNumber("itemId", subItemReference.ItemId.ToInt());
-                    context.Writer.WriteNumber("subItemId", subItemReference.SubItemId.ToInt());
+                        if (!context.EntityKeyMap.TryGetItemKey(subItemReference, out var itemKey, out var subItemKey))
+                        {
+                            throw new NotImplementedException();
+                        }
+
+                        context.Writer.WriteNumber("itemId", subItemReference.ItemId.ToInt());
+                        context.Writer.WriteNumber("subItemId", subItemReference.SubItemId.ToInt());
+                        context.Writer.WriteString("item", itemKey);
+                        context.Writer.WriteString("subItem", subItemKey);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -3,7 +3,7 @@
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Items;
 using TheToolsmiths.Ddl.Models.EntryTypes;
-using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.ItemIds;
 using TheToolsmiths.Ddl.Models.Types.Items;
 
 namespace TheToolsmiths.Ddl.Models.Build.Enums

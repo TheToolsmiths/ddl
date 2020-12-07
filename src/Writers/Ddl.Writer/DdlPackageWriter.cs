@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using TheToolsmiths.Ddl.Models.Compiled.Package;
 using TheToolsmiths.Ddl.Results;
 using TheToolsmiths.Ddl.Writer.Contexts;
@@ -22,8 +23,20 @@ namespace TheToolsmiths.Ddl.Writer
         {
             writer.WriteStartObject();
 
+            IEntityKeyMap entityKeyMap;
             {
-                var result = this.WritePackageItems(writer, package);
+                var result = ItemMapCreator.CreateItemMap(package.Items);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                entityKeyMap = result.Value;
+            }
+
+            {
+                var result = this.WritePackageItems(writer, package, entityKeyMap);
 
                 if (result.IsError)
                 {
@@ -32,7 +45,7 @@ namespace TheToolsmiths.Ddl.Writer
             }
 
             {
-                var result = this.WritePackageStructure(writer, package);
+                var result = this.WritePackageStructure(writer, package, entityKeyMap);
 
                 if (result.IsError)
                 {
@@ -45,25 +58,27 @@ namespace TheToolsmiths.Ddl.Writer
             return Task.FromResult(Result.Success);
         }
 
-        private Result WritePackageItems(IStructuredContentWriter writer, Package package)
+        private Result WritePackageItems(IStructuredContentWriter writer, Package package, IEntityKeyMap entityKeyMap)
         {
-            var context = new CompiledItemWriterContext(this.serviceProvider, writer);
+            var context = new CompiledItemWriterContext(this.serviceProvider, writer, entityKeyMap);
 
             writer.WritePropertyName("items");
 
-            var result = this.itemsWriter.WriteItemsCollection(context, package.Items);
-
-            if (result.IsError)
             {
-                throw new NotImplementedException();
-            }
+                var result = this.itemsWriter.WriteItemsCollection(context, package.Items);
 
-            return result;
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                return result;
+            }
         }
 
-        private Result WritePackageStructure(IStructuredContentWriter writer, Package package)
+        private Result WritePackageStructure(IStructuredContentWriter writer, Package package, IEntityKeyMap entityKeyMap)
         {
-            var context = new CompiledScopeWriterContext(this.serviceProvider, writer);
+            var context = new CompiledScopeWriterContext(this.serviceProvider, writer, entityKeyMap);
 
             writer.WritePropertyName("structure");
 

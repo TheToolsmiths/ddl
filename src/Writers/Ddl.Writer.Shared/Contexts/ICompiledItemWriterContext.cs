@@ -2,6 +2,6 @@
 {
     public interface ICompiledItemWriterContext : ICompiledEntryWriterContext
     {
-        ICommonItemWriters CommonWriters { get; }
+        new ICommonItemWriters CommonWriters { get; }
     }
 }

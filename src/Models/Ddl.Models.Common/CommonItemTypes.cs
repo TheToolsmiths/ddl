@@ -4,12 +4,12 @@ namespace TheToolsmiths.Ddl.Models
 {
     public static class CommonItemTypes
     {
-        public static ItemType EnumDefinition { get; } = new ItemType("enum/definition");
+        public static ItemType EnumDefinition { get; } = new("enum/def");
 
-        public static ItemType EnumStructDefinition { get; } = new ItemType("enum-struct/definition");
+        public static ItemType EnumStructDefinition { get; } = new("enum-struct/def");
 
-        public static ItemType StructDefinition { get; } = new ItemType("struct/definition");
+        public static ItemType StructDefinition { get; } = new("struct/def");
 
-        public static ItemType ImportStatement { get; } = new ItemType("import/statement");
+        public static ItemType ImportStatement { get; } = new("import/statement");
     }
 }

@@ -4,7 +4,7 @@ using TheToolsmiths.Ddl.Models.Compiled.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Compiled.Items;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
 using TheToolsmiths.Ddl.Models.EntryTypes;
-using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.ItemIds;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Enums
 {

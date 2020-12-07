@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheToolsmiths.Ddl.Results
 {
     public class Result<T>
-        where T : class
     {
         internal Result(T value)
         {
@@ -21,11 +21,13 @@ namespace TheToolsmiths.Ddl.Results
 
         public string ErrorMessage { get; }
 
+        [MemberNotNull(nameof(Value))]
         public bool IsSuccess { get; }
 
+        [MemberNotNullWhen(false, nameof(Value))]
         public bool IsError => this.IsSuccess == false;
 
-        public T Value { get; }
+        public T? Value { get; }
 
         public Result AsResult()
         {

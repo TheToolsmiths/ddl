@@ -6,12 +6,15 @@ namespace TheToolsmiths.Ddl.Models.EntryTypes
     {
         private const StringComparison Comparison = StringComparison.OrdinalIgnoreCase;
 
-        private readonly string type;
+        private readonly string subItemType;
 
-        public SubItemType(string type)
+        public SubItemType(ItemType itemType, string subItemType)
         {
-            this.type = type;
+            this.ItemType = itemType;
+            this.subItemType = subItemType;
         }
+
+        public ItemType ItemType { get; }
 
         public bool Equals(SubItemType? other)
         {
@@ -25,7 +28,8 @@ namespace TheToolsmiths.Ddl.Models.EntryTypes
                 return true;
             }
 
-            return string.Equals(this.type, other.type, Comparison);
+            return this.ItemType.Equals(other.ItemType)
+                   && string.Equals(this.subItemType, other.subItemType, Comparison);
         }
 
         public override bool Equals(object? obj)
@@ -50,7 +54,13 @@ namespace TheToolsmiths.Ddl.Models.EntryTypes
 
         public override int GetHashCode()
         {
-            return this.type.GetHashCode(Comparison);
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 31 + this.ItemType.GetHashCode();
+                hash = hash * 31 + this.subItemType.GetHashCode();
+                return hash;
+            }
         }
 
         public static bool operator ==(SubItemType? left, SubItemType? right)
@@ -65,7 +75,7 @@ namespace TheToolsmiths.Ddl.Models.EntryTypes
 
         public override string ToString()
         {
-            return this.type;
+            return string.Join('/', this.ItemType, this.subItemType);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Items;
+﻿using TheToolsmiths.Ddl.Models.ItemIds;
 
 namespace TheToolsmiths.Ddl.Models.Build.Items
 {

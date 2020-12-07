@@ -17,7 +17,7 @@ namespace TheToolsmiths.Ddl.Writer
 
         public Result WriteItemsCollection(ICompiledItemWriterContext context, PackageItemsCollection itemsCollection)
         {
-            context.Writer.WriteStartArray();
+            context.Writer.WriteStartObject();
 
             var result = this.WriteItems(context, itemsCollection.Items);
 
@@ -26,7 +26,7 @@ namespace TheToolsmiths.Ddl.Writer
                 throw new System.NotImplementedException();
             }
 
-            context.Writer.WriteEndArray();
+            context.Writer.WriteEndObject();
 
             return Result.Success;
         }

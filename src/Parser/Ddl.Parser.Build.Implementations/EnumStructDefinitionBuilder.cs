@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TheToolsmiths.Ddl.Models.Ast.Enums;
 using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Enums;
-using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.ItemIds;
 using TheToolsmiths.Ddl.Models.Types.Names;
 using TheToolsmiths.Ddl.Parser.Build.Contexts;
 using TheToolsmiths.Ddl.Parser.Build.Results;

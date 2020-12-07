@@ -22,12 +22,12 @@ namespace TheToolsmiths.Ddl.Parser.Compiler.Helpers
 
         public static Models.Compiled.Items.References.ItemReference ToItemReference(ItemReference reference)
         {
-            return new Models.Compiled.Items.References.ItemReference(reference.ItemId);
+            return new(reference.ItemId);
         }
 
         public static Models.Compiled.Items.References.SubItemReference ToSubItemReference(SubItemReference reference)
         {
-            return new Models.Compiled.Items.References.SubItemReference(reference.ItemId, reference.SubItemId);
+            return new(reference.ItemId, reference.SubItemId);
         }
     }
 }

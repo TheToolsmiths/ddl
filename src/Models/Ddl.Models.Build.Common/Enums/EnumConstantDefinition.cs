@@ -1,6 +1,6 @@
 ﻿using TheToolsmiths.Ddl.Models.Build.AttributeUsage;
 using TheToolsmiths.Ddl.Models.Build.Items;
-using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.ItemIds;
 using TheToolsmiths.Ddl.Models.Literals;
 using TheToolsmiths.Ddl.Models.Types.Names;
 

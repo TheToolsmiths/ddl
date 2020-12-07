@@ -1,4 +1,4 @@
-﻿using TheToolsmiths.Ddl.Models.Items;
+﻿using TheToolsmiths.Ddl.Models.ItemIds;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Items.References
 {
@@ -19,6 +19,17 @@ namespace TheToolsmiths.Ddl.Models.Compiled.Items.References
         public override string ToString()
         {
             return $"({this.ItemId}:{this.SubItemId})";
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 31 + this.ItemId.GetHashCode();
+                hash = hash * 31 + this.SubItemId.GetHashCode();
+                return hash;
+            }
         }
     }
 }

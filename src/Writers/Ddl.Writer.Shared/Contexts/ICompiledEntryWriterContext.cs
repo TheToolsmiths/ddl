@@ -7,5 +7,7 @@ namespace TheToolsmiths.Ddl.Writer.Contexts
         IStructuredContentWriter Writer { get; }
 
         ICommonWriters CommonWriters { get; }
+        
+        IEntityKeyMap EntityKeyMap { get; }
     }
 }

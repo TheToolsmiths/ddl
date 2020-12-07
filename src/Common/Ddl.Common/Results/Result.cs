@@ -53,5 +53,16 @@ namespace TheToolsmiths.Ddl.Results
         {
             return new Result(errorMessage);
         }
+
+        public Result<T> AsError<T>()
+            where T : class
+        {
+            if (this.IsSuccess)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return new Result<T>(this.ErrorMessage);
+        }
     }
 }

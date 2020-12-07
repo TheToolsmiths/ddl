@@ -20,6 +20,8 @@ namespace TheToolsmiths.Ddl.Writer
 
         public Result WriteItem(ICompiledItemWriterContext context, PackageItem packageItem)
         {
+            WriteItemKeyPropertyName(context, packageItem);
+
             context.Writer.WriteStartObject();
 
             {
@@ -85,11 +87,11 @@ namespace TheToolsmiths.Ddl.Writer
 
             context.Writer.WriteBoolean("hasSubItems", true);
 
-            context.Writer.WriteStartArray("subItems");
+            context.Writer.WriteStartObject("subItems");
 
             foreach (var subItem in subItemsOwner.SubItems)
             {
-                var result = this.WriteSubItem(context, subItem);
+                var result = this.WriteSubItem(context, item, subItem);
 
                 if (result.IsError)
                 {
@@ -97,13 +99,18 @@ namespace TheToolsmiths.Ddl.Writer
                 }
             }
 
-            context.Writer.WriteEndArray();
+            context.Writer.WriteEndObject();
 
             return Result.Success;
         }
 
-        private Result WriteSubItem(ICompiledItemWriterContext context, ICompiledSubItem subItem)
+        private Result WriteSubItem(
+            ICompiledItemWriterContext context,
+            ICompiledItem item,
+            ICompiledSubItem subItem)
         {
+            WriteSubItemKeyPropertyName(context, item, subItem);
+
             context.Writer.WriteStartObject();
 
             {
@@ -229,6 +236,31 @@ namespace TheToolsmiths.Ddl.Writer
             context.CommonWriters.WriteCompiledAttributes(attributableItem.Attributes);
 
             return Result.Success;
+        }
+
+        private void WriteItemKeyPropertyName(ICompiledItemWriterContext context, PackageItem packageItem)
+        {
+            if (context.EntityKeyMap.TryGetItemKey(packageItem.ItemId, out var itemKey))
+            {
+                context.Writer.WritePropertyName(itemKey);
+                return;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private void WriteSubItemKeyPropertyName(
+            ICompiledItemWriterContext context,
+            ICompiledItem item,
+            ICompiledSubItem subItem)
+        {
+            if (context.EntityKeyMap.TryGetSubItemKey(item.ItemId, subItem.SubItemId, out var subItemKey))
+            {
+                context.Writer.WritePropertyName(subItemKey);
+                return;
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

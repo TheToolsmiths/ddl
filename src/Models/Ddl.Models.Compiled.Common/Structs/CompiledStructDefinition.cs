@@ -3,7 +3,7 @@ using TheToolsmiths.Ddl.Models.Compiled.Items;
 using TheToolsmiths.Ddl.Models.Compiled.Structs.Content;
 using TheToolsmiths.Ddl.Models.Compiled.Types.Names;
 using TheToolsmiths.Ddl.Models.EntryTypes;
-using TheToolsmiths.Ddl.Models.Items;
+using TheToolsmiths.Ddl.Models.ItemIds;
 
 namespace TheToolsmiths.Ddl.Models.Compiled.Structs
 {

@@ -1,30 +1,28 @@
 ﻿using System;
-using System.Diagnostics;
 
-namespace TheToolsmiths.Ddl.Models.Items
+namespace TheToolsmiths.Ddl.Models.ItemIds
 {
-    [DebuggerDisplay("Item Id '{" + nameof(value) + "}'")]
-    public readonly struct ItemId : IEquatable<ItemId>
+    public readonly struct SubItemId : IEquatable<SubItemId>
     {
         private static int nextId;
 
         private readonly int value;
 
-        private ItemId(int value)
+        private SubItemId(int value)
         {
             this.value = value;
         }
 
-        public static ItemId CreateNew() => new ItemId(nextId++);
+        public static SubItemId CreateNew() => new SubItemId(nextId++);
 
-        public bool Equals(ItemId other)
+        public bool Equals(SubItemId other)
         {
             return this.value == other.value;
         }
 
         public override bool Equals(object? obj)
         {
-            return obj is ItemId other && this.Equals(other);
+            return obj is SubItemId other && this.Equals(other);
         }
 
         public override int GetHashCode()
@@ -32,12 +30,12 @@ namespace TheToolsmiths.Ddl.Models.Items
             return this.value;
         }
 
-        public static bool operator ==(ItemId left, ItemId right)
+        public static bool operator ==(SubItemId left, SubItemId right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(ItemId left, ItemId right)
+        public static bool operator !=(SubItemId left, SubItemId right)
         {
             return !left.Equals(right);
         }
