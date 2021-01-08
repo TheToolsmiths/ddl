@@ -11,5 +11,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
         Result<Package> PackageCollection(
             IReadOnlyList<CompiledContentUnit> contentUnits,
             ContentUnitsTypeIndex contentUnitsTypeIndex);
+
+        Result<Package> PackageContentUnit(CompiledContentUnit contentUnit, ContentUnitsTypeIndex contentUnitsTypeIndex);
     }
 }

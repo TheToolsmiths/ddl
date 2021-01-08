@@ -36,5 +36,10 @@ namespace TheToolsmiths.Ddl.Parser.Compiler
 
             return Result.FromValue<IReadOnlyList<CompiledContentUnit>>(indexedContentUnits);
         }
+
+        public Result<CompiledContentUnit> CompileContentUnit(ContentUnit contentUnit, ContentUnitsTypeIndex packageTypeIndex)
+        {
+            return this.compiler.Compile(contentUnit, packageTypeIndex);
+        }
     }
 }

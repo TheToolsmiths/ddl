@@ -14,7 +14,7 @@ namespace TheToolsmiths.Ddl.Configurations
 
         public ConfigurationBuilderCollection Build()
         {
-            return new ConfigurationBuilderCollection(this.builders);
+            return new(this.builders);
         }
 
         public ConfigurationBuilderCollectionBuilder AddConfigurationBuilder<TBuilder, TInstance>(TInstance instance)

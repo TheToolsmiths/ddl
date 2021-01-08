@@ -6,6 +6,10 @@
     <RootNamespace>TheToolsmiths.Ddl.Lexer</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Ddl.Lexer.Shared\Ddl.Lexer.Shared.csproj" />
   </ItemGroup>

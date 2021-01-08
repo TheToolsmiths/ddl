@@ -40,5 +40,26 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
 
             return Result.FromValue(indexBuilder.Build());
         }
+
+        public Result<ContentUnitNamespaceIndex> IndexContentUnit(ContentUnit contentUnit)
+        {
+            var indexBuilder = new ContentUnitNamespaceIndexBuilder();
+
+            RootNamespacePath rootNamespace;
+            {
+                var result = this.namespacePathResolver.ResolveContentUnitNamespace(contentUnit.Info);
+
+                if (result.IsError)
+                {
+                    throw new NotImplementedException();
+                }
+
+                rootNamespace = result.Value;
+            }
+
+            indexBuilder.AddContentUnitNamespace(contentUnit.Id, rootNamespace);
+
+            return Result.FromValue(indexBuilder.Build());
+        }
     }
 }

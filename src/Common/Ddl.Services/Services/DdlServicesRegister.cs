@@ -11,45 +11,40 @@ using TheToolsmiths.Ddl.Writer.Services;
 
 namespace TheToolsmiths.Ddl.Services
 {
-    public class DdlServicesRegister
+    public static class DdlServicesRegister
     {
-        private readonly IServiceCollection services;
-
-        public DdlServicesRegister(IServiceCollection services)
-        {
-            this.services = services;
-        }
-
-        public void RegisterServices(
+        public static void RegisterServices(
+            IServiceCollection services,
             DdlConfiguratorCollection configurators,
             ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
         {
-            this.RegisterCoreServices();
+            RegisterCoreServices(services);
 
-            this.RegisterPluginServices(configurators, builderCollection, providerCollection);
+            RegisterPluginServices(services, configurators, builderCollection, providerCollection);
         }
 
-        private void RegisterCoreServices()
+        private static void RegisterCoreServices(IServiceCollection services)
         {
-            DdlServicesInitializer.RegisterDdlServices(this.services);
+            DdlServicesInitializer.RegisterDdlServices(services);
 
-            BuilderServicesInitializer.RegisterBuilderServices(this.services);
+            BuilderServicesInitializer.RegisterBuilderServices(services);
 
-            IndexingServicesInitializer.RegisterIndexingServices(this.services);
+            IndexingServicesInitializer.RegisterIndexingServices(services);
 
-            CompilerServicesInitializer.RegisterResolverServices(this.services);
+            CompilerServicesInitializer.RegisterResolverServices(services);
 
-            PackagerServicesInitializer.RegisterResolverServices(this.services);
+            PackagerServicesInitializer.RegisterResolverServices(services);
 
-            LexerServicesInitializer.RegisterLexerServices(this.services);
+            LexerServicesInitializer.RegisterLexerServices(services);
 
-            ParserServicesInitializer.RegisterParserServices(this.services);
+            ParserServicesInitializer.RegisterParserServices(services);
 
-            WriterServicesInitializer.RegisterWriterServices(this.services);
+            WriterServicesInitializer.RegisterWriterServices(services);
         }
 
-        private void RegisterPluginServices(
+        private static void RegisterPluginServices(
+            IServiceCollection services,
             DdlConfiguratorCollection configurators,
             ConfigurationBuilderCollection builderCollection,
             ConfigurationProviderCollection providerCollection)
@@ -63,14 +58,14 @@ namespace TheToolsmiths.Ddl.Services
 
             foreach (var builder in builderCollection.ConfigurationBuilders)
             {
-                var context = new ConfigurationBuilderContext(this.services, providerCollection);
+                var context = new ConfigurationBuilderContext(services, providerCollection);
 
                 builder.Configure(context);
             }
 
             foreach (var configurationProvider in providerCollection.ConfigurationProviders)
             {
-                var configurationContext = new ConfigurationProviderContext(this.services);
+                var configurationContext = new ConfigurationProviderContext(services);
 
                 configurationProvider.Configure(configurationContext);
             }

@@ -9,6 +9,10 @@
     <RootNamespace>TheToolsmiths.Ddl.Parser.Packager</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />

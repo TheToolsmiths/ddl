@@ -12,11 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Common\Ddl\Ddl.csproj" />
+    <ProjectReference Include="..\..\src\Common\Ddl.Services\Ddl.Services.csproj" />
     <ProjectReference Include="..\..\src\Parser\Ddl.Parser\Ddl.Parser.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Output\Ddl.Writer.Output.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer.Shared\Ddl.Writer.Shared.csproj" />
     <ProjectReference Include="..\..\src\Writers\Ddl.Writer\Ddl.Writer.csproj" />
+    <ProjectReference Include="..\Ddl.SampleApplication.Shared\Ddl.SampleApplication.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

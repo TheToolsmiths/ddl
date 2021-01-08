@@ -20,7 +20,7 @@ namespace TheToolsmiths.Ddl.Parser.Packager
 
             foreach (var contentUnit in contentUnits)
             {
-                var result = this.PackageContentUnit(rootBuilder, itemsBuilder, contentUnit);
+                var result = this.PackContentUnit(rootBuilder, itemsBuilder, contentUnit);
 
                 if (result.IsError)
                 {
@@ -36,7 +36,28 @@ namespace TheToolsmiths.Ddl.Parser.Packager
             return Result.FromValue(package);
         }
 
-        private Result PackageContentUnit(
+        public Result<Package> PackageContentUnit(PackageContentUnit contentUnit)
+        {
+            var itemsBuilder = new PackageItemsBuilder();
+
+            var rootBuilder = PackageRootBuilder.CreateRoot(itemsBuilder);
+
+            var result = this.PackContentUnit(rootBuilder, itemsBuilder, contentUnit);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            var items = itemsBuilder.Build();
+            var rootContent = rootBuilder.BuildRootContent();
+
+            var package = new Package(items, rootContent);
+
+            return Result.FromValue(package);
+        }
+
+        private Result PackContentUnit(
             PackageRootBuilder rootBuilder,
             PackageItemsBuilder itemsBuilder,
             PackageContentUnit contentUnit)

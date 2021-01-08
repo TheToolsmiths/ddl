@@ -9,4 +9,8 @@
     <RootNamespace>TheToolsmiths.Ddl.Models.Ast</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
 </Project>

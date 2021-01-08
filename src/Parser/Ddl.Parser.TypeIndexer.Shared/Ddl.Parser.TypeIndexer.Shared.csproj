@@ -9,9 +9,13 @@
     <RootNamespace>TheToolsmiths.Ddl.Parser.TypeIndexer</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
-    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Configuration\Ddl.Configuration.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
   </ItemGroup>
 

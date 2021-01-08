@@ -40,7 +40,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
-    <ProjectReference Include="..\..\Common\Ddl\Ddl.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Configuration\Ddl.Configuration.csproj" />
+    <ProjectReference Include="..\..\Common\Ddl.Services\Ddl.Services.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Compiled\Ddl.Models.Compiled.csproj" />

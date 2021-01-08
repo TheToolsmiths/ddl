@@ -9,6 +9,10 @@
     <RootNamespace>TheToolsmiths.Ddl.Writer.Output</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.IO.Pipelines" Version="5.0.0" />
     <PackageReference Include="System.Memory" Version="4.5.4" />

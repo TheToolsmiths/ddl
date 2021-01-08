@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>TheToolsmiths.Ddl.Shared</AssemblyName>
+    <AssemblyName>TheToolsmiths.Ddl.Configuration</AssemblyName>
     <RootNamespace>TheToolsmiths.Ddl</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

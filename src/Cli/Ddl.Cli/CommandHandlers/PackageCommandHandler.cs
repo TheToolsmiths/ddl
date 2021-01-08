@@ -37,14 +37,14 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             var serviceProvider = host.Services;
 
             // Parse all sources in the base directory
-            var lexerResult = await ParseSources(serviceProvider, baseDirectory, glob);
+            var parseResult = await ParseSources(serviceProvider, baseDirectory, glob);
 
-            if (lexerResult.IsError)
+            if (parseResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            var astContentUnits = lexerResult.Value;
+            var astContentUnits = parseResult.Value;
 
             // Build models from the parsed ASTs
             var buildResult = BuildContentUnits(serviceProvider, astContentUnits);
@@ -87,17 +87,17 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             var package = packageResult.Value;
 
             // Prepare output
-            var fooResult = PrepareOutput(serviceProvider, outputFile);
+            var writerResult = PrepareOutput(serviceProvider, outputFile);
 
-            if (fooResult.IsError)
+            if (writerResult.IsError)
             {
                 throw new NotImplementedException();
             }
 
-            await using var writerFoo = fooResult.Value;
+            await using var writerHandler = writerResult.Value;
 
             // Write the package content to output
-            var writeResult = await WritePackageContent(serviceProvider, package, writerFoo);
+            var writeResult = await WritePackageContent(serviceProvider, package, writerHandler);
 
             if (writeResult.IsError)
             {
@@ -105,7 +105,7 @@ namespace TheToolsmiths.Ddl.Cli.CommandHandlers
             }
 
             // Write output
-            var outputResult = await WriteOutput(serviceProvider, writerFoo);
+            var outputResult = await WriteOutput(serviceProvider, writerHandler);
 
             if (outputResult.IsError)
             {

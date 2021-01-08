@@ -10,12 +10,29 @@
     <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
   </PropertyGroup>
 
+  <!-- Set C# project properties -->
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>3021</NoWarn>
   </PropertyGroup>
+  
+  <!-- Set package properties -->
+  <PropertyGroup>
+    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
+    <Authors>The Toolsmiths</Authors>
+    <PackageOutputPath>$(TtsRoot)artifacts\packages</PackageOutputPath>
+    <PackageIcon>icons/thetoolsmiths_avatar_250px.png</PackageIcon>
+  </PropertyGroup>
 
+  <ItemGroup Condition="'$(GeneratePackageOnBuild)' == 'true'">
+    <None Include="$(TtsRoot)resources\icons\thetoolsmiths_avatar_250px.png" Visible="false">
+      <Pack>True</Pack>
+      <PackagePath>icons</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <!-- Set build output directories -->
   <PropertyGroup>
     <OutputPath>$(TtsRoot)artifacts\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <BaseIntermediateOutputPath>$(TtsRoot)artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>

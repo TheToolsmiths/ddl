@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using TheToolsmiths.Ddl.Models.Ast.ContentUnits;
 using TheToolsmiths.Ddl.Models.Build.ContentUnits;
 using TheToolsmiths.Ddl.Results;
@@ -32,6 +33,11 @@ namespace TheToolsmiths.Ddl.Parser.Build
             }
 
             return Result.FromValue<IReadOnlyList<ContentUnit>>(contentUnits);
+        }
+
+        public Result<ContentUnit> BuildContentUnit(AstContentUnit astContentUnit)
+        {
+            return this.contentUnitBuilder.Build(astContentUnit);
         }
     }
 }

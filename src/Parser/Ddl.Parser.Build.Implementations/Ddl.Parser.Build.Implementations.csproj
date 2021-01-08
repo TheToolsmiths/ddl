@@ -6,6 +6,10 @@
     <RootNamespace>TheToolsmiths.Ddl.Parser.Build.Implementations</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Cli\Ddl.Cli.Abstractions\Ddl.Cli.Abstractions.csproj" />
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />

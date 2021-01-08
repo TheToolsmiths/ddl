@@ -8,5 +8,7 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
     public interface IDdlPackageIndexer
     {
         Result<ContentUnitsTypeIndex> IndexCollection(IReadOnlyList<ContentUnit> contentUnits);
+
+        Result<ContentUnitsTypeIndex> IndexContentUnit(ContentUnit contentUnit);
     }
 }

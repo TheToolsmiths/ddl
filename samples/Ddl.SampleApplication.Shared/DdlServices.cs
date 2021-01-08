@@ -5,8 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using TheToolsmiths.Ddl.Parser;
+using TheToolsmiths.Ddl.Services;
 
-namespace TheToolsmiths.Ddl.Services
+namespace Ddl.SampleApplication.Shared
 {
     public sealed class DdlServices : IAsyncDisposable
     {
@@ -15,22 +16,20 @@ namespace TheToolsmiths.Ddl.Services
         private DdlServices(ServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
-            this.TextParser = serviceProvider.GetService<DdlTextParser>();
+            this.TextParser = serviceProvider.GetRequiredService<DdlTextParser>();
         }
 
         public DdlTextParser TextParser { get; }
+
+        public IServiceProvider ServiceProvider => this.serviceProvider;
 
         public static DdlServices Create()
         {
             var services = new ServiceCollection();
 
-            var configurationBuilder = new DdlServicesConfigurationBuilder();
-
-            DdlConfigurationBuilders.RegisterConfigurationBuilders(configurationBuilder);
+            DdlCommonServices.Register(services);
 
             RegisterApplicationServices(services);
-
-            DdlConfigurationBuilders.BuildAndRegisterConfiguration(configurationBuilder, services);
 
             var serviceProvider = services.BuildServiceProvider();
 

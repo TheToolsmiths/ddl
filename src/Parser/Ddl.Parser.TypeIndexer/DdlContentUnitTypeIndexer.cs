@@ -19,6 +19,28 @@ namespace TheToolsmiths.Ddl.Parser.TypeIndexer
             this.typeIndexer = typeIndexer;
         }
 
+        public Result<TypeIndex> IndexContentUnit(ContentUnitNamespaceIndex namespaceIndex, ContentUnit contentUnit)
+        {
+            // TODO: Reimplement in a way that doesnt need two passes
+
+            var indexedTypes = new List<ContentUnitIndexedTypes>();
+
+            var result = this.Index(namespaceIndex, contentUnit);
+
+            if (result.IsError)
+            {
+                throw new NotImplementedException();
+            }
+
+            indexedTypes.Add(result.Value);
+
+            var packageIndexedTypes = PackageIndexedTypesBuilder.Build(indexedTypes);
+
+            var typeIndex = TypeIndexBuilderHelper.CreateFromPackage(packageIndexedTypes);
+
+            return Result.FromValue(typeIndex);
+        }
+
         public Result<TypeIndex> IndexContentUnits(
             ContentUnitNamespaceIndex namespaceIndex,
             IReadOnlyList<ContentUnit> contentUnits)

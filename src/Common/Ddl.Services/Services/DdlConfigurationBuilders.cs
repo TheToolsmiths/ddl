@@ -15,7 +15,7 @@ namespace TheToolsmiths.Ddl.Services
     {
         public static void RegisterConfigurationBuilders(DdlServicesConfigurationBuilder configurationBuilder)
         {
-            ParserMapRegistryBuilder parserRegistryBuilder = new ParserMapRegistryBuilder();
+            ParserMapRegistryBuilder parserRegistryBuilder = new();
 
             // Add Parser Configuration Builders
             configurationBuilder.ConfigurationBuilders
@@ -53,8 +53,7 @@ namespace TheToolsmiths.Ddl.Services
             var providerCollection = configurationBuilder.ConfigurationRegistryBuilder.Build();
             var builderCollection = configurationBuilder.ConfigurationBuilders.Build();
 
-            var servicesRegister = new DdlServicesRegister(services);
-            servicesRegister.RegisterServices(configurationProvider, builderCollection, providerCollection);
+            DdlServicesRegister.RegisterServices(services, configurationProvider, builderCollection, providerCollection);
 
         }
     }

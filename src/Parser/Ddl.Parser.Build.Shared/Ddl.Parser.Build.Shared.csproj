@@ -6,9 +6,12 @@
     <RootNamespace>TheToolsmiths.Ddl.Parser.Build</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Ddl.Common\Ddl.Common.csproj" />
-    <ProjectReference Include="..\..\Common\Ddl.Shared\Ddl.Shared.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Ast\Ddl.Models.Ast.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build.Common\Ddl.Models.Build.Common.csproj" />
     <ProjectReference Include="..\..\Models\Ddl.Models.Build\Ddl.Models.Build.csproj" />
